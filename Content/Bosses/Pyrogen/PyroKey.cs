@@ -1,7 +1,7 @@
 ﻿using CalamityMod.Events;
+using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using Clamity.Content.Bosses.Pyrogen.NPCs;
-using Clamity.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -98,7 +98,7 @@ namespace Clamity.Content.Bosses.Pyrogen
         public override void AddRecipes()
         {
             CreateRecipe().AddRecipeGroup("AnySandBlock", 50).AddIngredient(ItemID.SoulofLight, 5).AddIngredient(ItemID.SoulofNight, 5)
-                .AddIngredient<EssenceOfFlame>(8)
+                .AddIngredient<EssenceofHavoc>(8)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

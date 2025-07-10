@@ -1,12 +1,6 @@
-﻿using Clamity.Content.Items.Placeable.Blocks;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace Clamity.Content.Items.Placeable.Walls
+﻿namespace Clamity.Content.Items.Placeable.Walls
 {
-    public class PyroplateWall : ModItem, ILocalizedModType
+    /*/public class PyroplateWall : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Placeables";
         public override void SetStaticDefaults()
@@ -53,5 +47,5 @@ namespace Clamity.Content.Items.Placeable.Walls
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
-    }
+    }*/
 }

@@ -1,4 +1,4 @@
-Update 1.0.3.10 - TML Patch
+Update 1.0.3.11 - 'Goodbye Ignis' Patch
 
 
 New Content:
@@ -8,7 +8,9 @@ Reworks:
 None
 
 Removes:
-None
+Removed Essence of Ignis, Core of Ignis, Fish of Ignis
+Removed Pyroplate, Pyroplate Wall (probably returns later)
+Removed Recipe changes with removed items
 
 Balance Changes:
 None
@@ -17,4 +19,4 @@ Other Changes:
 None
 
 Bug Fixes:
-Adapted to latest TML version
+Fixed not loading mod due in changes of recipe

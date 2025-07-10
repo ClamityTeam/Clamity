@@ -12,7 +12,6 @@ using Clamity.Content.Cooldowns;
 using Clamity.Content.Items.Accessories;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
 using Clamity.Content.Items.Materials;
-using Clamity.Content.Items.Tools.Bags.Fish;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -510,8 +509,8 @@ namespace Clamity
             bool flag = !attempt.inHoney && !attempt.inLava;
             if (flag)
             {
-                if (Player.ZoneDesert && Main.hardMode && attempt.uncommon && Main.rand.NextBool(7))
-                    itemDrop = ModContent.ItemType<FishOfFlame>();
+                //if (Player.ZoneDesert && Main.hardMode && attempt.uncommon && Main.rand.NextBool(7))
+                //    itemDrop = ModContent.ItemType<FishOfFlame>();
                 if (Player.Calamity().ZoneSunkenSea && Main.rand.NextBool(5))
                     itemDrop = ModContent.ItemType<CoralskinFoolfish>();
             }
