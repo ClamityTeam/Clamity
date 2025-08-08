@@ -316,7 +316,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                 Roar();
             }
 
-
+            int a = (int)AttackTimer % (LineTime + PreDashTime + DashTime);
 
 
 
