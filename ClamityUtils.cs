@@ -87,6 +87,10 @@ namespace Clamity
 
             projectile.velocity = move;
         }
+        public static void Move(this NPC npc, Vector2 end)
+        {
+
+        }
         public static float Magnitude(Vector2 mag) // For the Move code above
         {
             return (float)Math.Sqrt(mag.X * mag.X + mag.Y * mag.Y);
