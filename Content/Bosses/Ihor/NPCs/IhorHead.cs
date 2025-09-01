@@ -10,6 +10,8 @@ using Clamity.Content.Bosses.Ihor.Projectiles;
 using Clamity.Content.Particles;
 using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -103,6 +105,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         }
         public Player player => Main.player[NPC.target];
         public ref float Attack => ref NPC.ai[1];
+        public IhorAttacks AttackEnum => (IhorAttacks)((int)Attack);
         public ref float AttackTimer => ref NPC.ai[2];
         //public ref float PreviousAttack => ref NPC.ai[3];
         public override void AI()
@@ -303,9 +306,22 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             }
 
         }
+        private const int LineTime = 200;
+        private const int PreDashTime = 30;
+        private const int DashTime = 100;
         private void Do_Flamethrower()
         {
             if (AttackTimer == 1)
+            {
+                Roar();
+            }
+
+            int a = (int)AttackTimer % (LineTime + PreDashTime + DashTime);
+
+
+
+            //Old AI
+            /*if (AttackTimer == 1)
             {
                 Roar();
             }
@@ -336,7 +352,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             {
                 //SetAttack(IhorAttacks.MagicBurst);
                 SetRandomAttack();
-            }
+            }*/
         }
         private void Do_HomingSnowballs()
         {
@@ -414,6 +430,34 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (AttackEnum is IhorAttacks.Flamethrower)
+            {
+                //Texture2D line = ModContent.Request<Texture2D>("CalamityMod/ExtraTexture/LaserWallTelegraphBeam").Value;
+
+                SpriteEffects effects = SpriteEffects.None;
+                if (NPC.spriteDirection == 1)
+                {
+                    effects = SpriteEffects.FlipHorizontally;
+                }
+
+                Texture2D value6 = ModContent.Request<Texture2D>("CalamityMod/Particles/BloomLine").Value;
+                float path = (AttackTimer % (LineTime + DashTime)) > LineTime ? 0 : AttackTimer / LineTime;
+                Color color3 = Color.Lerp(Color.Blue, Color.White, path);
+                spriteBatch.Draw(value6,
+                                 NPC.Center /*- base.NPC.rotation.ToRotationVector2() * base.NPC.spriteDirection * 104f*/ - screenPos,
+                                 null,
+                                 color3,
+                                 base.NPC.rotation + MathF.PI / 2f,
+                                 new Vector2((float)value6.Width / 2f, value6.Height),
+                                 new Vector2(1f * path, 4200f),
+                                 effects,
+                                 0f);
+            }
+
+            return base.PreDraw(spriteBatch, screenPos, drawColor);
         }
     }
 }
