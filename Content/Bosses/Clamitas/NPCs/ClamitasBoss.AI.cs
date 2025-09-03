@@ -2,6 +2,7 @@
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.NPCs;
 using CalamityMod.Particles;
+using Clamity.Content.Bosses.Clamitas.Particles;
 using Clamity.Content.Bosses.Clamitas.Projectiles;
 using Clamity.Content.Particles;
 using Luminance.Common.Easings;
