@@ -41,13 +41,8 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
     public enum IhorAttacks : int
     {
         Summon = 0, //23 seconds. Probably a lot of time to spend on intro
-        MagicBurst,
-        Flamethrower,
-        HomingSnowballs,
-        SnowFlake,
-        IceRockRain,
 
-        StormPillars,
+        SnowAbsorbtionStar,
     }
     public class IhorHead : ModNPC
     {
@@ -99,7 +94,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         }
         public override void OnSpawn(IEntitySource source)
         {
-            Attack = (int)IhorAttacks.MagicBurst;
+            Attack = (int)IhorAttacks.SnowAbsorbtionStar;
             //PreviousAttack = (int)IhorAttacks.MagicBurst;
             AttackTimer = 0;
         }
@@ -149,7 +144,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                 case IhorAttacks.Summon:
                     Do_Summon();
                     break;
-                case IhorAttacks.MagicBurst:
+                /*case IhorAttacks.MagicBurst:
                     Do_MagicBurst();
                     break;
                 case IhorAttacks.Flamethrower:
@@ -160,9 +155,9 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                     break;
                 case IhorAttacks.SnowFlake:
                     Do_SnowFlake();
-                    break;
-                case IhorAttacks.IceRockRain:
-
+                    break;*/
+                case IhorAttacks.SnowAbsorbtionStar:
+                    Do_SnowAbsorbtionStar();
                     break;
 
                     /*case IhorAttacks.StormPillars:
@@ -202,7 +197,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         }
         private void SetRandomAttack()
         {
-            SetAttack(IhorAttacks.Flamethrower);
+            SetAttack(IhorAttacks.SnowAbsorbtionStar);
             return;
 
             List<int> list = new List<int>() { 1, 2, 3, 4 };
@@ -248,7 +243,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         private void Do_Summon()
         {
             //SetRandomAttack();
-            SetAttack(IhorAttacks.HomingSnowballs);
+            SetAttack(IhorAttacks.SnowAbsorbtionStar);
             return;
 
             if (AttackTimer == 20 * 60)
@@ -272,7 +267,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             if (AttackTimer > 23 * 60)
             {
                 NPC.Opacity = 1;
-                SetAttack(IhorAttacks.SnowFlake);
+                SetAttack(IhorAttacks.SnowAbsorbtionStar);
                 //SetRandomAttack();
             }
         }
@@ -354,6 +349,19 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                 SetRandomAttack();
             }*/
         }
+
+
+
+
+        private void Do_SnowAbsorbtionStar()
+        {
+
+        }
+
+
+
+
+        //Prob Scrapped
         private void Do_HomingSnowballs()
         {
             Move();
@@ -383,6 +391,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                 //SetAttack(IhorAttacks.SnowFlake);
             }
         }
+        //TODO - need improve
         private void Do_SnowFlake()
         {
             Move();
@@ -406,10 +415,6 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                 SetRandomAttack();
                 //SetAttack(IhorAttacks.HomingSnowballs);
             }
-
-        }
-        private void Do_IceRockRain()
-        {
 
         }
         /*
