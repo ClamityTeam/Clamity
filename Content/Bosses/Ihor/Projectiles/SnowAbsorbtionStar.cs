@@ -1,5 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Stubble.Core.Settings;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -27,6 +30,11 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IhorSnowball>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI, Main.rand.NextFloat(MathHelper.TwoPi));
             }
+
+            int playerTracker = Player.FindClosest(Projectile.Center, 1, 1);
+            Player player = Main.player[playerTracker];
+
+            Projectile.velocity = Projectile.Center.DirectionTo(player.Center);
         }
 
 
@@ -38,9 +46,24 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
         {
             Texture2D t = ModContent.Request<Texture2D>(Texture).Value;
 
+            Texture2D ball = null; float ballScale = 1f;
+            switch (Projectile.timeLeft / 200)
+            {
+                case 0:
+                    ball = ModContent.Request<Texture2D>(IhorTextures.GiantSnowball).Value;
+                    break;
+                default:
 
-            Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.Cyan, 0, t.Size() / 2, new Vector2(1f, 0.5f), SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.Cyan, MathHelper.PiOver2, t.Size() / 2, new Vector2(3f, 0.5f), SpriteEffects.None, 0);
+                    break;
+            }
+            if (ball != null)
+            {
+                Main.spriteBatch.Draw(ball, Projectile.Center - Main.screenPosition, null, lightColor, 0, ball.Size() / 2f, new Vector2(1f + (float)Math.Sin(Main.GlobalTimeWrappedHourly * 2) / 8, 1f - (float)Math.Sin(Main.GlobalTimeWrappedHourly * 2) / 8) * ballScale, SpriteEffects.None, 0);
+            }
+
+
+            Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.Cyan, 0, t.Size() / 2, new Vector2(0.5f, 1f * (1.25f + (float)Math.Sin(Main.GlobalTimeWrappedHourly) / 4)), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.Cyan, MathHelper.PiOver2, t.Size() / 2, new Vector2(3f * (1.25f - (float)Math.Sin(Main.GlobalTimeWrappedHourly) / 4), 0.5f), SpriteEffects.None, 0);
 
             return false;
         }

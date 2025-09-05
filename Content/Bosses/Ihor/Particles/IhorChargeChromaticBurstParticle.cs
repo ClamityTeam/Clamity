@@ -7,8 +7,8 @@ namespace Clamity.Content.Bosses.Ihor.Particles
     public class IhorChargeChromaticBurstParticle : ChromaticBurstParticle
     {
         public int npcIndex;
-        public IhorChargeChromaticBurstParticle(int npc)
-            : base(Vector2.Zero, Vector2.Zero, Color.LightBlue, 10, 2f, 0f)
+        public IhorChargeChromaticBurstParticle(int npc, byte alpha = 255, bool big = false)
+            : base(Vector2.Zero, Vector2.Zero, Color.LightBlue with { A = alpha }, big ? 30 : 10, big ? 10f : 2f, 0f)
         {
             this.npcIndex = npc;
         }

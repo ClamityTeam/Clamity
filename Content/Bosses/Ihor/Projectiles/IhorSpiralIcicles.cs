@@ -2,7 +2,7 @@
 
 namespace Clamity.Content.Bosses.Ihor.Projectiles
 {
-    public class IhorIcicles : BaseIhorIcicle
+    public class IhorSpiralIcicles : BaseIhorIcicle
     {
         public override void BaseAI()
         {

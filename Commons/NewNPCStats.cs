@@ -84,7 +84,7 @@ namespace Clamity.Commons
                   new int[5]{ 80, 140, 160, 180, 270 }
                 },
                 {
-                  new Tuple<int, int>(ModContent.NPCType<IhorHead>(), ModContent.ProjectileType<SnowFlake>()),
+                  new Tuple<int, int>(ModContent.NPCType<IhorHead>(), ModContent.ProjectileType<StaticGiantSnowFlake>()),
                   new int[5]{ 80, 140, 160, 180, 270 }
                 },
                 {
@@ -92,7 +92,7 @@ namespace Clamity.Commons
                   new int[5]{ 100, 155, 170, 200, 300 }
                 },
                 {
-                  new Tuple<int, int>(ModContent.NPCType<IhorHead>(), ModContent.ProjectileType<IhorIcicles>()),
+                  new Tuple<int, int>(ModContent.NPCType<IhorHead>(), ModContent.ProjectileType<IhorSpiralIcicles>()),
                   new int[5]{ 80, 140, 160, 180, 270 }
                 },
                 {

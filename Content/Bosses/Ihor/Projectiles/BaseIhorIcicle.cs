@@ -11,7 +11,7 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
     public abstract class BaseIhorIcicle : ModProjectile, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Boss";
-        public override string Texture => "Clamity/Content/Bosses/Ihor/Projectiles/BaseIhorIcicle";
+        public override string Texture => IhorTextures.Icicle;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 3;

@@ -7,6 +7,7 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
     public class IhorSnowball : ModProjectile, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Boss";
+        public override string Texture => IhorTextures.Snowball;
 
         public override void SetDefaults()
         {
@@ -23,7 +24,7 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
         {
             Projectile owner = Main.projectile[(int)Projectile.ai[0]];
             float process = Projectile.timeLeft / 120f;
-            Projectile.Center = owner.Center + new Vector2(process * 100, 0).RotatedBy(process * MathHelper.PiOver2);
+            Projectile.Center = owner.Center + new Vector2(process * 100, 0).RotatedBy(process * MathHelper.PiOver2 + Projectile.ai[1]);
         }
     }
 }

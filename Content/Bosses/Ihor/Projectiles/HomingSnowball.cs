@@ -13,6 +13,7 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
     public class HomingSnowball : ModProjectile, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Boss";
+        public override string Texture => IhorTextures.GiantSnowball;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 2;

@@ -7,8 +7,9 @@ using Terraria.ModLoader;
 
 namespace Clamity.Content.Bosses.Ihor.Projectiles
 {
-    public class SnowFlake : ModProjectile
+    public class StaticGiantSnowFlake : ModProjectile
     {
+        public override string Texture => IhorTextures.GiantSnowFlake;
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 42;
