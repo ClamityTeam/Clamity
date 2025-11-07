@@ -37,11 +37,11 @@ namespace Clamity
                 if (ClamityConfig.Instance.UsesClamityWeaponsInCalamityRecipes)
                 {
                     if (recipe.HasResult<Seadragon>())
-                        recipe.requiredItem.Insert(1, ModContent.GetInstance<Obsidigun>().Item);
+                        recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<Obsidigun>(), 1));
                     if (recipe.HasResult<ShatteredSun>())
-                        recipe.requiredItem.Insert(1, ModContent.GetInstance<MoltenPiercer>().Item);
+                        recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<MoltenPiercer>(), 1));
                     if (recipe.HasResult<NuclearFury>())
-                        recipe.requiredItem.Insert(2, ModContent.GetInstance<TheGenerator>().Item);
+                        recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<TheGenerator>(), 1));
                     /*if (recipe.HasResult<ElementalShiv>())
                     {
                         recipe.requiredItem.Insert(0, ModContent.GetInstance<TerraShiv>().Item);

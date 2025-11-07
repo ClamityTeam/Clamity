@@ -1,4 +1,4 @@
-Update 1.0.3.11 - 'Goodbye Ignis' Patch
+Update 1.0.3.12 - 'Recipe Issue' Patch
 
 
 New Content:
@@ -8,9 +8,7 @@ Reworks:
 None
 
 Removes:
-Removed Essence of Ignis, Core of Ignis, Fish of Ignis
-Removed Pyroplate, Pyroplate Wall (probably returns later)
-Removed Recipe changes with removed items
+None
 
 Balance Changes:
 None
@@ -19,5 +17,5 @@ Other Changes:
 None
 
 Bug Fixes:
-Fixed not loading mod due in changes of recipe
-Ported to latest tml version
+Fixed bug from some reicpe changes that prevent to load mod
+(and sometimes conflicts with Magic Storage mod)
