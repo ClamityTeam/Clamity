@@ -12,6 +12,7 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
     {
         public new string LocalizationCategory => "Projectiles.Boss";
         public override string Texture => IhorTextures.Icicle;
+        public virtual int MaxTimeLeft => 600;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 3;
@@ -24,17 +25,18 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
             Projectile.tileCollide = false;
             Projectile.hostile = true;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = MaxTimeLeft;
         }
         public override void OnSpawn(IEntitySource source)
         {
             Projectile.frame = Main.rand.Next(3);
         }
+        public virtual bool CanCreateParticles => Projectile.timeLeft % 2 == 0 && Projectile.timeLeft < 550;
         public sealed override void AI()
         {
             BaseAI();
 
-            if (Projectile.timeLeft % 2 == 0 && Projectile.timeLeft < 550 && Projectile.velocity.Length() > 1f)
+            if (CanCreateParticles && Projectile.velocity.Length() > 1f)
             {
                 SparkParticle spark = new SparkParticle(Projectile.Center - Projectile.velocity * 2f, -Projectile.velocity * 0.1f, false, 9, 1.5f, Color.White * 0.2f);
                 GeneralParticleHandler.SpawnParticle(spark);

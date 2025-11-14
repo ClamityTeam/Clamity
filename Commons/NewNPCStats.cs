@@ -4,6 +4,7 @@ using CalamityMod.World;
 using Clamity.Content.Bosses.Clamitas.NPCs;
 using Clamity.Content.Bosses.Ihor.NPCs;
 using Clamity.Content.Bosses.Ihor.Projectiles;
+using Clamity.Content.Bosses.Ihor.Projectiles.Old;
 using Clamity.Content.Bosses.Pyrogen.NPCs;
 using Clamity.Content.Bosses.Pyrogen.Projectiles;
 using Clamity.Content.Bosses.WoB.NPCs;

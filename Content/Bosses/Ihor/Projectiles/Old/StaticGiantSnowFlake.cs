@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Clamity.Content.Bosses.Ihor.Projectiles
+namespace Clamity.Content.Bosses.Ihor.Projectiles.Old
 {
     public class StaticGiantSnowFlake : ModProjectile
     {

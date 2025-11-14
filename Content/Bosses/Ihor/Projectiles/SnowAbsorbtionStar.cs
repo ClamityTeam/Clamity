@@ -26,15 +26,20 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
 
         public override void AI()
         {
-            if (Projectile.ai[0] >= 10)
+            if (++Projectile.ai[0] >= 10)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IhorSnowball>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI, Main.rand.NextFloat(MathHelper.TwoPi));
+                Projectile.ai[0] = 0;
             }
 
             int playerTracker = Player.FindClosest(Projectile.Center, 1, 1);
             Player player = Main.player[playerTracker];
 
-            Projectile.velocity = Projectile.Center.DirectionTo(player.Center);
+            Projectile.velocity = Projectile.Center.DirectionTo(player.Center) * Projectile.velocity.Length();
+            if (Projectile.velocity.Length() < 1)
+                Projectile.velocity = Projectile.velocity.SafeNormalize(Vector2.Zero);
+            else
+                Projectile.velocity *= 0.95f;
         }
 
 
@@ -51,6 +56,7 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
             {
                 case 0:
                     ball = ModContent.Request<Texture2D>(IhorTextures.GiantSnowball).Value;
+                    ballScale = Projectile.timeLeft / 200f;
                     break;
                 default:
 
@@ -62,7 +68,7 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
             }
 
 
-            Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.Cyan, 0, t.Size() / 2, new Vector2(0.5f, 1f * (1.25f + (float)Math.Sin(Main.GlobalTimeWrappedHourly) / 4)), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.Cyan, 0, t.Size() / 2, new Vector2(0.5f, 3f * (1.25f + (float)Math.Sin(Main.GlobalTimeWrappedHourly) / 4)), SpriteEffects.None, 0);
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.Cyan, MathHelper.PiOver2, t.Size() / 2, new Vector2(3f * (1.25f - (float)Math.Sin(Main.GlobalTimeWrappedHourly) / 4), 0.5f), SpriteEffects.None, 0);
 
             return false;

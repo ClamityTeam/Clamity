@@ -8,7 +8,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Clamity.Content.Bosses.Ihor.Projectiles
+namespace Clamity.Content.Bosses.Ihor.Projectiles.Old
 {
     public class HomingSnowball : ModProjectile, ILocalizedModType
     {
@@ -47,7 +47,7 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
             Player player = Main.player[playerTracker];
 
             Vector2 targetVector = Projectile.SafeDirectionTo(player.Center);
-            Projectile.velocity = (Projectile.velocity * (inertia - 1f) + (targetVector /*+ player.velocity / 10f*/) * Projectile.ai[0]) / inertia;
+            Projectile.velocity = (Projectile.velocity * (inertia - 1f) + targetVector /*+ player.velocity / 10f*/ * Projectile.ai[0]) / inertia;
 
             float angle = Utilities.AngleBetween(targetVector, Projectile.velocity);
             if (angle < MathHelper.PiOver4 /*&& angle > -MathHelper.PiOver4*/)

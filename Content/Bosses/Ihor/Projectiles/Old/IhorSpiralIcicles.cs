@@ -1,6 +1,6 @@
 ﻿using Terraria;
 
-namespace Clamity.Content.Bosses.Ihor.Projectiles
+namespace Clamity.Content.Bosses.Ihor.Projectiles.Old
 {
     public class IhorSpiralIcicles : BaseIhorIcicle
     {

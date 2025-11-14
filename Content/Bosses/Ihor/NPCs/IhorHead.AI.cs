@@ -7,6 +7,7 @@ using CalamityMod.World;
 using Clamity.Commons;
 using Clamity.Content.Bosses.Ihor.Particles;
 using Clamity.Content.Bosses.Ihor.Projectiles;
+using Clamity.Content.Bosses.Ihor.Projectiles.Old;
 using Clamity.Content.Particles;
 using Microsoft.Xna.Framework;
 using System;
@@ -91,6 +92,9 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                     break;*/
                 case Attacks.SnowAbsorbtionStar:
                     Do_SnowAbsorbtionStar();
+                    break;
+                case Attacks.IcePathDash:
+                    Do_IcePathDash();
                     break;
 
                     /*case IhorAttacks.StormPillars:
@@ -285,10 +289,56 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
 
 
 
-
         private void Do_SnowAbsorbtionStar()
         {
+            if (AttackTimer == 30)
+            {
+                //Roar();
+                int type = ModContent.ProjectileType<SnowAbsorbtionStar>();
+                int projectileDamage = NPC.GetProjectileDamageClamity(type);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, type, projectileDamage, 0, Main.myPlayer, NPC.whoAmI);
+            }
+            Move(0.005f);
+        }
+        public const int Pre_IcePathDashTime = 120;
+        public const int Icicle_IcePathDashTime = 200;
+        public const int All_IcePathDashTime = 600;
 
+        private void Do_IcePathDash()
+        {
+            if (AttackTimer == 1)
+            {
+                for (int i = -1; i < 3; i++)
+                {
+                    int type = ModContent.ProjectileType<IhorSnowflakeCreatingIcicle>();
+                    int projectileDamage = NPC.GetProjectileDamageClamity(type);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, type, projectileDamage, 0, Main.myPlayer, NPC.whoAmI, i);
+                }
+            }
+            else if (AttackTimer < Pre_IcePathDashTime)
+            {
+                Move(0.005f);
+            }
+            else if (AttackTimer == Pre_IcePathDashTime) 
+            {
+                NPC.velocity = player.Center - NPC.Center;
+            }
+            else if (AttackTimer > All_IcePathDashTime - Icicle_IcePathDashTime)
+            {
+                if (AttackTimer % 20 == 0)
+                {
+                    int type = ModContent.ProjectileType<IhorIcicleHomingIThink>();
+                    int projectileDamage = NPC.GetProjectileDamageClamity(type);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, type, projectileDamage, 0, Main.myPlayer, NPC.whoAmI);
+                }
+            }
+
+
+
+            if (AttackTimer == All_IcePathDashTime)
+            {
+
+            }
         }
 
 
