@@ -1,4 +1,4 @@
-Update 1.0.3.10 - TML Patch
+Update 1.0.3.12 - 'Recipe Issue' Patch
 
 
 New Content:
@@ -17,4 +17,5 @@ Other Changes:
 None
 
 Bug Fixes:
-Adapted to latest TML version
+Fixed bug from some reicpe changes that prevent to load mod
+(and sometimes conflicts with Magic Storage mod)

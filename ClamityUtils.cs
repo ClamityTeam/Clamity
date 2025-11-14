@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CalamityMod;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -180,6 +181,16 @@ namespace Clamity
             int width = rectangle.Width / horizontalFrames;
             int height = rectangle.Height / verticalFrames;
             return new Rectangle(rectangle.Left + width * frameX, rectangle.Top + height * frameY, width, height);
+        }
+        public static Recipe ReplaceIngredient(this Recipe recipe, int oldItem, int newItem, int count = 1)
+        {
+            int index = recipe.IngredientIndex(oldItem);
+            if (index != -1)
+            {
+                recipe.requiredItem.RemoveAt(index);
+                recipe.requiredItem.Insert(index, new Item(newItem) { stack = count });
+            }
+            return recipe;
         }
     }
 }

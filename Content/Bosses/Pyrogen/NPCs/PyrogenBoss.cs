@@ -9,7 +9,6 @@ using Clamity.Commons;
 using Clamity.Content.Bosses.Pyrogen.Drop;
 using Clamity.Content.Bosses.Pyrogen.Drop.Weapons;
 using Clamity.Content.Bosses.Pyrogen.Projectiles;
-using Clamity.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -1375,7 +1374,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             };
             mainRule.Add(DropHelper.CalamityStyle(DropHelper.NormalWeaponDropRateFraction, itemIDs));
             //mainRule.Add(ModContent.ItemType<GlacialEmbrace>(), 10);
-            mainRule.Add(ItemDropRule.Common(ModContent.ItemType<EssenceOfFlame>(), 1, 8, 10));
+            //mainRule.Add(ItemDropRule.Common(ModContent.ItemType<EssenceOfFlame>(), 1, 8, 10));
             mainRule.Add(DropHelper.PerPlayer(ModContent.ItemType<SoulOfPyrogen>()));
             mainRule.Add(ModContent.ItemType<PyroStone>(), DropHelper.NormalWeaponDropRateFraction);
             mainRule.Add(ModContent.ItemType<HellFlare>(), DropHelper.NormalWeaponDropRateFraction);

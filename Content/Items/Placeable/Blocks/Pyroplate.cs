@@ -1,18 +1,6 @@
-﻿using CalamityMod;
-using CalamityMod.Tiles.SunkenSea;
-using Clamity.Content.Items.Materials;
-using Clamity.Content.Items.Placeable.Walls;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace Clamity.Content.Items.Placeable.Blocks
+﻿namespace Clamity.Content.Items.Placeable.Blocks
 {
-    public class Pyroplate : ModItem, ILocalizedModType
+    /*public class Pyroplate : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Placeables";
         public override void SetStaticDefaults()
@@ -228,5 +216,5 @@ namespace Clamity.Content.Items.Placeable.Blocks
             }
             // Contribuited by Vortex
         }
-    }
+    }*/
 }

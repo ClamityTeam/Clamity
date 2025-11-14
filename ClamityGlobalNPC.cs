@@ -13,7 +13,6 @@ using Clamity.Content.Items;
 using Clamity.Content.Items.Accessories;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
 using Clamity.Content.Items.Accessories.Sentry;
-using Clamity.Content.Items.Materials;
 using Clamity.Content.Items.Mounts;
 using Clamity.Content.Items.Potions.Food;
 using Clamity.Content.Items.Weapons.Classless;
@@ -73,7 +72,7 @@ namespace Clamity
             }
 
             //Essence of Flame drop
-            if (ContainType(npc.type, NPCID.Mummy, NPCID.LightMummy, NPCID.DarkMummy, NPCID.BloodMummy,
+            /*if (ContainType(npc.type, NPCID.Mummy, NPCID.LightMummy, NPCID.DarkMummy, NPCID.BloodMummy,
                 NPCID.DesertBeast, NPCID.DesertScorpionWalk, NPCID.DesertScorpionWall,
                 NPCID.DesertDjinn, NPCID.DesertLamiaDark, NPCID.DesertLamiaLight,
                 NPCID.DesertGhoul, NPCID.DesertGhoulCorruption, NPCID.DesertGhoulCrimson, NPCID.DesertGhoulHallow,
@@ -92,7 +91,7 @@ namespace Clamity
             {
                 //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MandibleClaws>(), 50));
                 npcLoot.Add(ItemDropRule.ByCondition(hm, ModContent.ItemType<EssenceOfFlame>(), 4));
-            }
+            }*/
 
 
             //Food drop
