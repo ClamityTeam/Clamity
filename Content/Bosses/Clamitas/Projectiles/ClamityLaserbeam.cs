@@ -9,7 +9,10 @@ using Terraria.ModLoader;
 
 namespace Clamity.Content.Bosses.Clamitas.Projectiles
 {
-    public abstract class RancorLaserbeamHostile : ModProjectile, ILocalizedModType
+    //Credit RancorLaserbeam.cs from CalamityMod
+    //I dont have enough knowlage about cool laser shaders
+    //Maybe later we change a visual of it (i know who can)
+    public abstract class ClamityLaserbeam : ModProjectile, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Boss";
         public NPC MainClamitas
@@ -87,11 +90,7 @@ namespace Clamity.Content.Bosses.Clamitas.Projectiles
 
         public void UpdateAim()
         {
-            // Only execute the aiming code for the owner.
-            if (Main.myPlayer != Projectile.owner)
-                return;
-
-            Vector2 newAimDirection = Vector2.UnitY.RotatedBy(Projectile.rotation).SafeNormalize(Vector2.UnitY);
+            Vector2 newAimDirection = Vector2.UnitX.RotatedBy(Projectile.rotation).SafeNormalize(Vector2.UnitY);
 
             // Sync if the direction is different from the old one.
             // Spam caps are ignored due to the frequency of this happening.
