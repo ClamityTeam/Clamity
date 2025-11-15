@@ -37,8 +37,8 @@ namespace Clamity.Content.Bosses.WoB.NPCs
             NPC.noTileCollide = true;
             NPC.DeathSound = CommonCalamitySounds.ExoDeathSound;
             NPC.HitSound = SoundID.NPCHit4;
-            NPC.netUpdate = true;
-            NPC.netAlways = true;
+            //NPC.netUpdate = true;
+            //NPC.netAlways = true;
             NPC.hide = true;
             NPC.Calamity().VulnerableToSickness = false;
             NPC.Calamity().VulnerableToElectricity = true;
@@ -76,6 +76,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
             {
                 Timer = 0;
                 AIState = 0;
+                //NPC.netUpdate = true;
             }
         }
         public override void ExtraAI()

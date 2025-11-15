@@ -17,5 +17,5 @@ Other Changes:
 None
 
 Bug Fixes:
-Fixed bug from some reicpe changes that prevent to load mod
-(and sometimes conflicts with Magic Storage mod)
+Fixed Hell Flare and Pyro stone missing in boss bag loot pool
+Potentialy fixed Wall of Bronze multiplayer despawning
