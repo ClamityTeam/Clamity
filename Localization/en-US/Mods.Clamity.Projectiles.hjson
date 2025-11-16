@@ -10,6 +10,7 @@ Melee: {
 	ExoNewBeam.DisplayName: Exo Beam
 	ExoNewExplosion.DisplayName: Exo Explosion
 	EtherealKnivesProjectile.DisplayName: Ethereal Knives Projectile
+	HyperionProjectile.DisplayName: Hyperion Projectile
 	AntarcticSlicersBolt.DisplayName: Antarctic Slicers Bolt
 	AntarcticSlicersSlash.DisplayName: Antarctic Slicers Slash
 	JawOfTheFrostMeleeEffect.DisplayName: "{$Mods.Clamity.Items.Weapons.Melee.JawOfTheFrost.DisplayName}"

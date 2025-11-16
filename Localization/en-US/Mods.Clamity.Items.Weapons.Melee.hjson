@@ -49,6 +49,11 @@ Everest: {
 	Tooltip: Fires a spread of volcanic fireballs
 }
 
+Hyperion: {
+	DisplayName: Hyperion
+	Tooltip: ""
+}
+
 AntarcticSlicers: {
 	DisplayName: Antarctic Slicers
 	Tooltip:

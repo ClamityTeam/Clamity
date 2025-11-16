@@ -2,5 +2,5 @@ displayName = Clamity Addon
 author = WitherTaco and Calamity Fandom wiki
 version = 1.0.3.13
 modReferences = CalamityMod, ClamityMusic, Luminance, SubworldLibrary
-weakReferences = InfernumMode, CalRemix
+weakReferences = InfernumMode, CalRemix, AbsoluteIBR
 buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes, Effects\Compiler\*
