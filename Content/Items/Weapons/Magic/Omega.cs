@@ -35,7 +35,7 @@ namespace Clamity.Content.Items.Weapons.Magic
         {
             Item.width = 122;
             Item.height = 54;
-            Item.damage = 100;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Magic;
             Item.mana = 8;
             Item.useTime = Item.useAnimation = 4;

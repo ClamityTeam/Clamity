@@ -18,7 +18,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Pink;
 
-            Item.useTime = Item.useAnimation = 36;
+            Item.useTime = Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item11;
             Item.noMelee = true;
