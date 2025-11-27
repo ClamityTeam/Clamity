@@ -8,9 +8,6 @@
     <Reference Include="CalamityMod">
       <HintPath>..\CalamityMod.dll</HintPath>
     </Reference>
-    <Reference Include="CalamityMod">
-      <HintPath>..\ModAssemblies\CalamityMod_v2.0.7.1.dll</HintPath>
-    </Reference>
 	  <Reference Include="Luminance">
 		  <HintPath>Luminance.dll</HintPath>
 	  </Reference>

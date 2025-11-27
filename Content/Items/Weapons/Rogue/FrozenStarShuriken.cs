@@ -125,7 +125,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
         {
             for (int i = 0; i < Main.rand.Next(3 + (Projectile.Calamity().stealthStrike ? 1 : 0)); i++)
             {
-                int index = Projectile.NewProjectile(Projectile.GetSource_OnHit(target), Projectile.Center, new Vector2(0, 15).RotatedByRandom(MathHelper.TwoPi), 297, Projectile.damage / 3, 0, Projectile.owner);
+                int index = Projectile.NewProjectile(Projectile.GetSource_OnHit(target), Projectile.Center, new Vector2(0, 15).RotatedByRandom(MathHelper.TwoPi), ProjectileID.LostSoulFriendly, Projectile.damage / 3, 0, Projectile.owner);
                 Main.projectile[index].DamageType = ModContent.GetInstance<RogueDamageClass>();
                 Main.projectile[index].usesLocalNPCImmunity = false;
                 Main.projectile[index].usesIDStaticNPCImmunity = true;

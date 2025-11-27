@@ -59,7 +59,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
             Projectile.timeLeft = 500;
             Projectile.tileCollide = false;
             //Projectile.extraUpdates = 3;
-            AIType = 14;
+            AIType = ProjectileID.Bullet;
             //Projectile.Calamity().pointBlankShotDuration = 18;
         }
         public int TargetIndex = -1;

@@ -150,7 +150,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
                                      Y: (float)(hitbox.Y + hitbox.Height / 2) + num3,
                                      SpeedX: (float)player.direction * num2,
                                      SpeedY: num * player.gravDir,
-                                     Type: 85,
+                                     Type: ProjectileID.Flames,
                                      KnockBack: 0f,
                                      Owner: player.whoAmI);
             Main.projectile[index].DamageType = DamageClass.Melee;

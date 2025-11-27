@@ -46,13 +46,13 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
             //Projectile.CloneDefaults(ProjectileID.Bullet);
             Projectile.width = 4;
             Projectile.height = 4;
-            Projectile.aiStyle = 1;
+            Projectile.aiStyle = ProjAIStyleID.Arrow;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 600;
             Projectile.extraUpdates = 3;
-            AIType = 14;
+            AIType = ProjectileID.Bullet;
             //Projectile.Calamity().pointBlankShotDuration = 18;
         }
         public override void OnKill(int timeLeft)
