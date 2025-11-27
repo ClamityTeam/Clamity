@@ -30,7 +30,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
             Item.noUseGraphic = true;
             Item.noMelee = true;
 
-            Item.damage = 300;
+            Item.damage = 1300;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 8.5f;
 
