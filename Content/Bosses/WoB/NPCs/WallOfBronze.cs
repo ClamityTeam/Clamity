@@ -458,7 +458,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
                             WorldGen.SquareTileFrame(posX, j);
                             NetMessage.SendTileSquare(-1, posX, j, 1);
                         }
-                        if (Main.tile[posX, j].LiquidType == 1 && Main.tile[posX, j].LiquidAmount > 0 && !Main.tile[posX, j].HasTile)
+                        if (Main.tile[posX, j].LiquidType == LiquidID.Lava && Main.tile[posX, j].LiquidAmount > 0 && !Main.tile[posX, j].HasTile)
                         {
                             //Main.tile[posX, j].TileType = 162;
                             Main.tile[posX, j].LiquidAmount = 0;

@@ -35,7 +35,7 @@ namespace Clamity.Content.Items.Weapons.Magic
         {
             Item.width = 122;
             Item.height = 54;
-            Item.damage = 100;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Magic;
             Item.mana = 8;
             Item.useTime = Item.useAnimation = 4;
@@ -248,7 +248,7 @@ namespace Clamity.Content.Items.Weapons.Magic
                 Particle smoke = new HeavySmokeParticle(GunTipPosition, smokeVel, EffectsColor, Main.rand.Next(30, 50 + 1), Main.rand.NextFloat(0.1f, 0.4f), 0.5f, Main.rand.NextFloat(-0.2f, 0.2f), Main.rand.NextBool(), required: true);
                 GeneralParticleHandler.SpawnParticle(smoke);
 
-                Dust dust = Dust.NewDustPerfect(GunTipPosition, 303, smokeVel.RotatedByRandom(0.1f), 80, default, Main.rand.NextFloat(0.2f, 0.8f));
+                Dust dust = Dust.NewDustPerfect(GunTipPosition, DustID.SteampunkSteam, smokeVel.RotatedByRandom(0.1f), 80, default, Main.rand.NextFloat(0.2f, 0.8f));
                 dust.noGravity = false;
                 dust.color = EffectsColor;
             }
@@ -471,7 +471,7 @@ namespace Clamity.Content.Items.Weapons.Magic
                 Particle smoke = new HeavySmokeParticle(tipPosition, smokeVel, StaticEffectsColor, Main.rand.Next(30, 50 + 1), Main.rand.NextFloat(0.1f, 0.4f), 0.5f, Main.rand.NextFloat(-0.2f, 0.2f), Main.rand.NextBool(), required: true);
                 GeneralParticleHandler.SpawnParticle(smoke);
 
-                Dust dust = Dust.NewDustPerfect(tipPosition, 303, smokeVel.RotatedByRandom(0.1f), 80, default, Main.rand.NextFloat(0.2f, 0.8f));
+                Dust dust = Dust.NewDustPerfect(tipPosition, DustID.SteampunkSteam, smokeVel.RotatedByRandom(0.1f), 80, default, Main.rand.NextFloat(0.2f, 0.8f));
                 dust.noGravity = false;
                 dust.color = StaticEffectsColor;
             }

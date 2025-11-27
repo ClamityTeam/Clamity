@@ -16,14 +16,14 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
 
         public override void SetDefaults()
         {
-            Item.damage = 500;
+            Item.damage = 2500;
             Item.DamageType = DamageClass.Melee;
             Item.useTurn = true;
             Item.rare = ModContent.RarityType<Violet>();
             Item.width = Item.height = 80;
             Item.scale = 1.5f;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 12;
+            Item.useAnimation = 12;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 8f;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
@@ -150,7 +150,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
                                      Y: (float)(hitbox.Y + hitbox.Height / 2) + num3,
                                      SpeedX: (float)player.direction * num2,
                                      SpeedY: num * player.gravDir,
-                                     Type: 85,
+                                     Type: ProjectileID.Flames,
                                      KnockBack: 0f,
                                      Owner: player.whoAmI);
             Main.projectile[index].DamageType = DamageClass.Melee;
