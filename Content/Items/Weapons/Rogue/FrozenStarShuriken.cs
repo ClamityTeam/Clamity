@@ -18,14 +18,14 @@ namespace Clamity.Content.Items.Weapons.Rogue
         public override float StealthDamageMultiplier => 0.5f;
         public override void SetDefaults()
         {
-            Item.damage = 300;
+            Item.damage = 900;
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.width = 1;
             Item.height = 1;
-            Item.useTime = 15;
-            Item.useAnimation = 15;
+            Item.useTime = 8;
+            Item.useAnimation = 8;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 4f;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;

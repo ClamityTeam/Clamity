@@ -33,7 +33,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
             Item.shoot = ModContent.ProjectileType<TheGeneratorSigil>();
             Item.shootSpeed = 5f;
 
-            Item.damage = 67;
+            Item.damage = 77;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 2f;
             Item.mana = 17;

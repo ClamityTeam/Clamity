@@ -35,7 +35,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Minions
             Item.noMelee = true;
             Item.autoReuse = true;
 
-            Item.damage = 325;
+            Item.damage = 100;
             Item.DamageType = DamageClass.Summon;
             Item.knockBack = 2f;
             Item.mana = 12;
