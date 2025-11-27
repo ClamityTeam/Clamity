@@ -107,7 +107,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                                                     //HP on normal with all shields = 33 500 (3 500 of shields)
                                                     //Death - 42 000 (7000 of shields)
                                                     //Boss Rush - 350 000 (50000 of shields)
-            double num = (double)CalamityConfig.Instance.BossHealthBoost * 0.01;
+            double num = (double)CalamityServerConfig.Instance.BossHealthBoost * 0.01;
             NPC.lifeMax += (int)(NPC.lifeMax * num);
             NPC.aiStyle = -1;
             AIType = -1;
@@ -1466,7 +1466,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             //New           - 3500 - 5000  - 50000
             //Difference    - 2800 - 3600  - 40000
 
-            double num = (double)CalamityConfig.Instance.BossHealthBoost * 0.01;
+            double num = (double)CalamityServerConfig.Instance.BossHealthBoost * 0.01;
             NPC.lifeMax += (int)(NPC.lifeMax * num);
             NPC.Opacity = 0f;
             //NPC.HitSound = Cryogen.HitSound;

@@ -15,6 +15,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
     public class Hyperion : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Weapons.Melee";
+        public override bool IsLoadingEnabled(Mod mod) => false;
         public override void SetStaticDefaults()
         {
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 7));
@@ -54,7 +55,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
     public class HyperionProjectile : TerratomereExplosion, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Melee";
-
+        public override bool IsLoadingEnabled(Mod mod) => false;
         public override void SetDefaults()
         {
             base.SetDefaults();
