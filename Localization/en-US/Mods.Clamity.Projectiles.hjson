@@ -30,6 +30,9 @@ Ranged: {
 Magic: {
 	TheGeneratorSigil.DisplayName: The Generator Sigil
 	MoonstoneKnifeProjectile.DisplayName: Moonstone Knife
+	UnicronBeam.DisplayName: Unicron Beam
+	UnicronWingmanGrenade.DisplayName: Unicron Wingman Grenade
+	UnicronWingmanShot.DisplayName: Unicron Wingman Shot
 }
 
 Summon: {

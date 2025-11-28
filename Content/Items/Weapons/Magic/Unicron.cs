@@ -22,8 +22,8 @@ using Terraria.ModLoader;
 
 namespace Clamity.Content.Items.Weapons.Magic
 {
-    [LegacyName("OmegaRay")]
-    public class Omega : ModItem, ILocalizedModType
+    [LegacyName("OmegaRay", "Omega")]
+    public class Unicron : ModItem, ILocalizedModType
     {
         public static float FireRate = 15f;
         public static float StarterWinup = 60f;
@@ -48,10 +48,10 @@ namespace Clamity.Content.Items.Weapons.Magic
             Item.shootSpeed = 6f;
             Item.channel = true;
             Item.noUseGraphic = true;
-            Item.shoot = ModContent.ProjectileType<OmegaHoldout>();
+            Item.shoot = ModContent.ProjectileType<UnicronHoldout>();
             Item.rare = ModContent.RarityType<Violet>();
         }
-        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<OmegaWingman>()] < 4;
+        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<UnicronWingman>()] < 4;
 
         // Makes the rotation of the mouse around the player sync in multiplayer.
         public override void HoldItem(Player player)
@@ -74,11 +74,11 @@ namespace Clamity.Content.Items.Weapons.Magic
                     case 2: t = 1; break;
                     case 3: t = 2; break;
                 }
-                Projectile holdout2 = Projectile.NewProjectileDirect(source, player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<OmegaWingman>(), damage, knockback, player.whoAmI, 0, 0, t);
+                Projectile holdout2 = Projectile.NewProjectileDirect(source, player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<UnicronWingman>(), damage, knockback, player.whoAmI, 0, 0, t);
                 holdout2.velocity = (player.Calamity().mouseWorld - player.MountedCenter).SafeNormalize(Vector2.Zero);
             }
 
-            Projectile holdout = Projectile.NewProjectileDirect(source, player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<OmegaHoldout>(), damage, knockback, player.whoAmI, 0, 0, 0);
+            Projectile holdout = Projectile.NewProjectileDirect(source, player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<UnicronHoldout>(), damage, knockback, player.whoAmI, 0, 0, 0);
             holdout.velocity = (player.Calamity().mouseWorld - player.MountedCenter).SafeNormalize(Vector2.Zero);
 
             return false;
@@ -93,9 +93,9 @@ namespace Clamity.Content.Items.Weapons.Magic
                 .Register();
         }
     }
-    public class OmegaHoldout : BaseGunHoldoutProjectile
+    public class UnicronHoldout : BaseGunHoldoutProjectile
     {
-        public override int AssociatedItemID => ModContent.ItemType<Omega>();
+        public override int AssociatedItemID => ModContent.ItemType<Unicron>();
         public override Vector2 GunTipPosition => base.GunTipPosition - Vector2.UnitY.RotatedBy(Projectile.rotation) * 4f * Projectile.spriteDirection;
         public override float MaxOffsetLengthFromArm => 10f;
         public override float OffsetXUpwards => -5f;
@@ -106,8 +106,8 @@ namespace Clamity.Content.Items.Weapons.Magic
         public ref float PostFireCooldown => ref Projectile.ai[1];
         public ref float MaxFireRateShots => ref Projectile.ai[2];
 
-        public float Windup { get; set; } = Omega.StarterWinup;
-        public Color EffectsColor { get; set; } = Color.MediumVioletRed;
+        public float Windup { get; set; } = Unicron.StarterWinup;
+        public Color EffectsColor { get; set; } = Color.DarkCyan;
 
         public override void KillHoldoutLogic()
         {
@@ -138,7 +138,7 @@ namespace Clamity.Content.Items.Weapons.Magic
                     }
                 }
             }
-            else if (ShootingTimer >= Omega.FireRate)
+            else if (ShootingTimer >= Unicron.FireRate)
             {
                 if (Owner.CheckMana(Owner.ActiveItem(), -1, true, false) && PostFireCooldown <= 0)
                 {
@@ -189,7 +189,8 @@ namespace Clamity.Content.Items.Weapons.Magic
                 }
 
                 Owner.Calamity().GeneralScreenShakePower = 6.5f;
-                Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), GunTipPosition, firingVelocity3, ModContent.ProjectileType<OmicronBeam>(), Projectile.damage * 32, Projectile.knockBack, Projectile.owner, 0, 0);
+                if (Main.myPlayer == Projectile.owner)
+                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), GunTipPosition, firingVelocity3, ModContent.ProjectileType<UnicronBeam>(), Projectile.damage * 32, Projectile.knockBack, Projectile.owner, 0, 0);
 
                 for (int i = 0; i < 8; i++)
                 {
@@ -202,15 +203,18 @@ namespace Clamity.Content.Items.Weapons.Magic
                 SoundStyle fire = new("CalamityMod/Sounds/Item/ArcNovaDiffuserBigShot");
                 SoundEngine.PlaySound(fire with { Volume = 0.2f, Pitch = 0.9f }, Projectile.Center);
 
-                for (int i = 0; i < 7; i++)
+                if (Main.myPlayer == Projectile.owner)
                 {
-                    firingVelocity3 = (shootDirection * 10).RotatedBy((0.035f * (i + 1)) * Utils.GetLerpValue(0, 55, Windup, true));
-                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), GunTipPosition, firingVelocity3 * (1 - i * 0.1f), ModContent.ProjectileType<WingmanShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 2);
-                }
-                for (int i = 0; i < 7; i++)
-                {
-                    firingVelocity3 = (shootDirection * 10).RotatedBy((-0.035f * (i + 1)) * Utils.GetLerpValue(0, 55, Windup, true));
-                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), GunTipPosition, firingVelocity3 * (1 - i * 0.1f), ModContent.ProjectileType<WingmanShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 2);
+                    for (int i = 0; i < 7; i++)
+                    {
+                        firingVelocity3 = (shootDirection * 10).RotatedBy((0.035f * (i + 1)) * Utils.GetLerpValue(0, 55, Windup, true));
+                        Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), GunTipPosition, firingVelocity3 * (1 - i * 0.1f), ModContent.ProjectileType<UnicronWingmanShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 2);
+                    }
+                    for (int i = 0; i < 7; i++)
+                    {
+                        firingVelocity3 = (shootDirection * 10).RotatedBy((-0.035f * (i + 1)) * Utils.GetLerpValue(0, 55, Windup, true));
+                        Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), GunTipPosition, firingVelocity3 * (1 - i * 0.1f), ModContent.ProjectileType<UnicronWingmanShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 2);
+                    }
                 }
 
                 Particle pulse3 = new GlowSparkParticle(GunTipPosition, shootDirection * 18, false, 6, 0.057f, EffectsColor, new Vector2(1.7f, 0.8f), true);
@@ -260,12 +264,12 @@ namespace Clamity.Content.Items.Weapons.Magic
 
         public override void ReceiveExtraAIHoldout(BinaryReader reader) => Windup = reader.ReadSingle();
     }
-    public class OmegaWingman : ModProjectile
+    public class UnicronWingman : ModProjectile
     {
         public override LocalizedText DisplayName => CalamityUtils.GetItemName<Wingman>();
         //public override string Texture => "CalamityMod/Items/Weapons/Magic/Wingman";
 
-        public Color StaticEffectsColor = Color.MediumVioletRed;
+        public Color StaticEffectsColor = Color.DarkCyan;
         private ref float ShootingTimer => ref Projectile.ai[0];
         private float FiringTime = 10;
         private float PostFireCooldown = 0;
@@ -303,7 +307,7 @@ namespace Clamity.Content.Items.Weapons.Magic
         {
             Owner ??= Main.player[Projectile.owner];
 
-            if (time > 1 && Owner.ownedProjectileCounts[ModContent.ProjectileType<OmegaHoldout>()] < 1 && PostFireCooldown <= 0)
+            if (time > 1 && Owner.ownedProjectileCounts[ModContent.ProjectileType<UnicronHoldout>()] < 1 && PostFireCooldown <= 0)
                 Projectile.Kill();
 
             Lighting.AddLight(Projectile.Center, StaticEffectsColor.ToVector3() * 0.2f);
@@ -318,7 +322,7 @@ namespace Clamity.Content.Items.Weapons.Magic
             Projectile.damage = heldItem is null ? 0 : Owner.GetWeaponDamage(heldItem);
 
             // If there's no player, or the player is the server, or the owner's stunned, there'll be no holdout.
-            if (PostFireCooldown == 0 && launchDelay == 0 && Owner.CantUseHoldout() || heldItem.type != ModContent.ItemType<Omega>())
+            if (PostFireCooldown == 0 && launchDelay == 0 && Owner.CantUseHoldout() || heldItem.type != ModContent.ItemType<Unicron>())
             {
                 if (PostFireCooldown <= 0)
                     Projectile.Kill();
@@ -417,9 +421,10 @@ namespace Clamity.Content.Items.Weapons.Magic
                 SoundEngine.PlaySound(fire with { Volume = 0.2f, Pitch = -0.4f, PitchVariance = 0.2f }, Projectile.Center);
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    Projectile bomb = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), tipPosition, firingVelocity, ModContent.ProjectileType<WingmanGrenade>(), Projectile.damage * 14, Projectile.knockBack * 5, Projectile.owner, 0, 2);
+                    Projectile bomb = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), tipPosition, firingVelocity, ModContent.ProjectileType<UnicronWingmanGrenade>(), Projectile.damage * 14, Projectile.knockBack * 5, Projectile.owner, 0, 2);
                     bomb.timeLeft = 530;
-                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), tipPosition, firingVelocity * 1.2f, ModContent.ProjectileType<WingmanGrenade>(), Projectile.damage * 14, Projectile.knockBack * 5, Projectile.owner, 0, 2);
+                    bomb = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), tipPosition, firingVelocity * 1.2f, ModContent.ProjectileType<UnicronWingmanGrenade>(), Projectile.damage * 14, Projectile.knockBack * 5, Projectile.owner, 0, 2);
+                    bomb.timeLeft = 530;
                 }
             }
             else
@@ -429,9 +434,9 @@ namespace Clamity.Content.Items.Weapons.Magic
 
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), tipPosition, firingVelocity, ModContent.ProjectileType<WingmanShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 2);
-                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), tipPosition, firingVelocity.RotatedBy(-0.05) * 0.85f, ModContent.ProjectileType<WingmanShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 2);
-                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), tipPosition, firingVelocity.RotatedBy(0.05) * 0.85f, ModContent.ProjectileType<WingmanShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 2);
+                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), tipPosition, firingVelocity, ModContent.ProjectileType<UnicronWingmanShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 2);
+                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), tipPosition, firingVelocity.RotatedBy(-0.05) * 0.85f, ModContent.ProjectileType<UnicronWingmanShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 2);
+                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), tipPosition, firingVelocity.RotatedBy(0.05) * 0.85f, ModContent.ProjectileType<UnicronWingmanShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 2);
                 }
             }
 
@@ -536,6 +541,258 @@ namespace Clamity.Content.Items.Weapons.Magic
             firingDelay = reader.ReadInt32();
             launchDelay = reader.ReadInt32();
             MovingUp = reader.ReadBoolean();
+        }
+    }
+    public class UnicronBeam : ModProjectile, ILocalizedModType
+    {
+        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string Texture => "CalamityMod/Projectiles/InvisibleProj";
+
+        public ref float time => ref Projectile.ai[0];
+        public ref float isSplit => ref Projectile.ai[1];
+        public bool splitShot
+        {
+            get => Projectile.ai[2] == 1f;
+            set => Projectile.ai[2] = value == true ? 1f : 0f;
+        }
+        public bool HitDirect { get; set; }
+        public Color mainColor { get; set; } = Color.DarkCyan;
+        public override void SetDefaults()
+        {
+            Projectile.width = 50;
+            Projectile.height = 50;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 300;
+            Projectile.extraUpdates = 75;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 91;
+        }
+
+        public override void AI()
+        {
+            if (isSplit == 0)
+            {
+                Projectile.netSpam = 0;
+                Projectile.netUpdate = true;
+                splitShot = true;
+            }
+
+            Player Owner = Main.player[Projectile.owner];
+            float targetDist = Vector2.Distance(Owner.Center, Projectile.Center);
+
+            if (Projectile.timeLeft % 2 == 0 && time > 2 && targetDist < 1400f)
+            {
+                Particle spark = new GlowSparkParticle(Projectile.Center, -Projectile.velocity * 0.05f, false, 25, MathHelper.Clamp(0.34f - time * 0.07f, 0.085f, 0.34f), mainColor, new Vector2(0.5f, 1.3f));
+                GeneralParticleHandler.SpawnParticle(spark);
+            }
+
+            if (Main.rand.NextBool())
+            {
+                Vector2 trailPos = Projectile.Center;
+                float trailScale = Main.rand.NextFloat(1.9f, 2.3f);
+                Particle Trail = new SparkParticle(trailPos, Projectile.velocity * Main.rand.NextFloat(0.2f, 0.9f), false, Main.rand.Next(40, 50 + 1), trailScale, mainColor);
+                GeneralParticleHandler.SpawnParticle(Trail);
+            }
+
+            Vector2 dustVel = new Vector2(2, 2).RotatedByRandom(100) * Main.rand.NextFloat(0.1f, 0.8f);
+            Dust dust = Dust.NewDustPerfect(Projectile.Center + dustVel, Main.rand.NextBool(4) ? 264 : 66, dustVel, 0, default, Main.rand.NextFloat(0.9f, 1.2f));
+            dust.noGravity = true;
+            dust.color = Main.rand.NextBool() ? Color.Lerp(mainColor, Color.White, 0.5f) : mainColor;
+
+            time++;
+
+            if (Projectile.numUpdates == 1)
+            {
+                Projectile.netSpam = 0;
+                Projectile.netUpdate = true;
+            }
+        }
+        public override void OnKill(int timeLeft)
+        {
+            int numProj = 2;
+            float rotation = MathHelper.ToRadians(10);
+            if (splitShot && time < 250 && !HitDirect)
+            {
+                for (int i = 0; i < numProj; i++)
+                {
+                    Vector2 perturbedSpeed = Projectile.velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numProj - 1)));
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, perturbedSpeed, ModContent.ProjectileType<UnicronBeam>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, 1f);
+                    for (int k = 0; k < 3; k++)
+                    {
+                        Particle blastRing = new CustomPulse(Projectile.Center + Projectile.velocity * 2, Vector2.Zero, mainColor, "CalamityMod/Particles/BloomCircle", Vector2.One, Main.rand.NextFloat(-10, 10), 0.8f, 0.4f, 35);
+                        GeneralParticleHandler.SpawnParticle(blastRing);
+                        Particle blastRing2 = new CustomPulse(Projectile.Center + Projectile.velocity * 2, Vector2.Zero, Color.White, "CalamityMod/Particles/BloomCircle", Vector2.One, Main.rand.NextFloat(-10, 10), 0.7f, 0.3f, 35);
+                        GeneralParticleHandler.SpawnParticle(blastRing2);
+                    }
+                }
+
+                for (int i = 0; i <= 6; i++)
+                {
+                    Particle energy = new GlowSparkParticle(Projectile.Center, (Projectile.velocity * 15).RotatedByRandom(0.5f) * Main.rand.NextFloat(0.1f, 0.4f), false, 10, Main.rand.NextFloat(0.02f, 0.04f), mainColor, new Vector2(2, 0.7f), true);
+                    GeneralParticleHandler.SpawnParticle(energy);
+                }
+                for (int i = 0; i <= 9; i++)
+                {
+                    Particle energy = new SparkParticle(Projectile.Center, (Projectile.velocity * 5).RotatedByRandom(0.5f) * Main.rand.NextFloat(0.1f, 0.4f), false, 25, Main.rand.NextFloat(0.7f, 0.9f), mainColor);
+                    GeneralParticleHandler.SpawnParticle(energy);
+                }
+            }
+            for (int i = 0; i < 28; i++)
+            {
+                Vector2 dustVel = Projectile.velocity * Main.rand.NextFloat(0.1f, 1.5f);
+                Dust dust = Dust.NewDustPerfect(Projectile.Center + dustVel + Main.rand.NextVector2Circular(6, 6), Main.rand.NextBool(4) ? 264 : 66, dustVel, 0, default, Main.rand.NextFloat(0.9f, 1.2f));
+                dust.noGravity = true;
+                dust.color = Main.rand.NextBool() ? Color.Lerp(mainColor, Color.White, 0.5f) : mainColor;
+            }
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (splitShot && time > 7 && !HitDirect)
+                Projectile.Kill();
+
+            Player Owner = Main.player[Projectile.owner];
+
+            for (int i = 0; i <= 8; i++)
+            {
+                Dust dust = Dust.NewDustPerfect(Projectile.Center, Main.rand.NextBool(4) ? 264 : 66, (Projectile.velocity.SafeNormalize(Vector2.UnitY) * 15f).RotatedByRandom(MathHelper.ToRadians(15f)) * Main.rand.NextFloat(0.1f, 0.8f), 0, default, Main.rand.NextFloat(1.2f, 1.6f));
+                dust.noGravity = true;
+                dust.color = Main.rand.NextBool() ? Color.Lerp(mainColor, Color.White, 0.5f) : mainColor;
+            }
+
+            if (time <= 7 && splitShot) // This is the sweet spot
+            {
+                modifiers.SourceDamage *= 5;
+
+                if (!HitDirect)
+                {
+                    Owner.velocity += -Projectile.velocity;
+                    for (int i = 0; i <= 9; i++)
+                    {
+                        Particle energy = new GlowSparkParticle(Projectile.Center, (Projectile.velocity * 15).RotatedByRandom(0.5f) * Main.rand.NextFloat(0.1f, 0.4f), false, 11, Main.rand.NextFloat(0.05f, 0.07f), mainColor, new Vector2(2, 0.5f), true);
+                        GeneralParticleHandler.SpawnParticle(energy);
+                    }
+                    for (int i = 0; i <= 13; i++)
+                    {
+                        Particle energy = new SparkParticle(Projectile.Center, (Projectile.velocity * 10).RotatedByRandom(0.5f) * Main.rand.NextFloat(0.1f, 0.4f), false, 25, Main.rand.NextFloat(0.7f, 0.9f), mainColor);
+                        GeneralParticleHandler.SpawnParticle(energy);
+                    }
+                    for (int k = 0; k < 20; k++)
+                    {
+                        Vector2 shootVel = (Projectile.velocity * 20).RotatedByRandom(0.5f) * Main.rand.NextFloat(0.1f, 1.8f);
+
+                        Dust dust2 = Dust.NewDustPerfect(Projectile.Center, Main.rand.NextBool(4) ? 267 : 66, shootVel);
+                        dust2.scale = Main.rand.NextFloat(1.15f, 1.45f);
+                        dust2.noGravity = true;
+                        dust2.color = Main.rand.NextBool() ? Color.Lerp(mainColor, Color.White, 0.5f) : mainColor;
+                    }
+
+                    SoundStyle fire = new("CalamityMod/Sounds/Custom/ExoMechs/ArtemisApolloDash");
+                    SoundEngine.PlaySound(fire with { Volume = 1.25f, Pitch = 0.6f }, Projectile.Center);
+                }
+
+                HitDirect = true;
+            }
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) => CalamityUtils.CircularHitboxCollision(Projectile.Center, time <= 7 ? 90 : 20, targetHitbox);
+        public override void SendExtraAI(BinaryWriter writer) => writer.Write(HitDirect);
+        public override void ReceiveExtraAI(BinaryReader reader) => HitDirect = reader.ReadBoolean();
+    }
+    public class UnicronWingmanShot : WingmanShot
+    {
+        public new Color mainColor { get; set; } = Color.DarkCyan;
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.scale = 1.25f;
+            Projectile.extraUpdates = 5;
+            Projectile.penetrate = 3;
+
+        }
+
+        public override void AI()
+        {
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            //Dust dust = Dust.NewDustPerfect(Projectile.Center, 107); // + Main.rand.NextVector2Circular(-3, 3)
+            //dust.noGravity = true;
+            //dust.scale = 0.5f;
+            if (time < 180)
+                Projectile.velocity *= 0.995f;
+            if (time % 2 == 0 && Projectile.timeLeft > 15)
+            {
+                SparkParticle spark = new SparkParticle(Projectile.Center - Projectile.velocity.SafeNormalize(Vector2.UnitY) * 3.5f, Projectile.velocity * 0.01f, false, 5, 1f * Projectile.scale, mainColor * 0.4f);
+                GeneralParticleHandler.SpawnParticle(spark);
+            }
+            time++;
+        }
+    }
+    public class UnicronWingmanGrenade : WingmanGrenade
+    {
+        public new float sizeBonus { get; set; } = 1.5f;
+        public new Color mainColor { get; set; } = Color.DarkCyan;
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.scale = 0.5f;
+
+        }
+        public override void AI()
+        {
+            if (Projectile.timeLeft % 2 == 0)
+                Projectile.scale = Main.rand.NextFloat(0.35f, 0.5f);
+
+            if (Projectile.timeLeft <= 65)
+                exploding = true;
+
+            if (exploding)
+            {
+                Projectile.velocity = Vector2.Zero;
+
+                if (Projectile.timeLeft > 65)
+                    Projectile.timeLeft = 65;
+
+                if (Projectile.timeLeft == 65)
+                {
+                    Particle blastRing2 = new CustomPulse(Projectile.Center, Vector2.Zero, mainColor, "CalamityMod/Particles/HighResHollowCircleHardEdge", Vector2.One, Main.rand.NextFloat(-10, 10), 0f, 0.12f * sizeBonus, 15);
+                    GeneralParticleHandler.SpawnParticle(blastRing2);
+                    Particle blastRing = new CustomPulse(Projectile.Center, Vector2.Zero, Color.Lerp(mainColor, Color.White, 0.5f), "CalamityMod/Particles/BloomCircle", Vector2.One, Main.rand.NextFloat(-10, 10), 3f * sizeBonus, 0f, 25);
+                    GeneralParticleHandler.SpawnParticle(blastRing);
+                    SoundStyle fire = new("CalamityMod/Sounds/Item/ArcNovaDiffuserChargeImpact");
+                    SoundEngine.PlaySound(fire with { Volume = 1.25f, Pitch = -0.2f, PitchVariance = 0.15f }, Projectile.Center);
+                }
+
+                if (Projectile.timeLeft == 65)
+                {
+                    Particle blastRing2 = new CustomPulse(Projectile.Center, Vector2.Zero, mainColor, "CalamityMod/Particles/HighResHollowCircleHardEdge", Vector2.One, Main.rand.NextFloat(-10, 10), 0.12f * sizeBonus, 0.135f * sizeBonus, 50);
+                    GeneralParticleHandler.SpawnParticle(blastRing2);
+                }
+
+                if (Projectile.timeLeft % 4 == 0)
+                {
+                    Particle blastRing2 = new CustomPulse(Projectile.Center + new Vector2(95, 95).RotatedByRandom(100) * sizeBonus * Main.rand.NextFloat(0.7f, 1.1f), Vector2.Zero, mainColor, "CalamityMod/Particles/HighResHollowCircleHardEdge", Vector2.One, Main.rand.NextFloat(-10, 10), 0f, Main.rand.NextFloat(0.04f, 0.07f) * sizeBonus, 13);
+                    GeneralParticleHandler.SpawnParticle(blastRing2);
+                }
+            }
+
+            Projectile.velocity *= 0.988f;
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Lighting.AddLight(Projectile.Center, mainColor.ToVector3() * 0.7f);
+
+            if (Projectile.timeLeft % 2 == 0)
+            {
+                if (!exploding && Main.rand.NextBool() || exploding)
+                {
+                    Vector2 dustVel = new Vector2(4, 4).RotatedByRandom(100) * Main.rand.NextFloat(0.1f, 0.8f) * (exploding ? sizeBonus : 1);
+                    Dust dust = Dust.NewDustPerfect(Projectile.Center + dustVel * (exploding ? 5 : 1), Main.rand.NextBool(4) ? 264 : 66, dustVel * (exploding ? 5 : 1), 0, default, Main.rand.NextFloat(0.9f, 1.2f) * (exploding ? 1.5f : 1));
+                    dust.noGravity = true;
+                    dust.color = Main.rand.NextBool() ? Color.Lerp(mainColor, Color.White, 0.5f) : mainColor;
+                }
+            }
+
+            Projectile.netSpam = 0;
+            Projectile.netUpdate = true;
         }
     }
 }
