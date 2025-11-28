@@ -37,6 +37,9 @@ Ranged: {
 Magic: {
 	TheGeneratorSigil.DisplayName: Символ генератора
 	MoonstoneKnifeProjectile.DisplayName: Кинжал из лунного камня
+	// UnicronBeam.DisplayName: Unicron Beam
+	// UnicronWingmanGrenade.DisplayName: Unicron Wingman Grenade
+	// UnicronWingmanShot.DisplayName: Unicron Wingman Shot
 }
 
 Summon: {
