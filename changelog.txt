@@ -1,5 +1,4 @@
-Update 1.0.3.11 - 'Calamity again break addons' Patch
-
+Update 1.0.3.14 - ??? Patch
 
 New Content:
 None
@@ -11,28 +10,10 @@ Removes:
 None
 
 Balance Changes:
-Nerfed Clamitas Crusher damage from 300 to 130
-Nerfed Depths Echo Rifle damage from 56 to 40
-Buffed Hellstone Shellfish Staff damage from 120 to 200
-Buffed Molten Piercer damage from 57 to 144
-Buffed Obsidigun attack speed from 36 to 18 ticks per shoot
-Buffed The Generator damage from 67 to 77
-Buffed Moonstone Knives damage from 3 to 8
-Nerfed Unicron damage from 100 to 80
-Buffed Disease damage from 56 to 194
-Buffed Everest damage from 300 to 1300
-Buffed Frozen Volcano damage from 500 to 2500
-Buffed Rose Bow damage from 98 to 400
-Buffed Auric Kunai damage from 100 to 140
-Buffed Frozen Star Shuriken damage from 300 to 900 and attack speed from 15 to 8
-Nerfed Planterror Staff damage from 325 to 100
+None
 
 Other Changes:
-Renamed Omega to Unicron
-Changed Unicron color from purple to cyan
-Removed value from Wulfrum Leech Dagger
+Pyrogen now disables rain while alive.
 
 Bug Fixes:
-Fixed Hell Flare and Pyro stone missing in boss bag loot pool
-Partly fixed Wall of Bronze multiplayer despawning
-Fixed latest Calamity patch breaking
+None

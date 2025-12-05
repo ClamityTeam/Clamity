@@ -1,2 +1,12 @@
-Clamity Mod (Clamitas Boss) is a pretty cool mod, it does...this. Modify this file with a description of your mod.
-a
+Clamity Addon
+
+The Clamity Addon is add-on for the Calamity Mod which adds content from Calamity Fandom Wiki, however the content added has been altered to be as high quality as posible.
+This mod has official support of both English and Russian Localization as of now.
+
+- Content -
+3 new bosses: Clamitas, Pyrogen and Wall of Bronze
+Over 25 new and old weapons (shortswords included)
+A new late Post-Moon Lord biome: Frozen Hell
+2 armor sets
+New food items
+and more!

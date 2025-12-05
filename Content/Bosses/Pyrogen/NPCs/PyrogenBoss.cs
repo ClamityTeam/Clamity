@@ -233,6 +233,8 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             int fireblast = ModContent.ProjectileType<Fireblast>();
             int fireBarrageHoming = ModContent.ProjectileType<FireBarrageHoming>();
             int type = 235;
+
+            /*
             if (!Main.zenithWorld)
             {
                 _ = SoundID.Item28;
@@ -241,6 +243,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             {
                 _ = SoundID.Item20;
             }
+            */
 
             //NPC.HitSound = (Main.zenithWorld ? SoundID.NPCHit41 : HitSound);
             //NPC.DeathSound = (Main.zenithWorld ? SoundID.NPCDeath14 : DeathSound);
@@ -280,6 +283,8 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                     NPC.localAI[1] -= 1f;
                 }
             }
+
+            CalamityMod.CalamityMod.StopRain(); //honestly pyrogen should just stop rain because hes hot
 
             /*if (CalamityConfig.Instance.BossesStopWeather)
             {
