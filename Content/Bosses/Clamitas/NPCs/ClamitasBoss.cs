@@ -170,6 +170,24 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
         {
             Myself = NPC;
             NPC.TargetClosest();
+
+            bool anyAlive = false;
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player p = Main.player[i];
+                if (p.active && !p.dead)
+                {
+                    anyAlive = true;
+                    break;
+                }
+            }
+
+            if (!anyAlive)
+            {
+                NPC.active = false;
+                return;
+            }
+
             Player player = Main.player[NPC.target];
             CalamityGlobalNPC calamityGlobalNPC = NPC.Calamity();
             if (hitAmount < 5)
@@ -191,10 +209,6 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             {
                 player.AddBuff(ModContent.BuffType<CalamityMod.Buffs.StatDebuffs.Clamity>(), 2);
                 player.AddBuff(ModContent.BuffType<BossEffects>(), 2);
-            }
-            if (Main.player[NPC.target].dead && !Main.player[NPC.target].active)
-            {
-                NPC.active = false;
             }
 
             if (!hide)
@@ -624,7 +638,22 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
 
         public override bool CheckActive()
         {
-            return Vector2.Distance(Main.player[NPC.target].Center, NPC.Center) > 5600f;
+            bool anyAlive = false;
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player p = Main.player[i];
+                if (p.active && !p.dead)
+                {
+                    anyAlive = true;
+                    break;
+                }
+            }
+
+            if (!anyAlive)
+                return true;
+
+            Player target = Main.player[NPC.target];
+            return Vector2.Distance(target.Center, NPC.Center) > 5600f;
         }
 
         public override bool? CanBeHitByProjectile(Projectile projectile)
