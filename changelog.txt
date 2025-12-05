@@ -16,4 +16,4 @@ Other Changes:
 Pyrogen now disables rain while alive.
 
 Bug Fixes:
-None
+Fixed a bug that caused the Soul of Pyrogen to not increase rogue damage properly
