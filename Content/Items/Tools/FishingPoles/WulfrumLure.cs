@@ -35,8 +35,7 @@ namespace Clamity.Content.Items.Tools.FishingPoles
 
             Item.fishingPole = 30;
         }
-        public override bool AltFunctionUse(Player player) => true;
-        public override bool CanRightClick() => charge == 0;
+        public override bool AltFunctionUse(Player player) => charge == 0;
         public override bool? UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
