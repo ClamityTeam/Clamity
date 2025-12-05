@@ -16,4 +16,5 @@ Other Changes:
 Pyrogen now disables rain while alive.
 
 Bug Fixes:
-Fixed a bug that caused the Soul of Pyrogen to not increase rogue damage properly
+Fixed a bug that caused the Soul of Pyrogen to not increase rogue damage properly.
+Fixed a bug that caused the Wulfrum Lure to fire more bobbers than intended when right clicking.
