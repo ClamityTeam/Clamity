@@ -8,40 +8,6 @@ Obsidigun: {
 	Tooltip: Превращает мушкетные пули в быстро движущиеся обсидиановые пули, которые при попадании разлетаются на множество осколков
 }
 
-LeadWizard: {
-	DisplayName: Свинцовый маг
-	Tooltip:
-		'''
-		Выпустите 3 пули, который меняет угол наклона вокруг направление
-		Заменяет мушкетные пули на высокоскоростные пули
-		33% шанца не потратить боеприпас
-		'''
-}
-
-Impaler: {
-	DisplayName: Пронзатель
-	Tooltip:
-		'''
-		Моментально убивает вампиров и мышей-вампиров
-		75% шанца не потратить боеприпас
-		'''
-	/* Tooltip2:
-		'''
-		Fires explosive and flaming stakes
-		Instantly kills vampires and vampire bats
-		75% chance to not consume ammo
-		''' */
-}
-
-ChargedDartBlaster: {
-	DisplayName: Заряженные дротикомёт
-	Tooltip:
-		'''
-		Стреляет множеством дротиков и разлетающимся энергетическими снарядами
-		Правый клик для того, чтобы стрелять большим количеством разлетающихся энергетических снарядов, которые отскакивают
-		'''
-}
-
 RoseBow: {
 	DisplayName: Лук-роза
 	Tooltip:
@@ -51,12 +17,13 @@ RoseBow: {
 		'''
 }
 
-Sillyshark: {
-	DisplayName: Шелковистая акула
-	// Tooltip: ""
-}
-
-AstralStarCannon: {
-	DisplayName: Астральная звёздная пушка
-	Tooltip: Стреляет мощной астральной звездой который создает падающие звезды с небес при ударе
+WitheredBoneBow: {
+	// DisplayName: Wither Bane
+	/* Tooltip:
+		'''
+		Converts wooden arrow to withered bone bolts
+		Bolts creates a copy behind player on hit up to two times
+		Bolts inflict Withered and has 15 armor penetration
+		'Did I hear someone say taco?'
+		''' */
 }

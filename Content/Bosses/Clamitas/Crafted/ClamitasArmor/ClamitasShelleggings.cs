@@ -24,8 +24,8 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.ClamitasArmor
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage<GenericDamageClass>() += 0.15f;
-            player.GetCritChance<GenericDamageClass>() += 9;
+            player.GetDamage<GenericDamageClass>() += 0.13f;
+            player.GetCritChance<GenericDamageClass>() += 5;
         }
 
         public override void AddRecipes()

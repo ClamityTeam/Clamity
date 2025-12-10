@@ -3,7 +3,7 @@ Foods: {
 		DisplayName: Auric Apple
 		Tooltip:
 			'''
-			Minor improvements to all stats for 1 HOUR
+			Minor improvements to all stats for an entire hour
 			'yeah my brain is rotting from today, I read Auric Soul as Auric Fruit' - YuH
 			'''
 	}
@@ -13,8 +13,8 @@ Foods: {
 		Tooltip:
 			'''
 			Major improvements to all stats
-			Boosts the effects of Red Wine
-			Increase threshold of alchohol poisoning by 1 buff
+			Red Wine heals 250 HP, but reduces life regen by 2 HP/s
+			Allows for drinking 1 more alcohol before your liver is poisoned
 			'''
 	}
 
@@ -23,7 +23,7 @@ Foods: {
 		Tooltip:
 			'''
 			Medium improvements to all stats
-			Boosts the effects of Red Wine
+			Red Wine heals 250 HP, but reduces life regen by 2 HP/s
 			'''
 	}
 
@@ -38,36 +38,38 @@ Foods: {
 	}
 
 	SlagspitterPauldron: {
-		Tooltip: Major improvements to all stats
 		DisplayName: Slagspitter Pauldron
+		Tooltip: Major improvements to all stats
 	}
 
 	ClamChowder: {
+		DisplayName: Clam Chowder
 		Tooltip:
 			'''
-			New Ilmeris style
 			Medium improvements to all stats
+			'New Ilmeris style'
 			'''
-		DisplayName: Clam Chowder
 	}
 
 	Barolegs: {
+		DisplayName: Barolegs
 		Tooltip:
 			'''
-			The meat actually looks to have come from a barocraw. Not that it matters, it's rancid all the same
 			Varying improvements to all stats
-			Buff based on game stage
+			Defeat the water elemental found in ocean and her majestic beast to improve its taste
+			Defeat a ghostly foe found in dungeon to improve its taste even further
+			'The meat actually seems to have come from a barocraw!
+			Not that it matters — it's rancid all the same'
 			'''
-		DisplayName: Barolegs
 	}
 
 	Calamitea: {
+		DisplayName: Calamitea
 		Tooltip:
 			'''
-			Quite the calamity
 			Major improvements to all stats
+			'Quite the Calamity'
 			'''
-		DisplayName: Calamitea
 	}
 }
 
@@ -77,10 +79,10 @@ SupremeLuckPotion: {
 }
 
 TitanScalePotion: {
+	DisplayName: Titan Scale Potion
 	Tooltip:
 		'''
 		Increases knockback, defense by 5 and damage reduction by 5%
 		Increases defense by 20 and damage reduction by 5% for a few seconds after a true melee strike
 		'''
-	DisplayName: Titan Scale Potion
 }

@@ -27,7 +27,7 @@ namespace Clamity.Content.Items.Weapons.Magic
             Item.autoReuse = true;
 
             Item.knockBack = 2f;
-            Item.damage = 3;
+            Item.damage = 8;
             Item.DamageType = DamageClass.Magic;
 
             Item.shoot = ModContent.ProjectileType<MoonstoneKnifeProjectile>();
@@ -99,7 +99,6 @@ namespace Clamity.Content.Items.Weapons.Magic
                 AddIngredient(ItemID.ThrowingKnife, 200).
                 AddIngredient(ItemID.ManaCrystal, 2).
                 AddIngredient(ItemID.LesserManaPotion, 3).
-                AddIngredient(ItemID.Lens, 8).
                 AddTile(TileID.Anvils).
                 Register();
         }
@@ -152,7 +151,10 @@ namespace Clamity.Content.Items.Weapons.Magic
                 return;
 
             if (Main.rand.NextBool(3))
+            {
+                Main.player[Projectile.owner].statMana += 3;
                 Main.player[Projectile.owner].ManaEffect(3);
+            }
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -161,7 +163,10 @@ namespace Clamity.Content.Items.Weapons.Magic
                 return;
 
             if (Main.rand.NextBool(3))
+            {
+                Main.player[Projectile.owner].statMana += 3;
                 Main.player[Projectile.owner].ManaEffect(3);
+            }
         }
     }
 }

@@ -8,40 +8,6 @@ Obsidigun: {
 	Tooltip: Converts musket balls into fast-moving obsidian bullets that break into a lot of shards on hit
 }
 
-LeadWizard: {
-	DisplayName: Lead Wizard
-	Tooltip:
-		'''
-		Shoot a 3 bullets what changes rotation around direction
-		Convert musket ball to high velocity bullet
-		33% chance to not consume ammo
-		'''
-}
-
-Impaler: {
-	DisplayName: Impaler
-	Tooltip:
-		'''
-		Instantly kills vampires and vampire bats
-		75% chance to not consume ammo
-		'''
-	Tooltip2:
-		'''
-		Fires explosive and flaming stakes
-		Instantly kills vampires and vampire bats
-		75% chance to not consume ammo
-		'''
-}
-
-ChargedDartBlaster: {
-	DisplayName: Charged Dart Blaster
-	Tooltip:
-		'''
-		Fires a shotgun spread of darts and a splitting energy blast
-		Right click to fire a more powerful exploding energy blast that bounces
-		'''
-}
-
 RoseBow: {
 	DisplayName: Rose Bow
 	Tooltip:
@@ -51,12 +17,13 @@ RoseBow: {
 		'''
 }
 
-Sillyshark: {
-	DisplayName: Sillyshark
-	Tooltip: ""
-}
-
-AstralStarCannon: {
-	DisplayName: Astral Star Cannon
-	Tooltip: Shoot a powerful astral stra which creates a other stars from the sky on hit
+WitheredBoneBow: {
+	DisplayName: Wither Bane
+	Tooltip:
+		'''
+		Converts wooden arrow to withered bone bolts
+		Bolts creates a copy behind player on hit up to two times
+		Bolts inflict Withered and has 15 armor penetration
+		'Did I hear someone say taco?'
+		'''
 }

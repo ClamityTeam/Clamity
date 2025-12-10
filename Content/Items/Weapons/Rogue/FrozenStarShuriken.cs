@@ -18,14 +18,14 @@ namespace Clamity.Content.Items.Weapons.Rogue
         public override float StealthDamageMultiplier => 0.5f;
         public override void SetDefaults()
         {
-            Item.damage = 300;
+            Item.damage = 900;
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.width = 1;
             Item.height = 1;
-            Item.useTime = 15;
-            Item.useAnimation = 15;
+            Item.useTime = 8;
+            Item.useAnimation = 8;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 4f;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
@@ -45,7 +45,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
         {
             CreateRecipe()
                 .AddIngredient<BlazingStar>()
-                .AddIngredient<FishboneBoomerang>()
+                .AddIngredient<StarfishFromTheDepth>()
                 .AddIngredient(ItemID.Trimarang)
                 .AddIngredient<EnchantedMetal>(8)
                 .AddTile<CosmicAnvil>()
@@ -125,7 +125,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
         {
             for (int i = 0; i < Main.rand.Next(3 + (Projectile.Calamity().stealthStrike ? 1 : 0)); i++)
             {
-                int index = Projectile.NewProjectile(Projectile.GetSource_OnHit(target), Projectile.Center, new Vector2(0, 15).RotatedByRandom(MathHelper.TwoPi), 297, Projectile.damage / 3, 0, Projectile.owner);
+                int index = Projectile.NewProjectile(Projectile.GetSource_OnHit(target), Projectile.Center, new Vector2(0, 15).RotatedByRandom(MathHelper.TwoPi), ProjectileID.LostSoulFriendly, Projectile.damage / 3, 0, Projectile.owner);
                 Main.projectile[index].DamageType = ModContent.GetInstance<RogueDamageClass>();
                 Main.projectile[index].usesLocalNPCImmunity = false;
                 Main.projectile[index].usesIDStaticNPCImmunity = true;

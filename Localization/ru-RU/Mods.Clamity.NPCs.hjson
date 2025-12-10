@@ -1,26 +1,26 @@
 ClamitasBoss: {
-	DisplayName: Кламитас, высший моллюск
-	Bestiary: Проклятый самим Каламитасом гигантский моллюск, кламитас впитал в себя силу серы. В жемчужине не осталось силы океана. Ни один негодяй не может противостоять силе самого Кламитаcа
+	DisplayName: Каламидия, Высшая мидия
+	Bestiary: Будучи проклятым самой Каламитас, гигансткий моллюск впитал в себя силу серы. Когда в нём не осталось ни капли силы океана, он превратился в Каламидию, силе которой никто не смеет противостоять.
 
 	BossChecklistIntegration: {
-		// SpawnInfo: Use an [i:Clamity/ClamitasSummoningItem] Clamitous Shell in the Brimstone Crags
-		// DespawnMessage: "[c/FFD700:The Clamitas returns into hiding in its grotto.]"
+		SpawnInfo: Используйте [i:Clamity/ClamitasSummoningItem] в серных скалах.
+		DespawnMessage: "[c/FFD700:Каламидия возращаеться в укрытие в своём гроте.]"
 	}
 }
 
 PyrogenBoss: {
 	DisplayName: Пироген
-	Bestiary: Пироген - гигантская магическая печь, созданная неизвестным кузнеца огня. В нем много огненной эссенции. 'Более 1000 раз в секунду'
+	Bestiary: Пироген - гигантская магическая печь, созданная неизвестным кузнеца огня, содержащая большое количество эссенция огня. «Более 1000 скоростей света к секунду!»
 
 	BossChecklistIntegration: {
-		// SpawnInfo: Use an [i:Clamity/PyroKey] Pyro Key in the Desert
-		// DespawnMessage: "[c/FFD700:Pyrogen settles once more into the searing lake]"
+		SpawnInfo: Используйте [i:Clamity/PyroKey] в пустыне.
+		DespawnMessage: "[c/FFD700:Пироген вновь спустился в своё пылающее озеро.]"
 	}
 }
 
 Stupid.DisplayName: Легендарный высший среди высших Каламитас самого высшего в одежде Ксерока из Суприма
 // StormElemental.DisplayName: Storm Elemental
-PyrogenShield.DisplayName: Щит пирогена
+PyrogenShield.DisplayName: Щит Пирогена
 WallOfBronzeTorret.DisplayName: Бронзовая турель
 WallOfBronzeLaser.DisplayName: Бронзовая лазерная машина
 WallOfBronzeClaw.DisplayName: Бронзовый коготь

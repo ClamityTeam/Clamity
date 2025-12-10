@@ -152,7 +152,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
                     {
                         for (int i = 0; i < 3; i++)
                         {
-                            int idx = Projectile.NewProjectile(Projectile.GetSource_FromThis(), startPos, kunaiSp, ModContent.ProjectileType<ExoGladiusBeam>(), Projectile.damage / 2, Projectile.knockBack / 3f, Projectile.owner, 0f, 0f);
+                            int idx = Projectile.NewProjectile(Projectile.GetSource_FromThis(), startPos, kunaiSp, ModContent.ProjectileType<ExoNewBeam>(), Projectile.damage / 2, Projectile.knockBack / 3f, Projectile.owner, 0f, 0f);
                             Main.projectile[idx].DamageType = ModContent.GetInstance<RogueDamageClass>();
                         }
                     }

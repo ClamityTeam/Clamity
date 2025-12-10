@@ -9,23 +9,18 @@ ClamitousPearl: {
 }
 
 CoreOfFlame: {
-	DisplayName: Ядро огня
+	DisplayName: Ядро Игниса
 	// Tooltip: ""
 }
 
 EssenceOfFlame: {
-	DisplayName: Эссенция огня
+	DisplayName: Эссенция Игниса
 	Tooltip: Эссенция существ из горячих земель
 }
 
-MediocreMatter: {
-	// DisplayName: Mediocre Matter
-	// Tooltip: ""
-}
-
 EnchantedMetal: {
-	Tooltip: Металл наполенный душами самой Террарии
 	DisplayName: Зачарованный металл
+	Tooltip: Металл наполенный душами самой Террарии
 }
 
 MetalFeather: {
@@ -39,6 +34,6 @@ RarePlanteraFruit: {
 }
 
 CoralskinFoolfish: {
-	Tooltip: Камуфляж это один из лучших способов защиты в Природе
 	DisplayName: Коралочешуйчетая рыба-балван
+	Tooltip: Камуфляж это один из лучших способов защиты в Природе
 }

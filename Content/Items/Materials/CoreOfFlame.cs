@@ -1,14 +1,6 @@
-﻿using CalamityMod;
-using CalamityMod.Items.Materials;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace Clamity.Content.Items.Materials
+﻿namespace Clamity.Content.Items.Materials
 {
-    public class CoreOfFlame : CoreofEleum
+    /*public class CoreOfFlame : CoreofEleum
     {
         public override void Update(ref float gravity, ref float maxFallSpeed)
         {
@@ -27,5 +19,5 @@ namespace Clamity.Content.Items.Materials
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
-    }
+    }*/
 }

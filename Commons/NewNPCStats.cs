@@ -15,6 +15,11 @@ namespace Clamity.Commons
 {
     public static class NewNPCStats
     {
+        private const double ExpertContactVanillaMultiplier = 2D;
+        private const double MasterContactVanillaMultiplier = 3D;
+        private const double NormalProjectileVanillaMultiplier = 2D;
+        private const double ExpertProjectileVanillaMultiplier = 4D;
+        private const double MasterProjectileVanillaMultiplier = 6D;
         public static void Load()
         {
 
@@ -73,6 +78,14 @@ namespace Clamity.Commons
                   new int[5]{ 300, 330, 360, 410, 450 }
                 }
             };
+            EnemyStats.ExpertDamageMultiplier = new SortedDictionary<int, double>()
+            {
+
+            };
+            EnemyStats.ContactDamageValues = new SortedDictionary<int, int[]>()
+            {
+
+            };
         }
         public static void UnLoad()
         {
@@ -96,6 +109,31 @@ namespace Clamity.Commons
             if (CalamityWorld.revenge)
                 return projectileDamage1;
             return !Main.expertMode ? num2 : num3;
+        }
+        public static void GetNPCDamageClamity(this NPC npc)
+        {
+            double damageAdjustment = GetExpertDamageMultiplierClamity(npc) * (Main.masterMode ? MasterContactVanillaMultiplier : ExpertContactVanillaMultiplier);
+
+            // Safety check: If for some reason the contact damage array is not initialized yet, set the NPC's damage to 1.
+            bool exists = EnemyStats.ContactDamageValues.TryGetValue(npc.type, out int[] contactDamage);
+            if (!exists)
+                npc.damage = 1;
+
+            int normalDamage = contactDamage[0];
+            int expertDamage = contactDamage[1] == -1 ? -1 : (int)Math.Round(contactDamage[1] / damageAdjustment);
+            int revengeanceDamage = contactDamage[2] == -1 ? -1 : (int)Math.Round(contactDamage[2] / damageAdjustment);
+            int deathDamage = contactDamage[3] == -1 ? -1 : (int)Math.Round(contactDamage[3] / damageAdjustment);
+            int masterDamage = contactDamage[4] == -1 ? -1 : (int)Math.Round(contactDamage[4] / damageAdjustment);
+
+            // If the assigned value would be -1, don't actually assign it. This allows for conditionally disabling the system.
+            int damageToUse = Main.masterMode ? masterDamage : CalamityWorld.death ? deathDamage : CalamityWorld.revenge ? revengeanceDamage : Main.expertMode ? expertDamage : normalDamage;
+            if (damageToUse != -1)
+                npc.damage = damageToUse;
+        }
+        public static double GetExpertDamageMultiplierClamity(this NPC npc, bool? master = null)
+        {
+            bool exists = EnemyStats.ExpertDamageMultiplier.TryGetValue(npc.type, out double damageMult);
+            return exists ? damageMult : 1D;
         }
         [StructLayout(LayoutKind.Sequential, Size = 1)]
         internal struct EnemyStats

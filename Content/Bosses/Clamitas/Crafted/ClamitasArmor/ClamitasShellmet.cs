@@ -33,8 +33,8 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.ClamitasArmor
         public override void UpdateEquip(Player player)
         {
             player.ignoreWater = true;
-            player.GetDamage<GenericDamageClass>() += 0.1f;
-            player.GetCritChance<GenericDamageClass>() += 9;
+            player.GetDamage<GenericDamageClass>() += 0.06f;
+            player.GetCritChance<GenericDamageClass>() += 5;
             AmidiasEffect(player);
 
         }
@@ -49,7 +49,7 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.ClamitasArmor
             player.Calamity().wearingRogueArmor = true;
 
 
-            player.maxMinions += 10;
+            player.maxMinions += 8;
             if (player.whoAmI == Main.myPlayer)
             {
                 IEntitySource source_ItemUse = player.GetSource_ItemUse(Item);
@@ -58,9 +58,9 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.ClamitasArmor
                     player.AddBuff(ModContent.BuffType<HellstoneShellfishStaffBuff>(), 3600);
                 }
 
-                if (player.ownedProjectileCounts[ModContent.ProjectileType<HellstoneShellfishStaffMinion>()] < 3)
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<HellstoneShellfishStaffMinion>()] < 2)
                 {
-                    Projectile.NewProjectileDirect(source_ItemUse, player.Center, -Vector2.UnitY, ModContent.ProjectileType<HellstoneShellfishStaffMinion>(), 200, 0f, player.whoAmI).originalDamage = 200;
+                    Projectile.NewProjectileDirect(source_ItemUse, player.Center, -Vector2.UnitY, ModContent.ProjectileType<HellstoneShellfishStaffMinion>(), 130, 0f, player.whoAmI).originalDamage = 130;
                 }
             }
         }

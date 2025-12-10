@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\tModLoader.targets" />
   <PropertyGroup>
     <AssemblyName>Clamity</AssemblyName>
@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CalamityMod">
-      <HintPath>CalamityMod.dll</HintPath>
+      <HintPath>..\CalamityMod.dll</HintPath>
     </Reference>
 	  <Reference Include="Luminance">
 		  <HintPath>Luminance.dll</HintPath>

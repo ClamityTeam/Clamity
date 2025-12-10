@@ -1,4 +1,4 @@
-﻿using CalamityMod;
+using CalamityMod;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using Terraria;
@@ -18,7 +18,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
             Item.height = 26;
             Item.value = Item.sellPrice(gold: 10);
             Item.rare = ModContent.RarityType<Violet>();
-            Item.defense = 75;
+            Item.defense = 60;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs) => body.type == ModContent.ItemType<FrozenHellstoneChestplate>() && legs.type == ModContent.ItemType<FrozenHellstoneGreaves>();
@@ -31,7 +31,8 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = this.GetLocalizedValue("SetBonus");
+            var hotkey = CalamityKeybinds.ArmorSetBonusHotKey.TooltipHotkeyString();
+            player.setBonus = this.GetLocalization("SetBonus").Format(hotkey);
 
             //player.setBonus = "Cannot be frozen.\nPress Armor Set Bonus to create an ice shield that parries attacks.[WIP]\nFailing to parry will cause you to overcool.[WIP]";
             player.Clamity().frozenParrying = true;

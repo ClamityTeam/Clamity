@@ -1,7 +1,21 @@
-Update 1.0.3.5
+Update 1.0.3.14 - ??? Patch
 
-Clamity now requare Luminance and Subworld Library for future updates
-Permafrost now sold Enchanted Metal if Wall of Bronze is defeated but Frozen Hell not generated
-Again Fixed Funny
-Fixed Pyro Stone hasn't heat debuff multiplier and don't affects calamity's debuffs
-Configs now server side
+New Content:
+None
+
+Reworks:
+None
+
+Removes:
+None
+
+Balance Changes:
+None
+
+Other Changes:
+Pyrogen now disables rain while alive.
+
+Bug Fixes:
+Fixed a bug that caused the Soul of Pyrogen to not increase rogue damage properly.
+Fixed a bug that caused the Wulfrum Lure to fire more bobbers than intended when right clicking.
+Fixed a bug that caused Clamitas not to despawn properly.

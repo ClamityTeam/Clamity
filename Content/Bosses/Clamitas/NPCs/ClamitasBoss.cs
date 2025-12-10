@@ -15,6 +15,7 @@ using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.Projectiles.Boss;
 using Clamity.Commons;
 using Clamity.Content.Bosses.Clamitas.Drop;
+using Clamity.Content.Items.Accessories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -22,7 +23,6 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Clamity.Commons.CalRemixCompatibilitySystem;
@@ -170,6 +170,24 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
         {
             Myself = NPC;
             NPC.TargetClosest();
+
+            bool anyAlive = false;
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player p = Main.player[i];
+                if (p.active && !p.dead)
+                {
+                    anyAlive = true;
+                    break;
+                }
+            }
+
+            if (!anyAlive)
+            {
+                NPC.active = false;
+                return;
+            }
+
             Player player = Main.player[NPC.target];
             CalamityGlobalNPC calamityGlobalNPC = NPC.Calamity();
             if (hitAmount < 5)
@@ -191,10 +209,6 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             {
                 player.AddBuff(ModContent.BuffType<CalamityMod.Buffs.StatDebuffs.Clamity>(), 2);
                 player.AddBuff(ModContent.BuffType<BossEffects>(), 2);
-            }
-            if (Main.player[NPC.target].dead && !Main.player[NPC.target].active)
-            {
-                NPC.active = false;
             }
 
             if (!hide)
@@ -624,7 +638,22 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
 
         public override bool CheckActive()
         {
-            return Vector2.Distance(Main.player[NPC.target].Center, NPC.Center) > 5600f;
+            bool anyAlive = false;
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player p = Main.player[i];
+                if (p.active && !p.dead)
+                {
+                    anyAlive = true;
+                    break;
+                }
+            }
+
+            if (!anyAlive)
+                return true;
+
+            Player target = Main.player[NPC.target];
+            return Vector2.Distance(target.Center, NPC.Center) > 5600f;
         }
 
         public override bool? CanBeHitByProjectile(Projectile projectile)
@@ -770,8 +799,9 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             npcLoot.Add(ModContent.ItemType<HuskOfCalamity>(), 1, 25, 30);
             npcLoot.Add(ModContent.ItemType<ClamitousPearl>(), 1, 2, 4);
             npcLoot.Add(ModContent.ItemType<SlagspitterPauldron>(), 2, 1, 4);
+            npcLoot.Add(ModContent.ItemType<TheSubcommunity>(), 10);
             //npcLoot.Add(ModContent.ItemType<Calamitea>(), 1, 3, 3);
-            npcLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Brimlash>(), ModContent.ItemType<BrimstoneFury>(), ModContent.ItemType<BurningSea>(), ModContent.ItemType<IgneousExaltation>(), ModContent.ItemType<Brimblade>()));
+            npcLoot.Add(DropHelper.CalamityStyle(DropHelper.NormalWeaponDropRateFraction, ModContent.ItemType<Brimlash>(), ModContent.ItemType<BrimstoneFury>(), ModContent.ItemType<BurningSea>(), ModContent.ItemType<IgneousExaltation>(), ModContent.ItemType<Brimblade>()));
             npcLoot.AddConditionalPerPlayer(() => !ClamitySystem.downedClamitas, ModContent.ItemType<LoreWhat>(), ui: true, DropHelper.FirstKillText);
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ClamitasRelic>());
             npcLoot.Add(ModContent.ItemType<ThankYouPainting>(), 100);

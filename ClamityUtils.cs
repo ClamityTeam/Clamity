@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CalamityMod;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -23,6 +24,7 @@ namespace Clamity
         public static ClamityPlayer Clamity(this Player player) => player.GetModPlayer<ClamityPlayer>();
         public static ClamityGlobalProjectile Clamity(this Projectile proj) => proj.GetGlobalProjectile<ClamityGlobalProjectile>();
         public static ClamityGlobalNPC Clamity(this NPC npc) => npc.GetGlobalNPC<ClamityGlobalNPC>();
+        public static ClamityGlobalItem Clamity(this Item item) => item.GetGlobalItem<ClamityGlobalItem>();
         public static LocalizedText GetText(string key) => Language.GetOrRegister("Mods.Clamity." + key, (Func<string>)null);
         public static bool ContainType(int type, params int[] array)
         {
@@ -155,6 +157,45 @@ namespace Clamity
             }
 
             return false;
+        }
+
+
+        public static float InverseLerp(float from, float to, float x, bool clamped = true)
+        {
+            float inverse = (x - from) / (to - from);
+            if (!clamped)
+                return inverse;
+
+            return MathHelper.Clamp(inverse, 0f, 1f);
+        }
+        /// <summary>
+        /// Subdivides a rectangle into frames.
+        /// </summary>
+        /// <param name="rectangle">The base rectangle.</param>
+        /// <param name="horizontalFrames">The amount of horizontal frames to subdivide into.</param>
+        /// <param name="verticalFrames">The amount of vertical frames to subdivide into.</param>
+        /// <param name="frameX">The index of the X frame.</param>
+        /// <param name="frameY">The index of the Y frame.</param>
+        public static Rectangle Subdivide(this Rectangle rectangle, int horizontalFrames, int verticalFrames, int frameX, int frameY)
+        {
+            int width = rectangle.Width / horizontalFrames;
+            int height = rectangle.Height / verticalFrames;
+            return new Rectangle(rectangle.Left + width * frameX, rectangle.Top + height * frameY, width, height);
+        }
+        public static Recipe ReplaceIngredient(this Recipe recipe, int oldItem, int newItem, int count = 1)
+        {
+            int index = recipe.IngredientIndex(oldItem);
+            if (index != -1)
+            {
+                recipe.requiredItem.RemoveAt(index);
+                recipe.requiredItem.Insert(index, new Item(newItem) { stack = count });
+            }
+            return recipe;
+        }
+        public static void AddOrReplace<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value) where TKey : notnull
+        {
+            if (dict.ContainsKey(key)) dict[key] = value;
+            else dict.Add(key, value);
         }
 
         public const float DefaultTargetRedecideThreshold = 4000f;

@@ -9,11 +9,12 @@ RealityRelocator: {
 		'''
 }
 
-RodOfMisery: {
-	DisplayName: Жезл Страдания
-	Tooltip:
+WitherOnAStick: {
+	// DisplayName: Wither On A Stick
+	/* Tooltip:
 		'''
-		Телепортирует вас в положение, противоположное указателю вашей мыши... вроде.
-		Телепортация отключена, пока активно состояние хаоса
-		'''
+		If you see this item i don't like
+		how looks current Alicorn on a Stick (Coldheart Icicle)
+		'Truely Very Clamitous'
+		''' */
 }

@@ -1,40 +1,38 @@
 SoulOfPyrogen: {
+	DisplayName: Soul of Pyrogen
 	Tooltip:
 		'''
-		10% increased Melee and Rogue damage
-		True Melee strikes create spears from the ground
-		Stealth strike create spears from the ground on hit by projectile
+		10% increased melee and rogue damage
+		True melee and stealth strikes summon spears from the depths of Hell
 		'''
-	DisplayName: Soul of Pyrogen
 }
 
 DraculasCharm: {
+	DisplayName: Dracula's Charm
 	Tooltip:
 		'''
 		15% increased rogue damage and +10 maximum stealth
-		On stealth strike create a homing lifestealing vampires 
-		On stealth strike weapon inflict Crumbling and deal 8% more damage
-		Rogue projectiles give lifesteal on crits and explode into homing souls on death
+		Stealth strikes deal 8% more damage, summon a swarm of homing lifestealing vampire bats and inflict Crumbling
+		Rogue projectiles steal life on crits and explode into homing souls
 		'''
-	DisplayName: Dracula`s Charm
 }
 
 PyroStone: {
+	DisplayName: Pyro Stone
 	Tooltip:
 		'''
 		Multiplies all heat-based debuff damage by 1.5
-		Creates a rotating fire shield around you that damages and ignite enemies on contact
+		Creates a rotating fire shield around you that damages and ignites enemies on contact
 		'One of the ancient relics'
 		'''
-	DisplayName: Pyro Stone
 }
 
 HellFlare: {
 	DisplayName: Hell Flare
 	Tooltip:
 		'''
-		All attacks and projectiles inflict hellfire
-		Immunity to 'on fire' and 'hellfire' debuffs
+		All attacks and projectiles inflict Hellfire
+		Immunity to On fire! and Hellfire
 		Being above 75% life grants 10% increased crit chance
 		Being below 25% life grants 10% increased damage reduction
 		Grants resistance against cold attacks
@@ -49,30 +47,31 @@ SupremeBarrier: {
 		This dash can slam through enemies without taking damage
 		Grants immunity to knockback and fire blocks
 		Grants immunity to the vast majority of debuffs, including God Slayer Inferno
-		Causes stars to fall and gives increased immune time when damaged
-		Absorbs 15% of damage done to players on your team
-		This effect is only active above 25% life
+		Causes stars to fall and increases length of invincibility after taking damage
+		Grants bonus invincibility frames based on your missing health
+		This effect scales from 10 frames at full HP to 40 frames at 25% or less HP
+		Being struck for over 200 damage grants 30 additional invincibility frames
 		Puts a shell around the owner when below 50% life that reduces damage taken
-		Being hit for over 200 damage will make you immune for an extended period of time
+		Absorbs 25% of damage done to players on your team when above 25% life
 		'''
 }
 
 IcicleRing: {
+	DisplayName: Icicle Ring
 	Tooltip:
 		'''
-		Wearer takes damage from pain. 
-		Reduces the mana cost of spells up to zero cost.
+		Reduces mana cost to zero
+		Wearer constantly takes damage from the pain
 		'''
-	DisplayName: Icicle Ring
 }
 
 RedDie: {
 	DisplayName: Red Die
 	Tooltip:
 		'''
-		1.5x luck modified
-		20% increased extra luck 
-		'You are ready for reroll?'
+		1.5x luck
+		Increases luck by extra 20%
+		'Are you ready for a reroll?'
 		'''
 }
 
@@ -81,11 +80,12 @@ EidolonAmulet: {
 	Tooltip:
 		'''
 		Grants immunity to the Riptide, Crush Depth and Irradiated debuffs
-		All attacks inflict the Crush Depth debuff and release acid droplets from the sky
-		You recover air while standing still underwater (don't work in abyss)
+		All attacks inflict the Crush Depth debuff and cause acid droplets to fall from the sky
 		15% increased mining speed and 10% increased damage while wet
-		25% increased max life while in the abyss
-		Provides a moderate amount of light in the abyss
+		25% increased max life while in the Abyss
+		You recover air while standing still underwater
+		This effect is disabled in the Abyss
+		Provides a moderate amount of light in the Abyss
 		'''
 }
 
@@ -98,8 +98,9 @@ Wings: {
 			Acceleration multiplier: 2.8
 			Excellent vertical speed
 			Flight time: 280
-			When you getting hit, you receive flight time percentages equal to half of the ratio of damage received to max HP
-			While wearing Frozen Armor, all players in your team gets a 20 increased defence
+			Restores flight time when taking a hit
+			Amount of restored flight time is equal to the damage taken to max life ratio divided by 2
+			Defense of all players on your team is increased by 20 while wearing Frozen Armor
 			'''
 	}
 }
@@ -108,15 +109,83 @@ PearlOfFishCalamity: {
 	DisplayName: Pearl of Fish Calamity
 	Tooltip:
 		'''
-		50 increased fishing power
-		Greatly increases chance of catching potion ingredient fish
+		Increases fishing skill by 50
 		Increases chance to catch crates
+		Greatly increases chance of catching potion ingredient fish
 		Potion ingredient fish yield is increased
-		Summon a water elemental who will protect you while fishing
+		Summons a water elemental to protect you
+		The elemental stays above you, shooting water spears, ice mist, and treble clefs at nearby enemies
 		'''
 }
 
 SeaShell: {
 	DisplayName: Sea Shell
 	Tooltip: Increased defense, damage reduction and movement speed while wet
+}
+
+TheSubcommunity: {
+	DisplayName: The Subcommunity
+	Tooltip:
+		'''
+		[STATS]
+		'The part of The (Calamity) Community.'
+		'Has own specialization.'
+		[c/B00BA5:Thank you to all of my supporters who made this addon a reality!]
+		'''
+	StatsList:
+		'''
+		Increases mining speed by {0}%
+		Increases luck by {1} and fishing power by {2}
+		Increases tile and wall placing speed by {3}% and placing range by {4}
+		Become more powerful as you defeat bosses ({5}% Power)
+		'''
+}
+
+MagicDiamond: {
+	DisplayName: Magic Diamond
+	Tooltip:
+		'''
+		Dealing magic damage creates a small barrier
+		Each magic attack adds a small amount of durability to the barrier
+		The barrier can store up to 20 durability
+		'''
+}
+
+SharpAmethyst: {
+	DisplayName: Sharp Amethyst
+	Tooltip:
+		'''
+		Shooting an arrow has a chance to create an extra gem arrow
+		Gem arrows deal 20% of the arrow's damage
+		'''
+}
+
+BlightedSpyglass: {
+	DisplayName: Blighted Spyglass
+	Tooltip:
+		'''
+		+1 max sentry
+		Sentries inflict a Brimstone Flames
+		'''
+}
+
+CyanPearl: {
+	DisplayName: Cyan Pearl
+	Tooltip:
+		'''
+		+7% summon damage
+		Halves summon damage penalty for sentries
+		'''
+}
+
+SkullOfTheBloodGod: {
+	DisplayName: Skull of the Blood God
+	Tooltip:
+		'''
+		20% increased damage and 13% increased critical strike chance
+		Critical strikes explode, causing nearby enemies to ignite with Brimstone Flames
+		Halves enemy contact damage with a 20 second cooldown
+		Brimstone fire rains down after getting hit
+		Greatly reduces the damage taken by the Brimstone Flames debuff
+		'''
 }

@@ -1,0 +1,15 @@
+Blighted Spyglass
++1 max sentryes
+Sentries inflict brimstone flames
+Calamity Eye drop
+
+Cyan Pearl
++7% summon damage
+Halves summon damage penalty for sentries
+Clam drop
+
+Braelor's Plate
++1 max sentry
++15% summon damage
+Hitting sentryes by whip increase a attack speed
+Craft from any old one's accessory + ...

@@ -2,21 +2,21 @@
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
+using CalamityMod.NPCs.Crags;
 using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.NPCs.PlaguebringerGoliath;
 using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.TownNPCs;
 using Clamity.Content.Biomes.FrozenHell.Items;
+using Clamity.Content.Items;
 using Clamity.Content.Items.Accessories;
-using Clamity.Content.Items.Materials;
+using Clamity.Content.Items.Accessories.GemCrawlerDrop;
+using Clamity.Content.Items.Accessories.Sentry;
 using Clamity.Content.Items.Mounts;
 using Clamity.Content.Items.Potions.Food;
-using Clamity.Content.Items.Tools.BreakingTool;
 using Clamity.Content.Items.Weapons.Classless;
 using Clamity.Content.Items.Weapons.Melee.Shortswords;
-using Clamity.Content.Items.Weapons.Melee.Swords;
-using Clamity.Content.Items.Weapons.Ranged.Guns;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -36,10 +36,6 @@ namespace Clamity
             LeadingConditionRule mainRule = npcLoot.DefineNormalOnlyDropSet();
 
             //Boss Drop
-            if (npc.type == NPCID.Golem)
-            {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LeadWizard>(), 4));
-            }
             if (npc.type == ModContent.NPCType<PlaguebringerGoliath>())
             {
                 mainRule.Add(ItemDropRule.Common(ModContent.ItemType<Disease>(), 4));
@@ -49,21 +45,34 @@ namespace Clamity
             if (npc.type == ModContent.NPCType<SupremeCalamitas>())
             {
                 mainRule.Add(ItemDropRule.Common(ModContent.ItemType<Calamitea>(), 1, 10, 10));
+                npcLoot.Add(ItemDropRule.ByCondition(DropHelper.If(info => info.npc.type == ModContent.NPCType<SupremeCalamitas>() && info.npc.ModNPC<SupremeCalamitas>().permafrost, false), ModContent.ItemType<WitherOnAStick>()));
             }
 
             //Other Drop
-            if (npc.type == NPCID.GoblinWarrior)
-            {
-                npcLoot.Add(ModContent.ItemType<Warblade>(), 50);
-                npcLoot.Add(ModContent.ItemType<Waraxe>(), 50);
-            }
             if (npc.type == NPCID.SeaSnail)
             {
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<SeaShell>(), 2, 1));
             }
+            if (npc.type == ModContent.NPCType<CalamityEye>())
+            {
+                var hardmode = npcLoot.DefineConditionalDropSet(DropHelper.Hardmode());
+                hardmode.Add(ModContent.ItemType<BlightedSpyglass>(), 6);
+            }
+            if (npc.type == ModContent.NPCType<Clam>())
+            {
+                npcLoot.Add(ModContent.ItemType<CyanPearl>(), 6);
+            }
+            if (npc.type == ModContent.NPCType<CrawlerDiamond>())
+            {
+                npcLoot.Add(ModContent.ItemType<MagicDiamond>(), 6);
+            }
+            if (npc.type == ModContent.NPCType<CrawlerAmethyst>())
+            {
+                npcLoot.Add(ModContent.ItemType<SharpAmethyst>(), 6);
+            }
 
             //Essence of Flame drop
-            if (ContainType(npc.type, NPCID.Mummy, NPCID.LightMummy, NPCID.DarkMummy, NPCID.BloodMummy,
+            /*if (ContainType(npc.type, NPCID.Mummy, NPCID.LightMummy, NPCID.DarkMummy, NPCID.BloodMummy,
                 NPCID.DesertBeast, NPCID.DesertScorpionWalk, NPCID.DesertScorpionWall,
                 NPCID.DesertDjinn, NPCID.DesertLamiaDark, NPCID.DesertLamiaLight,
                 NPCID.DesertGhoul, NPCID.DesertGhoulCorruption, NPCID.DesertGhoulCrimson, NPCID.DesertGhoulHallow,
@@ -82,7 +91,7 @@ namespace Clamity
             {
                 //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MandibleClaws>(), 50));
                 npcLoot.Add(ItemDropRule.ByCondition(hm, ModContent.ItemType<EssenceOfFlame>(), 4));
-            }
+            }*/
 
 
             //Food drop
@@ -395,11 +404,11 @@ namespace Clamity
             }
 
             // Kami Debuff from Yanmei's Knife
-            if (npc.Calamity().kamiFlu > 0)
+            /*if (npc.Calamity().kamiFlu > 0)
             {
                 int baseKamiFluDoTValue = (int)(250 * vanillaSicknessDamageMult);
                 ApplyDPSDebuff(baseKamiFluDoTValue, baseKamiFluDoTValue / 10, ref npc.lifeRegen, ref damage);
-            }
+            }*/
 
             //Absorber Affliction
             if (npc.Calamity().absorberAffliction > 0)

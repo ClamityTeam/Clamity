@@ -26,8 +26,8 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.ClamitasArmor
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage<GenericDamageClass>() += 0.15f;
-            player.GetCritChance<GenericDamageClass>() += 4;
+            player.GetDamage<GenericDamageClass>() += 0.12f;
+            player.GetCritChance<GenericDamageClass>() += 7;
             player.Calamity().giantPearl = true;
         }
 

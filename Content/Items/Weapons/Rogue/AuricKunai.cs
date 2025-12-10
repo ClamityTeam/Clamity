@@ -37,7 +37,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Item.UseSound = SoundID.Item109;
             Item.autoReuse = true;
 
-            Item.damage = 100;
+            Item.damage = 140;
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Item.knockBack = 5f;
 

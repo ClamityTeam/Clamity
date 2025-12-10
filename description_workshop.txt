@@ -1,28 +1,39 @@
-﻿Clamitas Addon is mod for Calamity which adds content from Calamity Fandom wiki and not only, but with high quality of realization as posible (second Calamity Community Remix). This mod focusing on adding bosses
-Mod has official support of English and Russian Localization
+﻿[h1] Clamity Addon[/h1]
+[url=https://discord.gg/7auk3bDb3K] Discord[/url]
 
-[h1]Content[/h1]
+The Clamity Addon is add-on for the Calamity Mod which adds content from Calamity Fandom Wiki, however the content added has been altered to be as high quality as posible.
+This mod has official support of both English and Russian Localization as of now.
+
+[h2]- Content -[/h2]
 [list]
-	[*] 3 bosses: Clamitas, Pyrogen and Wall of Bronze
-	[*] over 25 old and new weapons (shortswords included)
-	[*] new late post-moonlord biome - Frozen Hell
-	[*] 2 armor set
-	[*] new foods
-	[*] And more
+	[*] 3 new bosses: Clamitas, Pyrogen and Wall of Bronze
+	[*] Over 25 new and old weapons (shortswords included)
+	[*] A new late Post-Moon Lord biome: Frozen Hell
+	[*] 2 armor sets
+	[*] New food items
+	[*] and more!
 [/list]
 
-[h1]Credits[/h1]
-Thanks StarvoXD for inspiration of Clamitas (and music)
-Thanks スナネコ (Mira) for helping with Wall of Bronze and Frozen Hell
-Credits for music in music mod page
-Fandom Wiki for sprites and ideas
-Calamity Team for cool mod
-YOU for downloading this project
+[h2]- Team -[/h2]
+Owner: WitherTaco
+Developers: WitherTaco, Akira
+Spriters: pil, thydeo, WitherTaco
+Music: FranciumKilla, BrimstonPremium
 
-[h1]Special thanks[/h1]
-Lion8cake and Destructor_Ben for helping with Frozen Hell visual
-catt for nohitting a clamitas (and comments about the boss)
+[h2]- Credits - [/h2]
+[list]
+	[*] StarvoXD for inspiration of Clamitas (and its music)
+	[*] スナネコ (Mira) for helping with Wall of Bronze and Frozen Hell
+	[*] Each composer listed in the music mod page
+	[*] Calamity Fandom Wiki and Chinese Calamity Fandom Wiki for sprites and ideas
+	[*] Calamity Team for thier cool mod
+	[*] YOU for downloading and supporting this project
+[/list]
 
-[h1]My discord server:[url=https://discord.gg/7auk3bDb3K] Link[/url][/h1]
+[h2]- Special Thanks -[/h2]
+[list]
+	[*] Lion8cake and Destructor_Ben for helping with Frozen Hell visual
+	[*] catt for nohitting a Clamitas (and comments about the boss)
+[/list]
 
-[h1]You can support me on [url=https://ko-fi.com/withertaco] Ko-fi[/url][/h1]
+If you wish to support me & my projects, you can do so on [url=https://ko-fi.com/withertaco] Ko-fi[/url]

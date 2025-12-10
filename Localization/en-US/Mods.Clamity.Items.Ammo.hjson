@@ -4,50 +4,23 @@ Dart: {
 		Tooltip:
 			'''
 			Bounces between enemies
-			Create explosion on hit
+			Creates an explosion on hit
 			'''
 	}
 }
 
 Arrow: {
-	WarArrow: {
-		Tooltip: Inflict a Armor Crunch
-		DisplayName: War Arrow
-	}
+	A: a
 
 	FrostfireArrow: {
 		DisplayName: Frostfire Arrow
-		Tooltip: Create explosion on hit
+		Tooltip: Creates an explosion on hit
 	}
 }
 
 Solution: {
 	CyanSolution: {
-		Tooltip: ""
 		DisplayName: Cyan Solution
+		Tooltip: ""
 	}
-}
-
-SuperballBullet: {
-	Tooltip: When flying, it splits into other bullets
-	DisplayName: Superball Bullet
-}
-
-EnhancedNanoRound: {
-	Tooltip: Confuses enemies and releases a cloud of nanites when enemies die
-	DisplayName: Enhanced Nano Round
-}
-
-ArcticArrow: {
-	Tooltip: Freezes enemies for a short time
-	DisplayName: Arctic Arrow
-}
-
-AccelerationRound: {
-	Tooltip:
-		'''
-		Gains speed over time
-		Increase damage over time (up to 2x from base)
-		'''
-	DisplayName: Acceleration Round
 }

@@ -12,11 +12,6 @@ WulfrumShockCutter: {
 	Tooltip: ""
 }
 
-Crustalline: {
-	DisplayName: Crustalline
-	Tooltip: ""
-}
-
 FrozenStarShuriken: {
 	DisplayName: Frozen Star Shuriken
 	Tooltip:
@@ -43,5 +38,14 @@ AuricKunai: {
 		'''
 		Fires a rapid stream of short-range kunai
 		Stealth strikes spawn 5 Lightnings to nearest enemy
+		'''
+}
+
+StarfishFromTheDepth: {
+	DisplayName: Starfish from the Depth
+	Tooltip:
+		'''
+		Starfish homes to nearest target up to 5 hits
+		Stealth strikes creates a three starfishes at same time
 		'''
 }

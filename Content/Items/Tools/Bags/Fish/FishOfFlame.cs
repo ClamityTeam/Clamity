@@ -1,12 +1,6 @@
-﻿using Clamity.Content.Items.Materials;
-using Terraria;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace Clamity.Content.Items.Tools.Bags.Fish
+﻿namespace Clamity.Content.Items.Tools.Bags.Fish
 {
-    public class FishOfFlame : ModItem, ILocalizedModType, IModType
+    /*public class FishOfFlame : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Fishing";
 
@@ -30,5 +24,5 @@ namespace Clamity.Content.Items.Tools.Bags.Fish
         public override bool CanRightClick() => true;
 
         public override void ModifyItemLoot(ItemLoot itemLoot) => itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<EssenceOfFlame>(), 1, 5, 10));
-    }
+    }*/
 }

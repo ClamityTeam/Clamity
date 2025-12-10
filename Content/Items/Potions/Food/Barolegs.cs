@@ -22,6 +22,6 @@ namespace Clamity.Content.Items.Potions.Food
         {
             Item.buffType = GetFoodBuff;
         }
-        private int GetFoodBuff => DownedBossSystem.downedPolterghast ? BuffID.WellFed3 : (DownedBossSystem.downedCalamitasClone ? BuffID.WellFed2 : BuffID.WellFed);
+        private int GetFoodBuff => DownedBossSystem.downedPolterghast ? BuffID.WellFed3 : (DownedBossSystem.downedLeviathan ? BuffID.WellFed2 : BuffID.WellFed);
     }
 }

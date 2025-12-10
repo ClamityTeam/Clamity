@@ -35,7 +35,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!Main.rand.NextBool(4))
-                Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<ExoGladiusExplosion>(), Item.damage, Item.knockBack, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<ExoNewExplosion>(), Item.damage, Item.knockBack, player.whoAmI);
         }
         public override void AddRecipes()
         {

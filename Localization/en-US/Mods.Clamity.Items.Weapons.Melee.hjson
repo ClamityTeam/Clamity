@@ -8,19 +8,9 @@ ClamitasCrusher: {
 		'''
 }
 
-ExoGladius: {
-	DisplayName: Exo Gladius
-	Tooltip: Shoot a multiple energy beams that home in on enemies and explodes on hit
-}
-
 SearedShredder: {
 	DisplayName: Seared Shredder
 	Tooltip: Shoots a flame scythe that home in on enemies
-}
-
-BladeOfEnmity: {
-	DisplayName: Blade Of Enmity
-	Tooltip: Create explosion on hit
 }
 
 RGBMurasama: {
@@ -34,67 +24,9 @@ RGBMurasama: {
 		'''
 }
 
-TerraShiv: {
-	DisplayName: Gaia Shiv
-	Tooltip:
-		'''
-		Don't underestimate the power of shivs
-		Create a long slash on use
-		Create a mini slahses on hit by long slash on shortstrike
-		'''
-}
-
-Crimsaber: {
-	DisplayName: Crimsaber
-	Tooltip: A sword fused with the blood of the gods
-}
-
-Tomutus: {
-	DisplayName: Tomutus
-	Tooltip:
-		'''
-		Create a explosion on shortstrike
-		Inflict Hellfire on hit
-		'''
-}
-
-ColdheartIcicle: {
-	DisplayName: Coldheart Icicle
-	Tooltip:
-		'''
-		Not affected by melee speed stat
-		Drains a percentage of enemy health on shortstrike
-		Cannot inflict critical hits
-		'''
-}
-
-Caliburn: {
-	DisplayName: Caliburn
-	Tooltip: Create light slashes on shortstrike
-}
-
-TrueCaliburn: {
-	DisplayName: True Caliburn
-	Tooltip:
-		'''
-		Create a medium slash on use
-		Create a light slahses on hit by medium slash on shortstrike
-		'''
-}
-
 Disease: {
 	DisplayName: Disease
 	Tooltip: Release plague seekers on shortstrike
-}
-
-MandibleClaws: {
-	DisplayName: Mandible Claws
-	Tooltip: ""
-}
-
-SporeKnife: {
-	DisplayName: Spore Knife
-	Tooltip: Release spores on shortstrike
 }
 
 WulfrumLeechDagger: {
@@ -117,7 +49,7 @@ Everest: {
 	Tooltip: Fires a spread of volcanic fireballs
 }
 
-Warblade: {
-	DisplayName: Warblade
-	Tooltip: Has chance to inflict Armor Crunch
+Hyperion: {
+	DisplayName: Hyperion
+	Tooltip: ""
 }

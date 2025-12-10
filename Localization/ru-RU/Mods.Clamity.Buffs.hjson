@@ -8,58 +8,6 @@ HellstoneShellfishStaffBuff: {
 	Description: Молюск из адского камня защищают тебя
 }
 
-Shortstrike: {
-	CopperShortstrike: {
-		DisplayName: Медный короткий страйк
-		Description: Увеличена защита на 5
-	}
-
-	IronShortstrike: {
-		DisplayName: Железный короткий страйк
-		Description: Увеличена защита на 6
-	}
-
-	TinShortstrike: {
-		DisplayName: Оловянный короткий страйк
-		Description: Получаемый урон уменьшен на 2%
-	}
-
-	GoldShortstrike: {
-		DisplayName: Золотой короткий страйк
-		Description: Увеличена защита на 10
-	}
-
-	LeadShortstrike: {
-		DisplayName: Свинцовый короткий страйт
-		Description: Получаемый урон уменьшен на 3%
-	}
-
-	PlatinumShortstrike: {
-		DisplayName: Платиновый короткий страйк
-		Description: Получаемый урон уменьшен на 6%
-	}
-
-	SilverShortstrike: {
-		DisplayName: Серебрянный короткий страйк
-		Description: Увеличена защита на 8
-	}
-
-	TungstenShortstrike: {
-		DisplayName: Вольфрамовый короткий страйк
-		Description: Получаемый урон уменьшен на 4%
-	}
-
-	GladiusShortstrike: {
-		DisplayName: Короткий страйк Гладиуса
-		Description: Увеличена скорость передвижения на 20%
-	}
-
-	WulfrumShortstrike: {
-		DisplayName: Короткий страйк Вульфрума
-		Description: Вульфрумовый нож-пиявка теперь не тратится
-	}
-}
-
 HellsBellsBuff: {
 	Description: Адские колокола защищают тебя
 	DisplayName: Обсидианый колокол

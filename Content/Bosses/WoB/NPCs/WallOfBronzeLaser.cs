@@ -27,7 +27,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
             NPC.defense = 50;
             NPC.DR_NERD(0.2f);
             NPC.LifeMaxNERB(10000, 20000, 30000);
-            NPC.lifeMax += (int)(NPC.lifeMax * CalamityConfig.Instance.BossHealthBoost * 0.01f);
+            NPC.lifeMax += (int)(NPC.lifeMax * CalamityServerConfig.Instance.BossHealthBoost * 0.01f);
             NPC.aiStyle = -1;
             AIType = -1;
             NPC.Opacity = 0.0f;
@@ -37,8 +37,8 @@ namespace Clamity.Content.Bosses.WoB.NPCs
             NPC.noTileCollide = true;
             NPC.DeathSound = CommonCalamitySounds.ExoDeathSound;
             NPC.HitSound = SoundID.NPCHit4;
-            NPC.netUpdate = true;
-            NPC.netAlways = true;
+            //NPC.netUpdate = true;
+            //NPC.netAlways = true;
             NPC.hide = true;
             NPC.Calamity().VulnerableToSickness = false;
             NPC.Calamity().VulnerableToElectricity = true;
@@ -76,6 +76,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
             {
                 Timer = 0;
                 AIState = 0;
+                //NPC.netUpdate = true;
             }
         }
         public override void ExtraAI()

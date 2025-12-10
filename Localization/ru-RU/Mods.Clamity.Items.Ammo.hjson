@@ -10,10 +10,7 @@ Dart: {
 }
 
 Arrow: {
-	WarArrow: {
-		Tooltip: Накладывает 'Разрушение брони'
-		DisplayName: Стрела войны
-	}
+	// A: a
 
 	FrostfireArrow: {
 		DisplayName: Стреля ледяного огня
@@ -23,31 +20,7 @@ Arrow: {
 
 Solution: {
 	CyanSolution: {
-		Tooltip: ""
 		DisplayName: Голубой раствор
+		Tooltip: ""
 	}
-}
-
-SuperballBullet: {
-	Tooltip: При полете она распадается на другие пули
-	DisplayName: Пуля-Супершар
-}
-
-EnhancedNanoRound: {
-	Tooltip: Сбивает врагов с толку и выпускает облако нанитов, когда враг умирает
-	DisplayName: Зачарованный нано патрон
-}
-
-ArcticArrow: {
-	Tooltip: Замораживает противника на короткое время
-	DisplayName: Арктическая стрела
-}
-
-AccelerationRound: {
-	Tooltip:
-		'''
-		Со временем набирает скорость
-		Увеличивает урон со временем (вплоть до 2х от изначального)
-		'''
-	DisplayName: Ускоряющиеся патрон
 }

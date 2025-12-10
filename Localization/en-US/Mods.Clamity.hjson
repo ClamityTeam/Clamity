@@ -6,7 +6,7 @@ Items: {
 				'''
 				Materializes a quite cozy and extremely nimble flying Calamitas's throne
 				Hold [KEY] while sitting in the throne to move slower for more precision
-				'A comfortable gamer is a dangerous gamer'
+				'A comfortable gamer is a very dangerous gamer'
 				'''
 		}
 
@@ -14,9 +14,9 @@ Items: {
 			DisplayName: Plague Station
 			Tooltip:
 				'''
-				Materializes a quite cozy and extremely nimble flying Plague throne
+				Materializes a quite cozy and a little nimble flying Plague throne
 				Hold [KEY] while sitting in the throne to move slower for more precision
-				'A comfortable gamer is a dangerous gamer'
+				'A radical fan gamer is a virus gamer'
 				'''
 		}
 	}

@@ -12,11 +12,6 @@ WulfrumShockCutter: {
 	// Tooltip: ""
 }
 
-Crustalline: {
-	// DisplayName: Crustalline
-	// Tooltip: ""
-}
-
 FrozenStarShuriken: {
 	DisplayName: Сюрикен морозной звезды
 	Tooltip:
@@ -44,4 +39,13 @@ AuricKunai: {
 		Выпускает быстрый поток кунаев ближнего действия
 		Невидимые удары наносят 5 молний ближайшему врагу
 		'''
+}
+
+StarfishFromTheDepth: {
+	// DisplayName: Starfish from the Depth
+	/* Tooltip:
+		'''
+		Starfish homes to nearest target up to 5 hits
+		Stealth strikes creates a three starfishes at same time
+		''' */
 }

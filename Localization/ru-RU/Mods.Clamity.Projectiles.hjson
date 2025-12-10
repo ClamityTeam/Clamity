@@ -1,57 +1,38 @@
 Melee: {
-	ClamitasCrusherProjectile.DisplayName: Дробитель Кламитаса
-	ExoGladiusBeam.DisplayName: Луч Экзо гладиуса
-	ExoGladiusExplosion.DisplayName: Взрыв экзо гладиуса
-	ExoGladiusProjectile.DisplayName: Экзо гладиус
+	ClamitasCrusherProjectile.DisplayName: Дробитель Каламидии
 	SearedShredderProjectile.DisplayName: Обожжённый измельчитель
 	RGBMurasamaProjectile.DisplayName: RGB Мурасама
-	TerraShivProjectile.DisplayName: Заточка Гайи
-	TerraShivSlash.DisplayName: Разрез Заточка Гайи
-	TerraShivSlash2.DisplayName: Разрез Заточка Гайи
-	TomutusProjectile.DisplayName: Томутус
-	ColdheartIcicleProjectile.DisplayName: Сосулька из сердца холода
-	CaliburnProjectile.DisplayName: Калибурн
-	CaliburnSlash.DisplayName: Разрез Калибурна
-	TrueCaliburnProjectile.DisplayName: Истинный калибурн
-	TrueCaliburnSlash.DisplayName: Разрез Истинного калибурна
-	TrueCaliburnSlash2.DisplayName: Разрез Истинного калибурна
 	DiseaseProjectile.DisplayName: Заболевание
-	SporeKnifeProjectile.DisplayName: Споровый кинжал
 	WulfrumLeechDaggerProjectile.DisplayName: Вульфрумовый кинжал-пиявка
 	WulfrumLeechDaggerShard.DisplayName: Осколок вульфрумового кинжала-пиявки
 	TheWOBblerProjectile.DisplayName: Кусок льда
 	EverestProjectile.DisplayName: Эверест
+	// ExoNewBeam.DisplayName: Exo Beam
+	// ExoNewExplosion.DisplayName: Exo Explosion
+	// EtherealKnivesProjectile.DisplayName: Ethereal Knives Projectile
+	// HyperionProjectile.DisplayName: Hyperion Projectile
 }
 
 Ranged: {
 	Ammo: {
-		AccelerationRoundProj.DisplayName: Ускоряющиеся патрон
-		ArcticArrowProj.DisplayName: Арктическая стрела
-		EnhancedNanoRoundProj.DisplayName: Зачарованный нано патрон
-		Nanomachine.DisplayName: Наномашины
-		SuperballBulletProj.DisplayName: Пуля-Супершар
 		ProfanedDartProjectile.DisplayName: Осквернённый дротик
 		FrostfireArrowProj.DisplayName: Стрела морозного огня
 		FrostfireArrowProj2.DisplayName: Взрыв морозного огня
-		WarArrowProjectile.DisplayName: Стрела войны
 	}
 
 	DepthsEchoRifleProjectile.DisplayName: Глубокое эхо
 	DepthsEchoRifleProjectileSplit.DisplayName: Осколок глубокого эхо
 	ObsidigunBullet.DisplayName: Обсидиановая пуля
 	ObsidigunBulletShard.DisplayName: Осколок обсидиановой поли
-	ImpalerProjectile.DisplayName: Кол Пронзателя
-	ChargedBlast3.DisplayName: Заряженный заряд
-	ChargedDartExplosion.DisplayName: Заряженный осколок
-	AstralStarCannonProjectile.DisplayName: Астральная звезда
-	AstralStarCannonProjectile2.DisplayName: Упавшая звезда
+	// WitheredBoneBowProj.DisplayName: Withered Bone Bolt
 }
 
 Magic: {
 	TheGeneratorSigil.DisplayName: Символ генератора
-	HadopelagicEchoProjectile.DisplayName: Гадопелагическое эхо
-	HadopelagicEchoProjectile2.DisplayName: Гадопелагическое эхо
 	MoonstoneKnifeProjectile.DisplayName: Кинжал из лунного камня
+	// UnicronBeam.DisplayName: Unicron Beam
+	// UnicronWingmanGrenade.DisplayName: Unicron Wingman Grenade
+	// UnicronWingmanShot.DisplayName: Unicron Wingman Shot
 }
 
 Summon: {
@@ -73,14 +54,16 @@ Rogue: {
 	ExoBallProjectile.DisplayName: Экзо шар
 	AuricKunaiProjectile.DisplayName: Аурический кунай
 	AuricKunaiLightning.DisplayName: Аурическая молния
+	// StarfishFromTheDepthProj.DisplayName: Starfish from the Depth
 }
 
 Classless: {
 	PyroShieldAccessory.DisplayName: Пирощит
 	AMSProj.DisplayName: AMS
 	EyeOfNovaProjectile.DisplayName: Заряд новы
-	GoldenGunProj.DisplayName: Золотая струя
 	TrashOfMagnusProjectile.DisplayName: Заряд чумы
+	// SharpAmethystProj.DisplayName: Sharp Amethyst
+	GoldenGunProj.DisplayName: Золотая струя
 }
 
 Boss: {
@@ -105,3 +88,4 @@ Boss: {
 // PyrogenSummonAnimation.DisplayName: Pyrogen Summon Animation
 // CyanSolutionProjectile.DisplayName: Cyan Solution
 // HeavyMetalTrashCanPet.DisplayName: Mini Bocchi
+// AncientConsoleProjectile.DisplayName: Ancient Console Projectile

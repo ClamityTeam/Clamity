@@ -1,4 +1,5 @@
-﻿using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Projectiles.Melee;
@@ -6,9 +7,11 @@ using CalamityMod.Projectiles.Ranged;
 using CalamityMod.Projectiles.Rogue;
 using CalamityMod.Projectiles.Summon;
 using CalamityMod.Projectiles.Typeless;
+using Clamity.Content.Items.Accessories.GemCrawlerDrop;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -19,6 +22,7 @@ namespace Clamity
     {
         public override bool InstancePerEntity => true;
         public float[] extraAI = new float[5];
+        public bool IsSentryRelated = false;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[projectile.owner];
@@ -95,15 +99,36 @@ namespace Clamity
                 }
             }
         }*/
+        public override void OnSpawn(Projectile proj, IEntitySource source)
+        {
+            Player player = Main.player[proj.owner];
+
+            if ((source is EntitySource_Parent par && par.Entity is Projectile pr && pr.sentry) || proj.sentry)
+            {
+                IsSentryRelated = true;
+            }
+
+            if (source is EntitySource_ItemUse_WithAmmo)
+            {
+                if (proj.arrow && player.Clamity().gemAmethyst && !player.Clamity().gemFinal && Main.rand.NextBool(3))
+                {
+                    float d = player.GetTotalDamage<RangedDamageClass>().ApplyTo(4);
+                    int p = Projectile.NewProjectile(proj.GetSource_FromAI(), proj.Center, proj.velocity, ModContent.ProjectileType<SharpAmethystProj>(), player.ApplyArmorAccDamageBonusesTo(d), 1f, proj.owner);
+                    Main.projectile[p].DamageType = DamageClass.Ranged;
+                }
+            }
+        }
         public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
             for (int i = 0; i < extraAI.Length; i++)
                 binaryWriter.Write(extraAI[i]);
+            binaryWriter.Write(IsSentryRelated);
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
         {
             for (int i = 0; i < extraAI.Length; i++)
                 extraAI[i] = binaryReader.ReadSingle();
+            IsSentryRelated = binaryReader.ReadBoolean();
         }
     }
 }

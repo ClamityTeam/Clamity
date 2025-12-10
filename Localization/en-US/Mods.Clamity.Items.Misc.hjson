@@ -9,11 +9,12 @@ RealityRelocator: {
 		'''
 }
 
-RodOfMisery: {
-	DisplayName: Rod of Misery
+WitherOnAStick: {
+	DisplayName: Wither On A Stick
 	Tooltip:
 		'''
-		Teleports you to opposite your mouse's cursor... kinda.
-		Teleportation is disabled while Chaos State is active
+		If you see this item i don't like
+		how looks current Alicorn on a Stick (Coldheart Icicle)
+		'Truely Very Clamitous'
 		'''
 }

@@ -8,16 +8,20 @@ using Clamity.Content.Biomes.FrozenHell.Biome;
 using Clamity.Content.Bosses.Pyrogen.Drop;
 using Clamity.Content.Bosses.Pyrogen.NPCs;
 using Clamity.Content.Cooldowns;
+using Clamity.Content.Items.Accessories;
+using Clamity.Content.Items.Accessories.GemCrawlerDrop;
 using Clamity.Content.Items.Materials;
-using Clamity.Content.Items.Tools.Bags.Fish;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Events;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace Clamity
 {
@@ -29,7 +33,8 @@ namespace Clamity
         public bool aflameAcc;
         public List<int> aflameAccList;
 
-        //Equip
+        //Accessories
+        //Other
         public bool pyroSpear;
         //public int pyroSpearCD;
         public bool vampireEX;
@@ -41,6 +46,25 @@ namespace Clamity
         public bool eidolonAmulet;
         public bool metalWings;
         public bool seaShell;
+        public bool subcommunity;
+        public bool skullOfBloodGod;
+
+        //Crawler big gems
+        public bool gemAmethyst;
+        public int gemAmethystCooldown;
+        public bool gemTopaz;
+        public bool gemSapphire;
+        public bool gemEmerald;
+        public bool gemRuby;
+        public bool gemDiamond;
+        public int gemDiamondBarrier;
+        public int gemDiamondCooldown;
+        public bool gemAmber;
+        public bool gemFinal;
+
+        //Sentry
+        public bool brimScope;
+        public bool cyanPearl;
 
         //Armor
         public bool inflicingMeleeFrostburn;
@@ -79,6 +103,21 @@ namespace Clamity
             eidolonAmulet = false;
             metalWings = false;
             seaShell = false;
+            subcommunity = false;
+            skullOfBloodGod = false;
+
+            gemAmethyst = false;
+            gemTopaz = false;
+            gemSapphire = false;
+            gemEmerald = false;
+            gemRuby = false;
+            gemDiamond = false;
+            gemAmber = false;
+            gemFinal = false;
+
+            brimScope = false;
+            cyanPearl = false;
+
 
             inflicingMeleeFrostburn = false;
             frozenParrying = false;
@@ -130,9 +169,26 @@ namespace Clamity
                 if (titanScale)
                     titanScaleTimer = 10 * 60;
             }
+            if (proj.DamageType is MagicDamageClass)
+            {
+                if (gemDiamondCooldown == 0)
+                {
+                    gemDiamondBarrier += gemFinal ? 3 : 1;
+                    gemDiamondCooldown = 30;
+                }
+                else
+                    gemDiamondCooldown = (int)(gemDiamondCooldown * 0.9f);
+            }
             if (proj.Calamity().stealthStrike)
             {
                 PyroSpearEffect(proj, target);
+            }
+            if (proj.Clamity().IsSentryRelated)
+            {
+                if (brimScope)
+                {
+                    target.AddBuff(ModContent.BuffType<BrimstoneFlames>(), 60);
+                }
             }
         }
         private void PyroSpearEffect(Projectile proj, NPC target)
@@ -145,6 +201,50 @@ namespace Clamity
                     Projectile.NewProjectile(proj.GetSource_OnHit(target), target.Center + vec1 * 500f, -vec1.RotatedByRandom(0.1f) * 20f, ModContent.ProjectileType<SoulOfPyrogenSpear>(), proj.damage / 2, 1f, Player.whoAmI, target.whoAmI);
                 }
                 Player.AddCooldown(PyrospearCooldown.ID, 100);
+            }
+        }
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
+        {
+            //Copyed Calamity's Summon penalty for compatibilty of changes to it
+            bool isSummon = proj.CountsAsClass<SummonDamageClass>();
+            if (isSummon)
+            {
+                Item heldItem = Player.ActiveItem();
+
+                bool wearingForbiddenSet = Player.armor[0].type == ItemID.AncientBattleArmorHat && Player.armor[1].type == ItemID.AncientBattleArmorShirt && Player.armor[2].type == ItemID.AncientBattleArmorPants;
+
+                bool forbiddenWithMagicWeapon = wearingForbiddenSet && heldItem.CountsAsClass<MagicDamageClass>();
+                bool gemTechBlueGem = Player.Calamity().GemTechSet && Player.Calamity().GemTechState.IsBlueGemActive;
+
+                bool crossClassNerfDisabled = forbiddenWithMagicWeapon || Player.Calamity().fearmongerSet || gemTechBlueGem || Player.Calamity().profanedCrystalBuffs || DD2Event.Ongoing;
+                crossClassNerfDisabled |= CalamityLists.DisabledSummonerNerfMinions.Contains(proj.type);
+
+                // If this projectile is a summon, its owner is holding an item, and the cross class nerf isn't disabled from equipment:
+                if (isSummon && heldItem.type > ItemID.None && !crossClassNerfDisabled)
+                {
+                    bool heldItemIsClassedWeapon = !heldItem.CountsAsClass<SummonDamageClass>() && (
+                        heldItem.CountsAsClass<MeleeDamageClass>() ||
+                        heldItem.CountsAsClass<RangedDamageClass>() ||
+                        heldItem.CountsAsClass<MagicDamageClass>() ||
+                        heldItem.CountsAsClass<ThrowingDamageClass>()
+                    );
+
+                    bool heldItemIsTool = heldItem.pick > 0 || heldItem.axe > 0 || heldItem.hammer > 0;
+                    bool heldItemCanBeUsed = heldItem.useStyle != ItemUseStyleID.None;
+                    bool heldItemIsAccessoryOrAmmo = heldItem.accessory || heldItem.ammo != AmmoID.None;
+                    bool heldItemIsExcludedByModCall = CalamityLists.DisabledSummonerNerfItems.Contains(heldItem.type);
+
+                    if (heldItemIsClassedWeapon && heldItemCanBeUsed && !heldItemIsTool && !heldItemIsAccessoryOrAmmo && !heldItemIsExcludedByModCall)
+                    {
+                        float basePenalty = 0.75f;
+                        float reversedPenalty = 1 / basePenalty;
+                        //modifiers.FinalDamage *= BalancingConstants.SummonerCrossClassNerf;
+                        if (cyanPearl && proj.Clamity().IsSentryRelated)
+                        {
+                            modifiers.FinalDamage *= (1 + reversedPenalty) / 2;
+                        }
+                    }
+                }
             }
         }
         #endregion
@@ -200,6 +300,11 @@ namespace Clamity
         {
             if (titanScaleTimer > 0)
                 titanScaleTimer--;
+            int maxGemBarrier = gemFinal ? 120 : gemDiamond ? 20 : 0;
+            if (gemDiamondBarrier > maxGemBarrier)
+                gemDiamondBarrier = maxGemBarrier;
+            if (gemDiamondCooldown > 0)
+                gemDiamondCooldown--;
         }
         public override void PostUpdateMiscEffects()
         {
@@ -266,6 +371,17 @@ namespace Clamity
                 Player.velocity = Vector2.Zero;
                 Player.velocity.Y = -0.1f;
                 Player.RemoveAllGrapplingHooks();*/
+            }
+            if (subcommunity)
+            {
+                float baseBoost = TheSubcommunity.CalculatePower();
+                Player.pickSpeed += baseBoost * TheSubcommunity.MiningSpeedMult;
+                Player.luck += baseBoost * TheSubcommunity.LuckMult;
+                Player.fishingSkill += (int)(baseBoost * TheSubcommunity.FishingPower);
+                Player.tileSpeed += baseBoost * TheSubcommunity.TileAndWallPlacingSpeedMult;
+                Player.wallSpeed += baseBoost * TheSubcommunity.TileAndWallPlacingSpeedMult;
+                Player.tileRangeX += (int)(baseBoost * TheSubcommunity.TileRangeMult);
+                Player.tileRangeY += (int)(baseBoost * TheSubcommunity.TileRangeMult);
             }
         }
         public Item FindAccessory(int itemID)
@@ -358,6 +474,30 @@ namespace Clamity
                 }
                 Player.Calamity().RustyMedallionCooldown = RustyMedallion.AcidCreationCooldown / 2;
             }
+            if (gemFinal)
+            {
+                WeightedRandom<Action<EntitySource_ItemUse_WithAmmo, Player, Vector2, Vector2, int, float>> rand =
+                    new Terraria.Utilities.WeightedRandom<Action<EntitySource_ItemUse_WithAmmo, Player, Vector2, Vector2, int, float>>((int)Main.GlobalTimeWrappedHourly);
+                if (gemAmethystCooldown <= 0)
+                    rand.Add((source, player, center, velocity, damage, kb) =>
+                        {
+                            for (int i = 0; i < 4; i++)
+                            {
+                                float d = player.GetTotalDamage<RangedDamageClass>().ApplyTo(damage / 5);
+                                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.1f), ModContent.ProjectileType<SharpAmethystProj>(), player.ApplyArmorAccDamageBonusesTo(d), kb, player.whoAmI);
+                            }
+                            player.Clamity().gemAmethystCooldown = 30;
+                        }, item.DamageType is RangedDamageClass ? 2f : 1f);
+                rand.Add((source, proj, center, velocity, damage, kb) =>
+                    {
+
+                    }, item.DamageType is MeleeDamageClass ? 2f : 1f);
+                rand.Add((source, proj, center, velocity, damage, kb) =>
+                    {
+
+                    }, item.DamageType is MagicDamageClass ? 2f : 1f);
+                rand.Get().Invoke(source, Player, position, velocity, damage, knockback);
+            }
             return true;
         }
         public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
@@ -365,8 +505,8 @@ namespace Clamity
             bool flag = !attempt.inHoney && !attempt.inLava;
             if (flag)
             {
-                if (Player.ZoneDesert && Main.hardMode && attempt.uncommon && Main.rand.NextBool(7))
-                    itemDrop = ModContent.ItemType<FishOfFlame>();
+                //if (Player.ZoneDesert && Main.hardMode && attempt.uncommon && Main.rand.NextBool(7))
+                //    itemDrop = ModContent.ItemType<FishOfFlame>();
                 if (Player.Calamity().ZoneSunkenSea && Main.rand.NextBool(5))
                     itemDrop = ModContent.ItemType<CoralskinFoolfish>();
             }

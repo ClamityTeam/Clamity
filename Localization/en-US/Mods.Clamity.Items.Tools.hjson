@@ -7,8 +7,3 @@ TheWOBbler: {
 	Tooltip: Right Click to shoot a lot of ice fragments
 	DisplayName: The WOBbler
 }
-
-Waraxe: {
-	Tooltip: Has chance to inflict Armor Crunch
-	DisplayName: Waraxe
-}

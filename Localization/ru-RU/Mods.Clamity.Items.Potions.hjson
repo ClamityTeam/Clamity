@@ -38,36 +38,36 @@ Foods: {
 	}
 
 	SlagspitterPauldron: {
-		Tooltip: Значительные улучшения всех характеристик
 		// DisplayName: Slagspitter Pauldron
+		Tooltip: Значительные улучшения всех характеристик
 	}
 
 	ClamChowder: {
+		DisplayName: Похлебка из моллюсков
 		Tooltip:
 			'''
 			Новый стиль Ильмериса
 			Средние улучшения всех характеристик
 			'''
-		DisplayName: Похлебка из моллюсков
 	}
 
 	Barolegs: {
+		DisplayName: Баролапы
 		Tooltip:
 			'''
 			Мясо на самом деле выглядит так, будто его приготовили из барокрау. Не то чтобы это имело значение, оно все равно прогорклое
 			Различные улучшения всех характеристик
 			Бафф зависит от стадии игры
 			'''
-		DisplayName: Баролапы
 	}
 
 	Calamitea: {
+		DisplayName: Чаебедствие
 		Tooltip:
 			'''
 			Настоящее бедствие
 			Значительные улучшения всех характеристик
 			'''
-		DisplayName: Чаебедствие
 	}
 }
 
@@ -77,6 +77,7 @@ SupremeLuckPotion: {
 }
 
 TitanScalePotion: {
+	DisplayName: Зелье чешуи титана
 	Tooltip:
 		'''
 		Increases knockback, defense by 5 and damage reduction by 5%
@@ -84,5 +85,4 @@ TitanScalePotion: {
 		Увеличивает откидываение, защиту на 5 и поглощение урона на 5%
 		Увеличивает защиту на 50 и поглощение на 5% в течение пару секунд после удара истинного ближнего урона
 		'''
-	DisplayName: Зелье чешуи титана
 }

@@ -2,14 +2,16 @@ WulfrumLure: {
 	DisplayName: Wulfrum Lure
 	Tooltip:
 		'''
-		Shoots a 3 bobbers at once
-		Right Click to charge fishing rod by [i:CalamityMod/EnergyCore]energy core
-		Charge has 10 uses
-		Charged rod increases bobber count by 4 and fishing power up to 70%
+		Fires 3 bobbers at once
+		Press <right> to supercharge the pole using [i:CalamityMod/EnergyCore] Energy Cores
+		While supercharged, fires 7 bobbers at once and fishing power is increased to 70%
+		Supercharged pole has 10 uses
+		[c/83B87E:'Suprisingly sturdy for a piece of scrap!]
+		[c/83B87E:... Although his body wasn't.']
 		'''
 }
 
 FishOfFlame: {
-	Tooltip: Press Right Click to extract essence
-	DisplayName: Fish of Flame
+	Tooltip: Press <right> to extract essence
+	DisplayName: Fish of Ignis
 }

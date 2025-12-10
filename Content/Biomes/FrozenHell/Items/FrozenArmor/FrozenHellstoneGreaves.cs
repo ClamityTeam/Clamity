@@ -17,7 +17,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
             Item.height = 22;
             Item.value = Item.sellPrice(gold: 10);
             Item.rare = ModContent.RarityType<Violet>();
-            Item.defense = 45;
+            Item.defense = 36;
         }
 
         public override void UpdateEquip(Player player)
