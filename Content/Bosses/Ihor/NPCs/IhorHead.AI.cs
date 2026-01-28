@@ -308,7 +308,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         {
             if (AttackTimer == 1)
             {
-                for (int i = -1; i < 3; i++)
+                for (int i = -3; i < 3; i++)
                 {
                     int type = ModContent.ProjectileType<IhorSnowflakeCreatingIcicle>();
                     int projectileDamage = NPC.GetProjectileDamageClamity(type);

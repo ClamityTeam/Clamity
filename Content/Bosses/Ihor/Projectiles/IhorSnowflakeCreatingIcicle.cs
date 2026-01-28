@@ -26,7 +26,7 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
             if (Projectile.timeLeft > MaxTimeleft - ChargingTime)
             {
                 float roation = Ihor.rotation;
-                Projectile.Center = Ihor.Center + Vector2.Lerp(Vector2.Zero, new Vector2(250 * Math.Abs(Projectile.ai[1]), 100 * Projectile.ai[1]), roation);
+                Projectile.Center = Ihor.Center + Vector2.Lerp(Vector2.Zero, new Vector2(250 * Math.Abs(Projectile.ai[1]), 100 * Projectile.ai[1]), MathHelper.Clamp(MaxTimeLeft - Projectile.timeLeft, 0, ChargingTime)).RotatedBy(roation);
             }
             else
             {
