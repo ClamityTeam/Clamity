@@ -1,21 +1,11 @@
 ﻿using CalamityMod;
-using CalamityMod.Events;
 using CalamityMod.NPCs;
-using CalamityMod.NPCs.AcidRain;
-using CalamityMod.Particles;
-using CalamityMod.World;
 using Clamity.Commons;
-using Clamity.Content.Bosses.Ihor.Particles;
-using Clamity.Content.Bosses.Ihor.Projectiles;
-using Clamity.Content.Particles;
-using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
@@ -38,7 +28,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         HomingDash,
         DoGLikeDash,
     }*/
-    public partial class  IhorHead : ModNPC
+    public partial class IhorHead : ModNPC
     {
         private int biomeEnrageTimer = CalamityGlobalNPC.biomeEnrageTimerMax;
         private bool tailSpawned = false;
@@ -58,7 +48,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
 
             NPC.LifeMaxNERB(95000, 114400, 1650000);
 
-            double HPBoost = CalamityConfig.Instance.BossHealthBoost * 0.01;
+            double HPBoost = CalamityServerConfig.Instance.BossHealthBoost * 0.01;
             NPC.lifeMax += (int)(NPC.lifeMax * HPBoost);
             NPC.aiStyle = -1;
             AIType = -1;
@@ -92,7 +82,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             //PreviousAttack = (int)IhorAttacks.MagicBurst;
             AttackTimer = 0;
         }
-        
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
