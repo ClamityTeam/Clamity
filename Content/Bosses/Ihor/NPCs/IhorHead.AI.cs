@@ -30,7 +30,9 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
 
             SnowAbsorbtionStar,
             IcePathDash,
-            ColdfileChasing
+            ColdfileChasing,
+            SquishingBodyCircle,
+            ColdfireDash
         }
         public Player player => Main.player[NPC.target];
         public ref float Attack => ref NPC.ai[1];
