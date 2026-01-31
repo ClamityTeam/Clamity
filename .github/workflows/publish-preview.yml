@@ -2,9 +2,6 @@ name: Publish Preview
 
 on:
   push:
-    tags:
-      # Trigger on version tags such as preview-test
-      - 'preview-*'
 
 permissions:
   contents: write # Needed to create releases
