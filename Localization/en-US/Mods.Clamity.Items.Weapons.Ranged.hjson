@@ -12,8 +12,8 @@ RoseBow: {
 	DisplayName: Rose Bow
 	Tooltip:
 		'''
-		'Even if you can't see me, even if you can't hear me, I'll be by your side'
 		Shoots a spread of arrows and homing petals
+		'Even if you can't see me, even if you can't hear me, I'll be by your side'
 		'''
 }
 
@@ -21,7 +21,7 @@ WitheredBoneBow: {
 	DisplayName: Wither Bane
 	Tooltip:
 		'''
-		Converts wooden arrow to withered bone bolts
+		Converts wooden arrows to withered bone bolts
 		Bolts creates a copy behind player on hit up to two times
 		Bolts inflict Withered and has 15 armor penetration
 		'Did I hear someone say taco?'

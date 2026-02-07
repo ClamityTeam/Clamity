@@ -119,8 +119,8 @@ TheSubcommunity: {
 	/* Tooltip:
 		'''
 		[STATS]
-		'The part of The (Calamity) Community.'
-		'Has own specialization.'
+		'The part of The (Calamity) Community'
+		'Has own its own specialization'
 		[c/B00BA5:Thank you to all of my supporters who made this addon a reality!]
 		''' */
 	/* StatsList:
@@ -165,7 +165,7 @@ CyanPearl: {
 	/* Tooltip:
 		'''
 		+7% summon damage
-		Halves summon damage penalty for sentries
+		Halves the summon damage penalty for sentries
 		''' */
 }
 
@@ -173,7 +173,7 @@ SkullOfTheBloodGod: {
 	// DisplayName: Skull of the Blood God
 	/* Tooltip:
 		'''
-		20% increased damage and 13% increased critical strike chance
+		15% increased damage and 13% increased critical strike chance
 		Critical strikes explode, causing nearby enemies to ignite with Brimstone Flames
 		Halves enemy contact damage with a 20 second cooldown
 		Brimstone fire rains down after getting hit
