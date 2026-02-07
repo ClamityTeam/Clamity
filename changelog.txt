@@ -5,12 +5,17 @@ None
 
 Reworks:
 Reworked the Clamitas armor slighty.
+Rewroked the Hellstone Shellfish Staff
+Reworked the Starfish From the Depth slighty.
 
 Removes:
 None
 
 Balance Changes:
 Nerfed the damage increase on Skull of the Blood God from 20% to 15%.
+Nerfed the damage of the Everest from 1300 to 750.
+Nerfed the damage of the Frozen Volcano from 2500 to 1900 and made it no longer true melee.
+Nerfed the damage of the Starfish From the Depth from 200 to 150.
 
 Other Changes:
 Pyrogen now disables rain while alive.
