@@ -1,16 +1,16 @@
-Update 1.0.3.14 - ??? Patch
+Update 1.0.3.14 - Brainstorm Patch
 
 New Content:
 None
 
 Reworks:
-None
+Reworked the Clamitas armor slighty.
 
 Removes:
 None
 
 Balance Changes:
-None
+Nerfed the damage increase on Skull of the Blood God from 20% to 15%.
 
 Other Changes:
 Pyrogen now disables rain while alive.
@@ -19,3 +19,4 @@ Bug Fixes:
 Fixed a bug that caused the Soul of Pyrogen to not increase rogue damage properly.
 Fixed a bug that caused the Wulfrum Lure to fire more bobbers than intended when right clicking.
 Fixed a bug that caused Clamitas not to despawn properly.
+Fixed loading with Calamity.

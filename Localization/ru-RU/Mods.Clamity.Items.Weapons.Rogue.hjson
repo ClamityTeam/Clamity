@@ -46,6 +46,7 @@ StarfishFromTheDepth: {
 	/* Tooltip:
 		'''
 		Starfish homes to nearest target up to 5 hits
-		Stealth strikes creates a three starfishes at same time
+		Right click or stop holding this weapon to make active starfish return to you
+		Stealth strikes throw three starfish at same time
 		''' */
 }

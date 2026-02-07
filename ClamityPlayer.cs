@@ -70,6 +70,8 @@ namespace Clamity
         public bool inflicingMeleeFrostburn;
         public bool frozenParrying;
         public int frozenParryingTime;
+        public bool shellfishSetBonus;
+        public int shellfishSetBonusProj = -1;
 
         //Minion
         public bool hellsBell;
@@ -121,6 +123,7 @@ namespace Clamity
 
             inflicingMeleeFrostburn = false;
             frozenParrying = false;
+            shellfishSetBonus = false;
 
             hellsBell = false;
             guntera = false;
@@ -392,6 +395,18 @@ namespace Clamity
                     return this.Player.armor[index];
             }
             return new Item();
+        }
+        public override void PostUpdate()
+        {
+            // Remove set bonus minion if bonus is not active
+            if (!shellfishSetBonus && shellfishSetBonusProj != -1)
+            {
+                Projectile proj = Main.projectile[shellfishSetBonusProj];
+                if (proj.active)
+                    proj.Kill();
+
+                shellfishSetBonusProj = -1;
+            }
         }
         #endregion
 

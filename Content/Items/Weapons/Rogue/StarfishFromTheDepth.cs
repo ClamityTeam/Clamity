@@ -12,6 +12,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static CalamityMod.CalamityUtils;
+using Clamity.Content.Items.Weapons.Rogue;
 
 namespace Clamity.Content.Items.Weapons.Rogue
 {
@@ -32,7 +33,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Item.UseSound = null;
             Item.autoReuse = true;
 
-            Item.damage = 200;
+            Item.damage = 150;
             Item.knockBack = 5.5f;
             Item.shoot = ModContent.ProjectileType<StarfishFromTheDepthProj>();
 
@@ -40,10 +41,41 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
         }
 
+        public override bool AltFunctionUse(Player player)
+        {
+            return true; // Enables right-click
+        }
+
         public override bool CanUseItem(Player player)
         {
-            return !Main.projectile.Any(n => n.active && n.owner == player.whoAmI && n.type == ModContent.ProjectileType<StarfishFromTheDepthProj>());
+            // Right-click: force all owned starfish projectiles to return
+            if (player.altFunctionUse == 2)
+            {
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    Projectile p = Main.projectile[i];
+
+                    if (p.active &&
+                        p.owner == player.whoAmI &&
+                        p.type == ModContent.ProjectileType<StarfishFromTheDepthProj>() &&
+                        p.ai[0] != 1f)
+                    {
+                        p.ai[0] = 1f;
+                        p.netUpdate = true;
+                    }
+                }
+
+                return false; // Do not swing or throw
+            }
+
+            // Left-click: only allow one active projectile
+            return !Main.projectile.Any(p =>
+                p.active &&
+                p.owner == player.whoAmI &&
+                p.type == ModContent.ProjectileType<StarfishFromTheDepthProj>());
         }
+
+
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -73,6 +105,8 @@ namespace Clamity.Content.Items.Weapons.Rogue
         public float OverallProgress => 1 - Projectile.timeLeft / (float)Lifetime;
         public float ThrowProgress => 1 - Projectile.timeLeft / (float)(Lifetime);
         public float ChargeProgress => 1 - (Projectile.timeLeft - Lifetime) / (float)(ChargeupTime);
+
+        private bool hasHit;
 
         public Player Owner => Main.player[Projectile.owner];
         public ref float Returning => ref Projectile.ai[0];
@@ -134,6 +168,10 @@ namespace Clamity.Content.Items.Weapons.Rogue
                 return;
             }
 
+            if (ChargeProgress >= 1f && Owner.HeldItem.type != ModContent.ItemType<StarfishFromTheDepth>())
+            {
+                Returning = 1f;
+            }
 
             //Play the throw sound when the throw ACTUALLY BEGINS.
             //Additionally, make the projectile collide and set its speed and velocity
@@ -261,6 +299,21 @@ namespace Clamity.Content.Items.Weapons.Rogue
             else
             {
                 Projectile.velocity = -Projectile.velocity.RotatedByRandom(0.4f) * (Projectile.numHits == 0 ? 1 : 2);
+            }
+
+            Player player = Main.player[Projectile.owner];
+
+            if (!hasHit)
+            {
+                hasHit = true;
+
+                Item heldItem = player.HeldItem;
+
+                // Get damage modifier for the item's damage type (melee, ranged, rogue, etc.)
+                StatModifier damageMod = player.GetTotalDamage(heldItem.DamageType);
+
+                float finalDamage = damageMod.ApplyTo(heldItem.damage);
+                Projectile.damage = (int)Math.Round(finalDamage);
             }
         }
 

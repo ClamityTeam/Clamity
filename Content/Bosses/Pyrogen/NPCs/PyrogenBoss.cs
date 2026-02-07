@@ -1,7 +1,7 @@
 ﻿using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Events;
-using CalamityMod.Items.Placeables.Furniture.DevPaintings;
+using CalamityMod.Items.Placeables.Furniture.Paintings;
 using CalamityMod.NPCs;
 using CalamityMod.Particles;
 using CalamityMod.World;
@@ -284,7 +284,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                 }
             }
 
-            CalamityMod.CalamityMod.StopRain(); //honestly pyrogen should just stop rain because hes hot
+            CalamityWorld.StopRain(); //honestly pyrogen should just stop rain because hes hot
 
             /*if (CalamityConfig.Instance.BossesStopWeather)
             {
@@ -1305,7 +1305,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             base.NPC.lifeMax = (int)((float)base.NPC.lifeMax * 0.8f * balance);
-            base.NPC.damage = (int)((double)base.NPC.damage * base.NPC.GetExpertDamageMultiplier());
+            base.NPC.damage = (int)((double)base.NPC.damage * base.NPC.GetExpertDamageMultiplierClamity());
         }
 
         public override void HitEffect(NPC.HitInfo hit)

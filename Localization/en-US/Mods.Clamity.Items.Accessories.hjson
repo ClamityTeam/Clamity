@@ -12,7 +12,7 @@ DraculasCharm: {
 	Tooltip:
 		'''
 		15% increased rogue damage and +10 maximum stealth
-		Stealth strikes deal 8% more damage, summon a swarm of homing lifestealing vampire bats and inflict Crumbling
+		Stealth strikes deal 8% more damage, summon a swarm of homing lifestealing vampire bats, and inflict Crumbling
 		Rogue projectiles steal life on crits and explode into homing souls
 		'''
 }
@@ -32,7 +32,7 @@ HellFlare: {
 	Tooltip:
 		'''
 		All attacks and projectiles inflict Hellfire
-		Immunity to On fire! and Hellfire
+		Grants immunity to On fire! and Hellfire
 		Being above 75% life grants 10% increased crit chance
 		Being below 25% life grants 10% increased damage reduction
 		Grants resistance against cold attacks
@@ -98,7 +98,7 @@ Wings: {
 			Acceleration multiplier: 2.8
 			Excellent vertical speed
 			Flight time: 280
-			Restores flight time when taking a hit
+			Restores flight time when taking damage
 			Amount of restored flight time is equal to the damage taken to max life ratio divided by 2
 			Defense of all players on your team is increased by 20 while wearing Frozen Armor
 			'''
@@ -128,8 +128,8 @@ TheSubcommunity: {
 	Tooltip:
 		'''
 		[STATS]
-		'The part of The (Calamity) Community.'
-		'Has own specialization.'
+		'The part of The (Calamity) Community'
+		'Has own its own specialization'
 		[c/B00BA5:Thank you to all of my supporters who made this addon a reality!]
 		'''
 	StatsList:
@@ -174,7 +174,7 @@ CyanPearl: {
 	Tooltip:
 		'''
 		+7% summon damage
-		Halves summon damage penalty for sentries
+		Halves the summon damage penalty for sentries
 		'''
 }
 
@@ -182,7 +182,7 @@ SkullOfTheBloodGod: {
 	DisplayName: Skull of the Blood God
 	Tooltip:
 		'''
-		20% increased damage and 13% increased critical strike chance
+		15% increased damage and 13% increased critical strike chance
 		Critical strikes explode, causing nearby enemies to ignite with Brimstone Flames
 		Halves enemy contact damage with a 20 second cooldown
 		Brimstone fire rains down after getting hit

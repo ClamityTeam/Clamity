@@ -1,5 +1,5 @@
 ﻿using CalamityMod;
-using CalamityMod.Items;
+using CalamityMod.Items.Weapons.Typeless;
 using CalamityMod.NPCs.Other;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Summon;
@@ -51,7 +51,7 @@ namespace Clamity.Content.Items
                         MaxInstances = 200
                     };
                     SoundEngine.PlaySound(in style, current.Center);
-                    if (Main.netMode != 2)
+                    if (Main.netMode != NetmodeID.Server)
                     {
                         BloodShed(hitBox, current, damage, player);
                     }

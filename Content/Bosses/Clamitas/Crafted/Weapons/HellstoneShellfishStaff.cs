@@ -6,6 +6,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Projectiles.Summon;
 using Clamity.Content.Bosses.Clamitas.Drop;
+using Clamity;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -90,7 +91,18 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+            var clam = player.GetModPlayer<ClamityPlayer>();
+
+            bool isBonusMinion = clam.shellfishSetBonusProj == Projectile.whoAmI;
             CalamityPlayer calamityPlayer = player.Calamity();
+
+            // If this is the set-bonus minion, but the set bonus is gone - kill it
+            if (isBonusMinion && !clam.shellfishSetBonus)
+            {
+                Projectile.Kill();
+                return;
+            }
+
             Projectile.Calamity();
             if (spawnDust)
             {
@@ -119,6 +131,23 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
                     Projectile.timeLeft = 2;
                 }
             }
+            // Allow set-bonus minion to stay alive without using minion slots
+            if (isBonusMinion)
+            {
+                Projectile.timeLeft = 2;
+                Projectile.minion = true;
+                Projectile.minionSlots = 0f;
+
+                // Make sure it still deals damage
+                Projectile.friendly = true;
+                Projectile.DamageType = DamageClass.Summon;
+                Projectile.originalDamage = 130;
+
+                Projectile.timeLeft = 2;
+                Projectile.minion = true;
+                Projectile.minionSlots = 0f;
+            }
+
 
             Projectile.frameCounter++;
             if (Projectile.frameCounter > 3)
@@ -331,8 +360,22 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
                 {
                     nPC3.HitEffect(0, 1.0);
                     nPC3.AddBuff(ModContent.BuffType<BrimstoneFlames>(), 180);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.Volcano, Projectile.damage, 0, Projectile.owner);
+
+                    int volcanoProj = Projectile.NewProjectile(
+                        Projectile.GetSource_FromThis(),
+                        Projectile.Center,
+                        Vector2.Zero,
+                        ProjectileID.Volcano,
+                        Projectile.damage,
+                        0,
+                        Projectile.owner
+                    );
+
+                    Main.projectile[volcanoProj].DamageType = DamageClass.Summon;
+                    Main.projectile[volcanoProj].friendly = true;
+                    Main.projectile[volcanoProj].owner = Projectile.owner;
                 }
+
             }
             else
             {
