@@ -4,14 +4,12 @@ using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Armor.Mollusk;
 using CalamityMod.Items.Materials;
 using Clamity.Content.Bosses.Clamitas.Drop;
-using Clamity;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Mono.Cecil;
-
+using Clamity.Content.Bosses.Clamitas.Crafted.Weapons;
+using CalamityMod.Projectiles.Typeless;
 
 namespace Clamity.Content.Bosses.Clamitas.Crafted.ClamitasArmor
 {
