@@ -17,6 +17,10 @@ namespace Clamity.Content.Items.Weapons.Rogue
 {
     public class ExoBall : RogueWeapon
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
 
         public override void SetDefaults()
         {
@@ -30,7 +34,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 5;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
 
@@ -58,7 +62,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             CalamityPlayer modPlayer = player.Calamity();
-            modPlayer.killSpikyBalls = false;
+            //modPlayer.killSpikyBalls = false;
             if (modPlayer.StealthStrikeAvailable()) //setting the stealth strike
             {
                 int stealth = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
@@ -72,16 +76,16 @@ namespace Clamity.Content.Items.Weapons.Rogue
         public override bool AltFunctionUse(Player player)
         {
             CalamityPlayer modPlayer = player.Calamity();
-            modPlayer.killSpikyBalls = true;
+            //modPlayer.killSpikyBalls = true;
             return true;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<Nychthemeron>()
+                //.AddIngredient<Nychthemeron>() removed in cal 2.1
                 .AddIngredient<GodsParanoia>()
-                .AddIngredient<HellsSun>()
+                //.AddIngredient<HellsSun>() removed in cal 2.1
                 .AddIngredient<MiracleMatter>()
                 .AddTile<CalamityMod.Tiles.Furniture.CraftingStations.DraedonsForge>()
                 .Register();
@@ -89,6 +93,10 @@ namespace Clamity.Content.Items.Weapons.Rogue
     }
     public class ExoBallProjectile : ModProjectile, ILocalizedModType
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public new string LocalizationCategory => "Projectiles.Rogue";
         public override string Texture => ModContent.GetInstance<ExoBall>().Texture;
         public int kunaiStabbing = 10;
@@ -124,7 +132,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
                 flame.noGravity = true;
             }
 
-            Projectile.StickyProjAI(50);
+            //Projectile.StickyProjAI(50);
 
             if (Projectile.ai[0] == 1f)
             {
@@ -166,14 +174,16 @@ namespace Clamity.Content.Items.Weapons.Rogue
 
             Player player = Main.player[Projectile.owner];
             CalamityPlayer modPlayer = player.Calamity();
+            /*
             if (modPlayer.killSpikyBalls == true)
             {
                 Projectile.active = false;
                 Projectile.netUpdate = true;
             }
+            */
         }
 
-        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) => Projectile.ModifyHitNPCSticky(10);
+        //public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) => Projectile.ModifyHitNPCSticky(10);
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {

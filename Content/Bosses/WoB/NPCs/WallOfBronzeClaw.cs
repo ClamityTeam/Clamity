@@ -64,7 +64,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
                                                     NPC.Center,
                                                     Vector2.UnitX.RotatedBy(NPC.rotation) * 10,
                                                     ModContent.ProjectileType<WallOfBronzeClawProjectile>(),
-                                                    NPC.GetProjectileDamage(ModContent.ProjectileType<WallOfBronzeClawProjectile>()),
+                                                    100,//NPC.GetProjectileDamage(ModContent.ProjectileType<WallOfBronzeClawProjectile>()),
                                                     0,
                                                     Main.myPlayer,
                                                     NPC.whoAmI);

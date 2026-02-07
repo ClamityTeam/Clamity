@@ -29,7 +29,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 4f;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.UseSound = SoundID.Item1;
             Item.shootSpeed = 13f;
             Item.shoot = ModContent.ProjectileType<FrozenStarShurikenProjectile>();
@@ -65,14 +65,14 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = BlazingStarProj.Lifetime;
+            Projectile.timeLeft = 300;
             Projectile.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Projectile.extraUpdates = 1;
         }
         public override void AI()
         {
             Projectile.rotation += 0.4f * (float)Projectile.direction;
-            if (Projectile.timeLeft < BlazingStarProj.Lifetime - BlazingStarProj.ReboundTime)
+            if (Projectile.timeLeft < 300 -  60)
                 Projectile.ai[0] = 1f;
             if (Projectile.ai[0] == 0.0)
                 return;

@@ -35,7 +35,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.shoot = ModContent.ProjectileType<HyperionProjectile>();
             Item.shootSpeed = 16f;
         }

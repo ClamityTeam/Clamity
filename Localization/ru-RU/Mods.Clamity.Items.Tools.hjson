@@ -7,3 +7,8 @@ TheWOBbler: {
 	Tooltip: Щелкните правой кнопкой мыши, чтобы кинуть большим количеством ледяных осколков
 	DisplayName: СБпер
 }
+
+RealityRelocator: {
+	// DisplayName: Reality Relocator
+	// Tooltip: ""
+}

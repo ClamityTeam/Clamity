@@ -1,10 +1,17 @@
-﻿using CalamityMod;
+﻿using System.Linq;
+using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
+using CalamityMod.NPCs.AquaticScourge;
+using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.Crags;
+using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.NormalNPCs;
+using CalamityMod.NPCs.Perforator;
 using CalamityMod.NPCs.PlaguebringerGoliath;
+using CalamityMod.NPCs.SlimeGod;
+using CalamityMod.NPCs.StormWeaver;
 using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.TownNPCs;
@@ -149,8 +156,43 @@ namespace Clamity
         }
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
-            bool wormBoss = CalamityLists.DesertScourgeIDs.Contains(npc.type) || CalamityLists.EaterofWorldsIDs.Contains(npc.type) || CalamityLists.PerforatorIDs.Contains(npc.type) || CalamityLists.AquaticScourgeIDs.Contains(npc.type) || CalamityLists.AstrumDeusIDs.Contains(npc.type) || CalamityLists.StormWeaverIDs.Contains(npc.type);
-            bool slimeGod = CalamityLists.SlimeGodIDs.Contains(npc.type);
+            int[] wormBossTypes =
+            [
+                ModContent.NPCType<DesertScourgeHead>(),
+                ModContent.NPCType<DesertScourgeBody>(),
+                ModContent.NPCType<DesertScourgeTail>(),
+                NPCID.EaterofWorldsHead,
+                NPCID.EaterofWorldsBody,
+                NPCID.EaterofWorldsTail,
+                ModContent.NPCType<PerforatorHeadSmall>(),
+                ModContent.NPCType<PerforatorHeadMedium>(),
+                ModContent.NPCType<PerforatorHeadLarge>(),
+                ModContent.NPCType<PerforatorBodySmall>(),
+                ModContent.NPCType<PerforatorBodyMedium>(),
+                ModContent.NPCType<PerforatorBodyLarge>(),
+                ModContent.NPCType<PerforatorTailSmall>(),
+                ModContent.NPCType<PerforatorTailMedium>(),
+                ModContent.NPCType<PerforatorTailLarge>(),
+                ModContent.NPCType<AquaticScourgeHead>(),
+                ModContent.NPCType<AquaticScourgeBody>(),
+                ModContent.NPCType<AquaticScourgeTail>(),
+                ModContent.NPCType<AstrumDeusHead>(),
+                ModContent.NPCType<AstrumDeusBody>(),
+                ModContent.NPCType<AstrumDeusTail>(),
+                ModContent.NPCType<StormWeaverHead>(),
+                ModContent.NPCType<StormWeaverBody>(),
+                ModContent.NPCType<StormWeaverTail>()
+            ];
+
+            int[] slimeGodTypes =
+            [
+                ModContent.NPCType<SlimeGodCore>(),
+                ModContent.NPCType<CrimulanPaladin>(),
+                ModContent.NPCType<EbonianPaladin>()
+            ];
+
+            bool wormBoss = wormBossTypes.Contains(npc.type);
+            bool slimeGod = slimeGodTypes.Contains(npc.type);
             bool slimed = npc.drippingSlime || npc.drippingSparkleSlime;
 
             //Vulnerability
@@ -172,13 +214,13 @@ namespace Clamity
                     coldDamageMult *= 0.5;
             }
 
-            double sicknessDamageMult = npc.Calamity().irradiated > 0 ? (wormBoss ? CalamityGlobalNPC.VulnerableToDoTDamageMult_Worms_SlimeGod : CalamityGlobalNPC.VulnerableToDoTDamageMult) : CalamityGlobalNPC.BaseDoTDamageMult;
+            double sicknessDamageMult = npc.Calamity().irradiated ? (wormBoss ? CalamityGlobalNPC.VulnerableToDoTDamageMult_Worms_SlimeGod : CalamityGlobalNPC.VulnerableToDoTDamageMult) : CalamityGlobalNPC.BaseDoTDamageMult;
             if (npc.Calamity().VulnerableToSickness.HasValue)
             {
                 if (npc.Calamity().VulnerableToSickness.Value)
-                    sicknessDamageMult *= npc.Calamity().irradiated > 0 ? (wormBoss ? 1.25 : 1.5) : (wormBoss ? CalamityGlobalNPC.VulnerableToDoTDamageMult_Worms_SlimeGod : CalamityGlobalNPC.VulnerableToDoTDamageMult);
+                    sicknessDamageMult *= npc.Calamity().irradiated ? (wormBoss ? 1.25 : 1.5) : (wormBoss ? CalamityGlobalNPC.VulnerableToDoTDamageMult_Worms_SlimeGod : CalamityGlobalNPC.VulnerableToDoTDamageMult);
                 else
-                    sicknessDamageMult *= npc.Calamity().irradiated > 0 ? (wormBoss ? 0.66 : 0.5) : 0.5;
+                    sicknessDamageMult *= npc.Calamity().irradiated ? (wormBoss ? 0.66 : 0.5) : 0.5;
             }
 
             bool increasedElectricityDamage = npc.wet || npc.honeyWet || npc.lavaWet || npc.dripping;
@@ -207,14 +249,18 @@ namespace Clamity
                 coldDamageMult += 0.5;
             if (npc.Calamity().IncreasedHeatEffects_Fireball)
                 heatDamageMult += 0.25;
+            /*
             if (npc.Calamity().IncreasedHeatEffects_FlameWakerBoots)
                 heatDamageMult += 0.25;
+            */
             if (npc.Calamity().IncreasedHeatEffects_CinnamonRoll)
                 heatDamageMult += 0.5;
+            /*
             if (npc.Calamity().IncreasedHeatEffects_HellfireTreads)
                 heatDamageMult += 0.5;
             if (npc.Calamity().IncreasedElectricityEffects_Transformer)
                 electricityDamageMult += 0.5;
+            */
             if (npc.Calamity().IncreasedSicknessEffects_ToxicHeart)
                 sicknessDamageMult += 0.5;
             if (npc.Calamity().IncreasedSicknessAndWaterEffects_EvergreenGin)
@@ -287,46 +333,48 @@ namespace Clamity
             }
 
             // Brimstone Flames
-            if (npc.Calamity().bFlames > 0)
+            if (npc.Calamity().brimstoneFlames)
             {
                 int baseBrimstoneFlamesDoTValue = (int)(60 * vanillaHeatDamageMult);
                 ApplyDPSDebuff(baseBrimstoneFlamesDoTValue, baseBrimstoneFlamesDoTValue / 5, ref npc.lifeRegen, ref damage);
             }
 
             // Holy Flames
-            if (npc.Calamity().hFlames > 0)
+            if (npc.Calamity().holyFlames)
             {
                 int baseHolyFlamesDoTValue = (int)(200 * vanillaHeatDamageMult);
                 ApplyDPSDebuff(baseHolyFlamesDoTValue, baseHolyFlamesDoTValue / 5, ref npc.lifeRegen, ref damage);
             }
 
             // God Slayer Inferno
-            if (npc.Calamity().gsInferno > 0)
+            if (npc.Calamity().godSlayerInferno)
             {
                 int baseGodSlayerInfernoDoTValue = (int)(250 * vanillaHeatDamageMult);
                 ApplyDPSDebuff(baseGodSlayerInfernoDoTValue, baseGodSlayerInfernoDoTValue / 5, ref npc.lifeRegen, ref damage);
             }
 
             // Dragonfire
-            if (npc.Calamity().dragonFire > 0)
+            if (npc.Calamity().dragonFire)
             {
                 int baseDragonFireDoTValue = (int)(960 * vanillaHeatDamageMult);
                 ApplyDPSDebuff(baseDragonFireDoTValue, baseDragonFireDoTValue / 5, ref npc.lifeRegen, ref damage);
             }
 
             // Banishing Fire
-            if (npc.Calamity().banishingFire > 0)
+            if (npc.Calamity().banishingFire)
             {
                 int baseBanishingFireDoTValue = (int)((npc.lifeMax >= 1000000 ? npc.lifeMax / 500 : 4000) * vanillaHeatDamageMult);
                 ApplyDPSDebuff(baseBanishingFireDoTValue, baseBanishingFireDoTValue / 5, ref npc.lifeRegen, ref damage);
             }
 
+            /* IDK ngl
             // Vulnerability Hex
-            if (npc.Calamity().vulnerabilityHex > 0)
+            if (npc.Calamity().vulnerabilityHex)
             {
                 int baseVulnerabilityHexDoTValue = (int)(VulnerabilityHex.DPS * vanillaHeatDamageMult);
                 ApplyDPSDebuff(baseVulnerabilityHexDoTValue, VulnerabilityHex.TickNumber, ref npc.lifeRegen, ref damage);
             }
+            */
 
             // Frostburn
             if (npc.onFrostBurn)
@@ -349,7 +397,7 @@ namespace Clamity
 
             bool hasColdOil = npc.onFrostBurn || npc.onFrostBurn2;
             bool hasHotOil = npc.onFire || npc.onFire2 || npc.onFire3 || npc.shadowFlame;
-            bool hasModHotOil = npc.Calamity().bFlames > 0 || npc.Calamity().hFlames > 0 || npc.Calamity().gsInferno > 0 || npc.Calamity().dragonFire > 0 || npc.Calamity().banishingFire > 0 || npc.Calamity().vulnerabilityHex > 0;
+            bool hasModHotOil = npc.Calamity().brimstoneFlames || npc.Calamity().holyFlames || npc.Calamity().godSlayerInferno || npc.Calamity().dragonFire || npc.Calamity().banishingFire || npc.Calamity().vulnerabilityHex;
             if (npc.oiled && hasColdOil | hasHotOil | hasModHotOil)
             {
                 double multiplier = 1.0;
@@ -367,35 +415,35 @@ namespace Clamity
             }
 
             // Nightwither
-            if (npc.Calamity().nightwither > 0)
+            if (npc.Calamity().nightwither)
             {
                 int baseNightwitherDoTValue = (int)(200 * vanillaColdDamageMult);
                 ApplyDPSDebuff(baseNightwitherDoTValue, baseNightwitherDoTValue / 5, ref npc.lifeRegen, ref damage);
             }
 
             // Plague
-            if (npc.Calamity().pFlames > 0)
+            if (npc.Calamity().plague)
             {
                 int basePlagueDoTValue = (int)(100 * vanillaSicknessDamageMult);
                 ApplyDPSDebuff(basePlagueDoTValue, basePlagueDoTValue / 5, ref npc.lifeRegen, ref damage);
             }
 
             // Astral Infection
-            if (npc.Calamity().astralInfection > 0)
+            if (npc.Calamity().astralInfection)
             {
                 int baseAstralInfectionDoTValue = (int)(75 * vanillaSicknessDamageMult);
                 ApplyDPSDebuff(baseAstralInfectionDoTValue, baseAstralInfectionDoTValue / 5, ref npc.lifeRegen, ref damage);
             }
 
             // Sulphuric Poisoning
-            if (npc.Calamity().sulphurPoison > 0)
+            if (npc.Calamity().sulphurPoison)
             {
                 int baseSulphurPoisonDoTValue = (int)(240 * vanillaSicknessDamageMult);
                 ApplyDPSDebuff(baseSulphurPoisonDoTValue, baseSulphurPoisonDoTValue / 5, ref npc.lifeRegen, ref damage);
             }
 
             // Sage Poison
-            if (npc.Calamity().sagePoisonTime > 0)
+            if (npc.Calamity().sagePoison)
             {
                 // npc.Calamity().sagePoisonDamage = 50 * (float)(Math.Pow(totalSageSpirits, 0.73D) + Math.Pow(totalSageSpirits, 1.1D)) * 0.5f
                 // See SageNeedle.cs for details
@@ -411,7 +459,7 @@ namespace Clamity
             }*/
 
             //Absorber Affliction
-            if (npc.Calamity().absorberAffliction > 0)
+            if (npc.Calamity().absorberAffliction)
             {
                 int baseAbsorberDoTValue = (int)(400 * vanillaSicknessDamageMult);
                 ApplyDPSDebuff(baseAbsorberDoTValue, baseAbsorberDoTValue / 65, ref npc.lifeRegen, ref damage);
@@ -436,21 +484,21 @@ namespace Clamity
             }
 
             // Electrified
-            if (npc.Calamity().electrified > 0)
+            if (npc.Calamity().electrified)
             {
                 int baseElectrifiedDoTValue = (int)(5 * (npc.velocity.X == 0 ? 1 : 4) * vanillaElectricityDamageMult);
                 ApplyDPSDebuff(baseElectrifiedDoTValue, baseElectrifiedDoTValue / 5, ref npc.lifeRegen, ref damage);
             }
 
             // Crush Depth
-            if (npc.Calamity().cDepth > 0)
+            if (npc.Calamity().crushDepth)
             {
                 int baseCrushDepthDoTValue = (int)(100 * vanillaWaterDamageMult);
                 ApplyDPSDebuff(baseCrushDepthDoTValue, baseCrushDepthDoTValue / 2, ref npc.lifeRegen, ref damage);
             }
 
             //Riptide
-            if (npc.Calamity().rTide > 0)
+            if (npc.Calamity().riptide)
             {
                 int baseRiptideDoTValue = (int)(30 * vanillaWaterDamageMult);
                 ApplyDPSDebuff(baseRiptideDoTValue, baseRiptideDoTValue / 3, ref npc.lifeRegen, ref damage);
@@ -460,7 +508,7 @@ namespace Clamity
         {
             if (shop.NpcType == NPCID.Steampunker)
                 shop.Add<CyanSolution>(new Condition(Language.GetOrRegister("Mods.Clamity.Misc.DefeatedWoB"), () => ClamitySystem.downedWallOfBronze));
-            if (shop.NpcType == ModContent.NPCType<DILF>())
+            if (shop.NpcType == ModContent.NPCType<Archmage>())
                 shop.Add<EnchantedMetal>(new Condition(Language.GetOrRegister("Mods.Clamity.Misc.GeneratedFrozenHell"), () => !ClamitySystem.generatedFrozenHell || ClamityConfig.Instance.PermafrostSoldEnchantedMetal), new Condition(Language.GetOrRegister("Mods.Clamity.Misc.DefeatedWoB"), () => ClamitySystem.downedWallOfBronze));
         }
     }

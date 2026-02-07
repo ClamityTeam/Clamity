@@ -26,7 +26,7 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted
             player.Calamity().enchantedPearl = true;
             player.Calamity().alluringBait = true;
             ModContent.GetInstance<PearlofEnthrallment>().UpdateAccessory(player, hideVisual);
-            player.Calamity().sirenWaifu = false;
+            player.Calamity().sirenPet = false;
         }
         public override void UpdateVanity(Player player)
         {

@@ -42,7 +42,7 @@ namespace Clamity
         {
             if (entity.ModItem is CodebreakerBase or DecryptionComputer or LongRangedSensorArray or AdvancedDisplay or VoltageRegulationSystem or AuricQuantumCoolingCell
                 or AltarOfTheAccursedItem or AshesofCalamity
-                or EyeofDesolation or CosmicWorm or YharonEgg or RuneofKos or ProfanedCore or ProfanedShard)
+                or EyeofDesolation or CosmicWorm or YharonEgg or MarkofProvidence or ProfanedCore or ProfanedShard)
             {
                 //keyItem = true;
             }

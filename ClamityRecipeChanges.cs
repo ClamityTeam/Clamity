@@ -38,7 +38,7 @@ namespace Clamity
                 {
                     if (recipe.HasResult<Seadragon>())
                         recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<Obsidigun>(), 1));
-                    if (recipe.HasResult<ShatteredSun>())
+                    if (recipe.HasResult<ShatteredDawn>())
                         recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<MoltenPiercer>(), 1));
                     if (recipe.HasResult<NuclearFury>())
                         recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<TheGenerator>(), 1));

@@ -10,6 +10,7 @@ LoreWhat: {
 		One clam absorbed a huge amount of sulfur into its enchanted pearl, which is why it was cursed, but gained unprecedented power.  
 		And his name is Clamitas, the Supreme Clam.
 		'''
+	Tooltip: ""
 }
 
 LorePyrogen: {
@@ -19,6 +20,7 @@ LorePyrogen: {
 		The ancient furnace of the blacksmith god. It shares an auric soul with its master. 
 		But after my crusade, he was gone. I didn't take care of the second part of this soul, which led to the uncontrollability of the furnace and got a mind.
 		'''
+	Tooltip: ""
 }
 
 LoreWallOfBronze: {
@@ -32,4 +34,5 @@ LoreWallOfBronze: {
 		The source of the primordial auric energys great heat that is able to warm the minds of local creatures. 
 		The ancient architects are a race of the oldest creatures that existed before the age of dragons. They were the greatest engineers.
 		'''
+	Tooltip: ""
 }

@@ -25,7 +25,7 @@ namespace Clamity.Content.Items.Weapons.Classless
             Item.DamageType = ModContent.GetInstance<AverageDamageClass>();
             Item.width = 60;
             Item.damage = 400;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.useAnimation = Item.useTime = 10;
             Item.useStyle = 5;
             Item.knockBack = 5f;

@@ -13,7 +13,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
             Item.height = 46;
             Item.accessory = true;
             Item.value = Item.sellPrice(1, 9, 9, 7);
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

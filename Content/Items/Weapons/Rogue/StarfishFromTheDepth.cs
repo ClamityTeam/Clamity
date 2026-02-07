@@ -13,6 +13,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static CalamityMod.CalamityUtils;
 using Clamity.Content.Items.Weapons.Rogue;
+using CalamityMod.Items.Placeables.Abyss;
 
 namespace Clamity.Content.Items.Weapons.Rogue
 {
