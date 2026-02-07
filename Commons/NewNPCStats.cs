@@ -95,6 +95,7 @@ namespace Clamity.Commons
 
             if (enemyStats != null && enemyStats.IsValueType)
             {
+                /* this doesn't work anymore...
                 FieldInfo projDamage = enemyStats.GetField("ProjectileDamageValues", BindingFlags.Static | BindingFlags.Public);
                 Type projDamageType = projDamage.GetType();
                 MethodInfo method = projDamageType.GetMethod("Add");
@@ -103,7 +104,7 @@ namespace Clamity.Commons
                     method.Invoke(projDamage.GetValue(null), new object[] { value.Key, value.Value });
                 }
 
-                /*
+
                 //-= EnemyStats.ContactDamageValues are empty currently =-
                 FieldInfo contactDamage = enemyStats.GetField("ContactDamageValues", BindingFlags.Static | BindingFlags.Public);
                 Type contactDamageType = contactDamage.GetType();
@@ -113,7 +114,7 @@ namespace Clamity.Commons
                     method.Invoke(contactDamage.GetValue(null), new object[] { value.Key, value.Value });
                 }
 
-                
+
                 //-= EnemyStats.ExpertDamageMultiplier are empty currently =-
                 FieldInfo expertDamageMult = enemyStats.GetField("ExpertDamageMultiplier", BindingFlags.Static | BindingFlags.Public);
                 Type expertDamageMultType = expertDamageMult.GetType();

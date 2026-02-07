@@ -4,6 +4,7 @@ using CalamityMod.Cooldowns;
 using CalamityMod.Items.Accessories;
 using CalamityMod.NPCs.Cryogen;
 using CalamityMod.Projectiles.Rogue;
+using CalamityMod.Projectiles.Typeless;
 using CalamityMod.Systems.Collections;
 using Clamity.Content.Biomes.FrozenHell.Biome;
 using Clamity.Content.Bosses.Pyrogen.Drop;
@@ -474,24 +475,22 @@ namespace Clamity
         public override bool Shoot(Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 
-            if (eidolonAmulet 
-                //&& Player.Calamity().RustyMedallionCooldown <= 0
-                )
+            if (eidolonAmulet&& Player.Calamity().scionsCurio)
             {
-                /* TODO: rework this
+                /*
                 int d = (int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(damage / 5);
                 //int d = damage / 5;
-                d = Player.ApplyArmorAccDamageBonusesTo(d);
+                //d = Player.ApplyArmorAccDamageBonusesTo(d);
 
                 Vector2 startingPosition = Main.MouseWorld - Vector2.UnitY.RotatedByRandom(0.4f) * 1250f;
                 Vector2 directionToMouse = (Main.MouseWorld - startingPosition).SafeNormalize(Vector2.UnitY).RotatedByRandom(0.1f);
-                int drop = Projectile.NewProjectile(source, startingPosition, directionToMouse * 15f, ModContent.ProjectileType<AcidBarrelDrop>(), d, 0f, Player.whoAmI);
+                int drop = Projectile.NewProjectile(source, startingPosition, directionToMouse * 15f, ModContent.ProjectileType<RustyMedallionDroplet>(), d, 0f, Player.whoAmI);
                 if (drop.WithinBounds(Main.maxProjectiles))
                 {
                     Main.projectile[drop].penetrate = 3;
                     Main.projectile[drop].DamageType = DamageClass.Generic;
                 }
-                Player.Calamity().RustyMedallionCooldown = RustyMedallion.AcidCreationCooldown / 2;
+                Player.Calamity().RustyMedallionCooldown = ScionsCurio.AcidCreationCooldown / 2;
                 */
             }
             if (gemFinal)

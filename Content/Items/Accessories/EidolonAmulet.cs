@@ -27,8 +27,8 @@ namespace Clamity.Content.Items.Accessories
 
             calamityPlayer.oceanCrest = true;
 
-            calamityPlayer.abyssalAmulet = true;
-            calamityPlayer.lumenousAmulet = true;
+            calamityPlayer.sSpiritAmulet = true;
+            calamityPlayer.dOfTheDeep = true;
             player.buffImmune[ModContent.BuffType<RiptideDebuff>()] = true;
             player.buffImmune[ModContent.BuffType<CrushDepth>()] = true;
 
@@ -38,8 +38,8 @@ namespace Clamity.Content.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<RustyMedallion>()
-                .AddIngredient<LumenousAmulet>()
+                .AddIngredient<ScionsCurio>()
+                .AddIngredient<DiamondOfTheDeep>()
                 .AddIngredient<OceanCrest>()
                 .AddIngredient<CorrodedFossil>(5)
                 .AddTile(TileID.LunarCraftingStation)

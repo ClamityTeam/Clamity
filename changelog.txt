@@ -9,7 +9,7 @@ Rewroked the Hellstone Shellfish Staff
 Reworked the Starfish From the Depth slighty.
 
 Removes:
-None
+Temporarily removed the Exo Ball
 
 Balance Changes:
 Nerfed the damage increase on Skull of the Blood God from 20% to 15%.

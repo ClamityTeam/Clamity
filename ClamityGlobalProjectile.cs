@@ -45,7 +45,7 @@ namespace Clamity
 
             AddVulHexDebuff(list, projectile, target, ModContent.ItemType<LuxorsGift>(), ModContent.ProjectileType<LuxorsGiftMelee>(), ModContent.ProjectileType<LuxorsGiftRanged>(), ModContent.ProjectileType<LuxorsGiftMagic>(), ModContent.ProjectileType<LuxorsGiftRogue>(), ModContent.ProjectileType<LuxorsGiftSummon>());
             AddVulHexDebuff(list, projectile, target, ModContent.ItemType<FungalClump>(), ModContent.ProjectileType<FungalClumpMinion>());
-            AddVulHexDebuff(list, projectile, target, new int[] { ModContent.ItemType<WifeinaBottle>(), ModContent.ItemType<HeartoftheElements>() }, ModContent.ProjectileType<SandBolt>(), 32);
+            AddVulHexDebuff(list, projectile, target, new int[] { ModContent.ItemType<HeartoftheElements>() }, ModContent.ProjectileType<SandBolt>(), 32);
             AddVulHexDebuff(list, projectile, target, new int[] { ModContent.ItemType<EyeoftheStorm>(), ModContent.ItemType<HeartoftheElements>() }, ModContent.ProjectileType<CloudElementalMinion>());
             AddVulHexDebuff(list, projectile, target, new int[] { ModContent.ItemType<RoseStone>(), ModContent.ItemType<HeartoftheElements>() }, ModContent.ProjectileType<BrimstoneFireballMinion>(), ModContent.ProjectileType<BrimstoneExplosionMinion>());
             AddVulHexDebuff(list, projectile, target, new int[] { ModContent.ItemType<PearlofEnthrallment>(), ModContent.ItemType<HeartoftheElements>() }, ModContent.ProjectileType<WaterSpearFriendly>(), ModContent.ProjectileType<FrostMistFriendly>(), ModContent.ProjectileType<WaterElementalSong>());
@@ -113,7 +113,7 @@ namespace Clamity
                 if (proj.arrow && player.Clamity().gemAmethyst && !player.Clamity().gemFinal && Main.rand.NextBool(3))
                 {
                     float d = player.GetTotalDamage<RangedDamageClass>().ApplyTo(4);
-                    int p = Projectile.NewProjectile(proj.GetSource_FromAI(), proj.Center, proj.velocity, ModContent.ProjectileType<SharpAmethystProj>(), player.ApplyArmorAccDamageBonusesTo(d), 1f, proj.owner);
+                    int p = Projectile.NewProjectile(proj.GetSource_FromAI(), proj.Center, proj.velocity, ModContent.ProjectileType<SharpAmethystProj>(), (int)d, 1f, proj.owner);
                     Main.projectile[p].DamageType = DamageClass.Ranged;
                 }
             }

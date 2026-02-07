@@ -7,3 +7,8 @@ TheWOBbler: {
 	Tooltip: Right Click to shoot a lot of ice fragments
 	DisplayName: The WOBbler
 }
+
+RealityRelocator: {
+	DisplayName: Reality Relocator
+	Tooltip: ""
+}
