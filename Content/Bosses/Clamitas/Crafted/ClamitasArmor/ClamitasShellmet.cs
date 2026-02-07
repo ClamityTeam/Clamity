@@ -3,17 +3,13 @@ using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Armor.Mollusk;
 using CalamityMod.Items.Materials;
-using CalamityMod.Projectiles.Typeless;
-using Clamity.Content.Bosses.Clamitas.Crafted.Weapons;
 using Clamity.Content.Bosses.Clamitas.Drop;
-using Clamity;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Mono.Cecil;
-
+using Clamity.Content.Bosses.Clamitas.Crafted.Weapons;
+using CalamityMod.Projectiles.Typeless;
 
 namespace Clamity.Content.Bosses.Clamitas.Crafted.ClamitasArmor
 {
@@ -94,27 +90,38 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.ClamitasArmor
         public int ShardCountdown;
         private void AmidiasEffect(Player player)
         {
-            if (player.whoAmI == Main.myPlayer)
+            if (ShardCountdown <= 0)
             {
-                var source = player.GetSource_Accessory(Item);
-                int speed2 = 25;
-                float spawnX = Main.rand.Next(-300, 301) + player.Center.X;
-                float spawnY = -1000 + player.Center.Y;
-                Vector2 baseSpawn = new Vector2(spawnX, spawnY);
-                Vector2 baseVelocity = player.Center - baseSpawn;
-                baseVelocity.Normalize();
-                baseVelocity *= speed2;
-                int spawnOffset = ShardProjectiles * 15;
-                float spread = -ShardAngleSpread / 2f;
-                for (int i = 0; i < ShardProjectiles; i++)
+                ShardCountdown = 140;
+            }
+            if (ShardCountdown > 0)
+            {
+                ShardCountdown -= Main.rand.Next(1, 4);
+                if (ShardCountdown <= 0)
                 {
-                    Vector2 spawn = baseSpawn;
-                    spawn.X = spawn.X + i * 30 - spawnOffset;
-                    Vector2 velocity = baseVelocity.RotatedBy(MathHelper.ToRadians(spread + (ShardAngleSpread * i / (float)ShardProjectiles)));
-                    velocity.X = velocity.X + 3 * Main.rand.NextFloat() - 1.5f;
+                    if (player.whoAmI == Main.myPlayer)
+                    {
+                        var source = player.GetSource_Accessory(Item);
+                        int speed2 = 25;
+                        float spawnX = Main.rand.Next(-300, 301) + player.Center.X;
+                        float spawnY = -1000 + player.Center.Y;
+                        Vector2 baseSpawn = new Vector2(spawnX, spawnY);
+                        Vector2 baseVelocity = player.Center - baseSpawn;
+                        baseVelocity.Normalize();
+                        baseVelocity *= speed2;
+                        int spawnOffset = ShardProjectiles * 15;
+                        float spread = -ShardAngleSpread / 2f;
+                        for (int i = 0; i < ShardProjectiles; i++)
+                        {
+                            Vector2 spawn = baseSpawn;
+                            spawn.X = spawn.X + i * 30 - spawnOffset;
+                            Vector2 velocity = baseVelocity.RotatedBy(MathHelper.ToRadians(spread + (ShardAngleSpread * i / (float)ShardProjectiles)));
+                            velocity.X = velocity.X + 3 * Main.rand.NextFloat() - 1.5f;
 
-                    int finalDamage = (int)player.GetBestClassDamage().ApplyTo(30);
-                    Projectile.NewProjectile(source, spawn.X, spawn.Y, velocity.X / 3, velocity.Y / 2, ModContent.ProjectileType<PearlAuraShard>(), finalDamage, 5f, Main.myPlayer);
+                            int finalDamage = (int)player.GetBestClassDamage().ApplyTo(30);
+                            Projectile.NewProjectile(source, spawn.X, spawn.Y, velocity.X / 3, velocity.Y / 2, ModContent.ProjectileType<PearlAuraShard>(), finalDamage, 5f, Main.myPlayer);
+                        }
+                    }
                 }
             }
         }
