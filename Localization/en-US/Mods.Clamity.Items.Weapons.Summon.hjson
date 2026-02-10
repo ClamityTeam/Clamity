@@ -8,7 +8,7 @@ HellstoneShellfishStaff: {
 }
 
 HellsBells: {
-	DisplayName: Hell`s Bells
+	DisplayName: Hell's Bells
 	Tooltip: Summons an obsidian bell that follows the cursor
 }
 

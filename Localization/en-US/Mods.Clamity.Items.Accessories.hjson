@@ -12,7 +12,7 @@ DraculasCharm: {
 	Tooltip:
 		'''
 		15% increased rogue damage and +10 maximum stealth
-		Stealth strikes deal 8% more damage, summon a swarm of homing lifestealing vampire bats, and inflict Crumbling
+		Stealth strikes deal 8% more damage, summon a swarm of homing lifestealing vampire bats, and inflict [cbuff:CalamityMod/ArmorCrunch]
 		Rogue projectiles steal life on crits and explode into homing souls
 		'''
 }
@@ -21,7 +21,7 @@ PyroStone: {
 	DisplayName: Pyro Stone
 	Tooltip:
 		'''
-		Multiplies all heat-based debuff damage by 1.5
+		Multiplies Heat debuff damage by 1.5
 		Creates a rotating fire shield around you that damages and ignites enemies on contact
 		'One of the ancient relics'
 		'''
@@ -31,8 +31,8 @@ HellFlare: {
 	DisplayName: Hell Flare
 	Tooltip:
 		'''
-		All attacks and projectiles inflict Hellfire
-		Grants immunity to On fire! and Hellfire
+		All attacks and projectiles inflict [cbuff:OnFire3]
+		Grants immunity to [cbuff:OnFire] and [cbuff:OnFire3]
 		Being above 75% life grants 10% increased crit chance
 		Being below 25% life grants 10% increased damage reduction
 		Grants resistance against cold attacks
@@ -46,7 +46,7 @@ SupremeBarrier: {
 		Allows the ability to ram dash, empowered by the cosmic inferno
 		This dash can slam through enemies without taking damage
 		Grants immunity to knockback and fire blocks
-		Grants immunity to the vast majority of debuffs, including God Slayer Inferno
+		Grants immunity to the vast majority of debuffs, including [cbuff:CalamityMod/GodSlayerInferno]
 		Causes stars to fall and increases length of invincibility after taking damage
 		Grants bonus invincibility frames based on your missing health
 		This effect scales from 10 frames at full HP to 40 frames at 25% or less HP
@@ -111,7 +111,6 @@ PearlOfFishCalamity: {
 		'''
 		Increases fishing skill by 50
 		Increases chance to catch crates
-		Greatly increases chance of catching potion ingredient fish
 		Potion ingredient fish yield is increased
 		Summons a water elemental to protect you
 		The elemental stays above you, shooting water spears, ice mist, and treble clefs at nearby enemies

@@ -5,17 +5,12 @@ SupremeLucky: {
 
 HellstoneShellfishStaffBuff: {
 	DisplayName: Hellstone Shellfish
-	Description: The hellstone shellfish will fight to protect you
+	Description: The hellstone shellfish will protect you
 }
 
 HellsBellsBuff: {
-	Description: The Bell of Hell will fight to protect you
 	DisplayName: Obsidian Bell
-}
-
-WarCleave: {
-	Description: Mods.Clamity.Buffs.WarCleave.Description
-	DisplayName: War Cleave
+	Description: The Bell of Hell will protect you
 }
 
 ExoBaguetteBuff: {
@@ -40,7 +35,7 @@ PlanterrorStaffBuff: {
 
 HeavyMetalTrashCanBuff: {
 	DisplayName: Mini Bocchi
-	Description: Hitori Gotoh is following you
+	Description: A little Hitori Gotoh is following you
 }
 
 TitanScalePotionBuff: {

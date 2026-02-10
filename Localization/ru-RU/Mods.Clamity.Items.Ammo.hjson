@@ -10,17 +10,19 @@ Dart: {
 }
 
 Arrow: {
-	// A: a
-
 	FrostfireArrow: {
-		DisplayName: Стреля ледяного огня
-		Tooltip: Создает взрым при ударе
+		DisplayName: Стрелы ледяного огня
+		Tooltip: Создает взрыв при ударе
 	}
 }
 
 Solution: {
 	CyanSolution: {
-		DisplayName: Голубой раствор
-		Tooltip: ""
+		DisplayName: Сиреневый раствор
+		Tooltip:
+			'''
+			Используется «Очистителем» 
+			Распространяет Замёрзший ад
+			'''
 	}
 }

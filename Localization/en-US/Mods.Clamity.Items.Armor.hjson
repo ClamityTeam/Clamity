@@ -44,36 +44,36 @@ Vanity: {
 
 FrozenHellstone: {
 	FrozenHellstoneVisor: {
+		DisplayName: Frozen Visor
 		Tooltip:
 			'''
-			20% increased true melee damage. 
-			True melee attacks inflict Frostburn. 
+			20% increased true melee damage
+			True melee attacks inflict [cbuff:Frostburn]
 			Enemies are more likely to target you
 			'''
-		DisplayName: Frozen Visor
 		SetBonus:
 			'''
-			Cannot be frozen.
-			Press {0} to create an ice shield that parries attacks.
-			Failing to parry will cause you to overcool.
+			Cannot be frozen
+			Press {0} to create an ice shield that parries attacks
+			Failing to parry will cause you to overcool
 			'''
 	}
 
 	FrozenHellstoneGreaves: {
+		DisplayName: Frozen Greaves
 		Tooltip:
 			'''
-			20% increased true melee damage and +75 max life. 
+			20% increased true melee damage and +75 max life
 			Enemies are more likely to target you
 			'''
-		DisplayName: Frozen Greaves
 	}
 
 	FrozenHellstoneChestplate: {
+		DisplayName: Frozen Chestplate
 		Tooltip:
 			'''
-			20% increased true melee damage and 20% increased melee speed. 
+			20% increased true melee damage and 20% increased melee speed
 			Enemies are more likely to target you
 			'''
-		DisplayName: Frozen Chestplate
 	}
 }

@@ -1,11 +1,11 @@
 HuskOfCalamity: {
-	DisplayName: Шелуха бедствия
+	DisplayName: Панцирь бедствия
 	Tooltip: Останки адского моллюска
 }
 
 ClamitousPearl: {
-	DisplayName: Пагубная жемчужина
-	Tooltip: "'Это время моллюска!'"
+	DisplayName: Бедственная жемчужина
+	Tooltip: «Время моллюсковать!»
 }
 
 CoreOfFlame: {
@@ -15,12 +15,12 @@ CoreOfFlame: {
 
 EssenceOfFlame: {
 	DisplayName: Эссенция Игниса
-	Tooltip: Эссенция существ из горячих земель
+	Tooltip: Эссенция огненных существ
 }
 
 EnchantedMetal: {
 	DisplayName: Зачарованный металл
-	Tooltip: Металл наполенный душами самой Террарии
+	Tooltip: Металл, напоенный душой самой Террарии
 }
 
 MetalFeather: {
@@ -35,5 +35,5 @@ RarePlanteraFruit: {
 
 CoralskinFoolfish: {
 	DisplayName: Коралочешуйчетая рыба-балван
-	Tooltip: Камуфляж это один из лучших способов защиты в Природе
+	Tooltip: "'Камуфляж это один из лучших способов защиты в природе'"
 }

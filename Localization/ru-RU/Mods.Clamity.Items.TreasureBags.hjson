@@ -1,9 +1,9 @@
 PyrogenBag: {
-	Tooltip: Правый клик для открытия
 	DisplayName: Мешок с сокровищами (Пироген)
+	Tooltip: Правый клик для открытия
 }
 
 WoBTreasureBag: {
-	Tooltip: Правый клик для открытия
 	DisplayName: Ящик с сокровищами (Стена бронзы)
+	Tooltip: Правый клик для открытия
 }

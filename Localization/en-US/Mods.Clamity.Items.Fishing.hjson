@@ -12,6 +12,6 @@ WulfrumLure: {
 }
 
 FishOfFlame: {
-	Tooltip: Press <right> to extract essence
 	DisplayName: Fish of Ignis
+	Tooltip: Press <right> to extract essence
 }

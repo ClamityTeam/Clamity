@@ -1,10 +1,10 @@
 ClamitasBoss: {
-	DisplayName: Каламидия, Высшая мидия
-	Bestiary: Будучи проклятым самой Каламитас, гигансткий моллюск впитал в себя силу серы. Когда в нём не осталось ни капли силы океана, он превратился в Каламидию, силе которой никто не смеет противостоять.
+	DisplayName: Каламидия, Высшый моллюск
+	Bestiary: Будучи проклятым самой Каламитас, гигантский моллюск впитал в себя силу серы. Когда в нём не осталось ни капли силы океана, он превратился в Каламидию, силе которой никто не смеет противостоять.
 
 	BossChecklistIntegration: {
 		SpawnInfo: Используйте [i:Clamity/ClamitasSummoningItem] в серных скалах.
-		DespawnMessage: "[c/FFD700:Каламидия возращаеться в укрытие в своём гроте.]"
+		DespawnMessage: "[c/FFD700:Каламидия возвращается в укрытие в своём гроте.]"
 	}
 }
 
@@ -27,17 +27,17 @@ WallOfBronzeClaw.DisplayName: Бронзовый коготь
 
 WallOfBronze: {
 	DisplayName: Стена бронзы
-	Bestiary: Древняя машина, хранитель более могущественной духов, чем духи после Стены из плоти. Одна из духов могут заморозить такое жаркое место, как преисподня
+	Bestiary: Древняя машина, хранитель более могущественной духов, чем духи после Стены из плоти. Одна из духов могут заморозить такое жаркое место, как преисподняя.
 
 	BossChecklistIntegration: {
-		// SpawnInfo: Right Click on a placed [i:Clamity/AncientConsole] Ancient Console in the Underworld
-		// DespawnMessage: "[c/FFD700:The titanic machine continues its endless journey through Hell.]"
+		SpawnInfo: Нажмите ПКМ по размещённой в преисподней [i:Clamity/AncientConsole] древней консоли.
+		DespawnMessage: "[c/FFD700:Титаническая машина прекратила ваше путешествие по преисподней.]"
 	}
 }
 
 ClockworkBat: {
-	DisplayName: Часовая летучая мыш
-	Bestiary: Часовая летучая мыш - это отдельный дрон из Wall of Bronze. Но после победы над ним летучая мышь стала неуправляемой
+	DisplayName: Часовая летучая мышь
+	Bestiary: Часовая летучая мышь - это отдельный дрон из Wall of Bronze. Но после победы над ним летучая мышь стала неуправляемой
 }
 
 GlacialSlime: {

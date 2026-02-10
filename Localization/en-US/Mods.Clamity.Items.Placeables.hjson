@@ -17,32 +17,32 @@ Relics: {
 
 Trophies: {
 	PyrogenTrophy: {
-		Tooltip: ""
 		DisplayName: Pyrogen Trophy
+		Tooltip: ""
 	}
 
 	WoBTrophy: {
-		Tooltip: ""
 		DisplayName: Wall of Bronze Trophy
+		Tooltip: ""
 	}
 }
 
 FrozenHellstone: {
-	Tooltip: ""
 	DisplayName: Frozen Hellstone
+	Tooltip: ""
 }
 
 FrozenAsh: {
-	Tooltip: ""
 	DisplayName: Frozen Ash
+	Tooltip: ""
 }
 
 PyroplateWall: {
-	Tooltip: ""
 	DisplayName: Pyroplate Wall
+	Tooltip: ""
 }
 
 Pyroplate: {
-	Tooltip: It resonates with otherworldly energy
 	DisplayName: Pyroplate
+	Tooltip: It resonates with otherworldly energy
 }
