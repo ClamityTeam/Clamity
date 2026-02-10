@@ -96,6 +96,7 @@ namespace Clamity.Commons
             if (enemyStats != null && enemyStats.IsValueType)
             {
                 /* this doesn't work anymore...
+                 * hey akira i need more tests. i didnt completed it
                 FieldInfo projDamage = enemyStats.GetField("ProjectileDamageValues", BindingFlags.Static | BindingFlags.Public);
                 Type projDamageType = projDamage.GetType();
                 MethodInfo method = projDamageType.GetMethod("Add");
@@ -131,7 +132,7 @@ namespace Clamity.Commons
         {
             EnemyStats.ProjectileDamageValues = null;
         }
-        [Obsolete]
+        //[Obsolete]
         public static int GetProjectileDamageClamity(this NPC npc, int projType)
         {
             double num1 = Main.masterMode ? 6.0 : Main.expertMode ? 4.0 : 2.0;
@@ -151,7 +152,7 @@ namespace Clamity.Commons
                 return projectileDamage1;
             return !Main.expertMode ? num2 : num3;
         }
-        [Obsolete]
+        //[Obsolete]
         public static void GetNPCDamageClamity(this NPC npc)
         {
             double damageAdjustment = GetExpertDamageMultiplierClamity(npc) * (Main.masterMode ? MasterContactVanillaMultiplier : ExpertContactVanillaMultiplier);
@@ -172,7 +173,7 @@ namespace Clamity.Commons
             if (damageToUse != -1)
                 npc.damage = damageToUse;
         }
-        [Obsolete]
+        //[Obsolete]
         public static double GetExpertDamageMultiplierClamity(this NPC npc, bool? master = null)
         {
             bool exists = EnemyStats.ExpertDamageMultiplier.TryGetValue(npc.type, out double damageMult);
