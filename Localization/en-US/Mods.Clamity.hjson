@@ -20,20 +20,6 @@ Items: {
 				'''
 		}
 	}
-
-	Weapons: {
-		Typeless: {
-			GoldenGun: {
-				Tooltip: ""
-				DisplayName: Golden Gun
-			}
-
-			WitherOnAStick: {
-				DisplayName: Wither On A Stick
-				Tooltip: ""
-			}
-		}
-	}
 }
 
 Misc: {

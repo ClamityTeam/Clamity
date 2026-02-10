@@ -13,7 +13,7 @@ RoseBow: {
 	Tooltip:
 		'''
 		Стреляет разбросом стрел и самонаводящихся лепестков
-    'Даже если ты меня не видишь, даже если ты меня не слышишь, я буду рядом с тобой'
+		'Даже если ты меня не видишь, даже если ты меня не слышишь, я буду рядом с тобой'
 		'''
 }
 
@@ -23,7 +23,7 @@ WitheredBoneBow: {
 		'''
 		Converts wooden arrows to withered bone bolts
 		Bolts creates a copy behind player on hit up to two times
-		Bolts inflict Withered and has 15 armor penetration
+		Bolts inflict Withered and have 15 armor penetration
 		'Did I hear someone say taco?'
 		''' */
 }

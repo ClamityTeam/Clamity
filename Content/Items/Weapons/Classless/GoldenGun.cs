@@ -10,7 +10,7 @@ namespace Clamity.Content.Items.Weapons.Classless
 {
     public class GoldenGun : ModItem, ILocalizedModType
     {
-        public new string LocalizationCategory => "Items.Weapons.Typeless";
+        public new string LocalizationCategory => "Items.Weapons.Classless";
         public override void SetDefaults()
         {
             Item.damage = 25;

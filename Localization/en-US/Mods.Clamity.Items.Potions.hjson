@@ -12,7 +12,7 @@ Foods: {
 		DisplayName: Exo Baguette
 		Tooltip:
 			'''
-			Major improvements to all stats
+			{$CommonItemTooltip.MajorStats}
 			Red Wine heals 250 HP, but reduces life regen by 2 HP/s
 			Allows for drinking 1 more alcohol before your liver is poisoned
 			'''
@@ -22,31 +22,31 @@ Foods: {
 		DisplayName: Soul Baguette
 		Tooltip:
 			'''
-			Medium improvements to all stats
+			{$CommonItemTooltip.MediumStats}
 			Red Wine heals 250 HP, but reduces life regen by 2 HP/s
 			'''
 	}
 
 	Eldercherry: {
 		DisplayName: Eldercherry
-		Tooltip: Medium improvements to all stats
+		Tooltip: "{$CommonItemTooltip.MediumStats}"
 	}
 
 	EldercherryJuice: {
 		DisplayName: Eldercherry Juice
-		Tooltip: Major improvements to all stats
+		Tooltip: "{$CommonItemTooltip.MajorStats}"
 	}
 
 	SlagspitterPauldron: {
 		DisplayName: Slagspitter Pauldron
-		Tooltip: Major improvements to all stats
+		Tooltip: "{$CommonItemTooltip.MajorStats}"
 	}
 
 	ClamChowder: {
 		DisplayName: Clam Chowder
 		Tooltip:
 			'''
-			Medium improvements to all stats
+			{$CommonItemTooltip.MediumStats}
 			'New Ilmeris style'
 			'''
 	}
@@ -67,7 +67,7 @@ Foods: {
 		DisplayName: Calamitea
 		Tooltip:
 			'''
-			Major improvements to all stats
+			{$CommonItemTooltip.MajorStats}
 			'Quite the Calamity'
 			'''
 	}

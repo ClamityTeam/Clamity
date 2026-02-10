@@ -1,49 +1,44 @@
 SupremeLucky: {
 	DisplayName: Высшая удача
-	Description: Вы ощущаете себя очень удачливым
+	Description: Вы чувствуете себя невероятно удачливым
 }
 
 HellstoneShellfishStaffBuff: {
-	DisplayName: Литой моллюск
-	Description: Вас защищает литой моллюск
+	DisplayName: Раскалённый моллюск
+	Description: Вас защищает раскалённый моллюск
 }
 
 HellsBellsBuff: {
-	Description: Адские колокола защищают тебя
-	DisplayName: Обсидианый колокол
-}
-
-WarCleave: {
-	// Description: Mods.Clamity.Buffs.WarCleave.Description
-	// DisplayName: War Cleave
+	DisplayName: Обсидиановый колокольчик
+	Description: Вас защищает адский колокольчик
 }
 
 ExoBaguetteBuff: {
-	DisplayName: Экзо багет
-	Description: "'Экзо бонджур' ~WitherTaco"
+	DisplayName: Экзо-багет
+	Description: "'Экзо-бонджур' ~WitherTaco"
 }
 
 BrimChairBuff: {
 	DisplayName: Серный трон
-	Description: Сидишь на геймерском кресле, бросающем вызов физике
+	Description: Верхом на игровом кресле, бросающем вызов физике
 }
 
 PlagueChairBuff: {
 	DisplayName: Чумной стул
-	Description: Сидишь на геймерском кресле, бросающем вызов физике
+	Description: Верхом на игровом кресле, бросающем вызов физике
 }
 
 PlanterrorStaffBuff: {
 	DisplayName: Гантера
-	Description: '''"Поговорим об оружии и розах, я прав?"'''
+	Description: "'Talk about guns and roses, am I right?'"
 }
 
 HeavyMetalTrashCanBuff: {
-	DisplayName: Мини бочи
-	Description: Хитори Готох следует за вами
+	DisplayName: Мини-бочи
+	Description: За вами следует маленькая Хитори Гото
 }
 
 TitanScalePotionBuff: {
-	DisplayName: Чешуя титана
-	Description: Вы чувстуете себя танком
+	DisplayName: Титановая чешуя
+	Description: Вы чувствуете себя танком
 }

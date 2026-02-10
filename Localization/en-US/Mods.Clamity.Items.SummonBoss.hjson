@@ -39,10 +39,10 @@ AncientConsole: {
 }
 
 WoBSummonItem: {
+	DisplayName: Technical Alternative Bronze Machine
 	Tooltip:
 		'''
 		Summons a Wall of Bronze in Hell
 		Non consumable
 		'''
-	DisplayName: Technical Alternative Bronze Machine
 }

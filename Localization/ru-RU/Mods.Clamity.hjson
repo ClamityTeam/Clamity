@@ -1,12 +1,12 @@
 Items: {
 	Mounts: {
 		FlameCube: {
-			DisplayName: Куб Огня
+			DisplayName: Пламенный куб
 			Tooltip:
 				'''
-				Материализует довольно уютный и чрезвычайно проворный летающий трон Каламитаса
-				Удерживайте [KEY], сидя на троне, чтобы двигаться медленнее для большей точности
-				'Удобный геймер - очень опасный геймер'
+				Призывает трон Каламитас
+				Удерживайте [KEY], сидя на троне, чтобы двигаться медленнее для более точного позиционирования
+				'Престол серного утёса'
 				'''
 		}
 
@@ -14,24 +14,10 @@ Items: {
 			DisplayName: Чумная станция
 			Tooltip:
 				'''
-				Материализует довольно уютный и достаточно проворный летающий Чумной трон
-				Удерживайте [KEY], сидя на троне, чтобы двигаться медленнее для большей точности
-				'Геймер-радикал-фанат - это вирусный геймер'
+				Материализует весьма уютный и невероятно манёвренный летающий чумной трон
+				Удерживайте [KEY], сидя на троне, чтобы двигаться медленнее для более точного позиционирования
+				'Геймер в зоне отчуждения - страшный геймер'
 				'''
-		}
-	}
-
-	Weapons: {
-		Typeless: {
-			GoldenGun: {
-				// Tooltip: ""
-				// DisplayName: Golden Gun
-			}
-
-			WitherOnAStick: {
-				// DisplayName: Wither On A Stick
-				// Tooltip: ""
-			}
 		}
 	}
 }
@@ -39,11 +25,11 @@ Items: {
 Misc: {
 	RecipeGroup: {
 		AnySandBlock: Любой песок
-		// AnyGemHook: Any Gem Hook
+		AnyGemHook: Любой самоцветный крюк
 	}
 
-	// None: ""
-	DefeatedWoB: После победы над Стеной Бронзы
+	None: ""
+	DefeatedWoB: После победы над Стеной бронзы
 	// FrozenHellMessege: You can feel the cold breeze coming from the center of Hell...
 	// GeneratedFrozenHell: If not generated Frozen Hell or active special config
 }
@@ -55,27 +41,27 @@ Tiles: {
 
 Biomes: {
 	FrozenHell: {
-		TownNPCDialogueName: Замороженный ад
-		DisplayName: Замороженный ад
+		TownNPCDialogueName: Замёрзший ад
+		DisplayName: Замёрзший ад
 	}
 }
 
 InfernumIntro: {
-	/* Pyrogen:
+	Pyrogen:
 		'''
-		Auric Furnace
-		Pyrogen
-		''' */
-	/* WoB:
+		Ауритовая кузня
+		Пироген
 		'''
-		Ancient Machine
-		Wall of Bronze
-		''' */
-	/* Clamitas:
+	WoB:
 		'''
-		Supreme Clam
-		Clamitas
-		''' */
+		Древняя машина
+		Стена бронзы
+		'''
+	Clamitas:
+		'''
+		Высший моллюск
+		Каламидия
+		'''
 }
 
 Configs: {

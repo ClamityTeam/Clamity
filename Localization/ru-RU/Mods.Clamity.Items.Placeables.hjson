@@ -17,32 +17,32 @@ Relics: {
 
 Trophies: {
 	PyrogenTrophy: {
-		Tooltip: ""
 		DisplayName: Трофей Пирогена
+		Tooltip: ""
 	}
 
 	WoBTrophy: {
-		Tooltip: ""
 		DisplayName: Трофей Стены бронзы
+		Tooltip: ""
 	}
 }
 
 FrozenHellstone: {
-	Tooltip: ""
 	DisplayName: Замороженный адский камень
+	Tooltip: ""
 }
 
 FrozenAsh: {
-	Tooltip: ""
 	DisplayName: Замороженный пепел
+	Tooltip: ""
 }
 
 PyroplateWall: {
-	Tooltip: ""
 	DisplayName: Стена из пироплиты
+	Tooltip: ""
 }
 
 Pyroplate: {
-	Tooltip: Он резонирует с потусторонней энергией
 	DisplayName: Пироплита
+	Tooltip: Он резонирует с потусторонней энергией
 }

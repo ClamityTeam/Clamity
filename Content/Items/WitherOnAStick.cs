@@ -13,8 +13,9 @@ using Terraria.ModLoader;
 
 namespace Clamity.Content.Items
 {
-    public class WitherOnAStick : ColdheartIcicle
+    public class WitherOnAStick : ColdheartIcicle, ILocalizedModType
     {
+        public new string LocalizationCategory => "Items.Misc";
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();

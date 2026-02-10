@@ -15,12 +15,12 @@ CoreOfFlame: {
 
 EssenceOfFlame: {
 	DisplayName: Эссенция Игниса
-	Tooltip: Эссенция горящих существ
+	Tooltip: Эссенция огненных существ
 }
 
 EnchantedMetal: {
 	DisplayName: Зачарованный металл
-	Tooltip: Металл наполенный душами самой Террарии
+	Tooltip: Металл, напоенный душой самой Террарии
 }
 
 MetalFeather: {
@@ -35,5 +35,5 @@ RarePlanteraFruit: {
 
 CoralskinFoolfish: {
 	DisplayName: Коралочешуйчетая рыба-балван
-	Tooltip: Камуфляж это один из лучших способов защиты в Природе
+	Tooltip: "'Камуфляж это один из лучших способов защиты в природе'"
 }
