@@ -40,3 +40,13 @@ AuricKunai: {
 		Невидимые удары наносят 5 молний ближайшему врагу
 		'''
 }
+
+StarfishFromTheDepth: {
+	// DisplayName: Starfish from the Depth
+	/* Tooltip:
+		'''
+		Starfish home onto the nearest targets for up to 5 hits before returning
+		Right click or stop holding this weapon to make active starfish return to you
+		Stealth strikes throw three starfish at the same time
+		''' */
+}

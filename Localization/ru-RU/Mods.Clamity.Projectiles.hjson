@@ -9,6 +9,8 @@ Melee: {
 	EverestProjectile.DisplayName: Эверест
 	// ExoNewBeam.DisplayName: Exo Beam
 	// ExoNewExplosion.DisplayName: Exo Explosion
+	// EtherealKnivesProjectile.DisplayName: Ethereal Knives Projectile
+	// HyperionProjectile.DisplayName: Hyperion Projectile
 }
 
 Ranged: {
@@ -28,6 +30,9 @@ Ranged: {
 Magic: {
 	TheGeneratorSigil.DisplayName: Символ генератора
 	MoonstoneKnifeProjectile.DisplayName: Кинжал из лунного камня
+	// UnicronBeam.DisplayName: Unicron Beam
+	// UnicronWingmanGrenade.DisplayName: Unicron Wingman Grenade
+	// UnicronWingmanShot.DisplayName: Unicron Wingman Shot
 }
 
 Summon: {
@@ -49,6 +54,7 @@ Rogue: {
 	ExoBallProjectile.DisplayName: Экзо шар
 	AuricKunaiProjectile.DisplayName: Аурический кунай
 	AuricKunaiLightning.DisplayName: Аурическая молния
+	// StarfishFromTheDepthProj.DisplayName: Starfish from the Depth
 }
 
 Classless: {
@@ -82,3 +88,4 @@ Boss: {
 // PyrogenSummonAnimation.DisplayName: Pyrogen Summon Animation
 // CyanSolutionProjectile.DisplayName: Cyan Solution
 // HeavyMetalTrashCanPet.DisplayName: Mini Bocchi
+// AncientConsoleProjectile.DisplayName: Ancient Console Projectile

@@ -5,7 +5,6 @@ using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Clamity.Content.Bosses.WoB.NPCs;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -32,7 +31,7 @@ namespace Clamity.Content.Bosses.WoB
             Item.height = 32;
             Item.maxStack = 9999;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
         }
         public override void AddRecipes()
         {
@@ -80,7 +79,7 @@ namespace Clamity.Content.Bosses.WoB
         public override bool CanExplode(int i, int j) => false;
         public override bool RightClick(int i, int j)
         {
-            if (NPC.AnyNPCs(ModContent.NPCType<WallOfBronze>()) || BossRushEvent.BossRushActive || !Main.LocalPlayer.ZoneUnderworldHeight)
+            /*if (NPC.AnyNPCs(ModContent.NPCType<WallOfBronze>()) || BossRushEvent.BossRushActive || !Main.LocalPlayer.ZoneUnderworldHeight)
                 return true;
 
             //CalamityUtils.
@@ -105,16 +104,59 @@ namespace Clamity.Content.Bosses.WoB
             {
                 Player player = Main.player[thisPlayer];
                 int center = Main.maxTilesX * 16 / 2;
-                NPC.NewNPC(player.GetSource_ItemUse(new Item(ModContent.ItemType<WoBSummonItem>())), (int)player.Center.X - 1000 * (player.Center.X > center ? -1 : 1), (int)player.Center.Y, ModContent.NPCType<WallOfBronze>());
 
                 SoundEngine.PlaySound(SummonSound, new Vector2(i, j) * 16);
 
-                /*if (Main.netMode != NetmodeID.MultiplayerClient)
-                    NPC.SpawnOnPlayer(Main.myPlayer, ModContent.NPCType<WallOfBronze>());
-                else
-                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, Main.myPlayer, (int)ModContent.NPCType<WallOfBronze>());*/
-            }
+                //NPC.NewNPC(player.GetSource_ItemUse(new Item(ModContent.ItemType<WoBSummonItem>())), (int)player.Center.X - 1000 * (player.Center.X > center ? -1 : 1), (int)player.Center.Y, ModContent.NPCType<WallOfBronze>());
+                //Projectile.NewProjectile(NPC.GetSource_None(), Vector2.Zero, Vector2.Zero, ModContent.ProjectileType<AncientConsoleProjectile>(), 0, 0, Main.myPlayer);
+
+                //if (Main.netMode != NetmodeID.MultiplayerClient)
+                //    NPC.SpawnOnPlayer(Main.myPlayer, ModContent.NPCType<WallOfBronze>());
+                //else
+                //    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, Main.myPlayer, (int)ModContent.NPCType<WallOfBronze>());
+            }*/
+
+
+            Tile tile = Main.tile[i, j];
+
+            int left = i - tile.TileFrameX / 18;
+            int top = j - tile.TileFrameY / 18;
+            int center = Main.maxTilesX / 2;
+
+            if (NPC.AnyNPCs(ModContent.NPCType<WallOfBronze>()) || BossRushEvent.BossRushActive)
+                return true;
+
+            if (CalamityUtils.CountProjectiles(ModContent.ProjectileType<AncientConsoleProjectile>()) > 0)
+                return true;
+
+            Vector2 ritualSpawnPosition = new Vector2(left + 1.5f, top).ToWorldCoordinates(); //(int)player.Center.X - 1000 * (player.Center.X > center ? -1 : 1)
+            ritualSpawnPosition += new Vector2(1000 * (left > center ? -1 : 1), 0f);
+
+            SoundEngine.PlaySound(SummonSound, ritualSpawnPosition);
+            Projectile.NewProjectile(new EntitySource_WorldEvent(), ritualSpawnPosition, Vector2.Zero, ModContent.ProjectileType<AncientConsoleProjectile>(), 0, 0f, Main.myPlayer);
+
             return true;
+        }
+    }
+    public class AncientConsoleProjectile : ModProjectile
+    {
+        public override string Texture => "CalamityMod/Projectiles/InvisibleProj";
+        public override void SetDefaults()
+        {
+            Projectile.width = Projectile.height = 1;
+            Projectile.aiStyle = -1;
+            AIType = -1;
+            Projectile.timeLeft = 1;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            Player player = Main.player[Projectile.owner];
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                //NPC.NewNPC(player.GetSource_ItemUse(new Item(ModContent.ItemType<WoBSummonItem>())), (int)player.Center.X - 1000 * (player.Center.X > Main.maxTilesX * 16 / 2 ? -1 : 1), (int)player.Center.Y, ModContent.NPCType<WallOfBronze>());
+                NPC scal = CalamityUtils.SpawnBossBetter(Projectile.Center, ModContent.NPCType<WallOfBronze>(), null);
+            }
         }
     }
 }

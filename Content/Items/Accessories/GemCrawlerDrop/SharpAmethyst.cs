@@ -8,6 +8,10 @@ namespace Clamity.Content.Items.Accessories.GemCrawlerDrop
     public class SharpAmethyst : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Accessories";
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             Item.width = 24;
@@ -25,6 +29,10 @@ namespace Clamity.Content.Items.Accessories.GemCrawlerDrop
     public class SharpAmethystProj : ModProjectile, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Classless";
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 24;

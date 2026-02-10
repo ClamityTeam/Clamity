@@ -3,6 +3,7 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
@@ -122,8 +123,9 @@ namespace Clamity.Content.Items.Weapons.Ranged.Bows
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.GemSapphire);
-            dust.noGravity = true;
+            //Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.GemSapphire);
+            //dust.noGravity = true;
+            GeneralParticleHandler.SpawnParticle(new GenericSparkle(Projectile.Center, Projectile.velocity / 4, Color.LightBlue, Color.Cyan, 0.5f, 10));
 
             CalamityUtils.HomeInOnNPC(Projectile, false, 1000, 30, 10);
         }
@@ -151,6 +153,12 @@ namespace Clamity.Content.Items.Weapons.Ranged.Bows
 
                 Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, Projectile.velocity, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0] + 1);
                 proj.Clamity().extraAI[0] = Projectile.Clamity().extraAI[0] + 1;
+
+                GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.LightBlue, new Vector2(0.5f, 0.5f), Main.rand.NextFloat(12f, 25f), 0f, 1f, 20));
+                for (int i = 0; i < 3; i++)
+                {
+                    GeneralParticleHandler.SpawnParticle(new SparkParticle(Projectile.Center, Vector2.UnitX.RotatedBy(MathHelper.TwoPi / 4 * i), affectedByGravity: false, 10, 1f, Color.LightBlue));
+                }
             }
         }
     }

@@ -21,7 +21,7 @@ TrashOfMagnus: {
 EyeOfNova: {
 	Tooltip:
 		'''
-		Fires powerful homing exo beams that reduce enemy protection, defence and slow down
+		Fires powerful homing exo beams that reduce enemy protection, defence and slow them down
 		Heals mana and health on hit
 		This weapon scales with all your damage stats at once
 		'''

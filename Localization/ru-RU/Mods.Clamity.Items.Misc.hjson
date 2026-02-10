@@ -8,3 +8,13 @@ RealityRelocator: {
 		'Я буду там в мгновение ока'
 		'''
 }
+
+WitherOnAStick: {
+	// DisplayName: Wither On A Stick
+	/* Tooltip:
+		'''
+		If you see this item i don't like
+		how looks current Alicorn on a Stick (Coldheart Icicle)
+		'Truely Very Clamitous'
+		''' */
+}

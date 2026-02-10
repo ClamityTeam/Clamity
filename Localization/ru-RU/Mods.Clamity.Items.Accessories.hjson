@@ -12,7 +12,7 @@ DraculasCharm: {
 	Tooltip:
 		'''
 		Увеличивает разбойный урон на 15% и максимальный запас скрытности на 10
-		Скрытные удары наносят на 8% больше урона, призывают рой из самонаводящихся летучий мышей-вампиров и накладывают дебафф «Разрушение»
+		Скрытные удары наносят на 8% больше урона, призывают рой из самонаводящихся летучий мышей-вампиров и накладывают дебафф «{$Mods.CalamityMod.Buffs.ArmorCrunch.DisplayName}»
 		Снаряды разбойного оружия похищают часть здоровья врага при критических ударах, а также разрушаются на самонаводящиеся души при уничтожении
 		'''
 }
@@ -77,11 +77,11 @@ EidolonAmulet: {
 	DisplayName: Призрачный амулет
 	Tooltip:
 		'''
-		Дает иммунитет к дебаффам «Разрывной поток», «Глубина сокрушения» и «Облучение»
-		Все атаки накладывают дебафф «Глубина сокрушения» и выпускают капли кислоты с неба
+		Дает иммунитет к дебаффам «{$Mods.CalamityMod.Buffs.RiptideDebuff.DisplayName}», «{$Mods.CalamityMod.Buffs.CrushDepth.DisplayName}» и «{$Mods.CalamityMod.Buffs.Irradiated.DisplayName}»
+		Все атаки накладывают дебафф «{$Mods.CalamityMod.Buffs.CrushDepth.DisplayName}» и выпускают капли кислоты с неба
 		Вы восстанавливаете воздух, неподвижно стоя под водой (не работает в бездне)
-		На 15% увеличена скорость добычи и на 10% увеличен урон когда мокром состоянии
-		25% увеличена максимальные ХП, когда ты в в бездне
+		Увеличивает скорость добычи на 15% и урон на 10%, пока вы погружены в жидкость
+		Увеличивает здоровье на 25% в бездне
 		Обеспечивает умеренное количество света в бездне
 		'''
 }
@@ -126,7 +126,7 @@ TheSubcommunity: {
 	StatsList:
 		'''
 		Увеличивает скорость добычи на {0}%
-		Увеличивает удачу на {1} ед. и навык рыбной ловли на {2} ед.
+		Увеличивает удачу на {1} ед. и навык рыбной ловли на {2}
 		Увеличивает скорость установки блоков и стен {3}% и её дальность на {4}
 		Усиливается с каждым побеждённым боссом ({5}% силы)
 		'''
@@ -165,7 +165,7 @@ CyanPearl: {
 	/* Tooltip:
 		'''
 		+7% summon damage
-		Halves summon damage penalty for sentries
+		Halves the summon damage penalty for sentries
 		''' */
 }
 
@@ -173,7 +173,7 @@ SkullOfTheBloodGod: {
 	// DisplayName: Skull of the Blood God
 	/* Tooltip:
 		'''
-		20% increased damage and 13% increased critical strike chance
+		15% increased damage and 13% increased critical strike chance
 		Critical strikes explode, causing nearby enemies to ignite with Brimstone Flames
 		Halves enemy contact damage with a 20 second cooldown
 		Brimstone fire rains down after getting hit

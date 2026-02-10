@@ -1,0 +1,100 @@
+name: Publish Preview
+
+on:
+  push:
+
+permissions:
+  contents: write # Needed to create releases
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'
+
+      - name: Setup tML
+        run: ./.github/workflows/setup.cmd
+
+      - name: Debug Build
+        run: dotnet build Clamity.sln --configuration Debug
+
+      # When moving the files, if they go to the CWD, they get put into the next build of the mod too
+      - name: Move Debug Mod File
+        shell: pwsh
+        run: |
+          Move-Item -Path "$env:UserProfile/Documents/My Games/Terraria/tModLoader/Mods/Clamity.tmod" -Destination ../
+          Rename-Item -Path ../Clamity.tmod -NewName Clamity-Debug.tmod
+
+      - name: Release Build
+        run: dotnet build Clamity.sln --configuration Release
+
+      - name: Move Release Mod File
+        shell: pwsh
+        run: Move-Item -Path "$env:UserProfile/Documents/My Games/Terraria/tModLoader/Mods/Clamity.tmod" -Destination ../
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          tag_name: Preview-${{ github.ref_name }}
+          release_name: Preview ${{ github.ref_name }}
+          body: |
+            Preview release for ${{ github.ref_name }}.
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release Mod File
+        uses: actions/upload-release-asset@v1
+        id: upload_release_file
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ../Clamity.tmod
+          asset_name: Clamity.tmod
+          asset_content_type: application/octet-stream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Debug Mod File
+        uses: actions/upload-release-asset@v1
+        id: upload_debug_file
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ../Clamity-Debug.tmod
+          asset_name: Clamity-Debug.tmod
+          asset_content_type: application/octet-stream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Post Discord Message
+        shell: bash
+        run: |
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d "{\"embeds\": [{
+            \"title\": \"Mod Files - ${{ github.ref_name }}\",
+            \"description\": \"Mod files for preview release ${{ github.ref_name }}.\",
+            \"color\": 15753824,
+            \"fields\": [
+              {
+                \"name\": \"GitHub Release\",
+                \"value\": \"[${{ github.ref_name }}](${{ steps.create_release.outputs.html_url }})\"
+              },
+              {
+                \"name\": \"Release Mod File\",
+                \"value\": \"[Clamity.tmod](${{ steps.upload_release_file.outputs.browser_download_url }})\"
+              },
+              {
+                \"name\": \"Debug Mod File\",
+                \"value\": \"[Clamity-Debug.tmod](${{ steps.upload_debug_file.outputs.browser_download_url }})\"
+              }
+            ]
+          }]}" \
+          ${{ secrets.MODFILE_WEBHOOK }}

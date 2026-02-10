@@ -3,6 +3,7 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
 using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Placeables.Crags;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Projectiles.Ranged;
 using Clamity.Content.Bosses.Clamitas.Drop;
@@ -23,7 +24,7 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
             base.SetDefaults();
             Item.rare = ItemRarityID.Lime;
             Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
-            Item.damage = 56;
+            Item.damage = 40;
             Item.useTime = Item.useAnimation = 10;
             Item.shoot = ModContent.ProjectileType<DepthsEchoRifleProjectile>();
             Item.shootSpeed = 20f;

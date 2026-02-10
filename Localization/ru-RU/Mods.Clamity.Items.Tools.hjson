@@ -7,3 +7,8 @@ TheWOBbler: {
 	Tooltip: Нажмите ПКМ, чтобы разбросать большое количество ледяных осколков
 	DisplayName: Стенобронзер
 }
+
+RealityRelocator: {
+	// DisplayName: Reality Relocator
+	// Tooltip: ""
+}

@@ -24,7 +24,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
         {
             Item.width = 26;
             Item.height = 48;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
 
             Item.useTime = 1;
@@ -37,7 +37,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Item.UseSound = SoundID.Item109;
             Item.autoReuse = true;
 
-            Item.damage = 100;
+            Item.damage = 140;
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Item.knockBack = 5f;
 

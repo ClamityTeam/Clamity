@@ -1,25 +1,27 @@
-Update 1.0.3.7
+Update 1.0.3.14 - Brainstorm Patch
 
 New Content:
-Added Wither Bone Bow (WitherTaco's Developer Shadowspec weapon)
-Added The Subcommunity, Skull of Blood God
-Added New Crawler Gems accessories - Sharp Amethyst, Magic Diamond
-Added Sentry-related accessories - Cyan Pearl, Blighted Spyglass
+None
 
 Reworks:
-Returned and reworked The Omega (old name - Omega Ray)
+Reworked the Clamitas armor slighty.
+Rewroked the Hellstone Shellfish Staff
+Reworked the Starfish From the Depth slighty.
 
 Removes:
-Removed Astral Star Cannon, Charged Dart Blaster, Impaler, Lead Wizard (he moved to future addon - Calamity Returned and Reworked)
+Temporarily removed the Exo Ball
 
 Balance Changes:
-Heavy nerfed a Plague Station mount speed
-Nerfed Frozen Armor defence (200 -> 160 defence at full set. Aka decreased defence by 20%)
-Nerfed Clamitas Armor stats bonuses
-* Helmet: damage (10% -> 6%), crit chance (9% -> 5%)
-* Chestplate: damage (15% -> 12%), crit chance (4% -> 7%)
-* Leggigns: damage (15% -> 13%), crit chance (9% -> 5%)
-* Set Bonus: Mollusks damage (200 -> 130)
+Nerfed the damage increase on Skull of the Blood God from 20% to 15%.
+Nerfed the damage of the Everest from 1300 to 750.
+Nerfed the damage of the Frozen Volcano from 2500 to 1900 and made it no longer true melee.
+Nerfed the damage of the Starfish From the Depth from 200 to 150.
 
 Other Changes:
-Clamitas and Pyrogen now uses Calamity Styled drop chances for weapons
+Pyrogen now disables rain while alive.
+
+Bug Fixes:
+Fixed a bug that caused the Soul of Pyrogen to not increase rogue damage properly.
+Fixed a bug that caused the Wulfrum Lure to fire more bobbers than intended when right clicking.
+Fixed a bug that caused Clamitas not to despawn properly.
+Fixed loading with Calamity.

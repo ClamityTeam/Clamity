@@ -35,16 +35,21 @@ WulfrumLeechDagger: {
 		'''
 		Drains a low percentage of enemy health on hit
 		Cannot inflict critical hits
-		Make unconsumable for second on shortstrike
+		Unconsumable for second on a shortstrike
 		'''
 }
 
 FrozenVolcano: {
 	DisplayName: Frozen Volcano
-	Tooltip: Launches a flames
+	Tooltip: Launches flames
 }
 
 Everest: {
 	DisplayName: Everest
 	Tooltip: Fires a spread of volcanic fireballs
+}
+
+Hyperion: {
+	DisplayName: Hyperion
+	Tooltip: ""
 }

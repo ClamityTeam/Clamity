@@ -1,4 +1,8 @@
 ﻿using CalamityMod;
+using CalamityMod.Items.DraedonMisc;
+using CalamityMod.Items.Materials;
+using CalamityMod.Items.Placeables.Furniture.CraftingStations;
+using CalamityMod.Items.SummonItems;
 using CalamityMod.Items.TreasureBags;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
 using Clamity.Content.Items.Accessories;
@@ -11,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Clamity
@@ -32,6 +35,18 @@ namespace Clamity
                     break;
             }
         }*/
+        public override bool InstancePerEntity => true;
+        public bool keyItem = false;
+        public bool referenceItem = false;
+        public override void SetDefaults(Item entity)
+        {
+            if (entity.ModItem is CodebreakerBase or DecryptionComputer or LongRangedSensorArray or AdvancedDisplay or VoltageRegulationSystem or AuricQuantumCoolingCell
+                or AltarOfTheAccursedItem or AshesofCalamity
+                or EyeofDesolation or CosmicWorm or YharonEgg or MarkofProvidence or ProfanedCore or ProfanedShard)
+            {
+                //keyItem = true;
+            }
+        }
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (item.DamageType == ModContent.GetInstance<RogueDamageClass>())
@@ -49,36 +64,15 @@ namespace Clamity
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            string str1 = "ItemExtraTooltip.Shortstrike.";
-            switch (item.type)
+            if (keyItem)
             {
-                case ItemID.CopperShortsword:
-                    tooltips.Add(new TooltipLine(Mod, "Shortstrike", LangHelper.GetText(str1 + "Copper")));
-                    break;
-                case ItemID.TinShortsword:
-                    tooltips.Add(new TooltipLine(Mod, "Shortstrike", LangHelper.GetText(str1 + "Tin")));
-                    break;
-                case ItemID.IronShortsword:
-                    tooltips.Add(new TooltipLine(Mod, "Shortstrike", LangHelper.GetText(str1 + "Iron")));
-                    break;
-                case ItemID.LeadShortsword:
-                    tooltips.Add(new TooltipLine(Mod, "Shortstrike", LangHelper.GetText(str1 + "Lead")));
-                    break;
-                case ItemID.SilverShortsword:
-                    tooltips.Add(new TooltipLine(Mod, "Shortstrike", LangHelper.GetText(str1 + "Silver")));
-                    break;
-                case ItemID.TungstenShortsword:
-                    tooltips.Add(new TooltipLine(Mod, "Shortstrike", LangHelper.GetText(str1 + "Tungsten")));
-                    break;
-                case ItemID.GoldShortsword:
-                    tooltips.Add(new TooltipLine(Mod, "Shortstrike", LangHelper.GetText(str1 + "Gold")));
-                    break;
-                case ItemID.PlatinumShortsword:
-                    tooltips.Add(new TooltipLine(Mod, "Shortstrike", LangHelper.GetText(str1 + "Platinum")));
-                    break;
-                case ItemID.Gladius:
-                    tooltips.Add(new TooltipLine(Mod, "Shortstrike", LangHelper.GetText(str1 + "Gladius")));
-                    break;
+                TooltipLine line = new TooltipLine(Mod, "ClamityKey", CalamityUtils.ColorMessage("- Key Item -", Color.Gold));
+                tooltips.Add(line);
+            }
+            if (referenceItem)
+            {
+                TooltipLine line = new TooltipLine(Mod, "ClamityReference", CalamityUtils.ColorMessage("- Reference Item -", Color.Lime));
+                tooltips.Add(line);
             }
         }
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)

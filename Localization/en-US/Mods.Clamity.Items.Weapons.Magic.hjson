@@ -3,13 +3,13 @@ OmegaRay: {
 	Tooltip: Disintegrates everything with a five Y-beams of energy and lasers
 }
 
-Omega: {
-	DisplayName: Omega
+Unicron: {
+	DisplayName: Unicron
 	Tooltip:
 		'''
 		Fires a continuous array of lasers and spawns four Wingmen which orbit you and fire lasers or grenades at your cursor
 		Press <right> when firing to shoot an Omicron Beam that splits upon hitting an enemy
-		After firing an Omicron Beam your Wingmen will launch a pair of grenades
+		After firing an Unicron Beam your Wingmen will launch a pair of grenades
 		Hitting an enemy with an Omicron Beam right as it is fired will increase the damage done substantially and stop it from splitting
 		'''
 }
@@ -22,4 +22,9 @@ TheGenerator: {
 MoonstoneKnives: {
 	DisplayName: Moonstone Knives
 	Tooltip: Throws several knives that restore the users mana
+}
+
+EtherealKnives: {
+	DisplayName: Ethereal Knives
+	Tooltip: Throws a stream of knives that restore the users mana
 }

@@ -1,6 +1,6 @@
 ﻿using CalamityMod;
 using CalamityMod.Buffs.Potions;
-using CalamityMod.Items.Potions;
+using CalamityMod.Items.Potions.Food;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -1,4 +1,5 @@
-﻿using CalamityMod.Projectiles.Boss;
+﻿using CalamityMod;
+using CalamityMod.Projectiles.Boss;
 using CalamityMod.World;
 using Clamity.Content.Bosses.Clamitas.NPCs;
 using Clamity.Content.Bosses.Pyrogen.NPCs;
@@ -7,6 +8,7 @@ using Clamity.Content.Bosses.WoB.NPCs;
 using Clamity.Content.Bosses.WoB.Projectiles;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.ModLoader;
@@ -15,6 +17,11 @@ namespace Clamity.Commons
 {
     public static class NewNPCStats
     {
+        private const double ExpertContactVanillaMultiplier = 2D;
+        private const double MasterContactVanillaMultiplier = 3D;
+        private const double NormalProjectileVanillaMultiplier = 2D;
+        private const double ExpertProjectileVanillaMultiplier = 4D;
+        private const double MasterProjectileVanillaMultiplier = 6D;
         public static void Load()
         {
 
@@ -73,11 +80,58 @@ namespace Clamity.Commons
                   new int[5]{ 300, 330, 360, 410, 450 }
                 }
             };
+            EnemyStats.ExpertDamageMultiplier = new SortedDictionary<int, double>()
+            {
+
+            };
+            EnemyStats.ContactDamageValues = new SortedDictionary<int, int[]>()
+            {
+
+            };
+
+
+            Type calamitysNPCStats = typeof(NPCStats);
+            Type enemyStats = calamitysNPCStats.GetNestedType("EnemyStats", BindingFlags.NonPublic);
+
+            if (enemyStats != null && enemyStats.IsValueType)
+            {
+                /* this doesn't work anymore...
+                FieldInfo projDamage = enemyStats.GetField("ProjectileDamageValues", BindingFlags.Static | BindingFlags.Public);
+                Type projDamageType = projDamage.GetType();
+                MethodInfo method = projDamageType.GetMethod("Add");
+                foreach (var value in EnemyStats.ProjectileDamageValues) 
+                {
+                    method.Invoke(projDamage.GetValue(null), new object[] { value.Key, value.Value });
+                }
+
+
+                //-= EnemyStats.ContactDamageValues are empty currently =-
+                FieldInfo contactDamage = enemyStats.GetField("ContactDamageValues", BindingFlags.Static | BindingFlags.Public);
+                Type contactDamageType = contactDamage.GetType();
+                method = contactDamageType.GetMethod("Add");
+                foreach (var value in EnemyStats.ContactDamageValues)
+                {
+                    method.Invoke(contactDamage.GetValue(null), new object[] { value.Key, value.Value });
+                }
+
+
+                //-= EnemyStats.ExpertDamageMultiplier are empty currently =-
+                FieldInfo expertDamageMult = enemyStats.GetField("ExpertDamageMultiplier", BindingFlags.Static | BindingFlags.Public);
+                Type expertDamageMultType = expertDamageMult.GetType();
+                method = expertDamageMultType.GetMethod("Add");
+                foreach (var value in EnemyStats.ExpertDamageMultiplier)
+                {
+                    method.Invoke(expertDamageMult.GetValue(null), new object[] { value.Key, value.Value });
+                }
+                */
+            }
+
         }
         public static void UnLoad()
         {
             EnemyStats.ProjectileDamageValues = null;
         }
+        [Obsolete]
         public static int GetProjectileDamageClamity(this NPC npc, int projType)
         {
             double num1 = Main.masterMode ? 6.0 : Main.expertMode ? 4.0 : 2.0;
@@ -96,6 +150,33 @@ namespace Clamity.Commons
             if (CalamityWorld.revenge)
                 return projectileDamage1;
             return !Main.expertMode ? num2 : num3;
+        }
+        [Obsolete]
+        public static void GetNPCDamageClamity(this NPC npc)
+        {
+            double damageAdjustment = GetExpertDamageMultiplierClamity(npc) * (Main.masterMode ? MasterContactVanillaMultiplier : ExpertContactVanillaMultiplier);
+
+            // Safety check: If for some reason the contact damage array is not initialized yet, set the NPC's damage to 1.
+            bool exists = EnemyStats.ContactDamageValues.TryGetValue(npc.type, out int[] contactDamage);
+            if (!exists)
+                npc.damage = 1;
+
+            int normalDamage = contactDamage[0];
+            int expertDamage = contactDamage[1] == -1 ? -1 : (int)Math.Round(contactDamage[1] / damageAdjustment);
+            int revengeanceDamage = contactDamage[2] == -1 ? -1 : (int)Math.Round(contactDamage[2] / damageAdjustment);
+            int deathDamage = contactDamage[3] == -1 ? -1 : (int)Math.Round(contactDamage[3] / damageAdjustment);
+            int masterDamage = contactDamage[4] == -1 ? -1 : (int)Math.Round(contactDamage[4] / damageAdjustment);
+
+            // If the assigned value would be -1, don't actually assign it. This allows for conditionally disabling the system.
+            int damageToUse = Main.masterMode ? masterDamage : CalamityWorld.death ? deathDamage : CalamityWorld.revenge ? revengeanceDamage : Main.expertMode ? expertDamage : normalDamage;
+            if (damageToUse != -1)
+                npc.damage = damageToUse;
+        }
+        [Obsolete]
+        public static double GetExpertDamageMultiplierClamity(this NPC npc, bool? master = null)
+        {
+            bool exists = EnemyStats.ExpertDamageMultiplier.TryGetValue(npc.type, out double damageMult);
+            return exists ? damageMult : 1D;
         }
         [StructLayout(LayoutKind.Sequential, Size = 1)]
         internal struct EnemyStats

@@ -17,7 +17,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
         {
             Item.width = Item.height = 34;
             Item.rare = ItemRarityID.Blue;
-            Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
+            Item.value = 0; //this item having value is extremely exploitable, so set it to have no value
             Item.maxStack = 9999;
 
             Item.useAnimation = Item.useTime = 70;
