@@ -43,7 +43,7 @@ jobs:
         id: create_release
         with:
           tag_name: Preview-${{ github.ref_name }}
-          release_name: Preview ${{ github.ref_name }}
+          release_name: Preview ${{ github.ref_name }} ${{ github.sha }} 
           body: |
             Preview release for ${{ github.ref_name }}.
           draft: false
