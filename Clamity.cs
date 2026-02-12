@@ -10,7 +10,7 @@ namespace Clamity
         public static Mod infernum;
         public static Mod calRemix;
         internal bool MusicAvailable => musicMod != null;
-
+        public static string buffPath = "Clamity/Assets/Textures/DefaultDebuff";
         public override void Load()
         {
             mod = this;

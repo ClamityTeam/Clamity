@@ -182,6 +182,9 @@ namespace Clamity
             int height = rectangle.Height / verticalFrames;
             return new Rectangle(rectangle.Left + width * frameX, rectangle.Top + height * frameY, width, height);
         }
+        public static Vector2 ProportionalOffset(NPC npc, float proportionality = 1f) => Main.rand.NextVector2Circular(npc.width * proportionality * 0.5f, npc.height * proportionality * 0.5f);
+        public static Vector2 ProportionalOffset(Projectile npc, float proportionality = 1f) => Main.rand.NextVector2Circular(npc.width * proportionality * 0.5f, npc.height * proportionality * 0.5f);
+        public static Vector2 ProportionalOffset(Player npc, float proportionality = 1f) => Main.rand.NextVector2Circular(npc.width * proportionality * 0.5f, npc.height * proportionality * 0.5f);
         public static Recipe ReplaceIngredient(this Recipe recipe, int oldItem, int newItem, int count = 1)
         {
             int index = recipe.IngredientIndex(oldItem);
