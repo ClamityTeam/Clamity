@@ -10,10 +10,10 @@ Removes:
 
 
 Balance Changes:
-Nerfed fishing power from Tresure of Clamity from 50 to 25
 
 Other Changes:
 Renamed Pearl of Fish Calamity to Treasure of Clamity
 
 Bug Fixes:
 More fixes of tooltip missmatch of new accessory's components effects
+Fixed The Subcommunity gaining negative mining boost

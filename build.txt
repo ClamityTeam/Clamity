@@ -3,4 +3,4 @@ author = WitherTaco and Calamity Fandom wiki
 version = 1.0.3.15
 modReferences = CalamityMod, ClamityMusic, Luminance, SubworldLibrary
 weakReferences = InfernumMode, CalRemix, AbsoluteIBR
-buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes, Effects\Compiler\*, DiscordStaff\*
+buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes, Effects\Compiler\*, Libraries\*

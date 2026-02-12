@@ -311,6 +311,8 @@ namespace Clamity
         }
         public override void PostUpdateMiscEffects()
         {
+            var calamityPlayer = Player.Calamity();
+
             var cooldownList = Player.GetDisplayedCooldowns();
             bool flagSurface = Player.Center.Y < Main.worldSurface * 16f;
             bool flagWet = Main.raining & flagSurface || Player.dripping || Player.wet && !Player.lavaWet && !Player.honeyWet;
@@ -378,8 +380,8 @@ namespace Clamity
             if (subcommunity)
             {
                 float baseBoost = TheSubcommunity.CalculatePower();
-                Player.pickSpeed += baseBoost * TheSubcommunity.MiningSpeedMult;
-                Player.luck += baseBoost * TheSubcommunity.LuckMult;
+                Player.pickSpeed -= baseBoost * TheSubcommunity.MiningSpeedMult;
+                //calamityPlayer.calamityBonusLuck += baseBoost * TheSubcommunity.LuckMult;
                 Player.fishingSkill += (int)(baseBoost * TheSubcommunity.FishingPower);
                 Player.tileSpeed += baseBoost * TheSubcommunity.TileAndWallPlacingSpeedMult;
                 Player.wallSpeed += baseBoost * TheSubcommunity.TileAndWallPlacingSpeedMult;
@@ -465,6 +467,10 @@ namespace Clamity
                     luck *= 1.5f;
                     luck += 0.2f;
                 }
+            }
+            if (subcommunity)
+            {
+                luck += TheSubcommunity.CalculatePower() * TheSubcommunity.LuckMult;
             }
         }
         #endregion
