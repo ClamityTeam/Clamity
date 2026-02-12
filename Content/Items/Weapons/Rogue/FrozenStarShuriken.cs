@@ -18,18 +18,18 @@ namespace Clamity.Content.Items.Weapons.Rogue
         public override float StealthDamageMultiplier => 0.5f;
         public override void SetDefaults()
         {
-            Item.damage = 300;
+            Item.damage = 900;
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.width = 1;
             Item.height = 1;
-            Item.useTime = 15;
-            Item.useAnimation = 15;
+            Item.useTime = 8;
+            Item.useAnimation = 8;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 4f;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.UseSound = SoundID.Item1;
             Item.shootSpeed = 13f;
             Item.shoot = ModContent.ProjectileType<FrozenStarShurikenProjectile>();
@@ -65,14 +65,14 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = BlazingStarProj.Lifetime;
+            Projectile.timeLeft = 300;
             Projectile.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Projectile.extraUpdates = 1;
         }
         public override void AI()
         {
             Projectile.rotation += 0.4f * (float)Projectile.direction;
-            if (Projectile.timeLeft < BlazingStarProj.Lifetime - BlazingStarProj.ReboundTime)
+            if (Projectile.timeLeft < 300 -  60)
                 Projectile.ai[0] = 1f;
             if (Projectile.ai[0] == 0.0)
                 return;
@@ -125,7 +125,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
         {
             for (int i = 0; i < Main.rand.Next(3 + (Projectile.Calamity().stealthStrike ? 1 : 0)); i++)
             {
-                int index = Projectile.NewProjectile(Projectile.GetSource_OnHit(target), Projectile.Center, new Vector2(0, 15).RotatedByRandom(MathHelper.TwoPi), 297, Projectile.damage / 3, 0, Projectile.owner);
+                int index = Projectile.NewProjectile(Projectile.GetSource_OnHit(target), Projectile.Center, new Vector2(0, 15).RotatedByRandom(MathHelper.TwoPi), ProjectileID.LostSoulFriendly, Projectile.damage / 3, 0, Projectile.owner);
                 Main.projectile[index].DamageType = ModContent.GetInstance<RogueDamageClass>();
                 Main.projectile[index].usesLocalNPCImmunity = false;
                 Main.projectile[index].usesIDStaticNPCImmunity = true;

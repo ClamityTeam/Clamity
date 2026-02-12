@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Clamity.Content.Bosses.Pyrogen.Projectiles
@@ -13,7 +14,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Projectiles
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 98;
-            Projectile.aiStyle = 193;
+            Projectile.aiStyle = ProjAIStyleID.Flamethrower;
             Projectile.hostile = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;

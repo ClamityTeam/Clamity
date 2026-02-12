@@ -1,23 +1,19 @@
-Update 1.0.3.11 - 'Goodbye Ignis' Patch
-
+Update 1.0.3.15 -  Patch
 
 New Content:
 None
 
 Reworks:
-None
+
 
 Removes:
-Removed Essence of Ignis, Core of Ignis, Fish of Ignis
-Removed Pyroplate, Pyroplate Wall (probably returns later)
-Removed Recipe changes with removed items
+
 
 Balance Changes:
-None
 
 Other Changes:
-None
+Renamed Pearl of Fish Calamity to Treasure of Clamity
 
 Bug Fixes:
-Fixed not loading mod due in changes of recipe
-Ported to latest tml version
+More fixes of tooltip missmatch of new accessory's components effects
+Fixed The Subcommunity gaining negative mining boost

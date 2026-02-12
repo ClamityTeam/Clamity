@@ -1,21 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\tModLoader.targets" />
-  <PropertyGroup>
-    <AssemblyName>Clamity</AssemblyName>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-  <ItemGroup>
-    <AdditionalFiles Remove="Assets\Shaders\AutoloadedEffects\Shaders\EntropicDye.fx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="CalamityMod">
-      <HintPath>..\CalamityMod.dll</HintPath>
-    </Reference>
-	  <Reference Include="Luminance">
-		  <HintPath>Luminance.dll</HintPath>
-	  </Reference>
-	  <Reference Include="SubworldLibrary">
-		  <HintPath>SubworldLibrary.dll</HintPath>
-	  </Reference>
-  </ItemGroup>
+	<Import Project="..\tModLoader.targets" />
+	<PropertyGroup>
+		<AssemblyName>Clamity</AssemblyName>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ClamityMusic\ClamityMusic.csproj" />
+	</ItemGroup>
+	<Target Name="BeforeBuild">
+		<!-- Проверяем наличие изменений -->
+		<Message Text="Проверка наличия изменений..." />
+		<Exec Command="git diff-index HEAD --quiet --exit-code" />
+		<Error Condition="'$(LastExitCode)' != '0'" Text="Изменения обнаружены, запускаем сборку." />
+	</Target>
+	<ItemGroup>
+		<AdditionalFiles Remove="Assets\Shaders\AutoloadedEffects\Shaders\EntropicDye.fx" />
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="CalamityMod">
+			<HintPath>Libraries\CalamityMod.dll</HintPath>
+		</Reference>
+		<Reference Include="Luminance">
+			<HintPath>Libraries\Luminance.dll</HintPath>
+		</Reference>
+		<Reference Include="SubworldLibrary">
+			<HintPath>Libraries\SubworldLibrary.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 </Project>

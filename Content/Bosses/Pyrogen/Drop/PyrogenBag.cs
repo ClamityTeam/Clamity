@@ -1,5 +1,5 @@
 ﻿using CalamityMod;
-using CalamityMod.Items.Placeables.Furniture.DevPaintings;
+using CalamityMod.Items.Placeables.Furniture.Paintings;
 using Clamity.Content.Bosses.Pyrogen.Drop.Weapons;
 using Clamity.Content.Bosses.Pyrogen.NPCs;
 using Microsoft.Xna.Framework;
@@ -64,8 +64,8 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop
             itemLoot.Add(DropHelper.CalamityStyle(DropHelper.BagWeaponDropRateFraction, ModContent.ItemType<SearedShredder>(), ModContent.ItemType<Obsidigun>(), ModContent.ItemType<TheGenerator>(), ModContent.ItemType<HellsBells>(), ModContent.ItemType<MoltenPiercer>()));
             //itemLoot.Add(ModContent.ItemType<GlacialEmbrace>(), 10);
             itemLoot.Add(ModContent.ItemType<SoulOfPyrogen>());
-            //itemLoot.Add(ModContent.ItemType<CryoStone>(), DropHelper.BagWeaponDropRateFraction);
-            //itemLoot.Add(ModContent.ItemType<FrostFlare>(), DropHelper.BagWeaponDropRateFraction);
+            itemLoot.Add(ModContent.ItemType<PyroStone>(), DropHelper.BagWeaponDropRateFraction);
+            itemLoot.Add(ModContent.ItemType<HellFlare>(), DropHelper.BagWeaponDropRateFraction);
             itemLoot.AddRevBagAccessories();
             itemLoot.Add(ModContent.ItemType<PyrogenMask>(), 7);
             itemLoot.Add(ModContent.ItemType<ThankYouPainting>(), 100);

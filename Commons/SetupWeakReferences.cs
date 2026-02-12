@@ -100,7 +100,7 @@ namespace Clamity.Commons
                 )
             );
 
-            BossRushEvent.BossDeathEffects.Add(ModContent.NPCType<Yharon>(), (NPC npc) =>
+            BossRushEvent.BossDeathEffects.AddOrReplace(ModContent.NPCType<Yharon>(), (NPC npc) =>
             {
                 for (int i = 0; i < 255; i++)
                 {

@@ -1,7 +1,7 @@
 ﻿using CalamityMod;
 using CalamityMod.Buffs.Potions;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Potions;
+using CalamityMod.Items.Potions.Food;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
@@ -22,7 +22,7 @@ namespace Clamity.Content.Items.Potions.Food
         {
             base.SetDefaults();
             Item.buffType = ModContent.BuffType<ExoBaguetteBuff>();
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value += Item.sellPrice(0, 2, 40) + ModContent.GetInstance<ExoPrism>().Item.value + ModContent.GetInstance<AuricBar>().Item.value;
             Item.Calamity().donorItem = false;
         }
@@ -47,8 +47,7 @@ namespace Clamity.Content.Items.Potions.Food
         public override void Update(Player player, ref int buffIndex)
         {
             base.Update(player, ref buffIndex);
-            if (player.Calamity().alcoholPoisonLevel > 0)
-                player.Calamity().alcoholPoisonLevel--;
+            player.Calamity().alcoholPoisonLevel--;
         }
     }
 }

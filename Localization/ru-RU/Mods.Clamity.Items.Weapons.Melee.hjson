@@ -49,6 +49,11 @@ Everest: {
 	Tooltip: Выпускает разбросом вулканические огненые шары
 }
 
+Hyperion: {
+	// DisplayName: Hyperion
+	// Tooltip: ""
+}
+
 Breakthrough: {
 	// DisplayName: Breakthrough
 	// Tooltip: ""
