@@ -1,21 +1,19 @@
-Update 1.0.3.14 - ??? Patch
+Update 1.0.3.15 -  Patch
 
 New Content:
 None
 
 Reworks:
-None
+
 
 Removes:
-None
+
 
 Balance Changes:
-None
 
 Other Changes:
-Pyrogen now disables rain while alive.
+Renamed Pearl of Fish Calamity to Treasure of Clamity
 
 Bug Fixes:
-Fixed a bug that caused the Soul of Pyrogen to not increase rogue damage properly.
-Fixed a bug that caused the Wulfrum Lure to fire more bobbers than intended when right clicking.
-Fixed a bug that caused Clamitas not to despawn properly.
+More fixes of tooltip missmatch of new accessory's components effects
+Fixed The Subcommunity gaining negative mining boost

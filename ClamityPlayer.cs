@@ -3,7 +3,7 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Cooldowns;
 using CalamityMod.Items.Accessories;
 using CalamityMod.NPCs.Cryogen;
-using CalamityMod.Projectiles.Rogue;
+using CalamityMod.Systems.Collections;
 using Clamity.Content.Biomes.FrozenHell.Biome;
 using Clamity.Content.Bosses.Pyrogen.Drop;
 using Clamity.Content.Bosses.Pyrogen.NPCs;
@@ -70,6 +70,8 @@ namespace Clamity
         public bool inflicingMeleeFrostburn;
         public bool frozenParrying;
         public int frozenParryingTime;
+        public bool shellfishSetBonus;
+        public int shellfishSetBonusProj = -1;
 
         //Minion
         public bool hellsBell;
@@ -121,6 +123,7 @@ namespace Clamity
 
             inflicingMeleeFrostburn = false;
             frozenParrying = false;
+            shellfishSetBonus = false;
 
             hellsBell = false;
             guntera = false;
@@ -209,7 +212,7 @@ namespace Clamity
             bool isSummon = proj.CountsAsClass<SummonDamageClass>();
             if (isSummon)
             {
-                Item heldItem = Player.ActiveItem();
+                Item heldItem = Player.HeldItem;
 
                 bool wearingForbiddenSet = Player.armor[0].type == ItemID.AncientBattleArmorHat && Player.armor[1].type == ItemID.AncientBattleArmorShirt && Player.armor[2].type == ItemID.AncientBattleArmorPants;
 
@@ -217,7 +220,7 @@ namespace Clamity
                 bool gemTechBlueGem = Player.Calamity().GemTechSet && Player.Calamity().GemTechState.IsBlueGemActive;
 
                 bool crossClassNerfDisabled = forbiddenWithMagicWeapon || Player.Calamity().fearmongerSet || gemTechBlueGem || Player.Calamity().profanedCrystalBuffs || DD2Event.Ongoing;
-                crossClassNerfDisabled |= CalamityLists.DisabledSummonerNerfMinions.Contains(proj.type);
+                crossClassNerfDisabled |= CalamityProjectileSets.MinionWhichIgnoresSummonerNerf[proj.type];
 
                 // If this projectile is a summon, its owner is holding an item, and the cross class nerf isn't disabled from equipment:
                 if (isSummon && heldItem.type > ItemID.None && !crossClassNerfDisabled)
@@ -232,7 +235,7 @@ namespace Clamity
                     bool heldItemIsTool = heldItem.pick > 0 || heldItem.axe > 0 || heldItem.hammer > 0;
                     bool heldItemCanBeUsed = heldItem.useStyle != ItemUseStyleID.None;
                     bool heldItemIsAccessoryOrAmmo = heldItem.accessory || heldItem.ammo != AmmoID.None;
-                    bool heldItemIsExcludedByModCall = CalamityLists.DisabledSummonerNerfItems.Contains(heldItem.type);
+                    bool heldItemIsExcludedByModCall = CalamityProjectileSets.MinionWhichIgnoresSummonerNerf[heldItem.type];
 
                     if (heldItemIsClassedWeapon && heldItemCanBeUsed && !heldItemIsTool && !heldItemIsAccessoryOrAmmo && !heldItemIsExcludedByModCall)
                     {
@@ -274,7 +277,7 @@ namespace Clamity
                 }
                 SoundEngine.PlaySound(in PyrogenShield.BreakSound, new Vector2?(Player.Center));
                 Player.AddCooldown(ParryCooldown.ID, 10 * 60, false);
-                Player.AddBuff(47, 60);
+                Player.AddBuff(BuffID.Frozen, 60);
             }
         }
         #endregion
@@ -308,6 +311,8 @@ namespace Clamity
         }
         public override void PostUpdateMiscEffects()
         {
+            var calamityPlayer = Player.Calamity();
+
             var cooldownList = Player.GetDisplayedCooldowns();
             bool flagSurface = Player.Center.Y < Main.worldSurface * 16f;
             bool flagWet = Main.raining & flagSurface || Player.dripping || Player.wet && !Player.lavaWet && !Player.honeyWet;
@@ -318,7 +323,7 @@ namespace Clamity
                 //Main.NewText("ClamityPlayer messenge: " + pyroStone.ToString() + " " + pyroStoneVanity.ToString());
                 IEntitySource sourceAccessory = Player.GetSource_Accessory(FindAccessory(ModContent.ItemType<PyroStone>()));
                 statModifier = Player.GetBestClassDamage();
-                int damage = Player.ApplyArmorAccDamageBonusesTo(statModifier.ApplyTo(70f));
+                int damage = (int)statModifier.ApplyTo(70f);
                 if (Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[ModContent.ProjectileType<PyroShieldAccessory>()] == 0)
                     Projectile.NewProjectile(sourceAccessory, Player.Center, Vector2.Zero, ModContent.ProjectileType<PyroShieldAccessory>(), damage, 0.0f, Player.whoAmI);
             }
@@ -375,8 +380,8 @@ namespace Clamity
             if (subcommunity)
             {
                 float baseBoost = TheSubcommunity.CalculatePower();
-                Player.pickSpeed += baseBoost * TheSubcommunity.MiningSpeedMult;
-                Player.luck += baseBoost * TheSubcommunity.LuckMult;
+                Player.pickSpeed -= baseBoost * TheSubcommunity.MiningSpeedMult;
+                //calamityPlayer.calamityBonusLuck += baseBoost * TheSubcommunity.LuckMult;
                 Player.fishingSkill += (int)(baseBoost * TheSubcommunity.FishingPower);
                 Player.tileSpeed += baseBoost * TheSubcommunity.TileAndWallPlacingSpeedMult;
                 Player.wallSpeed += baseBoost * TheSubcommunity.TileAndWallPlacingSpeedMult;
@@ -392,6 +397,18 @@ namespace Clamity
                     return this.Player.armor[index];
             }
             return new Item();
+        }
+        public override void PostUpdate()
+        {
+            // Remove set bonus minion if bonus is not active
+            if (!shellfishSetBonus && shellfishSetBonusProj != -1)
+            {
+                Projectile proj = Main.projectile[shellfishSetBonusProj];
+                if (proj.active)
+                    proj.Kill();
+
+                shellfishSetBonusProj = -1;
+            }
         }
         #endregion
 
@@ -451,6 +468,10 @@ namespace Clamity
                     luck += 0.2f;
                 }
             }
+            if (subcommunity)
+            {
+                luck += TheSubcommunity.CalculatePower() * TheSubcommunity.LuckMult;
+            }
         }
         #endregion
 
@@ -458,21 +479,23 @@ namespace Clamity
         public override bool Shoot(Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 
-            if (eidolonAmulet && Player.Calamity().RustyMedallionCooldown <= 0)
+            if (eidolonAmulet && Player.Calamity().scionsCurio)
             {
+                /*
                 int d = (int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(damage / 5);
                 //int d = damage / 5;
-                d = Player.ApplyArmorAccDamageBonusesTo(d);
+                //d = Player.ApplyArmorAccDamageBonusesTo(d);
 
                 Vector2 startingPosition = Main.MouseWorld - Vector2.UnitY.RotatedByRandom(0.4f) * 1250f;
                 Vector2 directionToMouse = (Main.MouseWorld - startingPosition).SafeNormalize(Vector2.UnitY).RotatedByRandom(0.1f);
-                int drop = Projectile.NewProjectile(source, startingPosition, directionToMouse * 15f, ModContent.ProjectileType<AcidBarrelDrop>(), d, 0f, Player.whoAmI);
+                int drop = Projectile.NewProjectile(source, startingPosition, directionToMouse * 15f, ModContent.ProjectileType<RustyMedallionDroplet>(), d, 0f, Player.whoAmI);
                 if (drop.WithinBounds(Main.maxProjectiles))
                 {
                     Main.projectile[drop].penetrate = 3;
                     Main.projectile[drop].DamageType = DamageClass.Generic;
                 }
-                Player.Calamity().RustyMedallionCooldown = RustyMedallion.AcidCreationCooldown / 2;
+                Player.Calamity().RustyMedallionCooldown = ScionsCurio.AcidCreationCooldown / 2;
+                */
             }
             if (gemFinal)
             {
@@ -484,7 +507,7 @@ namespace Clamity
                             for (int i = 0; i < 4; i++)
                             {
                                 float d = player.GetTotalDamage<RangedDamageClass>().ApplyTo(damage / 5);
-                                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.1f), ModContent.ProjectileType<SharpAmethystProj>(), player.ApplyArmorAccDamageBonusesTo(d), kb, player.whoAmI);
+                                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.1f), ModContent.ProjectileType<SharpAmethystProj>(), (int)d, kb, player.whoAmI);
                             }
                             player.Clamity().gemAmethystCooldown = 30;
                         }, item.DamageType is RangedDamageClass ? 2f : 1f);

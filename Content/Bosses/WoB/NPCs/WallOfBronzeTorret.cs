@@ -61,7 +61,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
                                          NPC.Center,
                                          Vector2.UnitX.RotatedBy(NPC.rotation + Main.rand.NextFloat(-0.1f, 0.1f)) * 10,
                                          ModContent.ProjectileType<WallOfBronzeTorretBlast>(),
-                                         NPC.GetProjectileDamage(ModContent.ProjectileType<WallOfBronzeTorretBlast>()),
+                                         80, //NPC.GetProjectileDamage(ModContent.ProjectileType<WallOfBronzeTorretBlast>()),
                                          0f,
                                          Main.myPlayer);
 

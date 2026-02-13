@@ -1,8 +1,8 @@
 ﻿using CalamityMod;
 using CalamityMod.Events;
-using CalamityMod.Items;
-using CalamityMod.Items.Placeables.Furniture.DevPaintings;
+using CalamityMod.Items.Placeables.Furniture.Paintings;
 using CalamityMod.Items.Potions;
+using CalamityMod.Items.Tools;
 using CalamityMod.World;
 using Clamity.Content.Biomes.FrozenHell.Items;
 using Clamity.Content.Bosses.WoB.Drop;
@@ -13,10 +13,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Clamity.Commons.CalRemixCompatibilitySystem;
 
@@ -97,7 +99,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * 0.5f * balance/* * bossAdjustment*/);
-            NPC.damage = (int)(NPC.damage * NPC.GetExpertDamageMultiplier()/* * bossAdjustment*/);
+            //NPC.damage = (int)(NPC.damage * NPC.GetExpertDamageMultiplier()/* * bossAdjustment*/);
         }
         public override void BossLoot(ref string name, ref int potionType) => potionType = ModContent.ItemType<OmegaHealingPotion>();
         public override void OnSpawn(IEntitySource source)
@@ -468,7 +470,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
                         }
                     }
                 }
-                CalamityUtils.DisplayLocalizedText("Mods.Clamity.Misc.FrozenHellMessege", new Color?(Color.LightCyan));
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(Language.GetTextValue("Mods.Clamity.Misc.FrozenHellMessege")), Color.LightCyan);
                 ClamitySystem.generatedFrozenHell = true;
                 CalamityNetcode.SyncWorld();
             }

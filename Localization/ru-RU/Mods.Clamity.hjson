@@ -22,10 +22,10 @@ Items: {
 	}
 
 	Weapons: {
-		Typeless: {
-			GoldenGun: {
+		Classless: {
+			AMS: {
+				// DisplayName: A M S
 				// Tooltip: ""
-				// DisplayName: Golden Gun
 			}
 		}
 	}
@@ -39,7 +39,7 @@ Misc: {
 
 	// None: ""
 	DefeatedWoB: После победы над Стеной Бронзы
-	// FrozenHellMessege: You can feel the cold breeze coming from the center of Hell
+	// FrozenHellMessege: You can feel the cold breeze coming from the center of Hell...
 	// GeneratedFrozenHell: If not generated Frozen Hell or active special config
 }
 
@@ -78,23 +78,23 @@ Configs: {
 		// DisplayName: Clamity Config
 
 		UsesEnchantedMetalInShadowspecBarRecipe: {
-			// Label: Uses Enchanted Metal In Shadowspec Bar Recipe
-			// Tooltip: ""
+			// Label: Enchanted Metal In Shadowspec Bar Recipe
+			// Tooltip: Toggles the addition of Enchanted Metal in the Shadowspec Bar recipe
 		}
 
 		ChangesCalamityRecipes: {
-			// Label: Changes Calamity Recipes
-			// Tooltip: ""
+			// Label: Calamity Recipe Adjustments
+			// Tooltip: Adjusts some of Calamities recipes to use materials from this mod
 		}
 
 		UsesClamityWeaponsInCalamityRecipes: {
-			// Label: Uses Clamity Weapons In Calamity Recipes
-			// Tooltip: ""
+			// Label: Clamity Weapons In Calamity Recipes
+			// Tooltip: Adds weapon from this mod into some Calamity recipes
 		}
 
 		PermafrostSoldEnchantedMetal: {
-			// Label: Permafrost Sold Enchanted Metal
-			// Tooltip: Makes Permafrost sold an Enchanted Metal ignoring existence of Frozen Hell
+			// Label: Permafrost Sells Enchanted Metal
+			// Tooltip: Makes Permafrost sell Enchanted Metal ignoring existence of Frozen Hell
 		}
 	}
 }

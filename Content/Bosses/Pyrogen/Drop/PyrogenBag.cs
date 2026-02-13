@@ -1,5 +1,5 @@
 ﻿using CalamityMod;
-using CalamityMod.Items.Placeables.Furniture.DevPaintings;
+using CalamityMod.Items.Placeables.Furniture.Paintings;
 using Clamity.Content.Bosses.Pyrogen.Drop.Weapons;
 using Clamity.Content.Bosses.Pyrogen.NPCs;
 using Microsoft.Xna.Framework;

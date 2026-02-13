@@ -5,6 +5,7 @@ using CalamityMod.Tiles.Furniture.CraftingStations;
 using Clamity.Content.Biomes.FrozenHell.Items;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,10 +17,10 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
 
         public override void SetDefaults()
         {
-            Item.damage = 2500;
+            Item.damage = 1900;
             Item.DamageType = DamageClass.Melee;
             Item.useTurn = true;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.width = Item.height = 80;
             Item.scale = 1.5f;
             Item.useTime = 12;
@@ -29,6 +30,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.autoReuse = true;
             Item.UseSound = SoundID.Item1;
+            Item.shoot = 1; //this is siimply to prevent calamity from making this item true melee
         }
 
         /*public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -154,6 +156,11 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
                                      KnockBack: 0f,
                                      Owner: player.whoAmI);
             Main.projectile[index].DamageType = DamageClass.Melee;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            return false;
         }
         public override void AddRecipes()
         {

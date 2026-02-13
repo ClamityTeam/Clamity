@@ -66,7 +66,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
                                          NPC.Center,
                                          Vector2.UnitX.RotatedBy(NPC.rotation),
                                          ModContent.ProjectileType<WallOfBronzeLaserBeamStart>(),
-                                         NPC.GetProjectileDamage(ModContent.ProjectileType<WallOfBronzeLaserBeamStart>()),
+                                         80, //NPC.GetProjectileDamage(ModContent.ProjectileType<WallOfBronzeLaserBeamStart>()),
                                          0,
                                          Main.myPlayer,
                                          0f,
