@@ -31,7 +31,7 @@ namespace Clamity.Content.Biomes.EntropicSpace.Tiles
             Item.consumable = true;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(gold: 2);
-            Item.rare = ModContent.RarityType<DarkBlue>();
+            Item.rare = ModContent.RarityType<CosmicPurple>();
         }
         public override void AddRecipes()
         {

@@ -5,7 +5,6 @@ using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Clamity.Content.Biomes.FrozenHell.Items;
-using Luminance.Common.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -68,7 +67,8 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
         public override void AI()
         {
             base.AI();
-            Projectile.velocity = Projectile.velocity.RotateTowards(Projectile.AngleTo(Main.MouseWorld), 0.1f);
+            //Projectile.velocity = Projectile.velocity.RotateTowards(Projectile.AngleTo(Main.MouseWorld), 0.1f);
+            Projectile.velocity = CalamityUtils.RotateTowards(Projectile.velocity, Projectile.AngleTo(Main.MouseWorld), 0.1f);
             if (Projectile.timeLeft % 2 == 0)
             {
                 Projectile p = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.05f) * 3, 85, Projectile.damage, Projectile.knockBack, Projectile.owner);

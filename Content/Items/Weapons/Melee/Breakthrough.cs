@@ -25,7 +25,7 @@ namespace Clamity.Content.Items.Weapons.Melee
         public override void SetDefaults()
         {
             Item.width = 88; Item.height = 86;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
 
             Item.useAnimation = Item.useTime = 16;
@@ -109,7 +109,7 @@ namespace Clamity.Content.Items.Weapons.Melee
             player.itemTime = player.itemAnimation;
             Projectile.Center = player.RotatedRelativePoint(player.MountedCenter);
             Projectile.position += Projectile.velocity * 10;
-            Projectile.velocity = Projectile.velocity.RotateTowards(Projectile.AngleTo(Main.MouseWorld), 0.1f);
+            Projectile.velocity = CalamityUtils.RotateTowards(Projectile.velocity, Projectile.AngleTo(Main.MouseWorld), 0.1f);
             if (++Projectile.ai[2] > 5)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BreakthroughProjBreath>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);

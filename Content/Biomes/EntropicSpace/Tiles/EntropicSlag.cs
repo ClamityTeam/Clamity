@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using CalamityMod.Systems;
 using CalamityMod.Tiles.FurnitureCosmilite;
 using CalamityMod.Tiles.FurnitureProfaned;
 using CalamityMod.Tiles.FurnitureSilva;
@@ -79,7 +80,7 @@ namespace Clamity.Content.Biomes.EntropicSpace.Tiles
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
             //return TileFraming.BrimstoneFraming(i, j, resetFrame);
-            return typeof(TileFraming).GetMethod("BrimstoneFraming", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { i, j, resetFrame }) as bool? ?? true;
+            return typeof(TileFramingSystem).GetMethod("BrimstoneFraming", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { i, j, resetFrame }) as bool? ?? true;
         }
     }
 }

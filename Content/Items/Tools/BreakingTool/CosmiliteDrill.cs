@@ -30,7 +30,7 @@ namespace Clamity.Content.Items.Tools.BreakingTool
 
             Item.DamageType = ModContent.GetInstance<TrueMeleeNoSpeedDamageClass>();
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            Item.rare = ModContent.RarityType<DarkBlue>();
+            Item.rare = ModContent.RarityType<CosmicPurple>();
             Item.UseSound = SoundID.Item23;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<CosmiliteDrillProj>();

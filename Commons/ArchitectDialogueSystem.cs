@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Chat;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Clamity.Commons
@@ -129,7 +131,7 @@ namespace Clamity.Commons
                         // Display dialogue and set appropriate delay, if this dialogue shouldn't be skipped.
                         if (line.skipCondition is null || !line.skipCondition.Invoke())
                         {
-                            CalamityUtils.DisplayLocalizedText(line.LocalizationKey, Color.Magenta);
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(Language.GetTextValue(line.LocalizationKey)), Color.Magenta);
                             CurrentDialogueDelay = line.FrameDelay;
                         }
 

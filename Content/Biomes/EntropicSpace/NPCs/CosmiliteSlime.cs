@@ -1,5 +1,4 @@
 ﻿using CalamityMod;
-using CalamityMod.NPCs;
 using Clamity.Content.Biomes.EntropicSpace.Biomes;
 using Clamity.Content.Biomes.EntropicSpace.Tiles;
 using Clamity.Content.Biomes.EntropicSpace.Tiles.Banners;
@@ -44,8 +43,8 @@ namespace Clamity.Content.Biomes.EntropicSpace.NPCs
             SpawnModBiomes = new int[] { ModContent.GetInstance<EntropicSpaceBiome>().Type, ModContent.GetInstance<ShatteredIslandsBiome>().Type };
 
             // Scale stats in Expert and Master
-            CalamityGlobalNPC.AdjustExpertModeStatScaling(NPC);
-            CalamityGlobalNPC.AdjustMasterModeStatScaling(NPC);
+            //CalamityGlobalNPC.AdjustExpertModeStatScaling(NPC);
+            //CalamityGlobalNPC.AdjustMasterModeStatScaling(NPC);
         }
         public State CurrentState
         {

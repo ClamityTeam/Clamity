@@ -29,8 +29,8 @@ namespace Clamity.Content.Biomes.EntropicSpace.NPCs
             SpawnModBiomes = new int[] { ModContent.GetInstance<EntropicSpaceBiome>().Type, ModContent.GetInstance<NightmareForestBiome>().Type };
 
             // Scale stats in Expert and Master
-            CalamityGlobalNPC.AdjustExpertModeStatScaling(NPC);
-            CalamityGlobalNPC.AdjustMasterModeStatScaling(NPC);
+            //CalamityGlobalNPC.AdjustExpertModeStatScaling(NPC);
+            //CalamityGlobalNPC.AdjustMasterModeStatScaling(NPC);
         }
         public override void OnSpawn(IEntitySource source)
         {
