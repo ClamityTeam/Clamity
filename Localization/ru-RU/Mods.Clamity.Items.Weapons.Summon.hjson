@@ -21,3 +21,10 @@ PlanterrorStaff: {
 		Занимет 4 слота для миньонов и только один может существовать
 		'''
 }
+
+Whips: {
+	BalancedDuality: {
+		// DisplayName: Balanced Duality
+		// Tooltip: ""
+	}
+}

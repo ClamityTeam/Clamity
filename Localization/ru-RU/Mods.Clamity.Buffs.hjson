@@ -47,3 +47,8 @@ TitanScalePotionBuff: {
 	DisplayName: Чешуя титана
 	Description: Вы чувстуете себя танком
 }
+
+BalancedDualityDebuff: {
+	// DisplayName: Balanced Duality Debuff
+	// Description: Mods.Clamity.Buffs.BalancedDualityDebuff.Description
+}

@@ -186,6 +186,6 @@ SkullOfTheBloodGod: {
 		Critical strikes explode, causing nearby enemies to ignite with [cbuff:CalamityMod/BrimstoneFlames]
 		Halves enemy contact damage with a 20 second cooldown
 		Brimstone fire rains down after getting hit
-		Greatly reduces the damage taken by the [cbuff:CalamityMod/BrimstoneFlames]
+		Reduces damage taken from [cbuff:CalamityMod/BrimstoneFlames] by 50%
 		''' */
 }

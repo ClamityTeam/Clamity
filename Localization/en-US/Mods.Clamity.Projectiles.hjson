@@ -44,6 +44,11 @@ Summon: {
 
 	HellsBellsRing.DisplayName: Hell`s Bells Sound
 	PlanterrorStaffTentacle.DisplayName: Guntera's Gun
+
+	Whips: {
+		BalancedYangProj.DisplayName: Balanced Yang Proj
+		BalancedYinProj.DisplayName: Balanced Yin Proj
+	}
 }
 
 Rogue: {

@@ -47,3 +47,8 @@ TitanScalePotionBuff: {
 	DisplayName: Titan Scale
 	Description: Increcreses defense by 5, endurance by 5%, & melee knockback by 5%, with further increases on a true melee strike
 }
+
+BalancedDualityDebuff: {
+	DisplayName: Balanced Duality Debuff
+	Description: Mods.Clamity.Buffs.BalancedDualityDebuff.Description
+}

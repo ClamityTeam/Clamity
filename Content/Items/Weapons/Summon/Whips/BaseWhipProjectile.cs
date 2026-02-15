@@ -94,7 +94,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
             flipped = reader.ReadBoolean();
         }
 
-        public override void SetDefaults()
+        public sealed override void SetDefaults()
         {
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -106,7 +106,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
             Projectile.DamageType = DamageClass.SummonMeleeSpeed;
             Projectile.width = 20;
             Projectile.height = 20;
-           
+
             whipSegment = ModContent.Request<Texture2D>(Texture + "_Segment").Value;
             whipTip = ModContent.Request<Texture2D>(Texture + "_Tip").Value;
 
@@ -124,15 +124,10 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
             Projectile.WhipSettings.RangeMultiplier = 1f;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) => WhipOnHit(target);
-
-        /// <summary>
-        /// Applies tag buff if there is one, applies multihit penalty, and focuses minions on target. 
-        /// Called in OnHitNPC
-        /// </summary>
-        /// <param name="target"></param>
-        public virtual void WhipOnHit(NPC target)
+        public sealed override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            WhipOnHit(target, hit, damageDone);
+
             if (target.isLikeATownNPC || target.type == NPCID.TargetDummy || target.CountsAsACritter)
                 return;
 
@@ -148,6 +143,16 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
                 Projectile.damage = 1;
 
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
+        }
+
+        /// <summary>
+        /// Applies tag buff if there is one, applies multihit penalty, and focuses minions on target. 
+        /// Called in OnHitNPC
+        /// </summary>
+        /// <param name="target"></param>
+        public virtual void WhipOnHit(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+
         }
 
         /// <summary>
@@ -232,7 +237,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
             return list[^2];
         }
 
-        public override void AI()
+        public sealed override void AI()
         {
             WhipAIMotion();
             WhipSFX(lightingColor, swingDust, dustAmount, whipCrackSound);
@@ -246,7 +251,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
                     {
                         Vector2 currentTipPosition = GetTipPosition();
 
-                        TrailPoints.Add(currentTipPosition + Projectile.rotation.ToRotationVector2());
+                        TrailPoints.Add(currentTipPosition + Projectile.rotation.ToRotationVector2()/* + Main.rand.NextVector2CircularEdge(100, 100)*/);
 
                         if (TrailPoints.Count > 50)
                             TrailPoints.RemoveAt(0);
@@ -292,18 +297,21 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
             }
         }
 
-        public virtual float TrailWidth(float f) => 10f * f;
+        public virtual float TrailWidth(float f, Vector2 vertexPos) => 10f * f;
 
-        public virtual Color TrailColor(float f) => fishingLineColor * f;
+        public Color? trailLineColorOverride = null;
+
+        public virtual Color TrailColor(float f, Vector2 vertexPos) => (trailLineColorOverride is null ? fishingLineColor : trailLineColorOverride.Value) * f;
 
         public virtual void DrawTrail()
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
-            GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/BasicTrail"));
+            MiscShaderData shader = GameShaders.Misc["CalamityMod:TrailStreak"];
+            shader.SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/BasicTrail"));
 
-            PrimitiveSettings settings = new(TrailWidth, TrailColor, null, true, false, GameShaders.Misc["CalamityMod:TrailStreak"], null);
+            PrimitiveSettings settings = new(TrailWidth, TrailColor, null, true, false, shader); //TrailStreak
 
             PrimitiveRenderer.RenderTrail(TrailPoints, settings, 64);
 

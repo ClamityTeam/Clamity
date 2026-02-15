@@ -71,17 +71,13 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
 
     public class BalancedYangProj : BaseWhipProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.IsAWhip[Type] = true;
-        }
-
         public override void SetWhipStats()
         {
             Projectile.localNPCHitCooldown = -1;
             Projectile.WhipSettings.Segments = 15;
             Projectile.WhipSettings.RangeMultiplier = .6f;
             fishingLineColor = Color.Black;
+            trailLineColorOverride = Color.White;
             segmentRotation = -MathF.PI / 2;
 
             flipped = true;
@@ -90,10 +86,9 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
             swingDust = DustID.GolfPaticle;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void WhipOnHit(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Confused, 240);
-            WhipOnHit(target);
 
             for (int i = 0; i < 10; i++)
             {
@@ -101,15 +96,12 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
                 GeneralParticleHandler.SpawnParticle(line);
             }
         }
+
+        public override bool DrawTrailAtTip => true;
     }
 
     public class BalancedYinProj : BaseWhipProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.IsAWhip[Type] = true;
-        }
-
         public override void SetWhipStats()
         {
             Projectile.localNPCHitCooldown = -1;
@@ -122,10 +114,9 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
             swingDust = DustID.SpookyWood;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void WhipOnHit(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Confused, 240);
-            WhipOnHit(target);
 
             for (int i = 0; i < 10; i++)
             {
@@ -137,6 +128,8 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
             {
             }
         }
+
+        public override bool DrawTrailAtTip => true;
     }
 
     public class BalancedDualityDebuff : ModBuff

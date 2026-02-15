@@ -44,6 +44,11 @@ Summon: {
 
 	HellsBellsRing.DisplayName: Звук колокола ада
 	PlanterrorStaffTentacle.DisplayName: Пушка Гантеры
+
+	Whips: {
+		// BalancedYangProj.DisplayName: Balanced Yang Proj
+		// BalancedYinProj.DisplayName: Balanced Yin Proj
+	}
 }
 
 Rogue: {

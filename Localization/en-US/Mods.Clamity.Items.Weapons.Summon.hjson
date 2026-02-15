@@ -21,3 +21,10 @@ PlanterrorStaff: {
 		Occupies 4 minion slots and there can only be one
 		'''
 }
+
+Whips: {
+	BalancedDuality: {
+		DisplayName: Balanced Duality
+		Tooltip: ""
+	}
+}
