@@ -38,7 +38,7 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
         {
             CreateRecipe()
                 .AddIngredient<ShellfishStaff>()
-                .AddIngredient(ItemID.HellstoneBar, 15)
+                //.AddIngredient(ItemID.HellstoneBar, 15)
                 .AddIngredient<HuskOfCalamity>(6)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

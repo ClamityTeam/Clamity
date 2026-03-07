@@ -47,7 +47,7 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
             CreateRecipe()
                 .AddIngredient<ClamorRifle>()
                 .AddIngredient<HuskOfCalamity>(6)
-                .AddIngredient<BrimstoneSlag>(15)
+                //.AddIngredient<BrimstoneSlag>(15)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
