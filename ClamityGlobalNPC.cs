@@ -313,7 +313,7 @@ namespace Clamity
                 int num18 = 0;
                 for (int index = 0; index < Main.maxProjectiles; ++index)
                 {
-                    if (((Entity)Main.projectile[index]).active && Main.projectile[index].type == 636 && (double)Main.projectile[index].ai[0] == 1.0 && (double)Main.projectile[index].ai[1] == (double)((Entity)npc).whoAmI)
+                    if (((Entity)Main.projectile[index]).active && Main.projectile[index].type == ProjectileID.Daybreak && (double)Main.projectile[index].ai[0] == 1.0 && (double)Main.projectile[index].ai[1] == (double)((Entity)npc).whoAmI)
                         ++num18;
                 }
                 int num19 = (int)((num18 <= 1 ? 1.0 : 1.0 + 0.25 * (double)(num18 - 1)) * 2.0 * 100.0 * vanillaHeatDamageMult);

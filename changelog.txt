@@ -1,19 +1,22 @@
-Update 1.0.3.15 -  Patch
+Update 1.0.3.15 - Minor Balancing and Bugfix Patch
 
 New Content:
 None
 
 Reworks:
-
+None
 
 Removes:
-
+None
 
 Balance Changes:
+Nerfed the damage of the Depths Echo Staff from 40 to 28
+Nerfed the damage of the Hellstone Shellfish Staff from 200 to 185
 
 Other Changes:
 Renamed Pearl of Fish Calamity to Treasure of Clamity
 
 Bug Fixes:
-More fixes of tooltip missmatch of new accessory's components effects
-Fixed The Subcommunity gaining negative mining boost
+Fixed some of the tooltips to match the new format of Calamity tooltips
+Fixed a bug that caused The Subcommunity to gain a negative mining boost
+Fixed a bug that caused the Wulfrum Lure to fire bobbers without charge or expending Wulfrum Scrap.

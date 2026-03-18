@@ -4,9 +4,6 @@
 		<AssemblyName>Clamity</AssemblyName>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\ClamityMusic\ClamityMusic.csproj" />
-	</ItemGroup>
 	<Target Name="BeforeBuild">
 		<!-- Проверяем наличие изменений -->
 		<Message Text="Проверка наличия изменений..." />
@@ -22,6 +19,9 @@
 		</Reference>
 		<Reference Include="SubworldLibrary">
 			<HintPath>Libraries\SubworldLibrary.dll</HintPath>
+		</Reference>
+		<Reference Include="ClamityMusic">
+			<HintPath>Libraries\ClamityMusic.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 </Project>
