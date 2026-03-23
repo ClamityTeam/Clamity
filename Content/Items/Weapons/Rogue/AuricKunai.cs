@@ -69,7 +69,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
             CreateRecipe()
                 .AddIngredient<CosmicKunai>()
                 .AddIngredient<ExecutionersBlade>()
-                .AddIngredient<LunarKunai>(100)
+                .AddIngredient<LunarKunai>()
                 .AddIngredient<AuricBar>(5)
                 .AddTile<CosmicAnvil>()
                 .Register();

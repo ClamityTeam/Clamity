@@ -20,3 +20,4 @@ Bug Fixes:
 Fixed some of the tooltips to match the new format of Calamity tooltips
 Fixed a bug that caused The Subcommunity to gain a negative mining boost
 Fixed a bug that caused the Wulfrum Lure to fire bobbers without charge or expending Wulfrum Scrap.
+Fixed Auric Kunai still requiring 100 Lunar Kunai's in it's recipe.
