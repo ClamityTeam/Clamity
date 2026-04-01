@@ -1,11 +1,11 @@
 HuskOfCalamity: {
 	DisplayName: Husk of Calamity
-	Tooltip: The remains of a Hell mollusk
+	Tooltip: The remains of a mollusk straight from hell
 }
 
 ClamitousPearl: {
 	DisplayName: Clamitous Pearl
-	Tooltip: "'It's clammin' time'"
+	Tooltip: "'It's clamin' time'"
 }
 
 CoreOfFlame: {
@@ -20,7 +20,7 @@ EssenceOfFlame: {
 
 EnchantedMetal: {
 	DisplayName: Enchanted Metal
-	Tooltip: Metal infused with the soul of Terraria
+	Tooltip: Infused with the Soul of Terraria
 }
 
 MetalFeather: {
@@ -35,5 +35,5 @@ RarePlanteraFruit: {
 
 CoralskinFoolfish: {
 	DisplayName: Coralskin Foolfish
-	Tooltip: "'Camouflage is one of nature's best defenses'"
+	Tooltip: "'Camouflage is one of nature's best defenses"
 }

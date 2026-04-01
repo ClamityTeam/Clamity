@@ -24,7 +24,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
             Item.width = 22;
             Item.height = 26;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.accessory = true;
         }
         //When you getting hit, you receive flight time percentages equal to half of the ratio of damage received to max HP

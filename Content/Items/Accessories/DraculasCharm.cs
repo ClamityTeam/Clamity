@@ -25,19 +25,25 @@ namespace Clamity.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage<ThrowingDamageClass>() += 0.15f;
-            player.Calamity().rogueStealthMax += 0.1f;
+            var modPlayer = player.Calamity();
+
+            modPlayer.rogueStealthMax += 0.1f;
             player.Clamity().vampireEX = true;
 
-            player.Calamity().rottenDogTooth = true;
-            player.Calamity().vampiricTalisman = true;
-            player.Calamity().etherealExtorter = true;
+            modPlayer.rottenDogTooth = true;
+            modPlayer.vampiricTalisman = true;
+            modPlayer.raiderTalisman = true;
+            modPlayer.etherealExtorter = true;
+
+            //get fixed boi funny
+            if (Main.zenithWorld)
+                player.lifeRegen -= 10; //Never ending thirst of calamity devs
         }
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient<EtherealExtorter>()
                 .AddIngredient<VampiricTalisman>()
-                .AddIngredient<RottenDogtooth>()
                 .AddIngredient<BloodstoneCore>(5)
                 .AddIngredient<AshesofCalamity>(4)
                 .AddTile(TileID.LunarCraftingStation)

@@ -21,7 +21,7 @@ namespace Clamity.Content.Items.Weapons.Magic
             Item.width = 18;
             Item.height = 20;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            Item.rare = ModContent.RarityType<DarkBlue>();
+            Item.rare = ModContent.RarityType<CosmicPurple>();
 
             Item.noMelee = true;
             Item.noUseGraphic = true;

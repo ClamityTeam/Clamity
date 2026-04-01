@@ -24,7 +24,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
         {
             Item.width = 26;
             Item.height = 48;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
 
             Item.useTime = 1;
@@ -69,7 +69,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
             CreateRecipe()
                 .AddIngredient<CosmicKunai>()
                 .AddIngredient<ExecutionersBlade>()
-                .AddIngredient<LunarKunai>(100)
+                .AddIngredient<LunarKunai>()
                 .AddIngredient<AuricBar>(5)
                 .AddTile<CosmicAnvil>()
                 .Register();

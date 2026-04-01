@@ -20,7 +20,7 @@ namespace Clamity.Content.Bosses.WoB.Drop
             Item.width = 42;
             Item.height = 40;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
 
             Item.useTime = 1;
             Item.useAnimation = 8;

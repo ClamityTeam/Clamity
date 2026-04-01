@@ -17,7 +17,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
             Item.width = 26;
             Item.height = 26;
             Item.value = Item.sellPrice(gold: 10);
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.defense = 60;
         }
 

@@ -21,9 +21,9 @@ WitheredBoneBow: {
 	// DisplayName: Wither Bane
 	/* Tooltip:
 		'''
-		Converts wooden arrow to withered bone bolts
+		Converts wooden arrows to withered bone bolts
 		Bolts creates a copy behind player on hit up to two times
-		Bolts inflict Withered and has 15 armor penetration
+		Bolts inflict Withered and have 15 armor penetration
 		'Did I hear someone say taco?'
 		''' */
 }

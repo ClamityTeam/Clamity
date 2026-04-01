@@ -31,7 +31,7 @@ namespace Clamity.Content.Bosses.WoB
             Item.height = 32;
             Item.maxStack = 9999;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
         }
         public override void AddRecipes()
         {

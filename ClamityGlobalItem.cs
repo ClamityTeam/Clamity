@@ -8,8 +8,8 @@ using CalamityMod.Items.TreasureBags.MiscGrabBags;
 using Clamity.Content.Items.Accessories;
 using Clamity.Content.Items.Mounts;
 using Clamity.Content.Items.Potions.Food;
-using Clamity.Content.Items.Weapons.Classless;
 using Clamity.Content.Items.Weapons.Melee.Shortswords;
+using Clamity.Content.Items.Weapons.Typeless;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -42,7 +42,7 @@ namespace Clamity
         {
             if (entity.ModItem is CodebreakerBase or DecryptionComputer or LongRangedSensorArray or AdvancedDisplay or VoltageRegulationSystem or AuricQuantumCoolingCell
                 or AltarOfTheAccursedItem or AshesofCalamity
-                or EyeofDesolation or CosmicWorm or YharonEgg or RuneofKos or ProfanedCore or ProfanedShard)
+                or EyeofDesolation or CosmicWorm or YharonEgg or MarkofProvidence or ProfanedCore or ProfanedShard)
             {
                 //keyItem = true;
             }

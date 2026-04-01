@@ -1,4 +1,5 @@
-﻿using CalamityMod.Projectiles.Boss;
+﻿using CalamityMod;
+using CalamityMod.Projectiles.Boss;
 using CalamityMod.Projectiles.Enemy;
 using CalamityMod.World;
 using Clamity.Content.Bosses.Clamitas.NPCs;
@@ -11,6 +12,7 @@ using Clamity.Content.Bosses.WoB.NPCs;
 using Clamity.Content.Bosses.WoB.Projectiles;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.ModLoader;
@@ -112,11 +114,51 @@ namespace Clamity.Commons
                 { ModContent.NPCType<IhorBody>(), new int[] { 90, 138, 161, 184, 276 } },
                 { ModContent.NPCType<IhorBodySmall>(), new int[] { 70, 128, 131, 144, 226 } },
             };
+
+
+            Type calamitysNPCStats = typeof(NPCStats);
+            Type enemyStats = calamitysNPCStats.GetNestedType("EnemyStats", BindingFlags.NonPublic);
+
+            if (enemyStats != null && enemyStats.IsValueType)
+            {
+                /* this doesn't work anymore...
+                 * hey akira i need more tests. i didnt completed it
+                FieldInfo projDamage = enemyStats.GetField("ProjectileDamageValues", BindingFlags.Static | BindingFlags.Public);
+                Type projDamageType = projDamage.GetType();
+                MethodInfo method = projDamageType.GetMethod("Add");
+                foreach (var value in EnemyStats.ProjectileDamageValues) 
+                {
+                    method.Invoke(projDamage.GetValue(null), new object[] { value.Key, value.Value });
+                }
+
+
+                //-= EnemyStats.ContactDamageValues are empty currently =-
+                FieldInfo contactDamage = enemyStats.GetField("ContactDamageValues", BindingFlags.Static | BindingFlags.Public);
+                Type contactDamageType = contactDamage.GetType();
+                method = contactDamageType.GetMethod("Add");
+                foreach (var value in EnemyStats.ContactDamageValues)
+                {
+                    method.Invoke(contactDamage.GetValue(null), new object[] { value.Key, value.Value });
+                }
+
+
+                //-= EnemyStats.ExpertDamageMultiplier are empty currently =-
+                FieldInfo expertDamageMult = enemyStats.GetField("ExpertDamageMultiplier", BindingFlags.Static | BindingFlags.Public);
+                Type expertDamageMultType = expertDamageMult.GetType();
+                method = expertDamageMultType.GetMethod("Add");
+                foreach (var value in EnemyStats.ExpertDamageMultiplier)
+                {
+                    method.Invoke(expertDamageMult.GetValue(null), new object[] { value.Key, value.Value });
+                }
+                */
+            }
+
         }
         public static void UnLoad()
         {
             EnemyStats.ProjectileDamageValues = null;
         }
+        //[Obsolete]
         public static int GetProjectileDamageClamity(this NPC npc, int projType)
         {
             double num1 = Main.masterMode ? 6.0 : Main.expertMode ? 4.0 : 2.0;
@@ -136,6 +178,7 @@ namespace Clamity.Commons
                 return projectileDamage1;
             return !Main.expertMode ? num2 : num3;
         }
+        //[Obsolete]
         public static void GetNPCDamageClamity(this NPC npc)
         {
             double damageAdjustment = GetExpertDamageMultiplierClamity(npc) * (Main.masterMode ? MasterContactVanillaMultiplier : ExpertContactVanillaMultiplier);
@@ -156,6 +199,7 @@ namespace Clamity.Commons
             if (damageToUse != -1)
                 npc.damage = damageToUse;
         }
+        //[Obsolete]
         public static double GetExpertDamageMultiplierClamity(this NPC npc, bool? master = null)
         {
             bool exists = EnemyStats.ExpertDamageMultiplier.TryGetValue(npc.type, out double damageMult);

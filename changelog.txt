@@ -1,4 +1,4 @@
-Update 1.0.3.14 - ??? Patch
+Update 1.0.3.15 - Minor Balancing and Bugfix Patch
 
 New Content:
 None
@@ -10,12 +10,14 @@ Removes:
 None
 
 Balance Changes:
-None
+Nerfed the damage of the Depths Echo Staff from 40 to 28
+Nerfed the damage of the Hellstone Shellfish Staff from 200 to 185
 
 Other Changes:
-Pyrogen now disables rain while alive.
+Renamed Pearl of Fish Calamity to Treasure of Clamity
 
 Bug Fixes:
-Fixed a bug that caused the Soul of Pyrogen to not increase rogue damage properly.
-Fixed a bug that caused the Wulfrum Lure to fire more bobbers than intended when right clicking.
-Fixed a bug that caused Clamitas not to despawn properly.
+Fixed some of the tooltips to match the new format of Calamity tooltips
+Fixed a bug that caused The Subcommunity to gain a negative mining boost
+Fixed a bug that caused the Wulfrum Lure to fire bobbers without charge or expending Wulfrum Scrap.
+Fixed Auric Kunai still requiring 100 Lunar Kunai's in it's recipe.
