@@ -15,6 +15,7 @@ Nerfed the damage of the Hellstone Shellfish Staff from 200 to 185
 
 Other Changes:
 Renamed Pearl of Fish Calamity to Treasure of Clamity
+Updated Soul Baguette & Exo Baguette to match the changes done to the base Baguette in Calamity 2.1
 
 Bug Fixes:
 Fixed some of the tooltips to match the new format of Calamity tooltips
