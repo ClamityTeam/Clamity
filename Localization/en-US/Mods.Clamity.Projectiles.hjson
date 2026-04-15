@@ -12,7 +12,7 @@ Melee: {
 	EtherealKnivesProjectile.DisplayName: Ethereal Knives Projectile
 	HyperionProjectile.DisplayName: Hyperion Projectile
 	SubzeroSlicerProjectileSlash.DisplayName: Subzero Slicer Projectile Slash
-	GreatestPeakMistProjectile.DisplayName: Greatest Peak Mist Projectile
+	GreatestPeakMistProjectile.DisplayName: Greatest Peak Mist
 }
 
 Ranged: {
@@ -35,6 +35,7 @@ Magic: {
 	UnicronBeam.DisplayName: Unicron Beam
 	UnicronWingmanGrenade.DisplayName: Unicron Wingman Grenade
 	UnicronWingmanShot.DisplayName: Unicron Wingman Shot
+	PetalOfEverestPetal.DisplayName: Petal Of Everest
 }
 
 Summon: {

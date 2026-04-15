@@ -16,6 +16,10 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
 {
     public class Everest : ModItem, ILocalizedModType, IModType
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public new string LocalizationCategory => "Items.Weapons.Melee";
         public override void SetDefaults()
         {
@@ -49,6 +53,10 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
     }
     public class EverestProjectile : BaseShortswordProjectile, ILocalizedModType, IModType
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public new string LocalizationCategory => "Projectiles.Melee";
         public override string Texture => ModContent.GetInstance<Everest>().Texture;
         public override void SetDefaults()

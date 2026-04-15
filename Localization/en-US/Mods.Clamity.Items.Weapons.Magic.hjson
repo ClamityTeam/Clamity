@@ -28,3 +28,8 @@ EtherealKnives: {
 	DisplayName: Ethereal Knives
 	Tooltip: Throws a stream of knives that restore the users mana
 }
+
+PetalOfEverest: {
+	DisplayName: Petal Of Everest
+	Tooltip: ""
+}
