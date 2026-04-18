@@ -28,7 +28,7 @@ namespace Clamity.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
             Item.rare = ModContent.RarityType<CosmicPurple>();
         }
-        public override void UpdateToogledAccessory(Player player, bool hideVisual)
+        public override void ToggledUpdateAccessory(Player player, bool hideVisual)
         {
             if (player.whoAmI == Main.myPlayer)
             {

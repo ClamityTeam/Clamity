@@ -61,10 +61,10 @@ namespace Clamity.Content.Items.Accessories
 
         public sealed override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (accessoryEnabled) UpdateToogledAccessory(player, hideVisual);
+            if (accessoryEnabled) ToggledUpdateAccessory(player, hideVisual);
             SafeUpdateAccessory(player, hideVisual);
         }
-        public virtual void UpdateToogledAccessory(Player player, bool hideVisual)
+        public virtual void ToggledUpdateAccessory(Player player, bool hideVisual)
         {
 
         }
