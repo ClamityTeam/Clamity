@@ -21,9 +21,12 @@ namespace Clamity.Content.Items.Mounts
                 .AddIngredient<ExoThrone>()
                 .AddIngredient<PlagueCellCanister>()
                 .Register();
+
+            /* this ins't needed. you can just shimmer decraft.
             Recipe.Create(ModContent.ItemType<ExoThrone>())
                 .AddIngredient(Type)
                 .Register();
+            */
         }
     }
     public class PlagueChairMount : DraedonGamerChairMount

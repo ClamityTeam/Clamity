@@ -1,7 +1,7 @@
 Items: {
 	Mounts: {
 		FlameCube: {
-			DisplayName: Exo Box: Calamity Edition
+			DisplayName: Exo Box (Calamity Edition)
 			Tooltip:
 				'''
 				Materializes a quite cozy and extremely nimble flying Calamitas-styled Exo throne
@@ -12,7 +12,7 @@ Items: {
 		}
 
 		PlagueStation: {
-			DisplayName: Exo Box: Plague Edition
+			DisplayName: Exo Box (Plague Edition)
 			Tooltip:
 				'''
 				Materializes a quite cozy and extremely nimble flying Plague-styled Exo throne
