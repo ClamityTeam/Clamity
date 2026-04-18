@@ -1,8 +1,3 @@
-OmegaRay: {
-	DisplayName: Омега луч
-	Tooltip: Разрушает все пятью Y-образными лучами энергии и лазерами
-}
-
 Unicron: {
 	// DisplayName: Unicron
 	/* Tooltip:

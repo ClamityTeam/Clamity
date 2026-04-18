@@ -1,3 +1,19 @@
+Wings: {
+	MetalWings: {
+		DisplayName: Metal Wings
+		Tooltip:
+			'''
+			Horizontal speed: 10.50
+			Acceleration multiplier: 2.8
+			Excellent vertical speed
+			Flight time: 280
+			Defense of all players on your team is increased by 20 while wearing Frozen Armor
+			Restores part of flight time when taking damage
+			'''
+		HoldShiftTooltip: "  Amount of restored flight time is equal to the damage taken to max life ratio divided by 2"
+	}
+}
+
 SoulOfPyrogen: {
 	DisplayName: Soul of Pyrogen
 	Tooltip:
@@ -95,22 +111,6 @@ EidolonAmulet: {
 		'''
 }
 
-Wings: {
-	MetalWings: {
-		DisplayName: Metal Wings
-		Tooltip:
-			'''
-			Horizontal speed: 10.50
-			Acceleration multiplier: 2.8
-			Excellent vertical speed
-			Flight time: 280
-			Restores flight time when taking damage
-			Amount of restored flight time is equal to the damage taken to max life ratio divided by 2
-			Defense of all players on your team is increased by 20 while wearing Frozen Armor
-			'''
-	}
-}
-
 TreasureOfClamity: {
 	DisplayName: Treasure of Clamity
 	Tooltip:
@@ -181,7 +181,7 @@ CyanPearl: {
 		+7% summon damage
 		Halves the summon damage penalty for sentries
 		'''
-	HoldShiftTooltip: 
+	HoldShiftTooltip:
 		'''
 		  When holding non-summon/non-average weapon sentries will deal 0.875x damage instead of 0.75x
 		  Also not applies penalty if holding classless weapons or active Old One's Army
@@ -201,6 +201,5 @@ SkullOfTheBloodGod: {
 	ToggleEffect:
 		'''
 		Brimstone fire rains down after getting hit
-
 		'''
 }

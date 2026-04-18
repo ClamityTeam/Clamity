@@ -1,3 +1,19 @@
+Wings: {
+	MetalWings: {
+		DisplayName: Металлические крылья
+		Tooltip:
+			'''
+			Horizontal speed: 10.50
+			Acceleration multiplier: 2.8
+			Excellent vertical speed
+			Flight time: 280
+			Когда надета Замороженная броня все игроки в вашей группе получают 20 защиты
+			Востанавливает часть времени полёта после получения урона
+			'''
+		HoldShiftTooltip: "  Количество восстановленного времени полёта равна половине соотношения полученного урона к максимальному запасу жизни"
+	}
+}
+
 SoulOfPyrogen: {
 	DisplayName: Душа Пирогена
 	Tooltip:
@@ -74,13 +90,13 @@ RedDie: {
 		'''
 		Увеличивает удачу в 1,5 раза
 		Дополнительно увеличивает удачу на 20%
-		«Готов переигрывать?»
+		«Готов к реролу?»
 		'''
 }
 
 EidolonAmulet: {
 	DisplayName: Призрачный амулет
-	Tooltip:
+	/* Tooltip:
 		'''
 		<its placeholder that can be changed after accessory rework>
 		60% increased Water debuff damage
@@ -92,18 +108,7 @@ EidolonAmulet: {
 		[c/FF4500: Pierces enemies and inflicts Hellfire] / [c/CB7AD7:Increases defense by 10 temporarily]
 		[c/1E90FF: Hits multiple times and inflicts Hadopelagic Pressure] / [c/CB7AD7:Heals 5% of max HP]
 		Spirits are transparent and silent when visibility is toggled off
-		'''
-}
-
-Wings: {
-	MetalWings: {
-		DisplayName: Металлические крылья
-		Tooltip:
-			'''
-			После получения урона вы востанавливаете проценты времени полёта равному половины соотношения полученного урона к максимальному ХП
-			Когда надета Замороженная броня все игроки в вашей группе получают 20 увеличенной защиты
-			'''
-	}
+		''' */
 }
 
 TreasureOfClamity: {
@@ -176,7 +181,11 @@ CyanPearl: {
 		+7% summon damage
 		Halves the summon damage penalty for sentries
 		''' */
-	// HoldShiftTooltip: "  When holding non-summon  weapon sentries will deal 0.875x damage instead of 0.75x"
+	/* HoldShiftTooltip:
+		'''
+		  When holding non-summon/non-average weapon sentries will deal 0.875x damage instead of 0.75x
+		  Also not applies penalty if holding classless weapons or active Old One's Army
+		''' */
 }
 
 SkullOfTheBloodGod: {
@@ -192,6 +201,5 @@ SkullOfTheBloodGod: {
 	/* ToggleEffect:
 		'''
 		Brimstone fire rains down after getting hit
-
 		''' */
 }
