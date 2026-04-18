@@ -12,18 +12,18 @@ RoseBow: {
 	DisplayName: Лук-роза
 	Tooltip:
 		'''
-		'Даже если ты меня не видишь, даже если ты меня не слышишь, я буду рядом с тобой'
 		Стреляет разбросом стрел и самонаводящихся лепестков
+		'Даже если ты меня не видишь, даже если ты меня не слышишь, я буду рядом с тобой'
 		'''
 }
 
 WitheredBoneBow: {
-	// DisplayName: Wither Bane
-	/* Tooltip:
+	DisplayName: Иссушающий шторм
+	Tooltip:
 		'''
-		Converts wooden arrows to withered bone bolts
-		Bolts creates a copy behind player on hit up to two times
-		Bolts inflict Withered and have 15 armor penetration
-		'Did I hear someone say taco?'
-		''' */
+		Превращает деревянные стрелы в Иссушонные костяные болты
+		Болты создают копию за спиной игрока при попадании до двух раз
+		Болты накладывают [cbuff:CalamityMod/WitherDebuff] и игнорируют 15 защиты
+		"Я слышал, кто-то сказал "тако"?"
+		'''
 }

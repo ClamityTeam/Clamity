@@ -24,7 +24,7 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
             base.SetDefaults();
             Item.rare = ItemRarityID.Lime;
             Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
-            Item.damage = 40;
+            Item.damage = 28;
             Item.useTime = Item.useAnimation = 10;
             Item.shoot = ModContent.ProjectileType<DepthsEchoRifleProjectile>();
             Item.shootSpeed = 20f;

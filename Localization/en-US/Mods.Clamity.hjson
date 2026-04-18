@@ -1,32 +1,24 @@
 Items: {
 	Mounts: {
 		FlameCube: {
-			DisplayName: Flame Cube
+			DisplayName: Exo Box (Calamity Edition)
 			Tooltip:
 				'''
-				Summons Calamitas' throne
+				Materializes a quite cozy and extremely nimble flying Calamitas-styled Exo throne
 				Hold [KEY] while sitting in the throne to move slower for more precision
-				'The throne of the Brimstone Crags'
+				'An angry gamer is a very dangerous gamer'
+				'Side Note: He fire protective if you forgot'
 				'''
 		}
 
 		PlagueStation: {
-			DisplayName: Plague Station
+			DisplayName: Exo Box (Plague Edition)
 			Tooltip:
 				'''
-				Materializes a quite cozy and a nimble flying Plague throne
+				Materializes a quite cozy and extremely nimble flying Plague-styled Exo throne
 				Hold [KEY] while sitting in the throne to move slower for more precision
 				'A radical fan gamer is a virus gamer'
 				'''
-		}
-	}
-
-	Weapons: {
-		Classless: {
-			AMS: {
-				DisplayName: A M S
-				Tooltip: ""
-			}
 		}
 	}
 }

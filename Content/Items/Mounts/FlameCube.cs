@@ -26,10 +26,10 @@ namespace Clamity.Content.Items.Mounts
         {
             base.SetStaticDefaults();
             MountData.buff = ModContent.BuffType<BrimChairBuff>();
-            MountData.runSpeed = 13f;
-            MountData.dashSpeed = 13f;
-            MountData.acceleration = 13f;
-            MountData.swimSpeed = 13f;
+            //MountData.runSpeed = 13f;
+            //MountData.dashSpeed = 13f;
+            //MountData.acceleration = 13f;
+            //MountData.swimSpeed = 13f;
             if (Main.netMode != NetmodeID.Server)
             {
                 MountData.frontTextureGlow = ModContent.Request<Texture2D>("Clamity/Content/Items/Mounts/BrimChairMount_Glowmask");
@@ -50,8 +50,7 @@ namespace Clamity.Content.Items.Mounts
         {
             player.mount.SetMount(ModContent.MountType<BrimChairMount>(), player);
             player.buffTime[buffIndex] = 10;
-            player.Clamity().FlyingChair = true;
-            player.Clamity().FlyingChairPower = 13;
+            player.Clamity().flyingChair = true;
         }
     }
 }

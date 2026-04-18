@@ -8,24 +8,14 @@ ClamitousPearl: {
 	Tooltip: "'Это время моллюска!'"
 }
 
-CoreOfFlame: {
-	DisplayName: Ядро Игниса
-	// Tooltip: ""
-}
-
-EssenceOfFlame: {
-	DisplayName: Эссенция Игниса
-	Tooltip: Эссенция существ из горячих земель
-}
-
 EnchantedMetal: {
 	DisplayName: Зачарованный металл
 	Tooltip: Металл наполенный душами самой Террарии
 }
 
 MetalFeather: {
-	// Tooltip: ""
 	DisplayName: Металлическое перо
+	// Tooltip: ""
 }
 
 RarePlanteraFruit: {

@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Typeless;
 using Terraria.ID;
@@ -9,6 +10,7 @@ namespace Clamity.Content.Items.Weapons.Typeless
     public class Celesticus : Aestheticus, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Weapons.Typeless";
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -17,6 +19,12 @@ namespace Clamity.Content.Items.Weapons.Typeless
             Item.useTime = Item.useAnimation = 10;
             base.Item.Calamity().donorItem = false;
         }
+
+        public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
+        {
+            itemGroup = (ContentSamples.CreativeHelper.ItemGroup)CalamityResearchSorting.ClasslessWeapon;
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()

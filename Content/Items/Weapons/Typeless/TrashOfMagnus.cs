@@ -12,10 +12,17 @@ namespace Clamity.Content.Items.Weapons.Typeless
     public class TrashOfMagnus : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Weapons.Typeless";
+
         public override void SetStaticDefaults()
         {
             Item.staff[Type] = true;
         }
+
+        public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
+        {
+            itemGroup = (ContentSamples.CreativeHelper.ItemGroup)CalamityResearchSorting.ClasslessWeapon;
+        }
+
         public override void SetDefaults()
         {
             Item.width = 44;
@@ -34,7 +41,7 @@ namespace Clamity.Content.Items.Weapons.Typeless
     }
     public class TrashOfMagnusProjectile : ModProjectile, ILocalizedModType, IModType
     {
-        public new string LocalizationCategory => "Projectiles.Classless";
+        public new string LocalizationCategory => "Projectiles.Typeless";
         public override string Texture => "CalamityMod/Projectiles/InvisibleProj";
         public override void SetDefaults()
         {

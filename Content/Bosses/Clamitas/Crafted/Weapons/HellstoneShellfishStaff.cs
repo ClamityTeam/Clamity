@@ -32,7 +32,7 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
             base.SetDefaults();
             Item.rare = ItemRarityID.Lime;
             Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
-            Item.damage = 200;
+            Item.damage = 185;
             Item.shoot = ModContent.ProjectileType<HellstoneShellfishStaffMinion>();
         }
         public override void AddRecipes()

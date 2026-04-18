@@ -17,6 +17,7 @@ This mod has official support of both English and Russian Localization as of now
 [h2]- Team -[/h2]
 Owner: WitherTaco
 Developers: WitherTaco, Akira
+Balancing: WardobeHummus
 Spriters: pil, thydeo, WitherTaco
 Music: FranciumKilla, BrimstonPremium
 

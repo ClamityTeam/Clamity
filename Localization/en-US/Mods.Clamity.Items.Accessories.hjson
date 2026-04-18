@@ -1,3 +1,19 @@
+Wings: {
+	MetalWings: {
+		DisplayName: Metal Wings
+		Tooltip:
+			'''
+			Horizontal speed: 10.50
+			Acceleration multiplier: 2.8
+			Excellent vertical speed
+			Flight time: 280
+			Defense of all players on your team is increased by 20 while wearing Frozen Armor
+			Restores part of flight time when taking damage
+			'''
+		HoldShiftTooltip: "  Amount of restored flight time is equal to the damage taken to max life ratio divided by 2"
+	}
+}
+
 SoulOfPyrogen: {
 	DisplayName: Soul of Pyrogen
 	Tooltip:
@@ -95,31 +111,19 @@ EidolonAmulet: {
 		'''
 }
 
-Wings: {
-	MetalWings: {
-		DisplayName: Metal Wings
-		Tooltip:
-			'''
-			Horizontal speed: 10.50
-			Acceleration multiplier: 2.8
-			Excellent vertical speed
-			Flight time: 280
-			Restores flight time when taking damage
-			Amount of restored flight time is equal to the damage taken to max life ratio divided by 2
-			Defense of all players on your team is increased by 20 while wearing Frozen Armor
-			'''
-	}
-}
-
 TreasureOfClamity: {
 	DisplayName: Treasure of Clamity
 	Tooltip:
 		'''
 		Increases fishing skill by 25
+		Increases the yield of potion ingredient fish
 		Increases chance to catch crates and loot-containing fish by 15%
-		Crate catches are 25% more likely to be higher quality, accompanied by visual pearls
-		Potion ingredient fish yield is increased
-		Summons a water elemental to protect you when visibility is toggled on
+		Crate catches are 25% more likely to be higher quality, accompanied by visual pearls[TOGGLE]
+		'''
+	ToggleEffect:
+		'''
+
+		Summons a water elemental to protect
 		'''
 }
 
@@ -181,6 +185,11 @@ CyanPearl: {
 		+7% summon damage
 		Halves the summon damage penalty for sentries
 		'''
+	HoldShiftTooltip:
+		'''
+		  When holding non-summon/non-average weapon sentries will deal 0.875x damage instead of 0.75x
+		  Also not applies penalty if holding classless weapons or active Old One's Army
+		'''
 }
 
 SkullOfTheBloodGod: {
@@ -189,8 +198,13 @@ SkullOfTheBloodGod: {
 		'''
 		15% increased damage and 13% increased critical strike chance
 		Critical strikes explode, causing nearby enemies to ignite with [cbuff:CalamityMod/BrimstoneFlames]
-		Halves enemy contact damage with a 20 second cooldown
-		Brimstone fire rains down after getting hit
+		Halves enemy contact damage with a 20 second cooldown[TOGGLE]
 		Reduces damage taken from [cbuff:CalamityMod/BrimstoneFlames] by 50%
+		[c/aaaaaa:Shift-<right> this item in your inventory to toggle] [i:CalamityMod/VoidofCalamity] [c/aaaaaa:Void of Calamity's rain effect]
+		'''
+	ToggleEffect:
+		'''
+
+		Brimstone fire rains down after getting hit
 		'''
 }

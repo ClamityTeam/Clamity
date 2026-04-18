@@ -18,7 +18,6 @@ using Clamity.Content.Items;
 using Clamity.Content.Items.Accessories;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
 using Clamity.Content.Items.Accessories.Sentry;
-using Clamity.Content.Items.Mounts;
 using Clamity.Content.Items.Potions.Food;
 using Clamity.Content.Items.Weapons.Melee.Shortswords;
 using Clamity.Content.Items.Weapons.Typeless;
@@ -45,7 +44,7 @@ namespace Clamity
             if (npc.type == ModContent.NPCType<PlaguebringerGoliath>())
             {
                 mainRule.Add(ItemDropRule.Common(ModContent.ItemType<Disease>(), 4));
-                mainRule.Add(ItemDropRule.Common(ModContent.ItemType<PlagueStation>()));
+                //mainRule.Add(ItemDropRule.Common(ModContent.ItemType<PlagueStation>()));
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<TrashOfMagnus>(), 4, 3));
             }
             if (npc.type == ModContent.NPCType<SupremeCalamitas>())
@@ -313,7 +312,7 @@ namespace Clamity
                 int num18 = 0;
                 for (int index = 0; index < Main.maxProjectiles; ++index)
                 {
-                    if (((Entity)Main.projectile[index]).active && Main.projectile[index].type == 636 && (double)Main.projectile[index].ai[0] == 1.0 && (double)Main.projectile[index].ai[1] == (double)((Entity)npc).whoAmI)
+                    if (((Entity)Main.projectile[index]).active && Main.projectile[index].type == ProjectileID.Daybreak && (double)Main.projectile[index].ai[0] == 1.0 && (double)Main.projectile[index].ai[1] == (double)((Entity)npc).whoAmI)
                         ++num18;
                 }
                 int num19 = (int)((num18 <= 1 ? 1.0 : 1.0 + 0.25 * (double)(num18 - 1)) * 2.0 * 100.0 * vanillaHeatDamageMult);
