@@ -1,12 +1,9 @@
-using CalamityMod.Projectiles.Magic;
 using CalamityMod.Projectiles.Melee;
-using CalamityMod.Projectiles.Ranged;
-using CalamityMod.Projectiles.Summon;
+using Clamity.Content.Items.Weapons.Summon.Whips;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityMod.Sounds;
 
 namespace Clamity.Commons
 {
@@ -265,7 +262,7 @@ namespace Clamity.Commons
                 }*/
 
                 // TriInfecta Whip Tag
-                /*if (activeTag == ModContent.BuffType<TriInfectaDebuff>() && triIndex > -1)
+                if (activeTag == ModContent.BuffType<TriInfectaDebuff>() && triIndex > -1)
                 {
                     if (Main.rand.NextFloat() <= 0.20f)
                     {
@@ -281,7 +278,7 @@ namespace Clamity.Commons
 
                     npc.DelBuff(triIndex);
                     triIndex = -1;
-                }*/
+                }
 
 
                 // Terra Whip Tag

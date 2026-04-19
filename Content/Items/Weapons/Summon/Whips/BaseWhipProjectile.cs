@@ -217,18 +217,23 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
 
             if ((Timer >= swingTime * .5f))
             {
-                if (dustID != -1)
-                {
-                    for (int i = 0; i < dustNum; i++)
-                    {
-                        Dust.NewDust(tip, 2, 2, (int)dustID, 0, 0, Scale: .5f);
-                    }
-                }
+                WhipTipParticles(tip, lightingCol, dustID, dustNum);
+            }
+        }
 
-                if (lightingCol != Color.Transparent)
+        public virtual void WhipTipParticles(Vector2 tipCoord, Color lightingCol, int dustID, int dustNum)
+        {
+            if (dustID != -1)
+            {
+                for (int i = 0; i < dustNum; i++)
                 {
-                    Lighting.AddLight(tip, lightingCol.R / 255f, lightingCol.G / 255f, lightingCol.B / 255f);
+                    Dust.NewDust(tipCoord, 2, 2, (int)dustID, 0, 0, Scale: .5f);
                 }
+            }
+
+            if (lightingCol != Color.Transparent)
+            {
+                Lighting.AddLight(tipCoord, lightingCol.R / 255f, lightingCol.G / 255f, lightingCol.B / 255f);
             }
         }
 

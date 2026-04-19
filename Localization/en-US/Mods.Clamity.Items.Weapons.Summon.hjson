@@ -1,3 +1,10 @@
+Whips: {
+	BalancedDuality: {
+		DisplayName: Balanced Duality
+		Tooltip: ""
+	}
+}
+
 HellstoneShellfishStaff: {
 	DisplayName: Hellstone Shellfish Staff
 	Tooltip:
@@ -22,9 +29,3 @@ PlanterrorStaff: {
 		'''
 }
 
-Whips: {
-	BalancedDuality: {
-		DisplayName: Balanced Duality
-		Tooltip: ""
-	}
-}
