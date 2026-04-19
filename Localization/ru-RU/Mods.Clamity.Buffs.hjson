@@ -1,3 +1,15 @@
+Whips: {
+	BalancedDualityDebuff: {
+		// DisplayName: Balanced Duality Debuff
+		// Description: Mods.Clamity.Buffs.Whips.BalancedDualityDebuff.Description
+	}
+
+	TriInfectaDebuff: {
+		// DisplayName: Tri Infecta Debuff
+		// Description: Mods.Clamity.Buffs.Whips.TriInfectaDebuff.Description
+	}
+}
+
 SupremeLucky: {
 	DisplayName: Высшая удача
 	Description: Вы ощущаете себя очень удачливым
@@ -46,9 +58,4 @@ HeavyMetalTrashCanBuff: {
 TitanScalePotionBuff: {
 	DisplayName: Чешуя титана
 	Description: Вы чувстуете себя танком
-}
-
-BalancedDualityDebuff: {
-	// DisplayName: Balanced Duality Debuff
-	// Description: Mods.Clamity.Buffs.BalancedDualityDebuff.Description
 }

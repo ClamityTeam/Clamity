@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
+using static Terraria.Player;
 
 namespace Clamity
 {
@@ -187,6 +188,63 @@ namespace Clamity
         public static Vector2 ProportionalOffset(NPC npc, float proportionality = 1f) => Main.rand.NextVector2Circular(npc.width * proportionality * 0.5f, npc.height * proportionality * 0.5f);
         public static Vector2 ProportionalOffset(Projectile npc, float proportionality = 1f) => Main.rand.NextVector2Circular(npc.width * proportionality * 0.5f, npc.height * proportionality * 0.5f);
         public static Vector2 ProportionalOffset(Player npc, float proportionality = 1f) => Main.rand.NextVector2Circular(npc.width * proportionality * 0.5f, npc.height * proportionality * 0.5f);
+        public static Vector2 UpdateAim(Projectile projectile, Vector2 source, float speed)
+        {
+            Vector2 vector2_1 = Vector2.Normalize(Vector2.Subtract(Main.MouseWorld, source));
+            if (Utils.HasNaNs(vector2_1))
+            {
+                vector2_1 = -Vector2.UnitY;
+            }
+            return Vector2.Multiply(Vector2.Normalize(Vector2.Lerp(vector2_1, Vector2.Normalize(projectile.velocity), 0.89f)), speed);
+        }
+        public static void UpdateHeldProjDoVelocity(Player Player, Vector2 rotatedRelativePoint, Projectile projectile, float? offsetAmount = null, float? lagSpeed = null)
+        {
+            if (Player.whoAmI == Main.myPlayer)
+            {
+                float speed = 1f;
+                if (Player.HeldItem.shoot == projectile.type)
+                {
+                    speed = Player.HeldItem.shootSpeed * projectile.scale;
+                }
+                Vector2 newVelocity = Utils.SafeNormalize(Main.MouseWorld - rotatedRelativePoint, Vector2.UnitX * Player.direction) * speed;
+                if (lagSpeed.HasValue)
+                {
+                    newVelocity = UpdateAim(projectile, rotatedRelativePoint, lagSpeed.Value);
+                }
+                if (projectile.velocity.X != newVelocity.X || projectile.velocity.Y != newVelocity.Y)
+                {
+                    projectile.netUpdate = true;
+                }
+                projectile.velocity = newVelocity;
+                if (offsetAmount.HasValue)
+                {
+                    float offset = offsetAmount.Value * projectile.scale;
+                    float velocityAngle = Utils.ToRotation(projectile.velocity);
+                    projectile.position = rotatedRelativePoint - projectile.Size * 0.5f + Utils.ToRotationVector2(velocityAngle) * offset;
+                }
+            }
+
+        }
+        public static void UpdateHeldProj(Player Player, Vector2 rotatedRelativePoint, float offsetAmount, Projectile projectile, bool setTimeleft = true, bool updateArm = true)
+        {
+            float velocityAngle = Utils.ToRotation(projectile.velocity);
+            projectile.rotation = velocityAngle + Utils.ToInt(projectile.spriteDirection == -1) * (float)Math.PI;
+            projectile.direction = Utils.ToDirectionInt(Math.Cos(velocityAngle) > 0.0);
+            float offset = offsetAmount * projectile.scale;
+            projectile.position = rotatedRelativePoint - projectile.Size * 0.5f + Utils.ToRotationVector2(velocityAngle) * offset;
+            projectile.spriteDirection = projectile.direction;
+            Player.ChangeDir(projectile.direction);
+            if (setTimeleft)
+            {
+                projectile.timeLeft = 2;
+            }
+            Player.heldProj = projectile.whoAmI;
+            if (updateArm)
+            {
+                Player.SetCompositeArmFront(true, (CompositeArmStretchAmount)0, Utils.ToRotation(projectile.velocity) - (float)Math.PI / 2f);
+            }
+        }
+
         public static Recipe ReplaceIngredient(this Recipe recipe, int oldItem, int newItem, int count = 1)
         {
             int index = recipe.IngredientIndex(oldItem);

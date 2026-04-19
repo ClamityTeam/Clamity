@@ -50,6 +50,10 @@ Summon: {
 	Whips: {
 		BalancedYangProj.DisplayName: Balanced Yang Proj
 		BalancedYinProj.DisplayName: Balanced Yin Proj
+		TriInfectaLargeProj.DisplayName: Tri Infecta Large Proj
+		TriInfectaMedProj.DisplayName: Tri Infecta Med Proj
+		TriInfectaSmallProj.DisplayName: Tri Infecta Small Proj
+		TriInfectaSpawner.DisplayName: Tri Infecta Spawner
 	}
 }
 

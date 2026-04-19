@@ -1,4 +1,6 @@
-﻿using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.CalPlayer;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Projectiles.Melee;
@@ -7,6 +9,7 @@ using CalamityMod.Projectiles.Rogue;
 using CalamityMod.Projectiles.Summon;
 using CalamityMod.Projectiles.Typeless;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -128,6 +131,62 @@ namespace Clamity
             for (int i = 0; i < extraAI.Length; i++)
                 extraAI[i] = binaryReader.ReadSingle();
             IsSentryRelated = binaryReader.ReadBoolean();
+        }
+        public static void MimicLuxorAndDynamoCells(Projectile projectile, float useTime, Vector2? offset = null)
+        {
+            if (!offset.HasValue)
+            {
+                offset = Vector2.Zero;
+            }
+            Player player = Main.player[projectile.owner];
+            CalamityPlayer calamityPlayer = player.Calamity();
+            if (calamityPlayer.luxorsGift)
+            {
+                float num3 = 1;
+                if (useTime < 10f)
+                {
+                    num3 -= (10f - useTime) / 10f;
+                }
+                int damage1 = (int)(projectile.damage * num3);
+                if ((projectile.DamageType == DamageClass.Summon || projectile.DamageType == DamageClass.SummonMeleeSpeed) && (player.ownedProjectileCounts[ModContent.ProjectileType<LuxorsGiftSummon>()] == 0 && projectile.damage >= 1))
+                {
+                    int index = Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center + offset.Value, Vector2.Zero, ModContent.ProjectileType<LuxorsGiftSummon>(), projectile.damage, 0f, projectile.owner);
+                    if (CalamityUtils.WithinBounds(index, 1000))
+                    {
+                        Main.projectile[index].DamageType = DamageClass.Generic;
+                        Main.projectile[index].originalDamage = projectile.damage;
+                    }
+                }
+                if (projectile.DamageType == DamageClass.Ranged)
+                {
+                    int damage2 = (int)(damage1 * 0.15f);
+                    if (damage2 >= 1f)
+                    {
+                        int index = Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center + offset.Value, Vector2.Multiply(projectile.velocity, 1.5f), ModContent.ProjectileType<LuxorsGiftRanged>(), damage2, 0f, projectile.owner);
+                        if (CalamityUtils.WithinBounds(index, 1000))
+                        {
+                            Main.projectile[index].DamageType = DamageClass.Generic;
+                        }
+                    }
+                }
+            }
+            if (calamityPlayer.dynamoStemCells && projectile.DamageType == DamageClass.Ranged && Utils.NextBool(Main.rand, 20))
+            {
+                float num24 = useTime / 30f;
+                if (num24 < 0.35)
+                {
+                    num24 = 0.35f;
+                }
+                int num25 = (int)(projectile.damage * 2 * num24);
+                if (projectile.owner == Main.myPlayer)
+                {
+                    int index = Projectile.NewProjectile(projectile.GetSource_FromAI((string)null), projectile.Center + offset.Value, Vector2.Multiply(projectile.velocity, 1.25f), ModContent.ProjectileType<MiniatureFolly>(), num25, 2f, projectile.owner, 0f, 0f, 0f);
+                    if (CalamityUtils.WithinBounds(index, 1000))
+                    {
+                        Main.projectile[index].DamageType = DamageClass.Generic;
+                    }
+                }
+            }
         }
     }
 }

@@ -63,6 +63,8 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
 
         public virtual bool DrawTrailAtTip { get; } = false;
 
+        public List<Vector2> whipPoints = new List<Vector2>();
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(fishingLineColor.R);
@@ -146,6 +148,15 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
                 Projectile.damage = 1;
 
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
+        }
+        public override bool PreAI()
+        {
+            if ((double)(Timer % 2f) < 0.001)
+            {
+                whipPoints.Clear();
+                Projectile.FillWhipControlPoints(((ModProjectile)this).Projectile, whipPoints);
+            }
+            return true;
         }
 
         /// <summary>

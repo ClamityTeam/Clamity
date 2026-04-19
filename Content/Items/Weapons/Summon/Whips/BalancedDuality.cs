@@ -132,8 +132,9 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
         public override bool DrawTrailAtTip => true;
     }
 
-    public class BalancedDualityDebuff : ModBuff
+    public class BalancedDualityDebuff : ModBuff, ILocalizedModType
     {
+        public new string LocalizationCategory => "Buffs.Whips";
         public override string Texture => Clamity.buffPath;
 
         public override void SetStaticDefaults()

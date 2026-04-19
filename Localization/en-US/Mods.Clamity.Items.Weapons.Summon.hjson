@@ -3,6 +3,11 @@ Whips: {
 		DisplayName: Balanced Duality
 		Tooltip: ""
 	}
+
+	TriInfecta: {
+		DisplayName: Tri Infecta
+		Tooltip: ""
+	}
 }
 
 HellstoneShellfishStaff: {
@@ -28,4 +33,3 @@ PlanterrorStaff: {
 		Occupies 4 minion slots and there can only be one
 		'''
 }
-

@@ -1,3 +1,15 @@
+Whips: {
+	BalancedDuality: {
+		// DisplayName: Balanced Duality
+		// Tooltip: ""
+	}
+
+	TriInfecta: {
+		// DisplayName: Tri Infecta
+		// Tooltip: ""
+	}
+}
+
 HellstoneShellfishStaff: {
 	DisplayName: Посох молюска из Адского камня
 	Tooltip:
@@ -20,11 +32,4 @@ PlanterrorStaff: {
 		Тип пулей завит от текущего типа боеприпасов игрока
 		Занимет 4 слота для миньонов и только один может существовать
 		'''
-}
-
-Whips: {
-	BalancedDuality: {
-		// DisplayName: Balanced Duality
-		// Tooltip: ""
-	}
 }
