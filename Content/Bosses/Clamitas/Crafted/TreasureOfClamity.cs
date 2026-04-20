@@ -3,6 +3,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using Clamity.Content.Bosses.Clamitas.Drop;
+using Clamity.Content.Items.Accessories;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 namespace Clamity.Content.Bosses.Clamitas.Crafted
 {
     [LegacyName("PearlOfFishCalamity")]
-    public class TreasureOfClamity : ModItem, ILocalizedModType, IModType
+    public class TreasureOfClamity : ToggableAccessory
     {
         public new string LocalizationCategory => "Items.Accessories";
         public override void SetDefaults()
@@ -21,12 +22,15 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted
             Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
             Item.accessory = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void SafeUpdateAccessory(Player player, bool hideVisual)
         {
             player.fishingSkill += 25;
             player.Calamity().enchantedPearl = true;
             player.Calamity().alluringBait = true;
-            if (!hideVisual) ModContent.GetInstance<PearlofEnthrallment>().UpdateAccessory(player, hideVisual);
+        }
+        public override void ToggledUpdateAccessory(Player player, bool hideVisual)
+        {
+            ModContent.GetInstance<PearlofEnthrallment>().UpdateAccessory(player, hideVisual);
             player.Calamity().sirenPet = false;
         }
         public override void UpdateVanity(Player player)

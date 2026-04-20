@@ -12,7 +12,7 @@ namespace Clamity.Content.Bosses.WoB.Drop
 {
     public class AMS : ModItem, ILocalizedModType, IModType
     {
-        public new string LocalizationCategory => "Items.Weapons.Classless";
+        public new string LocalizationCategory => "Items.Weapons.Typeless";
         public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatCountAsBombsForDemolitionistToSpawn[Type] = true;
@@ -67,7 +67,7 @@ namespace Clamity.Content.Bosses.WoB.Drop
     }
     public class AMSProj : ModProjectile, ILocalizedModType, IModType
     {
-        public new string LocalizationCategory => "Projectiles.Classless";
+        public new string LocalizationCategory => "Projectiles.Typeless";
         public override void SetStaticDefaults()
         {
 

@@ -31,12 +31,7 @@ Disease: {
 
 WulfrumLeechDagger: {
 	DisplayName: Wulfrum Leech Dagger
-	Tooltip:
-		'''
-		Drains a low percentage of enemy health on hit
-		Cannot inflict critical hits
-		Unconsumable for second on a shortstrike
-		'''
+	Tooltip: Creates shard on hit
 }
 
 Everest: {

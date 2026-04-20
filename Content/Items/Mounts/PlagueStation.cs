@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items.Mounts;
+﻿using CalamityMod.Items.Materials;
+using CalamityMod.Items.Mounts;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -12,7 +13,20 @@ namespace Clamity.Content.Items.Mounts
         {
             base.SetDefaults();
             Item.mountType = ModContent.MountType<PlagueChairMount>();
-            Item.rare = ItemRarityID.Yellow;
+            //Item.rare = ItemRarityID.Yellow;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<ExoThrone>()
+                .AddIngredient<PlagueCellCanister>()
+                .Register();
+
+            /* this ins't needed. you can just shimmer decraft.
+            Recipe.Create(ModContent.ItemType<ExoThrone>())
+                .AddIngredient(Type)
+                .Register();
+            */
         }
     }
     public class PlagueChairMount : DraedonGamerChairMount
@@ -21,10 +35,10 @@ namespace Clamity.Content.Items.Mounts
         {
             base.SetStaticDefaults();
             MountData.buff = ModContent.BuffType<PlagueChairBuff>();
-            MountData.runSpeed = 5f;
-            MountData.dashSpeed = 5f;
-            MountData.acceleration = 5f;
-            MountData.swimSpeed = 5f;
+            //MountData.runSpeed = 5f;
+            //MountData.dashSpeed = 5f;
+            //MountData.acceleration = 5f;
+            //MountData.swimSpeed = 5f;
             if (Main.netMode != NetmodeID.Server)
             {
                 MountData.frontTextureGlow = ModContent.Request<Texture2D>("Clamity/Content/Items/Mounts/PlagueChairMount_Glowmask");
@@ -45,8 +59,7 @@ namespace Clamity.Content.Items.Mounts
         {
             player.mount.SetMount(ModContent.MountType<PlagueChairMount>(), player);
             player.buffTime[buffIndex] = 10;
-            player.Clamity().FlyingChair = true;
-            player.Clamity().FlyingChairPower = 5;
+            player.Clamity().flyingChair = true;
         }
     }
 }

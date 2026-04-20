@@ -35,6 +35,8 @@ Magic: {
 	UnicronBeam.DisplayName: Unicron Beam
 	UnicronWingmanGrenade.DisplayName: Unicron Wingman Grenade
 	UnicronWingmanShot.DisplayName: Unicron Wingman Shot
+	GaiaRoseBolt.DisplayName: Gaia's Flower
+	GaiaRoseBoltSmall.DisplayName: Gaia's Flower Petal
 	PetalOfEverestPetal.DisplayName: Petal Of Everest
 }
 
@@ -62,10 +64,11 @@ Rogue: {
 	SubzeroSlicerProjectileBolt.DisplayName: Subzero Slicer Bolt
 }
 
-Classless: {
+Typeless: {
 	PyroShieldAccessory.DisplayName: Pyro Shield
 	AMSProj.DisplayName: AMS
 	EyeOfNovaProjectile.DisplayName: Nova Blast
+	EyeOfNovaBoom.DisplayName: Nova Blast Explosion
 	TrashOfMagnusProjectile.DisplayName: Plague Bolt
 	SharpAmethystProj.DisplayName: Sharp Amethyst
 	GoldenGunProj.DisplayName: Golden Gun Proj
@@ -94,3 +97,4 @@ PyrogenSummonAnimation.DisplayName: Pyrogen Summon Animation
 CyanSolutionProjectile.DisplayName: Cyan Solution
 HeavyMetalTrashCanPet.DisplayName: Mini Bocchi
 AncientConsoleProjectile.DisplayName: Ancient Console Projectile
+Classless.PyroShieldAccessory.DisplayName: Pyro Shield Accessory

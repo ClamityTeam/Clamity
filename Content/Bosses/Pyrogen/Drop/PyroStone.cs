@@ -86,7 +86,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop
             if (Main.player[Projectile.owner].Clamity().pyroStoneVanity)
                 return;
             target.AddBuff(BuffID.OnFire3, 180, false);
-            target.AddBuff(ModContent.BuffType<Dragonfire>(), 30, false);
+            target.AddBuff(ModContent.BuffType<BrimstoneFlames>(), 60, false);
             if (target.knockBackResist <= 0 || !CalamityGlobalNPC.ShouldAffectNPC(target))
                 return;
             float num = MathHelper.Clamp(1f - target.knockBackResist, 0.0f, 1f);
@@ -100,7 +100,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop
             if (Main.player[Projectile.owner].Clamity().pyroStoneVanity)
                 return;
             target.AddBuff(BuffID.OnFire3, 180, true, false);
-            target.AddBuff(ModContent.BuffType<Dragonfire>(), 30, true, false);
+            target.AddBuff(ModContent.BuffType<BrimstoneFlames>(), 60, true, false);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

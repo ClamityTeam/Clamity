@@ -6,7 +6,6 @@ using CalamityMod.Items.SummonItems;
 using CalamityMod.Items.TreasureBags;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
 using Clamity.Content.Items.Accessories;
-using Clamity.Content.Items.Mounts;
 using Clamity.Content.Items.Potions.Food;
 using Clamity.Content.Items.Weapons.Melee.Shortswords;
 using Clamity.Content.Items.Weapons.Typeless;
@@ -93,7 +92,7 @@ namespace Clamity
             if (item.type == ModContent.ItemType<PlaguebringerGoliathBag>())
             {
                 itemLoot.Add(ModContent.ItemType<Disease>(), 4);
-                itemLoot.Add(ModContent.ItemType<PlagueStation>());
+                //itemLoot.Add(ModContent.ItemType<PlagueStation>());
                 itemLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<TrashOfMagnus>(), 4, 3));
             }
             if (item.type == ModContent.ItemType<CalamitasCoffer>())

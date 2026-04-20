@@ -25,10 +25,9 @@ ExoBall: {
 	DisplayName: Exo Ball
 	Tooltip:
 		'''
-		Hurls up to 10 speedy homing spiky balls
-		Attaches to enemies and summons a localized storm of exo beams
-		Stealth strikes home in faster and summon beams at a faster rate
-		Press <right> to delete all existing spiky balls
+		Hurls homing spiky balls which attach to enemies
+		Attached spiky balls summon a localized storm of exo balts on each hit
+		Stealth strikes home in faster and hit at a faster rate
 		'''
 }
 

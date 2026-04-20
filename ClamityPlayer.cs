@@ -5,6 +5,7 @@ using CalamityMod.Items.Accessories;
 using CalamityMod.NPCs.Cryogen;
 using CalamityMod.Systems.Collections;
 using Clamity.Content.Biomes.FrozenHell.Biome;
+using Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor;
 using Clamity.Content.Bosses.Pyrogen.Drop;
 using Clamity.Content.Bosses.Pyrogen.NPCs;
 using Clamity.Content.Cooldowns;
@@ -29,7 +30,6 @@ namespace Clamity
     {
         #region Variables
         public bool realityRelocator;
-        public bool wulfrumShortstrike;
         public bool aflameAcc;
         public List<int> aflameAccList;
 
@@ -45,7 +45,6 @@ namespace Clamity
         public bool redDie;
         public bool eidolonAmulet;
         public bool metalWings;
-        public bool seaShell;
         public bool subcommunity;
         public bool skullOfBloodGod;
 
@@ -66,6 +65,10 @@ namespace Clamity
         public bool brimScope;
         public bool cyanPearl;
 
+        //Parry
+        public bool seaShell;
+        public int seaShellParryingTime;
+
         //Armor
         public bool inflicingMeleeFrostburn;
         public bool frozenParrying;
@@ -84,17 +87,16 @@ namespace Clamity
         //Pets
 
         //Mounts
-        public bool FlyingChair;
-        public int FlyingChairPower;
+        public bool flyingChair;
 
         public bool ZoneFrozenHell => Player.InModBiome((ModBiome)ModContent.GetInstance<FrozenHell>());
         public override void ResetEffects()
         {
             realityRelocator = false;
-            wulfrumShortstrike = false;
             aflameAcc = false;
             aflameAccList = new List<int>();
 
+            //Accessories
             pyroSpear = false;
             vampireEX = false;
             pyroStone = false;
@@ -104,10 +106,10 @@ namespace Clamity
             redDie = false;
             eidolonAmulet = false;
             metalWings = false;
-            seaShell = false;
             subcommunity = false;
             skullOfBloodGod = false;
 
+            //Crawler Gem Accesory Group
             gemAmethyst = false;
             gemTopaz = false;
             gemSapphire = false;
@@ -117,23 +119,30 @@ namespace Clamity
             gemAmber = false;
             gemFinal = false;
 
+            //Centry Accessory Gropu
             brimScope = false;
             cyanPearl = false;
 
+            //Parry related Group
+            seaShell = false;
 
+            //Armor Group
             inflicingMeleeFrostburn = false;
             frozenParrying = false;
             shellfishSetBonus = false;
 
+            //Minion Group
             hellsBell = false;
             guntera = false;
 
-            FlyingChair = false;
-            FlyingChairPower = 12;
+            //Other
+            flyingChair = false;
+            titanScale = false;
         }
         public override void UpdateDead()
         {
             frozenParryingTime = 0;
+            seaShellParryingTime = 0;
         }
         #endregion
 
@@ -267,17 +276,34 @@ namespace Clamity
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
-            if (frozenParrying && frozenParryingTime > 15)
+            if (frozenParryingTime > 0)
             {
-                if (!Player.HasCooldown(ParryCooldown.ID))
+                if (frozenParryingTime >= 15)
                 {
-                    Player.GiveUniversalIFrames(Player.ComputeParryIFrames(), true);
-                    modifiers.SetMaxDamage(1);
-                    modifiers.DisableSound();
+                    if (!Player.HasCooldown(ParryCooldown.ID))
+                    {
+                        Player.GiveUniversalIFrames(Player.ComputeParryIFrames(), true);
+                        modifiers.Cancel();
+                        modifiers.DisableSound();
+                    }
+                    SoundEngine.PlaySound(PyrogenShield.BreakSound, new Vector2?(Player.Center));
+                    Player.AddCooldown(ParryCooldown.ID, 10 * 60, false);
+                    Player.AddBuff(BuffID.Frozen, 60);
                 }
-                SoundEngine.PlaySound(in PyrogenShield.BreakSound, new Vector2?(Player.Center));
-                Player.AddCooldown(ParryCooldown.ID, 10 * 60, false);
-                Player.AddBuff(BuffID.Frozen, 60);
+            }
+            if (seaShellParryingTime > 0)
+            {
+                if (seaShellParryingTime >= 15)
+                {
+                    if (!Player.HasCooldown(ParryCooldown.ID))
+                    {
+                        Player.GiveUniversalIFrames(Player.ComputeParryIFrames(), true);
+                        modifiers.FinalDamage *= 0.25f; //75% dr
+                        modifiers.DisableSound();
+                    }
+                    SoundEngine.PlaySound(SoundID.NPCHit38 with { Pitch = -0.5f }, new Vector2?(Player.Center));
+                    Player.AddCooldown(ParryCooldown.ID, 60 * 30, false);
+                }
             }
         }
         #endregion
@@ -349,34 +375,6 @@ namespace Clamity
                 Player.statDefense += 3;
                 Player.moveSpeed += 0.15f;
             }
-            if (frozenParrying && frozenParryingTime > 0)
-                frozenParryingTime--;
-            if (frozenParrying && (Player.HasCooldown(ParryCooldown.ID) || frozenParryingTime > 0))
-            {
-                Player.buffImmune[47] = false;
-                /*for (int i = 0; i < cooldownList.Count; i++)
-                {
-                    CooldownInstance cooldown = cooldownList[i];
-
-                    if (cooldown.duration >= 9 * 60)
-                    {
-
-                    }
-                }
-                //Player.buffImmune[47] = false;
-                Player.controlJump = false;
-                Player.controlDown = false;
-                Player.controlLeft = false;
-                Player.controlRight = false;
-                Player.controlUp = false;
-                Player.controlUseItem = false;
-                Player.controlUseTile = false;
-                Player.controlThrow = false;
-                Player.gravDir = 1f;
-                Player.velocity = Vector2.Zero;
-                Player.velocity.Y = -0.1f;
-                Player.RemoveAllGrapplingHooks();*/
-            }
             if (subcommunity)
             {
                 float baseBoost = TheSubcommunity.CalculatePower();
@@ -387,6 +385,24 @@ namespace Clamity
                 Player.wallSpeed += baseBoost * TheSubcommunity.TileAndWallPlacingSpeedMult;
                 Player.tileRangeX += (int)(baseBoost * TheSubcommunity.TileRangeMult);
                 Player.tileRangeY += (int)(baseBoost * TheSubcommunity.TileRangeMult);
+            }
+
+            //Parry
+            if (frozenParryingTime > 0)
+            {
+                if (frozenParrying) FrozenHellstoneVisor.HandleParryCountdown(Player);
+                //else frozenParryingTime--;
+            }
+            else if (seaShellParryingTime > 0)
+            {
+                if (seaShell) SeaShell.HandleParryCountdown(Player);
+                //else seaShellParryingTime--;
+            }
+            if (frozenParryingTime > 0 && !frozenParrying) frozenParryingTime--;
+            if (seaShellParryingTime > 0 && !seaShell) seaShellParryingTime--;
+            if (frozenParrying && (Player.HasCooldown(ParryCooldown.ID) || frozenParryingTime > 0))
+            {
+                Player.buffImmune[47] = false;
             }
         }
         public Item FindAccessory(int itemID)
@@ -424,25 +440,25 @@ namespace Clamity
         }
         public override void PreUpdateMovement()
         {
-            if (Player.whoAmI != Main.myPlayer || !FlyingChair)
+            if (Player.whoAmI != Main.myPlayer || !flyingChair)
                 return;
             if (Player.controlLeft)
             {
-                Player.velocity.X = -FlyingChairPower;
+                Player.velocity.X = -12;
                 Player.ChangeDir(-1);
             }
             else if (this.Player.controlRight)
             {
-                Player.velocity.X = FlyingChairPower;
+                Player.velocity.X = 12;
                 Player.ChangeDir(1);
             }
             else
                 Player.velocity.X = 0.0f;
             if (Player.controlUp || Player.controlJump)
-                Player.velocity.Y = -FlyingChairPower;
+                Player.velocity.Y = -12;
             else if (Player.controlDown)
             {
-                Player.velocity.Y = FlyingChairPower;
+                Player.velocity.Y = 12;
                 if (Collision.TileCollision(Player.position, Player.velocity, Player.width, Player.height, true, gravDir: (int)this.Player.gravDir).Y == 0)
                     Player.velocity.Y = 0.5f;
             }
@@ -565,9 +581,15 @@ namespace Clamity
                 if (frozenParrying && frozenParryingTime == 0)
                 {
                     Player.Calamity().GeneralScreenShakePower = 2.5f;
-                    SoundEngine.PlaySound(in Cryogen.ShieldRegenSound, Player.Center);
+                    SoundEngine.PlaySound(Cryogen.ShieldRegenSound, Player.Center);
                     frozenParryingTime = 30;
                 }
+                /*if (seaShell && seaShellParryingTime == 0)
+                {
+                    Player.Calamity().GeneralScreenShakePower = 2.5f;
+                    SoundEngine.PlaySound(SoundID.NPCHit38, Player.Center);
+                    seaShellParryingTime = SeaShell.parryTime;
+                }*/
             }
 
         }

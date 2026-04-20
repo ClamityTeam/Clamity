@@ -11,9 +11,10 @@ using Terraria.ModLoader;
 namespace Clamity.Content.Biomes.FrozenHell.Items
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class MetalWings : ModItem, ILocalizedModType
+    public class MetalWings : ModItem, ILocalizedModType, IHoldShiftTooltipItem
     {
         public new string LocalizationCategory => "Items.Accessories.Wings";
+        public Color? TooltipExtensionColor => new(195, 223, 255);
         public override void SetStaticDefaults()
         {
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(280, 10.5f, 2.8f);
