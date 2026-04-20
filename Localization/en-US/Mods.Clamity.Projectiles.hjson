@@ -54,6 +54,9 @@ Summon: {
 		TriInfectaMedProj.DisplayName: Tri Infecta Med Proj
 		TriInfectaSmallProj.DisplayName: Tri Infecta Small Proj
 		TriInfectaSpawner.DisplayName: Tri Infecta Spawner
+		TriInfectaLargeSpawner.DisplayName: Tri Infecta Large Spawner
+		TriInfectaMedSpawner.DisplayName: Tri Infecta Med Spawner
+		TriInfectaSmallSpawner.DisplayName: Tri Infecta Small Spawner
 	}
 }
 

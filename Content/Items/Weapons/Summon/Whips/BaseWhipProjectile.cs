@@ -154,7 +154,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
             if ((double)(Timer % 2f) < 0.001)
             {
                 whipPoints.Clear();
-                Projectile.FillWhipControlPoints(((ModProjectile)this).Projectile, whipPoints);
+                Projectile.FillWhipControlPoints(Projectile, whipPoints);
             }
             return true;
         }
