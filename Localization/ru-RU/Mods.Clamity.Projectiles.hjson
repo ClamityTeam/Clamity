@@ -12,7 +12,7 @@ Melee: {
 	// EtherealKnivesProjectile.DisplayName: Ethereal Knives Projectile
 	// HyperionProjectile.DisplayName: Hyperion Projectile
 	// SubzeroSlicerProjectileSlash.DisplayName: Subzero Slicer Projectile Slash
-	// GreatestPeakMistProjectile.DisplayName: Greatest Peak Mist Projectile
+	// GreatestPeakMistProjectile.DisplayName: Greatest Peak Mist
 }
 
 Ranged: {
@@ -37,7 +37,7 @@ Magic: {
 	// UnicronWingmanShot.DisplayName: Unicron Wingman Shot
 	// GaiaRoseBolt.DisplayName: Gaia's Flower
 	// GaiaRoseBoltSmall.DisplayName: Gaia's Flower Petal
-	// PetalOfEverestPetal.DisplayName: Petal Of Everest Petal
+	// PetalOfEverestPetal.DisplayName: Petal Of Everest
 }
 
 Summon: {
@@ -72,6 +72,7 @@ Typeless: {
 	// TrashOfMagnusProjectile.DisplayName: Plague Bolt
 	// SharpAmethystProj.DisplayName: Sharp Amethyst
 	// GoldenGunProj.DisplayName: Golden Gun Proj
+	// EndobsidianParryBoom.DisplayName: Endobsidian Parry Boom
 }
 
 Boss: {

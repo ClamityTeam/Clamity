@@ -43,14 +43,15 @@ Vanity: {
 }
 
 FrozenHellstone: {
-	FrozenHellstoneVisor: {
+	FrozenHellstoneHeadMelee: {
 		Tooltip:
 			'''
-			20% increased true melee damage. 
-			True melee attacks inflict Frostburn. 
+			18% increased true melee damage
+
+			True melee attacks inflict [cbuff:Frostburn]
 			Enemies are more likely to target you
 			'''
-		DisplayName: Frozen Visor
+		DisplayName: Endobsidian Vanguard Helm
 		SetBonus:
 			'''
 			Cannot be frozen.
@@ -65,7 +66,7 @@ FrozenHellstone: {
 			20% increased true melee damage and +75 max life. 
 			Enemies are more likely to target you
 			'''
-		DisplayName: Frozen Greaves
+		DisplayName: Endobsidian Greaves
 	}
 
 	FrozenHellstoneChestplate: {
@@ -74,6 +75,6 @@ FrozenHellstone: {
 			20% increased true melee damage and 20% increased melee speed. 
 			Enemies are more likely to target you
 			'''
-		DisplayName: Frozen Chestplate
+		DisplayName: Endobsidian Heavy Chestplate
 	}
 }

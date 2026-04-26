@@ -76,9 +76,8 @@ namespace Clamity.Content.Items.Weapons.Magic
         public override float MaxOffsetLengthFromArm => 60f;
         public override float BaseOffsetY => 0f;
         public override float RecoilResolveSpeed => 0.4f;
-        public override string Texture => base.Texture;
+        public override string Texture => (GetType().Namespace + "." + Name).Replace('.', '/');
         public override Vector2 GunTipPosition => base.GunTipPosition - Vector2.UnitX.RotatedBy(Projectile.rotation) * 26;
-
         private ref float CurrentCharging => ref Projectile.ai[0];
         private bool FullyCharged => CurrentCharging >= PetalOfEverest.FullChargeFrames;
         public SlotId EverestChargeSlot;
@@ -88,7 +87,7 @@ namespace Clamity.Content.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Main.projFrames[Type] = 1;
+            Main.projFrames[Type] = 7;
         }
         public override void KillHoldoutLogic()
         {
@@ -179,7 +178,7 @@ namespace Clamity.Content.Items.Weapons.Magic
                 float bloomMaxCharge = PetalOfEverest.FullChargeFrames;
                 float bloomRatio = MathHelper.Clamp(CurrentCharging, 0, bloomMaxCharge) / bloomMaxCharge;
 
-                //Projectile.frame = (int)MathHelper.Lerp(0, Main.projFrames[Type] - 1, bloomRatio);
+                Projectile.frame = (int)MathHelper.Lerp(0, Main.projFrames[Type] - 1, bloomRatio);
 
                 if (++petalAttackCounter >= (int)MathHelper.Lerp(20, 6, bloomRatio))
                 {
@@ -211,6 +210,8 @@ namespace Clamity.Content.Items.Weapons.Magic
                 // Full charge effects
                 if (CurrentCharging == PetalOfEverest.FullChargeFrames)
                 {
+                    //Shoot big flower
+
                     /*SoundStyle fire = new("CalamityMod/Sounds/Item/HeliumFlashReady");
                     SoundEngine.PlaySound(fire with { Volume = 1f, Pitch = 0f }, Projectile.Center);
                     for (int i = 0; i < 18; i++)
@@ -247,13 +248,14 @@ namespace Clamity.Content.Items.Weapons.Magic
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             Vector2 drawPosition = Projectile.Center - Main.screenPosition;
             float drawRotation = Projectile.rotation + (Projectile.spriteDirection == -1 ? MathHelper.Pi : 0f) - (Owner.gravDir == -1 ? MathHelper.PiOver2 * Owner.direction : 0f);
-            Vector2 rotationPoint = texture.Size() * 0.5f;
             SpriteEffects flipSprite = (Projectile.spriteDirection * Owner.gravDir == -1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
             int frameHeight = texture.Height / Main.projFrames[Type];
             int frameY = frameHeight * Projectile.frame;
             float rotation = Projectile.rotation;
             Rectangle rect = new Rectangle(0, frameY, texture.Width, frameHeight);
+            Vector2 rotationPoint = rect.Size() * 0.5f;
+            //Main.NewText(rect);
 
             /*if (!Owner.CantUseHoldout() && !FullyCharged)
             {
@@ -262,7 +264,7 @@ namespace Clamity.Content.Items.Weapons.Magic
             }*/
 
             // Main staff
-            Main.EntitySpriteDraw(texture, drawPosition, null, Projectile.GetAlpha(lightColor), drawRotation + (MathHelper.ToRadians(45f * (Projectile.spriteDirection))), rotationPoint, Projectile.scale * Owner.gravDir, flipSprite);
+            Main.EntitySpriteDraw(texture, drawPosition, rect, Projectile.GetAlpha(lightColor), drawRotation + (MathHelper.ToRadians(45f * (Projectile.spriteDirection))), rotationPoint, Projectile.scale * Owner.gravDir, flipSprite);
             return false;
         }
     }

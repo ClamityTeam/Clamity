@@ -70,7 +70,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
 
 
             player.Clamity().metalWings = true;
-            if (player.Clamity().frozenParrying)
+            if (player.Clamity().endobsidianMelee)
             {
                 for (int i = 0; i < Main.maxPlayers; i++)
                 {

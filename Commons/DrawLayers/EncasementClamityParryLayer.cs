@@ -16,7 +16,7 @@ namespace Clamity.Commons.DrawLayers
         }
         public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.FrontAccFront); //me when the player layer is called front acc front :skull:
 
-        public EncasementType GetEncasementTypeFor(ClamityPlayer modPlayer) => modPlayer.frozenParrying ? EncasementType.FrozenArmor : EncasementType.SeaShell;
+        public EncasementType GetEncasementTypeFor(ClamityPlayer modPlayer) => modPlayer.endobsidianMelee ? EncasementType.FrozenArmor : EncasementType.SeaShell;
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
@@ -26,7 +26,7 @@ namespace Clamity.Commons.DrawLayers
             bool visible = drawInfo.shadow == 0f && !drawPlayer.dead;
             visible = encasement switch
             {
-                EncasementType.FrozenArmor => visible && modPlayer.frozenParryingTime > 0,
+                EncasementType.FrozenArmor => visible && modPlayer.endobsidianMeleeTime > 0,
                 EncasementType.SeaShell => visible && modPlayer.seaShellParryingTime > 0,
                 _ => false
             };
@@ -48,7 +48,7 @@ namespace Clamity.Commons.DrawLayers
             {
                 case EncasementType.FrozenArmor:
                     texPlus = "CryoParryShield";
-                    currentParry = clamPlayer.frozenParryingTime;
+                    currentParry = clamPlayer.endobsidianMeleeTime;
                     defaultOpacity = 0.725f;
                     scale = 1.15f;
                     break;

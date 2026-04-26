@@ -72,6 +72,7 @@ Typeless: {
 	TrashOfMagnusProjectile.DisplayName: Plague Bolt
 	SharpAmethystProj.DisplayName: Sharp Amethyst
 	GoldenGunProj.DisplayName: Golden Gun Proj
+	EndobsidianParryBoom.DisplayName: Endobsidian Parry Boom
 }
 
 Boss: {
