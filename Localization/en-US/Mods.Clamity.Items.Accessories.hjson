@@ -119,6 +119,7 @@ TreasureOfClamity: {
 		Increases the yield of potion ingredient fish
 		Increases chance to catch crates and loot-containing fish by 15%
 		Crate catches are 25% more likely to be higher quality, accompanied by visual pearls[TOGGLE]
+		[c/aaaaaa:Shift-<right> this item in your inventory to toggle] [i:CalamityMod/PearlofEnthrallment] [c/aaaaaa:Pearl of Enthrallment's summon]
 		'''
 	ToggleEffect:
 		'''

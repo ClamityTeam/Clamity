@@ -11,7 +11,7 @@ TrashOfMagnus: {
 	DisplayName: Trash of Magnus
 	Tooltip:
 		'''
-		Fires plague bolts that inflict Plague
+		Fires plague bolts that inflict [cbuff:CalamityMod/Plague]
 		This weapon scales with the average of all your damage stats
 		[c/9ABA4A:'An attempt of Magnus' to expand into biological terrorism.]
 		[c/9ABA4A:Despite his efforts, it was deemed a failure and discarded.']

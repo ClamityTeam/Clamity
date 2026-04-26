@@ -3,8 +3,12 @@ Foods: {
 		DisplayName: Auric Apple
 		Tooltip:
 			'''
-			Minor improvements to all stats for an entire hour
-			'yeah my brain is rotting from today, I read Auric Soul as Auric Fruit' - YuH
+			{$CommonItemTooltip.MinorStats} for an entire hour
+			[c/FFBA3A:"]
+			 [c/FFBA3A:yeah my brain is rotting from today,]
+			 [c/FFBA3A:I read Auric Soul as Auric Fruit']
+			                                  " 
+			             [c/FFBA3A:- YuH, Calamity Community Remix developer]
 			'''
 	}
 
