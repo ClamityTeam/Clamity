@@ -1,7 +1,7 @@
 ﻿using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Placeables.Abyss;
 using CalamityMod.Items.Weapons.Rogue;
 using Microsoft.Xna.Framework;
 using System;
@@ -12,8 +12,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static CalamityMod.CalamityUtils;
-using Clamity.Content.Items.Weapons.Rogue;
-using CalamityMod.Items.Placeables.Abyss;
 
 namespace Clamity.Content.Items.Weapons.Rogue
 {
@@ -310,11 +308,14 @@ namespace Clamity.Content.Items.Weapons.Rogue
 
                 Item heldItem = player.HeldItem;
 
-                // Get damage modifier for the item's damage type (melee, ranged, rogue, etc.)
-                StatModifier damageMod = player.GetTotalDamage(heldItem.DamageType);
+                if (heldItem.ModItem is StarfishFromTheDepth)
+                {
+                    // Get damage modifier for the item's damage type (melee, ranged, rogue, etc.)
+                    StatModifier damageMod = player.GetTotalDamage(heldItem.DamageType);
 
-                float finalDamage = damageMod.ApplyTo(heldItem.damage);
-                Projectile.damage = (int)Math.Round(finalDamage);
+                    float finalDamage = damageMod.ApplyTo(heldItem.damage);
+                    Projectile.damage = (int)Math.Round(finalDamage);
+                }
             }
         }
 

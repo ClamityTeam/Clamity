@@ -4,10 +4,11 @@ using CalamityMod.CalPlayer;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
+using CalamityMod.NPCs;
 using CalamityMod.Rarities;
 using Clamity.Content.Projectiles;
 using Microsoft.Xna.Framework;
-using System;
+using System.Reflection;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -24,13 +25,12 @@ namespace Clamity.Content.Items.Weapons.Rogue
 
         public override void SetDefaults()
         {
-            Item.damage = 314;
+            Item.damage = 150;
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.width = Item.height = 24;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 5;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
@@ -43,31 +43,18 @@ namespace Clamity.Content.Items.Weapons.Rogue
 
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            if (player.altFunctionUse == 2)
-            {
-                Item.shoot = ProjectileID.None;
-                return player.ownedProjectileCounts[ModContent.ProjectileType<ExoBallProjectile>()] > 0;
-            }
-            else
-            {
-                Item.shoot = ModContent.ProjectileType<ExoBallProjectile>();
-                return player.ownedProjectileCounts[ModContent.ProjectileType<ExoBallProjectile>()] < 10;
-            }
-        }
-
         public override float StealthDamageMultiplier => 0.75f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            CalamityPlayer modPlayer = player.Calamity();
-            //modPlayer.killSpikyBalls = false;
-            if (modPlayer.StealthStrikeAvailable()) //setting the stealth strike
+            if (player.Calamity().StealthStrikeAvailable()) //setting the stealth strike
             {
                 int stealth = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
                 if (stealth.WithinBounds(Main.maxProjectiles))
+                {
                     Main.projectile[stealth].Calamity().stealthStrike = true;
+                    Main.projectile[stealth].localNPCHitCooldown = 30;
+                }
                 return false;
             }
             return true;
@@ -83,14 +70,15 @@ namespace Clamity.Content.Items.Weapons.Rogue
         public override void AddRecipes()
         {
             CreateRecipe()
-                //.AddIngredient<Nychthemeron>() removed in cal 2.1
                 .AddIngredient<GodsParanoia>()
-                //.AddIngredient<HellsSun>() removed in cal 2.1
+                .AddIngredient<MetalMonstrosity>()
+                .AddIngredient<BurningStrife>()
                 .AddIngredient<MiracleMatter>()
                 .AddTile<CalamityMod.Tiles.Furniture.CraftingStations.DraedonsForge>()
                 .Register();
         }
     }
+    [PierceResistException]
     public class ExoBallProjectile : ModProjectile, ILocalizedModType
     {
         public override bool IsLoadingEnabled(Mod mod)
@@ -103,6 +91,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
 
         public override void SetStaticDefaults()
         {
+            ProjectileID.Sets.CultistIsResistantTo[Type] = true;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -115,10 +104,10 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Projectile.tileCollide = false;
             Projectile.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 300;
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = -1;
+            Projectile.localNPCHitCooldown = 40;
         }
 
         public override void AI()
@@ -134,57 +123,19 @@ namespace Clamity.Content.Items.Weapons.Rogue
 
             //Projectile.StickyProjAI(50);
 
-            if (Projectile.ai[0] == 1f)
-            {
-                kunaiStabbing++;
-                if (kunaiStabbing >= 90 || (Projectile.Calamity().stealthStrike && kunaiStabbing >= 60))
-                {
-                    kunaiStabbing = 0;
-                    float startOffsetX = Main.rand.NextFloat(200f, 400f) * (Main.rand.NextBool() ? -1f : 1f);
-                    float startOffsetY = Main.rand.NextFloat(200f, 400f) * (Main.rand.NextBool() ? -1f : 1f);
-                    Vector2 startPos = new Vector2(Projectile.position.X + startOffsetX, Projectile.position.Y + startOffsetY);
-                    float dx = Projectile.position.X - startPos.X;
-                    float dy = Projectile.position.Y - startPos.Y;
+            ClamityUtils.FindModsClass("CalamityMod", "CalamityMod.Projectiles.CommonProjectileAI").GetMethod("StickyProjAI", BindingFlags.Public | BindingFlags.Static).Invoke(null, Projectile, 50, false);
 
-                    // Add some randomness / inaccuracy
-                    dx += Main.rand.NextFloat(-5f, 5f);
-                    dy += Main.rand.NextFloat(-5f, 5f);
-                    float speed = Main.rand.NextFloat(20f, 25f);
-                    float dist = (float)Math.Sqrt((double)(dx * dx + dy * dy));
-                    dist = speed / dist;
-                    dx *= dist;
-                    dy *= dist;
-                    Vector2 kunaiSp = new Vector2(dx, dy);
-                    float angle = Main.rand.NextFloat(MathHelper.TwoPi);
-                    if (Projectile.owner == Main.myPlayer)
-                    {
-                        for (int i = 0; i < 3; i++)
-                        {
-                            int idx = Projectile.NewProjectile(Projectile.GetSource_FromThis(), startPos, kunaiSp, ModContent.ProjectileType<ExoNewBeam>(), Projectile.damage / 2, Projectile.knockBack / 3f, Projectile.owner, 0f, 0f);
-                            Main.projectile[idx].DamageType = ModContent.GetInstance<RogueDamageClass>();
-                        }
-                    }
-                }
-            }
+            if (Projectile.ai[0] == 1f)
+                Projectile.MaxUpdates = 1; // Prevents the homing function extra updates from carrying over
             else
             {
-                Projectile.rotation += 0.2f * (float)Projectile.direction;
-                CalamityUtils.HomeInOnNPC(Projectile, false, 400f, Projectile.Calamity().stealthStrike ? 10f : 5f, 20f);
+                Projectile.rotation += 0.2f * Projectile.direction;
+                CalamityUtils.HomeInOnNPC(Projectile, false, 400f, Projectile.Calamity().stealthStrike ? 16f : 8f, 20f);
             }
-
-            Player player = Main.player[Projectile.owner];
-            CalamityPlayer modPlayer = player.Calamity();
-            /*
-            if (modPlayer.killSpikyBalls == true)
-            {
-                Projectile.active = false;
-                Projectile.netUpdate = true;
-            }
-            */
         }
 
-        //public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) => Projectile.ModifyHitNPCSticky(10);
 
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) => ClamityUtils.FindModsClass("CalamityMod", "CalamityMod.Projectiles.CommonProjectileAI").GetMethod("ModifyHitNPCSticky", BindingFlags.Public | BindingFlags.Static).Invoke(null, Projectile, 10);
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             if (targetHitbox.Width > 8 && targetHitbox.Height > 8)
@@ -199,9 +150,30 @@ namespace Clamity.Content.Items.Weapons.Rogue
             CalamityUtils.DrawAfterimagesCentered(Projectile, ProjectileID.Sets.TrailingMode[Projectile.type], lightColor, 1);
             return false;
         }
+        private void OnHitBolts()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                float startOffsetX = Main.rand.NextFloat(125f, 250f) * Main.rand.NextBool().ToDirectionInt();
+                float startOffsetY = Main.rand.NextFloat(125f, 250f) * Main.rand.NextBool().ToDirectionInt();
+                Vector2 startPos = Projectile.Center + new Vector2(startOffsetX, startOffsetY);
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) => target.AddBuff(ModContent.BuffType<MiracleBlight>(), 120);
+                Vector2 kunaiSp = Vector2.Normalize(Projectile.Center - startPos) * 25f;
+                int idx = Projectile.NewProjectile(Projectile.GetSource_FromThis(), startPos, kunaiSp, ModContent.ProjectileType<ExoNewBeam>(), Projectile.damage / 3, Projectile.knockBack / 3f, Projectile.owner, ai2: Projectile.Calamity().stealthStrike && Main.rand.NextBool(15) ? 1 : 0);
+                Main.projectile[idx].DamageType = ModContent.GetInstance<RogueDamageClass>();
+            }
+        }
 
-        public override void OnHitPlayer(Player target, Player.HurtInfo info) => target.AddBuff(ModContent.BuffType<MiracleBlight>(), 120);
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<MiracleBlight>(), 120);
+            OnHitBolts();
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<MiracleBlight>(), 120);
+            OnHitBolts();
+        }
     }
 }

@@ -18,7 +18,6 @@ using Clamity.Content.Items;
 using Clamity.Content.Items.Accessories;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
 using Clamity.Content.Items.Accessories.Sentry;
-using Clamity.Content.Items.Mounts;
 using Clamity.Content.Items.Potions.Food;
 using Clamity.Content.Items.Weapons.Melee.Shortswords;
 using Clamity.Content.Items.Weapons.Typeless;
@@ -45,7 +44,7 @@ namespace Clamity
             if (npc.type == ModContent.NPCType<PlaguebringerGoliath>())
             {
                 mainRule.Add(ItemDropRule.Common(ModContent.ItemType<Disease>(), 4));
-                mainRule.Add(ItemDropRule.Common(ModContent.ItemType<PlagueStation>()));
+                //mainRule.Add(ItemDropRule.Common(ModContent.ItemType<PlagueStation>()));
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<TrashOfMagnus>(), 4, 3));
             }
             if (npc.type == ModContent.NPCType<SupremeCalamitas>())

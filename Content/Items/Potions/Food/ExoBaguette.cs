@@ -1,31 +1,55 @@
 ﻿using CalamityMod;
-using CalamityMod.Buffs.Potions;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Potions.Food;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Clamity.Content.Items.Potions.Food
 {
     //Increase threshold of alchohol poisoning by 1 buff
-    public class ExoBaguette : Baguette, ILocalizedModType, IModType
+    public class ExoBaguette : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Potions.Foods";
+
+        public static int RedWineBuffedHealValue = 250;
+        public static int RedWineBuffedRegenLoss = 4;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RedWineBuffedHealValue, RedWineBuffedRegenLoss.ToRegenPerSecond());
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 5;
+            ItemID.Sets.FoodParticleColors[Type] = new Color[3] {
+                new Color(231, 137, 159),
+                new Color(179, 104, 56),
+                new Color(108, 47, 16)
+            };
+            ItemID.Sets.IsFood[Type] = true;
         }
+
         public override void SetDefaults()
         {
-            base.SetDefaults();
-            Item.buffType = ModContent.BuffType<ExoBaguetteBuff>();
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
-            Item.value += Item.sellPrice(0, 2, 40) + ModContent.GetInstance<ExoPrism>().Item.value + ModContent.GetInstance<AuricBar>().Item.value;
-            Item.Calamity().donorItem = false;
+            Item.DefaultToFood(52, 38, BuffID.WellFed3, CalamityUtils.MinutesToFrames(5));
+            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+            Item.rare = ModContent.RarityType<BurnishedAuric>(); ;
         }
+
+        public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
+        {
+            itemGroup = ContentSamples.CreativeHelper.ItemGroup.Food;
+        }
+
+        public override void OnConsumeItem(Player player)
+        {
+            player.AddBuff(ModContent.BuffType<ExoBaguetteBuff>(), Item.buffTime);
+            player.AddBuff(BuffID.WellFed3, Item.buffTime);
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -35,19 +59,21 @@ namespace Clamity.Content.Items.Potions.Food
                 .AddTile<DraedonsForge>()
                 .Register();
         }
-        public override void OnConsumeItem(Player player)
-        {
-            player.AddBuff(ModContent.BuffType<ExoBaguetteBuff>(), CalamityUtils.SecondsToFrames(300f));
-            player.AddBuff(ModContent.BuffType<BaguetteBuff>(), CalamityUtils.SecondsToFrames(600f));
-            player.AddBuff(BuffID.WellFed3, CalamityUtils.SecondsToFrames(300f));
-        }
     }
-    public class ExoBaguetteBuff : BaguetteBuff
+
+    public class ExoBaguetteBuff : ModBuff
     {
+        public override void SetStaticDefaults()
+        {
+            Main.debuff[Type] = false;
+            Main.pvpBuff[Type] = true;
+            Main.buffNoSave[Type] = false;
+        }
+
         public override void Update(Player player, ref int buffIndex)
         {
-            base.Update(player, ref buffIndex);
             player.Calamity().alcoholPoisonLevel--;
+            player.Calamity().baguette = true;
         }
     }
 }

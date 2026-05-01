@@ -1,5 +1,4 @@
-﻿using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Projectiles.Melee;
@@ -103,7 +102,7 @@ namespace Clamity
         {
             Player player = Main.player[proj.owner];
 
-            if ((source is EntitySource_Parent par && par.Entity is Projectile pr && pr.sentry) || proj.sentry)
+            if (ProjectileID.Sets.SentryShot[proj.type] || proj.sentry)
             {
                 IsSentryRelated = true;
             }

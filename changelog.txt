@@ -1,23 +1,40 @@
-Update 1.0.3.15 - Minor Balancing and Bugfix Patch
+Update 1.0.4 - ???
 
-New Content:
-None
+Additions:
+Added the Gaia's Rose, a Mana Rose alternative with lingering petals that uses Jungle Rose in recipe instead.
 
 Reworks:
-None
+Reworked Eye of Nove to be in-line with Eye of Magnus rework.
+Changed Wulfrum Leech Dagger to be almost normal shortsword.
 
-Removes:
-None
+Removals:
+Removed Calamity's Mana Rose recipe that uses Jungle Rose.
 
-Balance Changes:
-Nerfed the damage of the Depths Echo Staff from 40 to 28
-Nerfed the damage of the Hellstone Shellfish Staff from 200 to 185
+Balance:
+Nerfed the damage of the Depths Echo Staff from 40 to 28.
+Nerfed the damage of the Hellstone Shellfish Staff from 200 to 185.
+Buffed the damage of Auric Kunai from 140 to 145.
+Adjusted Auric Kunai's use time from 1 to 3, use animation from 10 to 9, and removed reuse delay.
+Pyro Stone now inflicts Brimstone Flames for 1 second instead of Dragonfire for half a second.
+Rebalanced the damage of the Eye of Nova Staff from 400 to 500 and attack speed from from 10 to 15 ticks.
+Removed hidden speed buff to Flame Cube compared to Exo Box.
+Removed speed nerf to Plague Station and changed to be skin variant of Exo Box.
+Plague Station no longer drops from The Plaguebringer Goliath and now obtaned by crafting it with an Exo Box.
+Frozen Armor's parry now negates all damage instead of reducing damage to 1.
 
-Other Changes:
-Renamed Pearl of Fish Calamity to Treasure of Clamity
+Changes:
+Renamed Pearl of Fish Calamity to Treasure of Clamity.
+Renamed Flame Cube to Exo Box (Calamity Edition) and updated tooltip.
+Renamed Plague Station to Exo Box (Plague Edition) and updated tooltip.
+Renamed Wither Bane to Wither Stormbow.
+Updated Soul Baguette & Exo Baguette to match the changes done to the base Baguette in Calamity 2.1.
+Rewrote the Clamitas & Wall of Bronze lore items.
 
-Bug Fixes:
-Fixed some of the tooltips to match the new format of Calamity tooltips
-Fixed a bug that caused The Subcommunity to gain a negative mining boost
+Fixes:
+Fixed some of the tooltips to match the new format of Calamity tooltips.
+Fixed a bug that caused The Subcommunity to gain a negative mining boost.
 Fixed a bug that caused the Wulfrum Lure to fire bobbers without charge or expending Wulfrum Scrap.
 Fixed Auric Kunai still requiring 100 Lunar Kunai's in it's recipe.
+Fixed Auric Kunai not being able to generate stealth.
+Fixed Titan Scale Potion buff effect not resets after removing buff.
+Centain localization fixes (expecialy russian).

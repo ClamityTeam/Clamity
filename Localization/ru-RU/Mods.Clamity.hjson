@@ -20,15 +20,6 @@ Items: {
 				'''
 		}
 	}
-
-	Weapons: {
-		Classless: {
-			AMS: {
-				// DisplayName: A M S
-				// Tooltip: ""
-			}
-		}
-	}
 }
 
 Misc: {

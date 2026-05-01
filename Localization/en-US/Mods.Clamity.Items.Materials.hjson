@@ -8,24 +8,14 @@ ClamitousPearl: {
 	Tooltip: "'It's clamin' time'"
 }
 
-CoreOfFlame: {
-	DisplayName: Core of Ignis
-	Tooltip: ""
-}
-
-EssenceOfFlame: {
-	DisplayName: Essence of Ignis
-	Tooltip: The essence of hot creatures
-}
-
 EnchantedMetal: {
 	DisplayName: Enchanted Metal
 	Tooltip: Infused with the Soul of Terraria
 }
 
 MetalFeather: {
-	Tooltip: ""
 	DisplayName: Metal Feather
+	Tooltip: ""
 }
 
 RarePlanteraFruit: {

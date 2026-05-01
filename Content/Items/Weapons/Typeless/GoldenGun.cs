@@ -57,7 +57,7 @@ namespace Clamity.Content.Items.Weapons.Typeless
     }
     public class GoldenGunProj : ModProjectile, ILocalizedModType
     {
-        public new string LocalizationCategory => "Projectiles.Classless";
+        public new string LocalizationCategory => "Projectiles.Typeless";
         public override string Texture => "CalamityMod/Projectiles/InvisibleProj";
 
         public override void SetDefaults()
