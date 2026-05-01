@@ -30,9 +30,14 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
 
             SnowAbsorbtionStar,
             IcePathDash,
-            ColdfileChasing,
-            SquishingBodyCircle,
-            ColdfireDash
+            //ColdfileChasing,
+            //SquishingBodyCircle,
+            //ColdfireDash,
+
+            //Suggestion part
+            Whiplash,
+            WhipThrowRocks,
+            IcePillars,
         }
         public Player player => Main.player[NPC.target];
         public ref float Attack => ref NPC.ai[1];
@@ -174,6 +179,14 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
 
             NPC.rotation = NPC.velocity.ToRotation() - MathHelper.PiOver2;
         }
+        private void Move(Vector2 target, float percent = 0.015f)
+        {
+            NPC.velocity = (target - NPC.Center) * percent;
+            //float inertia = 30f;
+            //NPC.velocity = (NPC.velocity * (inertia - 1f) + (player.Center - NPC.Center)) / inertia;
+
+            NPC.rotation = NPC.velocity.ToRotation() - MathHelper.PiOver2;
+        }
         private void MoveConst(float percent = 0.1f)
         {
             NPC.velocity = (player.Center - NPC.Center).SafeNormalize(Vector2.Zero) * percent;
@@ -240,6 +253,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             }
 
         }
+        
         private const int LineTime = 200;
         private const int PreDashTime = 30;
         private const int DashTime = 100;
@@ -302,10 +316,10 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             }
             Move(0.005f);
         }
+        
         public const int Pre_IcePathDashTime = 120;
         public const int Icicle_IcePathDashTime = 200;
         public const int All_IcePathDashTime = 600;
-
         private void Do_IcePathDash()
         {
             if (AttackTimer == 1)
@@ -342,6 +356,30 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
 
             }
         }
+
+        private void Do_Whiplash()
+        {
+            if (AttackTimer < 30)
+            {
+                Move(0.005f);
+            }
+            else if (NPC.ai[2] == 0)
+            {
+                Move(NPC.Center + Vector2.UnitY * 100);
+                if (NPC.Center.Y > player.Center.Y) {
+                    NPC.ai[2] = 1;
+                }
+
+            }
+        }
+        private void Do_()
+        {
+
+        }
+        /*private void Do_() //yes do it
+        {
+
+        }*/
 
 
 
