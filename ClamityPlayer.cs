@@ -406,8 +406,7 @@ namespace Clamity
             {
                 Player.buffImmune[47] = false;
             }
-        }
-            if (Player.ActiveItem().type != ModContent.ItemType<AntarcticSlicers>())
+            if (Player.HeldItem.type != ModContent.ItemType<AntarcticSlicers>())
                 antarcticSlicersBolts = 0;
         }
         public Item FindAccessory(int itemID)
