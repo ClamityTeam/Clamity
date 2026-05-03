@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CalamityMod.Items;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -22,8 +23,8 @@ namespace Clamity.Content.Bosses.Ihor.Items
         {
             Item.width = 66;
             Item.height = 64;
-            Item.value = Item.sellPrice(0, 4, 0);
-            Item.rare = ItemRarityID.LightRed;
+            Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
+            Item.rare = ItemRarityID.Lime;
 
             Item.useTime = Item.useAnimation = 45;
             Item.useStyle = ItemUseStyleID.Swing;

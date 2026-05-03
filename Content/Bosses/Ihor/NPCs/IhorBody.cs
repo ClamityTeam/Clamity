@@ -4,6 +4,7 @@ using CalamityMod.NPCs;
 using Clamity.Commons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using Terraria;
 using Terraria.ID;
@@ -42,27 +43,33 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             NPC.dontCountMe = true;
         }
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position) => false;
+        public int NextSegment => (int)NPC.ai[0];
+        public int PreviousSegment => (int)NPC.ai[1];
+        public int HeadSegment => (int)NPC.ai[2];
+        public int SegmentNumber => (int)NPC.ai[3];
+        public IhorHead.Attacks CurrentAttack => (IhorHead.Attacks)((int)Main.npc[HeadSegment].ai[1]);
         public override void AI()
         {
             bool bossRush = BossRushEvent.BossRushActive;
             bool expertMode = Main.expertMode || bossRush;
             bool masterMode = Main.masterMode || bossRush;
 
-            if (NPC.ai[2] > 0f)
-                NPC.realLife = (int)NPC.ai[2];
+            if (HeadSegment > 0f)
+                NPC.realLife = HeadSegment;
 
-            if (NPC.life > Main.npc[(int)NPC.ai[1]].life)
-                NPC.life = Main.npc[(int)NPC.ai[1]].life;
+            if (NPC.life > Main.npc[PreviousSegment].life)
+                NPC.life = Main.npc[PreviousSegment].life;
 
-            NPC.dontTakeDamage = Main.npc[(int)NPC.ai[1]].dontTakeDamage;
-            NPC.Opacity = Main.npc[(int)NPC.ai[1]].Opacity;
+            NPC.dontTakeDamage = Main.npc[PreviousSegment].dontTakeDamage;
+            NPC.damage = Main.npc[PreviousSegment].damage;
+            NPC.Opacity = Main.npc[PreviousSegment].Opacity;
 
             bool shouldDespawn = !NPC.AnyNPCs(ModContent.NPCType<IhorHead>());
             if (!shouldDespawn)
             {
-                if (NPC.ai[1] <= 0f)
+                if (PreviousSegment <= 0f)
                     shouldDespawn = true;
-                else if (Main.npc[(int)NPC.ai[1]].life <= 0)
+                else if (Main.npc[PreviousSegment].life <= 0)
                     shouldDespawn = true;
             }
             if (shouldDespawn)
@@ -76,11 +83,26 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             if (Main.player[NPC.target].dead)
                 NPC.TargetClosest(false);
 
-            NPC aheadSegment = Main.npc[(int)NPC.ai[1]];
+            NPC aheadSegment = Main.npc[PreviousSegment];
+            NPC headSegment = Main.npc[HeadSegment];
 
             Vector2 destination = aheadSegment.Center + new Vector2(0, -aheadSegment.height / 2).RotatedBy(aheadSegment.rotation);
-            NPC.velocity = (destination - NPC.Center) * 0.2f + aheadSegment.velocity * 0.075f;
-            NPC.rotation = NPC.velocity.ToRotation() - MathHelper.PiOver2;
+            switch (CurrentAttack)
+            {
+                case (IhorHead.Attacks.Flamethrower):
+                    destination = aheadSegment.Center + new Vector2(0, -aheadSegment.height / 4).RotatedBy(aheadSegment.rotation);
+                    destination -= new Vector2(0, 25).RotatedBy(MathHelper.PiOver4 * Math.Sin(Main.GlobalTimeWrappedHourly * 3) + aheadSegment.rotation - headSegment.rotation);
+
+                    //destination = headSegment.Center - new Vector2(0, 25 * SegmentNumber).RotatedBy(headSegment.rotation + MathHelper.PiOver4 * Math.Sin(Main.GlobalTimeWrappedHourly * 3 + SegmentNumber));
+                    NPC.velocity = (destination - NPC.Center) * 0.2f + headSegment.velocity * 0.075f;
+                    NPC.rotation = NPC.velocity.ToRotation() - MathHelper.PiOver2;
+                    break;
+
+                default:
+                    NPC.velocity = (destination - NPC.Center) * 0.2f + aheadSegment.velocity * 0.075f;
+                    NPC.rotation = NPC.velocity.ToRotation() - MathHelper.PiOver2;
+                    break;
+            }
         }
         public override bool CheckActive() => false;
         public override void SendExtraAI(BinaryWriter writer)
@@ -94,7 +116,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D t = ModContent.Request<Texture2D>("Clamity/Content/Bosses/Ihor/NPCs/IhorConnection").Value;
-            NPC aheadSegment = Main.npc[(int)NPC.ai[1]];
+            NPC aheadSegment = Main.npc[PreviousSegment];
             Vector2 from = NPC.Center + new Vector2(0, NPC.height / 2 - 6).RotatedBy(NPC.rotation);
             Vector2 to = aheadSegment.Center - new Vector2(0, aheadSegment.height / 2 - 6).RotatedBy(aheadSegment.rotation);
 

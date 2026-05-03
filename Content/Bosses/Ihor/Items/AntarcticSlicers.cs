@@ -38,8 +38,8 @@ namespace Clamity.Content.Bosses.Ihor.Items
             Item.knockBack = 6f;
             Item.UseSound = null;
             Item.channel = true;
-            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
-            Item.rare = ItemRarityID.Green;
+            Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
+            Item.rare = ItemRarityID.Lime;
         }
         public override bool AltFunctionUse(Player player) => true;
         public override bool? UseItem(Player player)

@@ -3,7 +3,6 @@ using CalamityMod.NPCs;
 using Clamity.Commons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using Terraria;
 using Terraria.DataStructures;
@@ -78,7 +77,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         }
         public override void OnSpawn(IEntitySource source)
         {
-            Attack = (int)Attacks.SnowAbsorbtionStar;
+            Attack = (int)Attacks.Summon;
             //PreviousAttack = (int)IhorAttacks.MagicBurst;
             AttackTimer = 0;
         }
@@ -98,7 +97,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (AttackEnum is Attacks.IcePathDash)
+            /*if (AttackEnum is Attacks.IcePathDash)
             {
                 //Texture2D line = ModContent.Request<Texture2D>("CalamityMod/ExtraTexture/LaserWallTelegraphBeam").Value;
 
@@ -112,15 +111,15 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                 float path = (AttackTimer % (LineTime + DashTime)) > LineTime ? 0 : AttackTimer / LineTime;
                 Color color3 = Color.Lerp(Color.Blue, Color.White, path);
                 spriteBatch.Draw(value6,
-                                 NPC.Center /*- base.NPC.rotation.ToRotationVector2() * base.NPC.spriteDirection * 104f*/ - screenPos,
+                                 NPC.Center - screenPos, //base.NPC.rotation.ToRotationVector2() * base.NPC.spriteDirection * 104f
                                  null,
                                  color3,
                                  base.NPC.rotation + MathF.PI / 2f,
                                  new Vector2((float)value6.Width / 2f, value6.Height),
                                  new Vector2(1f * path, 4200f),
                                  effects,
-                                 0f);
-            }
+                                 0f); 
+            }*/
 
             return base.PreDraw(spriteBatch, screenPos, drawColor);
         }

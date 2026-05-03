@@ -1,7 +1,6 @@
 ﻿using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -18,8 +17,8 @@ namespace Clamity.Content.Bosses.Ihor.Items
         {
             Item.width = 30;
             Item.height = 44;
-            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
-            Item.rare = ItemRarityID.Green;
+            Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
+            Item.rare = ItemRarityID.Lime;
 
             Item.useTime = 12;
             Item.useLimitPerAnimation = 3;
@@ -38,7 +37,7 @@ namespace Clamity.Content.Bosses.Ihor.Items
             Item.shootSpeed = 15f;
 
             Item.useAmmo = AmmoID.Arrow;
-            Item.Calamity().canFirePointBlankShots = true;
+            //Item.Calamity().canFirePointBlankShots = true;
         }
         public override Vector2? HoldoutOffset() => new Vector2(0, 4);
         public int shootCombo = 0;
@@ -76,7 +75,7 @@ namespace Clamity.Content.Bosses.Ihor.Items
             Projectile.penetrate = 1;
             Projectile.timeLeft = 300;
             Projectile.extraUpdates = 2;
-            Projectile.Calamity().pointBlankShotDuration = CalamityGlobalProjectile.DefaultPointBlankDuration;
+            //Projectile.Calamity().pointBlankShotDuration = CalamityGlobalProjectile.DefaultPointBlankDuration;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }

@@ -15,6 +15,7 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
         public static int Lifetime => 200; //96
         public bool BlueFire => Projectile.ai[0] == 1f;
         public ref float Time => ref Projectile.ai[1];
+        public ref float SummonedBolt => ref Projectile.ai[2];
 
         public override void SetDefaults()
         {
@@ -67,6 +68,21 @@ namespace Clamity.Content.Bosses.Ihor.Projectiles
                     dust.velocity = new Vector2(6, 6).RotatedByRandom(100) * dustArea;
                     dust.scale = (1.8f - dustArea) * 0.65f;
                 }
+            }
+
+            /*int a = 60;
+            if (Main.rand.NextBool(Math.Clamp(a - (int)Time, 1, a)) && SummonedBolt == 0)
+            {
+                //Main.NewText("!!!");
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedBy(-0.9f).RotatedByRandom(0.6f) * 12, ModContent.ProjectileType<IhorFrostBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.Pi+0.9f).RotatedByRandom(0.6f) * 12, ModContent.ProjectileType<IhorFrostBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                //Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver2).RotatedByRandom(0.6f) * 12, ModContent.ProjectileType<IhorFrostBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                SummonedBolt = 1;
+            }*/
+            if (Main.rand.NextBool(200))
+            {
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedBy(0) * 7, ModContent.ProjectileType<IhorFrostBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.Pi) * 7, ModContent.ProjectileType<IhorFrostBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
             }
 
             // Overlay a gold glow on top

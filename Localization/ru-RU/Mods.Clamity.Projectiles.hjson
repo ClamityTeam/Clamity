@@ -93,6 +93,13 @@ Boss: {
 	// IhorFire.DisplayName: Ihor Fire
 	// IhorIcicles.DisplayName: Ihor Icicles
 	// SnowFlakeShard.DisplayName: Snow Flake Shard
+	// IhorIcicleHomingIThink.DisplayName: Ihor Icicle Homing I Think
+	// IhorSnowball.DisplayName: Ihor Snowball
+	// IhorSnowFlake.DisplayName: Ihor Snow Flake
+	// IhorSnowflakeCreatingIcicle.DisplayName: Ihor Snowflake Creating Icicle
+	// IhorSpiralIcicles.DisplayName: Ihor Spiral Icicles
+	// SnowAbsorbtionStar.DisplayName: Snow Absorbtion Star
+	// IhorFrostBolt.DisplayName: Ihor Frost Bolt
 }
 
 // ShortstrikeEffect.DisplayName: Shortstrike Effect
@@ -105,3 +112,4 @@ Boss: {
 // AncientConsoleProjectile.DisplayName: Ancient Console Projectile
 Classless.PyroShieldAccessory.DisplayName: Пирощит
 // SnowFlake.DisplayName: Snow Flake
+// StaticGiantSnowFlake.DisplayName: Static Giant Snow Flake
