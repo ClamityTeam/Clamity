@@ -3,6 +3,8 @@ using CalamityMod.Events;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.AcidRain;
 using CalamityMod.Particles;
+using CalamityMod.UI.DialogueDisplay;
+using CalamityMod.UI.DialogueDisplay.DisplayEffects;
 using CalamityMod.World;
 using Clamity.Commons;
 using Clamity.Content.Bosses.Ihor.Projectiles;
@@ -37,13 +39,18 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
 
             IceMaze,
         }
-        public Player player => Main.player[NPC.target];
+        public Player Target => Main.player[NPC.target];
         public ref float Attack => ref NPC.ai[1];
         public Attacks CurrentAttack => (Attacks)((int)Attack);
         public ref float AttackTimer => ref NPC.ai[2];
-        //public ref float PreviousAttack => ref NPC.ai[3];
+        public ref float AI0 => ref NPC.ai[3];
+        public ref float AI1 => ref NPC.Calamity().newAI[0];
+        public ref float AI2 => ref NPC.Calamity().newAI[1];
+        public ref float AI3 => ref NPC.Calamity().newAI[2];
+        public ref float AI4 => ref NPC.Calamity().newAI[3];
         public static bool BlizzardEffect;
         public Attacks? DebugDefaultAttack = Attacks.Flamethrower;
+        public List<int> AllSegments = new List<int>();
         public override void AI()
         {
             #region Pre-Attack
@@ -89,16 +96,16 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                     Do_Flamethrower();
                     break;
                 case Attacks.IcePathDash:
-
+                    Do_IcePathDash();
                     break;
                 case Attacks.Whiplash:
-
+                    Do_Whiplash();
                     break;
                 case Attacks.WhipThrowRocks:
-
+                    Do_WhipThrowRocks();
                     break;
                 case Attacks.IcePillars:
-
+                    Do_IcePillars();
                     break;
                 case Attacks.PhaseTransition:
 
@@ -127,7 +134,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                         else
                             ihorType = ModContent.NPCType<IhorBody>();
                         next = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ihorType, NPC.whoAmI);
-
+                        AllSegments.Add(next);
                         Main.npc[next].ai[2] = NPC.whoAmI;
                         Main.npc[next].realLife = NPC.whoAmI;
                         Main.npc[next].ai[1] = previous;
@@ -153,12 +160,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             //if (phase == 1) list = new List<int>() {  };
             list.Remove((int)Attack);
 
-            Attack = Main.rand.Next(list);
-            AttackTimer = 0;
-            NPC.Calamity().newAI[0] = 0;
-            NPC.Calamity().newAI[1] = 0;
-            NPC.Calamity().newAI[2] = 0;
-            NPC.Calamity().newAI[3] = 0;
+            SetAttack((Attacks)Main.rand.Next(list));
         }
         private void SetAttack(Attacks attack)
         {
@@ -179,7 +181,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         private void Move(Vector2 target = default, float ratio = 0.015f)
         {
             if (target == default)
-                target = player.Center;
+                target = Target.Center;
 
             NPC.velocity = (target - NPC.Center) * ratio;
             //float inertia = 30f;
@@ -191,7 +193,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         private void MoveConst(Vector2 target = default, float ratio = 0.1f)
         {
             if (target == default)
-                target = player.Center;
+                target = Target.Center;
 
             Vector2 diff = target - NPC.Center;
             Vector2 velocity = diff.SafeNormalize(Vector2.Zero) * ratio;
@@ -202,6 +204,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         private void Do_Summon()
         {
             BlizzardEffect = false;
+            DialogueDisplaySystem.StartDialogue("Mods.Clamity.Ihor.Intro", NPC, 0, 120, false, new BossText());
             if (DebugDefaultAttack is not null)
             {
                 SetRandomAttack();
@@ -214,13 +217,13 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                 NPC.Opacity = 1;
                 NPC.velocity = Vector2.UnitY * 10;
                 NPC.rotation = NPC.velocity.ToRotation() - MathHelper.PiOver2;
-                NPC.Center = player.Center + Vector2.UnitY * 1000;
+                NPC.Center = Target.Center + Vector2.UnitY * 1000;
                 NPC.dontTakeDamage = false;
             }
             else if (AttackTimer < 20 * 60)
             {
                 NPC.Opacity = 0;
-                NPC.Center = player.Center + Vector2.UnitY * 1000;
+                NPC.Center = Target.Center + Vector2.UnitY * 1000;
                 NPC.dontTakeDamage = true;
             }
             else if (AttackTimer > 22 * 60)
@@ -254,18 +257,17 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             }
 
             int a = (int)AttackTimer % (Flytime);
-            Vector2 t = player.MountedCenter + player.velocity - Vector2.UnitY * 300;
-            int setDamage = NPC.defDamage;
+            Vector2 t = Target.MountedCenter + Target.velocity - Vector2.UnitY * 300;
 
             if (AttackTimer < 60)
             {
                 NPC.velocity = (t - NPC.Center) * (AttackTimer / 60f);
-                NPC.rotation = (player.MountedCenter - NPC.Center).ToRotation() - MathHelper.PiOver2;
+                NPC.rotation = (Target.MountedCenter - NPC.Center).ToRotation() - MathHelper.PiOver2;
                 NPC.damage = 0;
             }
             else if (a > Flytime - TimeToAttack) //fire attack
             {
-                if (NPC.damage == 0) NPC.damage = setDamage;
+                if (NPC.damage == 0) NPC.damage = NPC.defDamage;
                 //Move(t, 0.1f);
                 //NPC.rotation = (player.MountedCenter - NPC.Center).ToRotation() - MathHelper.PiOver2;
                 if (++NPC.Calamity().newAI[0] > FlameDelay)
@@ -278,10 +280,10 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             }
             else //fly
             {
-                if (NPC.damage == 0) NPC.damage = setDamage;
+                if (NPC.damage == 0) NPC.damage = NPC.defDamage;
                 Move(t, 0.075f);
                 //NPC.velocity = Vector2.Zero;
-                NPC.rotation = (player.MountedCenter - NPC.Center).ToRotation() - MathHelper.PiOver2;
+                NPC.rotation = (Target.MountedCenter - NPC.Center).ToRotation() - MathHelper.PiOver2;
                 if (a == Flytime - TimeToAttack) NPC.velocity = Vector2.Zero;
             }
 
@@ -311,7 +313,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             }
             else if (AttackTimer == Pre_IcePathDashTime)
             {
-                NPC.velocity = player.Center - NPC.Center;
+                NPC.velocity = Target.Center - NPC.Center;
             }
             else if (AttackTimer > All_IcePathDashTime - Icicle_IcePathDashTime)
             {
@@ -329,6 +331,46 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             {
 
             }
+        }
+        private void Do_Whiplash()
+        {
+
+            switch ((int)AI0)
+            {
+                case 0:
+                    NPC.damage = 0; //NPC.defDamage
+                    Move(NPC.Center + Vector2.UnitY * 100);
+                    if (NPC.Center.Y - Target.Center.Y > 200)
+                        AI0++;
+                    break;
+                case 1:
+                    NPC.Opacity -= 1/60f;
+                    NPC.dontTakeDamage = true;
+                    if (NPC.Opacity <= 0)
+                    {
+                        AI0++;
+                        NPC.Opacity = 1;
+                        NPC.dontTakeDamage = false;
+                        NPC.damage = NPC.defDamage;
+                        //NPC.Center = target.Center + Vector2.UnitY * 300 + Main.rand.NextVector2Circular(10, 10);
+                    }
+                    break;
+                case 2:
+
+                    break;
+            }
+        }
+        private void Do_ShrinkingRing()
+        {
+
+        }
+        private void Do_WhipThrowRocks()
+        {
+
+        }
+        private void Do_IcePillars()
+        {
+
         }
         #endregion
 

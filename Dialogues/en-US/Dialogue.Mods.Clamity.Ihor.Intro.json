@@ -1,0 +1,33 @@
+{
+  "Revision": 1,
+  "DefaultColor": "ACF3FF",
+  "DefaultSpeaker": "Ihor",
+  "AlignType": 1,
+  "TextDelay": 2,
+  "BasePunctuationDelay": {
+    "Delay": 10,
+    "ForceSet": false,
+    "Locks": false
+  },
+  "PunctuationDelayCap": 30,
+  "PunctuationDelays": {
+    "!": {
+      "Delay": 20,
+      "ForceSet": true,
+      "Locks": true
+    },
+    "?": {
+      "Delay": 20,
+      "ForceSet": true,
+      "Locks": true
+    }
+  },
+  "Pages": [
+    {
+      "Lines": [
+        "[Scale(2):[Colors(2, 0.5, FFFFFF, 72C1EC):[Shaking:Permafrost`s Fail]]]",
+        "[Scale(2):[Colors(2, 0.5, FFFFFF, 72C1EC):Ihor]]"
+      ]
+    }
+  ]
+}

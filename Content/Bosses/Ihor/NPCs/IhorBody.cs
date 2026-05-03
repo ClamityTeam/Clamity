@@ -91,13 +91,15 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
             {
                 case (IhorHead.Attacks.Flamethrower):
                     destination = aheadSegment.Center + new Vector2(0, -aheadSegment.height / 4).RotatedBy(aheadSegment.rotation);
-                    destination -= new Vector2(0, 25).RotatedBy(MathHelper.PiOver4 * Math.Sin(Main.GlobalTimeWrappedHourly * 3) + aheadSegment.rotation - headSegment.rotation);
+                    destination -= new Vector2(0, 25).RotatedBy(MathHelper.Pi * Math.Sin(Main.GlobalTimeWrappedHourly * 3) / 3f + aheadSegment.rotation - headSegment.rotation);
 
                     //destination = headSegment.Center - new Vector2(0, 25 * SegmentNumber).RotatedBy(headSegment.rotation + MathHelper.PiOver4 * Math.Sin(Main.GlobalTimeWrappedHourly * 3 + SegmentNumber));
                     NPC.velocity = (destination - NPC.Center) * 0.2f + headSegment.velocity * 0.075f;
                     NPC.rotation = NPC.velocity.ToRotation() - MathHelper.PiOver2;
                     break;
-
+                case (IhorHead.Attacks.Whiplash):
+                    goto default;
+                    break;
                 default:
                     NPC.velocity = (destination - NPC.Center) * 0.2f + aheadSegment.velocity * 0.075f;
                     NPC.rotation = NPC.velocity.ToRotation() - MathHelper.PiOver2;
