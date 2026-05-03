@@ -18,7 +18,7 @@ RoseBow: {
 }
 
 WitheredBoneBow: {
-	DisplayName: Wither Storm
+	DisplayName: Wither Stormbow
 	Tooltip:
 		'''
 		Converts wooden arrows to withered bone bolts

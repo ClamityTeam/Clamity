@@ -1,7 +1,7 @@
-Update 1.0.3.15 - ???
+Update 1.0.4 - ???
 
 Additions:
-Added Gaia's Rose, the Mana Rose alternative with lingering petals and uses Jungle Rose in recipe.
+Added the Gaia's Rose, a Mana Rose alternative with lingering petals that uses Jungle Rose in recipe instead.
 
 Reworks:
 Reworked Eye of Nove to be in-line with Eye of Magnus rework.
@@ -26,7 +26,7 @@ Changes:
 Renamed Pearl of Fish Calamity to Treasure of Clamity.
 Renamed Flame Cube to Exo Box (Calamity Edition) and updated tooltip.
 Renamed Plague Station to Exo Box (Plague Edition) and updated tooltip.
-Renamed Wither Bane to Wither Storm.
+Renamed Wither Bane to Wither Stormbow.
 Updated Soul Baguette & Exo Baguette to match the changes done to the base Baguette in Calamity 2.1.
 Rewrote the Clamitas & Wall of Bronze lore items.
 
