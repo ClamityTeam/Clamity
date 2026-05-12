@@ -41,7 +41,7 @@ PyroStone: {
 	DisplayName: Pyro Stone
 	Tooltip:
 		'''
-		Multiplies all heat-based debuff damage by 1.5
+		50% increased Heat debuff damage
 		Creates a rotating fire shield around you that damages and ignites enemies on contact
 		'One of the ancient relics'
 		'''
@@ -53,8 +53,8 @@ HellFlare: {
 		'''
 		All attacks and projectiles inflict [cbuff:OnFire3]
 		Grants immunity to [cbuff:OnFire] and [cbuff:OnFire3]
-		Being above 75% life grants 10% increased crit chance
-		Being below 25% life grants 10% increased damage reduction
+		Being above 50% life grants 10% increased crit chance
+		Being below 50% life grants 10% increased damage reduction
 		Grants resistance against cold attacks
 		'''
 }
@@ -88,8 +88,8 @@ RedDie: {
 	DisplayName: Red Die
 	Tooltip:
 		'''
-		1.5x luck
-		Increases luck by extra 20%
+		Increases luck by 20%
+		Multiply your luck by 1.5x
 		'Are you ready for a reroll?'
 		'''
 }

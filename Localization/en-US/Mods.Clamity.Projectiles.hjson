@@ -82,6 +82,9 @@ Boss: {
 	WallOfBronzeLaserBeamStart.DisplayName: Plasma Beam
 	WallOfBronzeClawProjectile.DisplayName: Bronze Claw
 	WoBDeathrayStart.DisplayName: Plasma Deathray
+	WoBCutsceneBoom.DisplayName: Wo B Cutscene Boom
+	WoBCutsceneDrama.DisplayName: Wo B Cutscene Drama
+	WoBCutsceneBoomTest.DisplayName: Wo B Cutscene Boom Test
 }
 
 ShortstrikeEffect.DisplayName: Shortstrike Effect

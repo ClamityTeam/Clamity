@@ -23,9 +23,10 @@ using static CalamityMod.CalamityUtils;
 
 namespace Clamity.Content.Items.Weapons.Typeless
 {
-    public class EyeOfNova : ModItem, ILocalizedModType, IModType
+    public class EyeOfNova : ModItem, ILocalizedModType, IModType, IHoldShiftTooltipItem
     {
         public new string LocalizationCategory => "Items.Weapons.Typeless";
+        public Color? TooltipExtensionColor => new(195, 223, 255);
         public override void SetDefaults()
         {
             Item.DamageType = ModContent.GetInstance<AverageDamageClass>();
@@ -61,7 +62,7 @@ namespace Clamity.Content.Items.Weapons.Typeless
             CreateRecipe()
                 .AddIngredient<EyeofMagnus>()
                 .AddIngredient<Celesticus>()
-                .AddIngredient<GoldenGun>()
+                //.AddIngredient<GoldenGun>()
                 .AddIngredient<MiracleMatter>()
                 .AddTile<DraedonsForge>()
                 .Register();

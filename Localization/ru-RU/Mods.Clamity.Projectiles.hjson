@@ -82,6 +82,9 @@ Boss: {
 	WallOfBronzeLaserBeamStart.DisplayName: Плазменный луч
 	WallOfBronzeClawProjectile.DisplayName: Бронзовая клешна
 	WoBDeathrayStart.DisplayName: Плазменный смертельный луч
+	// WoBCutsceneBoom.DisplayName: Wo B Cutscene Boom
+	// WoBCutsceneDrama.DisplayName: Wo B Cutscene Drama
+	// WoBCutsceneBoomTest.DisplayName: Wo B Cutscene Boom Test
 }
 
 // ShortstrikeEffect.DisplayName: Shortstrike Effect

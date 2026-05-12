@@ -83,6 +83,7 @@ namespace Clamity
         //Buffs-Debuffs
         public bool titanScale;
         public int titanScaleTimer;
+        public bool supremeLuck;
 
         //Pets
 
@@ -138,6 +139,7 @@ namespace Clamity
             //Other
             flyingChair = false;
             titanScale = false;
+            supremeLuck = false;
         }
         public override void UpdateDead()
         {
@@ -471,6 +473,8 @@ namespace Clamity
         }
         public override void ModifyLuck(ref float luck)
         {
+            if (supremeLuck) luck += 0.5f;
+            if (subcommunity) luck += TheSubcommunity.CalculatePower() * TheSubcommunity.LuckMult;
             if (redDie)
             {
                 for (int i = 3; i < 9; i++)
@@ -480,13 +484,9 @@ namespace Clamity
                     {
                         luck -= 0.2f;
                     }
-                    luck *= 1.5f;
-                    luck += 0.2f;
                 }
-            }
-            if (subcommunity)
-            {
-                luck += TheSubcommunity.CalculatePower() * TheSubcommunity.LuckMult;
+                luck += 0.2f;
+                luck *= 1.5f;
             }
         }
         #endregion

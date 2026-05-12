@@ -104,9 +104,11 @@ namespace Clamity.Content.Bosses.WoB.NPCs
         public override void BossLoot(ref string name, ref int potionType) => potionType = ModContent.ItemType<OmegaHealingPotion>();
         public override void OnSpawn(IEntitySource source)
         {
+            ClamityUtils.BossIntroDialogue("WallOfBronze", NPC);
+
             if (Main.netMode != NetmodeID.MultiplayerClient)
                 for (int i = 0; i < 4; i++)
-                    NPC.SpawnOnPlayer(NPC.FindClosestPlayer(), ListOfGuns[(Main.rand.Next(0, ListOfGuns.Length))]);
+                    NPC.NewNPC(NPC.GetBossSpawnSource(Player.FindClosest(NPC.Center, 1, 1)), (int)NPC.Center.X, (int)NPC.Center.Y, ListOfGuns[(Main.rand.Next(0, ListOfGuns.Length))]);
 
             /*if (Main.netMode == NetmodeID.MultiplayerClient || !(source is EntitySource_BossSpawn entitySourceBossSpawn) || !(entitySourceBossSpawn.Target is Player target))
                 return;
@@ -320,17 +322,15 @@ namespace Clamity.Content.Bosses.WoB.NPCs
                     {
                         if (CanSecondStage)
                         {
-                            //Terraria.NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ListOfGuns[2], ai0: NPC.whoAmI);
-                            //Terraria.NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ListOfGuns[2], ai0: NPC.whoAmI);
-                            NPC.SpawnOnPlayer(NPC.FindClosestPlayer(), ListOfGuns[2]);
-                            NPC.SpawnOnPlayer(NPC.FindClosestPlayer(), ListOfGuns[2]);
+                            for (int i = 0; i < 2; i++)
+                                NPC.NewNPC(NPC.GetBossSpawnSource(Player.FindClosest(NPC.Center, 1, 1)), (int)NPC.Center.X, (int)NPC.Center.Y, ListOfGuns[2]);
+                            //NPC.SpawnOnPlayer(NPC.FindClosestPlayer(), ListOfGuns[2]);
                         }
                         else
                         {
-                            //Terraria.NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ListOfGuns[(Main.rand.Next(0, ListOfGuns.Length))], ai0: NPC.whoAmI);
-                            //Terraria.NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ListOfGuns[(Main.rand.Next(0, ListOfGuns.Length))], ai0: NPC.whoAmI);
-                            NPC.SpawnOnPlayer(NPC.FindClosestPlayer(), ListOfGuns[(Main.rand.Next(0, ListOfGuns.Length))]);
-                            NPC.SpawnOnPlayer(NPC.FindClosestPlayer(), ListOfGuns[(Main.rand.Next(0, ListOfGuns.Length))]);
+                            for (int i = 0; i < 2; i++)
+                                NPC.NewNPC(NPC.GetBossSpawnSource(Player.FindClosest(NPC.Center, 1, 1)), (int)NPC.Center.X, (int)NPC.Center.Y, ListOfGuns[(Main.rand.Next(0, ListOfGuns.Length))]);
+                            //NPC.SpawnOnPlayer(NPC.FindClosestPlayer(), ListOfGuns[(Main.rand.Next(0, ListOfGuns.Length))]);
                         }
                     }
                 }
@@ -407,14 +407,14 @@ namespace Clamity.Content.Bosses.WoB.NPCs
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<WoBTreasureBag>()));
             LeadingConditionRule mainRule = npcLoot.DefineNormalOnlyDropSet();
-            int[] itemIDs = new int[3]
+            int[] itemIDs = new int[]
             {
                 ModContent.ItemType<AMS>(),
                 ModContent.ItemType<TheWOBbler>(),
-                ModContent.ItemType<LargeFather>()
             };
             mainRule.Add(ItemDropRule.OneFromOptions(1, itemIDs));
 
+            mainRule.Add(ItemDropRule.Common(ModContent.ItemType<LargeFather>()));
             mainRule.Add(ItemDropRule.Common(ModContent.ItemType<ThankYouPainting>(), 100));
             //Trophy
             npcLoot.Add(ModContent.ItemType<WoBTrophy>(), 10);
