@@ -8,6 +8,16 @@ Whips: {
 		DisplayName: Tri Infecta Debuff
 		Description: Mods.Clamity.Buffs.Whips.TriInfectaDebuff.Description
 	}
+
+	detlDebuff: {
+		DisplayName: detl Debuff
+		Description: Mods.Clamity.Buffs.Whips.detlDebuff.Description
+	}
+
+	TerraWhipDebuff: {
+		DisplayName: Terra Whip Debuff
+		Description: Mods.Clamity.Buffs.Whips.TerraWhipDebuff.Description
+	}
 }
 
 SupremeLucky: {

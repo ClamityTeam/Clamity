@@ -9,8 +9,8 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
-using ClamityMod = Clamity.Clamity;
 using static Terraria.Player;
+using ClamityMod = Clamity.Clamity;
 
 namespace Clamity
 {

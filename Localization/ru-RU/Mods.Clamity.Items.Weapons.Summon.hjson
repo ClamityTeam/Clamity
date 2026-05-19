@@ -8,6 +8,21 @@ Whips: {
 		// DisplayName: Tri Infecta
 		// Tooltip: ""
 	}
+
+	DeusExTwinLash: {
+		// DisplayName: Deus Ex Twin Lash
+		// Tooltip: ""
+	}
+
+	TerraWhip: {
+		// DisplayName: Terra Whip
+		// Tooltip: ""
+	}
+
+	DryadsKarma: {
+		// DisplayName: Dryads Karma
+		// Tooltip: ""
+	}
 }
 
 HellstoneShellfishStaff: {

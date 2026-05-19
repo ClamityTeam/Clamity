@@ -57,6 +57,10 @@ Summon: {
 		TriInfectaLargeSpawner.DisplayName: Tri Infecta Large Spawner
 		TriInfectaMedSpawner.DisplayName: Tri Infecta Med Spawner
 		TriInfectaSmallSpawner.DisplayName: Tri Infecta Small Spawner
+		DeusExProj.DisplayName: Deus Ex Proj
+		DeusExTwinProj.DisplayName: Deus Ex Twin Proj
+		TerraWhipProj.DisplayName: Terra Whip Proj
+		DryadsKarmaProj.DisplayName: Dryads Karma Proj
 	}
 }
 

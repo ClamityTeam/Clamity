@@ -20,6 +20,8 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
     {
         public new string LocalizationCategory => "Projectiles.Summon.Whips";
 
+        public abstract string ExtraPath { get; }
+
         public override void SetStaticDefaults()
         {
             // This makes the projectile use whip collision detection and allows flasks to be applied to it.>
@@ -54,9 +56,6 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
 
         internal ref float Timer => ref Projectile.ai[0];
 
-        //ADDED BY OBAMA - looks like shit rn do not use 
-        //kinda peak now??!
-
         internal List<Vector2> TrailPoints = [];
 
         internal ref float TrailPointTimer => ref Projectile.localAI[2];
@@ -64,6 +63,8 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
         public virtual bool DrawTrailAtTip { get; } = false;
 
         public List<Vector2> whipPoints = new List<Vector2>();
+
+        public override string Texture => (GetType().Namespace + $".{ExtraPath}." + Name).Replace('.', '/');
 
         public override void SendExtraAI(BinaryWriter writer)
         {
@@ -112,8 +113,8 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
             Projectile.width = 20;
             Projectile.height = 20;
 
-            whipSegment = ModContent.Request<Texture2D>(Texture + "_Segment").Value;
-            whipTip = ModContent.Request<Texture2D>(Texture + "_Tip").Value;
+            whipSegment = ModContent.Request<Texture2D>(Texture + $"_Segment").Value;
+            whipTip = ModContent.Request<Texture2D>(Texture + $"_Tip").Value;
 
             SetWhipStats();
         }

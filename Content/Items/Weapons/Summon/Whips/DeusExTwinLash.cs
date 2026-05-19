@@ -1,4 +1,6 @@
-﻿using CalamityMod.Particles;
+﻿using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Items.Materials;
+using CalamityMod.Particles;
 using Clamity.Commons;
 using Microsoft.Xna.Framework;
 using System;
@@ -9,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace Clamity.Content.Items.Weapons.Summon.Whips
 {
-    public class BalancedDuality : BaseWhipItem
+    public class DeusExTwinLash : BaseWhipItem
     {
         public const int UseTime = 30;
         public int combo = 1;
@@ -21,7 +23,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
 
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<BalancedYangProj>(), 45, 2, 10, UseTime);
+            Item.DefaultToWhip(ModContent.ProjectileType<DeusExTwinProj>(), 150, 4, 12);
             Item.autoReuse = true;
             Item.value = Item.sellPrice(gold: 12);
             Item.rare = ItemRarityID.LightRed;
@@ -34,107 +36,99 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
 
         public override void UpdateInventory(Player player)
         {
-            if (combo == 1)
-            {
-                Item.useTime = Item.useAnimation = UseTime;
-            }
-            if (combo == 3)
-            {
-                Item.useTime = Item.useAnimation = UseTime / 2;
-            }
+            Item.useTime = Item.useAnimation = (int)(UseTime / MathHelper.Lerp(1, 2, combo / 4f));
+            //Item.useTime = Item.useAnimation = UseTime / combo;
+            if (combo > 4) combo = 1;
         }
 
         public override bool Shoot(Player player, Terraria.DataStructures.EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (flipped)
-                type = ModContent.ProjectileType<BalancedYinProj>();
+                type = ModContent.ProjectileType<DeusExProj>();
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
             flipped = !flipped;
             combo++;
-            if (combo > 5)
-                combo = 1;
-
             return false;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.LightShard, 1)
-                .AddIngredient(ItemID.DarkShard, 1)
-                .AddIngredient(ItemID.SoulofLight, 4)
-                .AddIngredient(ItemID.SoulofNight, 4)
-                .AddTile(TileID.Anvils)
+                .AddIngredient(ModContent.ItemType<BalancedDuality>())
+                .AddIngredient(ModContent.ItemType<AstralBar>(), 8)
+                //.AddIngredient(ModContent.ItemType<StarblightSoot>(), 25)
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }
 
-    public class BalancedYangProj : BaseWhipProjectile
+    public class DeusExTwinProj : BaseWhipProjectile
     {
-        public override string ExtraPath => "BalancedDuality";
+        public override string ExtraPath => "DeusExTwinLash";
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.IsAWhip[Type] = true;
+        }
+
         public override void SetWhipStats()
         {
             Projectile.localNPCHitCooldown = -1;
             Projectile.WhipSettings.Segments = 15;
             Projectile.WhipSettings.RangeMultiplier = .6f;
             fishingLineColor = Color.Black;
-            trailLineColorOverride = Color.White;
+            trailLineColorOverride = Color.Coral;
             segmentRotation = -MathF.PI / 2;
 
             flipped = true;
 
+            tagDebuff = ModContent.BuffType<detlDebuff>();
             dustAmount = 4;
-            swingDust = DustID.GolfPaticle;
+            swingDust = DustID.OrangeTorch;
         }
 
         public override void WhipOnHit(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.Confused, 240);
+            target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 240);
 
-            for (int i = 0; i < 10; i++)
-            {
-                LineParticle line = new LineParticle(target.Center, (target.Center - Main.player[Projectile.owner].Center).SafeNormalize(Vector2.Zero).RotatedBy(MathHelper.PiOver2 * Projectile.spriteDirection + Main.rand.NextFloat(-0.5f, 0.5f)) * Main.rand.Next(5, 10), false, Main.rand.Next(23, 35), Main.rand.NextFloat(1f, 1.8f), Color.White);
-                GeneralParticleHandler.SpawnParticle(line);
-            }
+            DirectionalPulseRing pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Main.rand.NextBool() ? Color.DarkTurquoise : Color.Coral, new Vector2(1, 1), 0, 0.5f, 0f, 20);
+            GeneralParticleHandler.SpawnParticle(pulse);
         }
-
         public override bool DrawTrailAtTip => true;
     }
 
-    public class BalancedYinProj : BaseWhipProjectile
+    public class DeusExProj : BaseWhipProjectile
     {
-        public override string ExtraPath => "BalancedDuality";
+        public override string ExtraPath => "DeusExTwinLash";
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.IsAWhip[Type] = true;
+        }
+
         public override void SetWhipStats()
         {
             Projectile.localNPCHitCooldown = -1;
             Projectile.WhipSettings.Segments = 15;
             Projectile.WhipSettings.RangeMultiplier = .6f;
             fishingLineColor = Color.White;
+            trailLineColorOverride = Color.DarkTurquoise;
             segmentRotation = -MathF.PI / 2;
 
+            tagDebuff = ModContent.BuffType<detlDebuff>();
             dustAmount = 4;
-            swingDust = DustID.SpookyWood;
+            swingDust = DustID.BlueFlare;
         }
 
         public override void WhipOnHit(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.Confused, 240);
+            target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 480);
 
-            for (int i = 0; i < 10; i++)
-            {
-                LineParticle line = new LineParticle(target.Center, (target.Center - Main.player[Projectile.owner].Center).SafeNormalize(Vector2.Zero).RotatedBy(MathHelper.PiOver2 * Projectile.spriteDirection + Main.rand.NextFloat(-0.5f, 0.5f)) * Main.rand.Next(5, 10), false, Main.rand.Next(23, 35), Main.rand.NextFloat(1f, 1.8f), Color.White);
-                GeneralParticleHandler.SpawnParticle(line);
-            }
-
-            if (Main.rand.NextBool(4))
-            {
-            }
+            DirectionalPulseRing pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Main.rand.NextBool() ? Color.DarkTurquoise : Color.Coral, new Vector2(1, 1), 0, 0.5f, 0f, 20);
+            GeneralParticleHandler.SpawnParticle(pulse);
         }
-
         public override bool DrawTrailAtTip => true;
     }
 
-    public class BalancedDualityDebuff : ModBuff, ILocalizedModType
+    public class detlDebuff : ModBuff, ILocalizedModType
     {
         public new string LocalizationCategory => "Buffs.Whips";
         public override string Texture => Clamity.buffPath;
@@ -149,7 +143,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<GlobalTagDebuffs>().activeTag = Type;
-            npc.GetGlobalNPC<GlobalTagDebuffs>().baldualIndex = buffIndex;
+            npc.GetGlobalNPC<GlobalTagDebuffs>().detlIndex = buffIndex;
         }
     }
 }

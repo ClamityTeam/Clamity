@@ -8,6 +8,16 @@ Whips: {
 		DisplayName: Tri Infecta
 		Tooltip: ""
 	}
+
+	DeusExTwinLash: {
+		DisplayName: Deus Ex Twin Lash
+		Tooltip: ""
+	}
+
+	DryadsKarma: {
+		DisplayName: Dryad's Karma
+		Tooltip: ""
+	}
 }
 
 HellstoneShellfishStaff: {

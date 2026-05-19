@@ -55,7 +55,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
                     break;
                 default:
                     combo = 1;
-                    break;
+                    goto case 1;
             }
         }
 
@@ -69,6 +69,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
 
     public class TriInfectaSmallProj : BaseWhipProjectile
     {
+        public override string ExtraPath => "TriInfecta";
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
@@ -127,6 +128,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
 
     public class TriInfectaMedProj : BaseWhipProjectile
     {
+        public override string ExtraPath => "TriInfecta";
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
@@ -167,6 +169,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
 
     public class TriInfectaLargeProj : BaseWhipProjectile
     {
+        public override string ExtraPath => "TriInfecta";
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
