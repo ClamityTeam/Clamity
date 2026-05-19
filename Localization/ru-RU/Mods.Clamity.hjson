@@ -22,38 +22,45 @@ Items: {
 	}
 
 	BaseBook1: {
-		// DisplayName: Common Paper
-		// ObtainmentHint: "[c/F79BC6:Check the NPC Shop]"
-		// Tooltip: Just ordinary paper
+		// DisplayName: Printer Paper
+		// ObtainmentHint: "[c/F79BC6:This book is sold by the common merchant]"
+		// Tooltip: Just an ordinary, blank piece paper
 	}
 
 	BaseBook2: {
 		// DisplayName: Common Brochure
-		// ObtainmentHint: "[c/F79BC6:Check another NPC Shop]"
-		// Tooltip: Just ordinary brochure
+		// ObtainmentHint: "[c/F79BC6:This book is sold by someone with a curse]"
+		/* Tooltip:
+			'''
+			Just an ordinary brochure, recommending you to travel to various places
+			It is filled with ads, per usual
+			''' */
 	}
 
 	BaseBook3: {
-		// DisplayName: Common Book
-		// ObtainmentHint: "[c/F79BC6:Check different NPC Shop]"
-		// Tooltip: Just ordinary book
+		// DisplayName: Basic Book
+		// ObtainmentHint: "[c/F79BC6:This book is sold by an archmage]"
+		// Tooltip: Just an ordinary book, nothing too interesting about it
 	}
 
 	BaseBook4: {
 		// DisplayName: Common Tome
-		// ObtainmentHint: "[c/F79BC6:I TOLD YOU CHECK DIFFERENT NPC SHOP!]"
-		// Tooltip: Just ordinary tome
+		// ObtainmentHint: "[c/F79BC6:This book is sold by a wizard who enjoys living in the Hallow]"
+		/* Tooltip:
+			'''
+			It's written in a language you do understand
+			However, this tome doesn't actually do anything...
+			''' */
 	}
 
 	HowToClamity: {
 		// DisplayName: How To Clamity
-		// ObtainmentHint: "[c/F79BC6:Clam(ity)]"
+		// ObtainmentHint: "[c/F79BC6:A clam taking refuge in the Azafure is in possession of this book]"
 		/* Tooltip:
 			'''
-			An instruction how to make terrifing event
-
-			Reading further you starts getting crazy and close this book
-			But still safe in your mind word "clam"
+			An instruction book on how to make clamitous event
+			As you read, you start feeling you mind sliping away...
+			You closed the book before it was too late, but you can still hear clams clicking in your mind
 			''' */
 	}
 }
