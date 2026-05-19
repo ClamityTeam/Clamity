@@ -1,9 +1,9 @@
-Update 1.0.4.1 - Assorted Changes
+Update 1.0.4.1 - 
 
 (#BM - Changes to match BrainStorm update)
 
 Additions:
-
+Added Solyn Book rewards
 
 Reworks:
 
@@ -15,9 +15,10 @@ Balance:
 
 
 Changes:
-
+Solyn Book rarity changes
 
 Fixes:
+Fixed "How to Clamity" book dropping only during Normal difficulty
 
 
 Localization Changes:

@@ -151,8 +151,6 @@ namespace Clamity
         #region On Hit Effect
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.Clamity().IncreasedHeatEffects_PyroStone = pyroStone;
-
             if (item.DamageType == DamageClass.Melee || item.DamageType == ModContent.GetInstance<TrueMeleeDamageClass>())
             {
                 if (pyroSpear && !Player.HasCooldown(PyrospearCooldown.ID))
