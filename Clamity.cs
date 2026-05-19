@@ -26,6 +26,7 @@ namespace Clamity
             mod = null;
             musicMod = null;
             infernum = null;
+            calRemix = null;
 
             NewNPCStats.UnLoad();
         }

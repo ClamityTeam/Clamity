@@ -5,6 +5,14 @@ using Terraria.ModLoader.Core;
 
 namespace Clamity.Content.Items.SolynBooks
 {
+    public enum SolynBookList
+    {
+        BaseBook1,
+        BaseBook2,
+        BaseBook3,
+        BaseBook4,
+        HowToClamity
+    }
     public class SolynBookRegistry : ModSystem
     {
         public static Mod WotG;
@@ -14,10 +22,14 @@ namespace Clamity.Content.Items.SolynBooks
 
             if (ModLoader.HasMod("NoxusBoss"))
             {
-                //For future
-                //CreateSolynBook(3, "ExampleSolynBook/Items/ExampleSolynBook");
+                //CreateSolynBook(3, "Clamity/Content/Items/SolynBooks/");
+                foreach (string i in Enum.GetNames(typeof(SolynBookList)))
+                {
+                    CreateSolynBook(1, $"Clamity/Content/Items/SolynBooks/{i}");
+                }
             }
         }
+        public static int GetBookItem(SolynBookList book) => Clamity.mod.Find<ModItem>(book.ToString()).Type;
         /// <summary>
         /// Register and creates a custom solyn book
         /// </summary>

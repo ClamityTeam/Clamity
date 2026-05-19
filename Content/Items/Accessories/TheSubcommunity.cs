@@ -26,7 +26,7 @@ namespace Clamity.Content.Items.Accessories
             Item.height = 64;
             Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Lime;
+            Item.rare = ItemRarityID.Expert;
         }
         private static readonly int TotalCountedBosses = 42;
         internal static float CalculatePower(bool killsOnly = false)

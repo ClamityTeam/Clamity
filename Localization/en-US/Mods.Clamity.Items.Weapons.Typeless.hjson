@@ -26,6 +26,11 @@ EyeOfNova: {
 		Explodes into a nebula cloud which greatly reduces enemy protection, and slow them down
 		This weapon scales with the average of all your damage stats
 		'''
+	HoldShiftTooltip:
+		'''
+		  Apply [cbuff:CalamityMod/MarkedforDeath], [cbuff:CalamityMod/Vaporfied], 
+		  [cbuff:CalamityMod/MiracleBlight], [cbuff:Ichor] on hit
+		'''
 }
 
 Celesticus: {
