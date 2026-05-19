@@ -103,7 +103,7 @@ namespace Clamity
             if (ContainType(npc.type, ModContent.NPCType<GiantClam>()))
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ClamChowder>(), 2));
-                npcLoot.Add(ItemDropRule.ByCondition(DropHelper.If(info => info.npc.type == ModContent.NPCType<GiantClam>() && ClamitySystem.downedClamitas, false), SolynBookRegistry.GetBookItem(SolynBooks.HowToClamity)));
+                if (SolynBookRegistry.WotG != null) npcLoot.Add(ItemDropRule.ByCondition(DropHelper.If(info => info.npc.type == ModContent.NPCType<GiantClam>() && ClamitySystem.downedClamitas, false), SolynBookRegistry.GetBookItem(SolynBooks.HowToClamity)));
             }
             if (ContainType(npc.type, ModContent.NPCType<ChaoticPuffer>(), ModContent.NPCType<GiantSquid>(), ModContent.NPCType<Laserfish>(), ModContent.NPCType<OarfishHead>(), ModContent.NPCType<Eidolist>(), ModContent.NPCType<MirageJelly>(), ModContent.NPCType<Bloatfish>()))
             {
@@ -129,18 +129,20 @@ namespace Clamity
         }
         public override void ModifyShop(NPCShop shop)
         {
-            if (shop.NpcType == NPCID.Merchant)
-                shop.Add(SolynBookRegistry.GetBookItem(SolynBooks.BaseBook1));
-            if (shop.NpcType == NPCID.Clothier)
-                shop.Add(SolynBookRegistry.GetBookItem(SolynBooks.BaseBook2));
-            if (shop.NpcType == NPCID.Wizard)
-                shop.Add(SolynBookRegistry.GetBookItem(SolynBooks.BaseBook4), Condition.InHallow);
             if (shop.NpcType == NPCID.Steampunker)
                 shop.Add<CyanSolution>(new Condition(Language.GetOrRegister("Mods.Clamity.Misc.DefeatedWoB"), () => ClamitySystem.downedWallOfBronze));
             if (shop.NpcType == ModContent.NPCType<Archmage>())
-            {
-                shop.Add(SolynBookRegistry.GetBookItem(SolynBooks.BaseBook3));
                 shop.Add<EnchantedMetal>(new Condition(Language.GetOrRegister("Mods.Clamity.Misc.GeneratedFrozenHell"), () => !ClamitySystem.generatedFrozenHell || ClamityConfig.Instance.PermafrostSoldEnchantedMetal), new Condition(Language.GetOrRegister("Mods.Clamity.Misc.DefeatedWoB"), () => ClamitySystem.downedWallOfBronze));
+            if (SolynBookRegistry.WotG != null)
+            {
+                if (shop.NpcType == NPCID.Merchant)
+                    shop.Add(SolynBookRegistry.GetBookItem(SolynBooks.BaseBook1));
+                if (shop.NpcType == NPCID.Clothier)
+                    shop.Add(SolynBookRegistry.GetBookItem(SolynBooks.BaseBook2));
+                if (shop.NpcType == NPCID.Wizard)
+                    shop.Add(SolynBookRegistry.GetBookItem(SolynBooks.BaseBook4), Condition.InHallow);
+                if (shop.NpcType == ModContent.NPCType<Archmage>())
+                    shop.Add(SolynBookRegistry.GetBookItem(SolynBooks.BaseBook3));
             }
 
         }

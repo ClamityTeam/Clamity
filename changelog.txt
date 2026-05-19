@@ -1,27 +1,26 @@
-Update 1.0.4.1 - 
+Update 1.0.4.1 - Hotfix
 
-(#BM - Changes to match BrainStorm update)
+Fixed unable to load Clamity without Wrath of the Gods
 
 Additions:
 Added Solyn Book rewards
 
 Reworks:
-Made the obtainment method of the Solyn Books added by this mod more clear, and updated their descriptions.
-The Common Tome is now only sold when the Wizard is in the Hallow biome.
-Increased the rarity of the How to Clamity book to 2 stars.
+None
 
 Removals:
-
+None
 
 Balance:
-
+None
 
 Changes:
 Solyn Book rarity changes
+The Common Tome is now only sold when the Wizard is in the Hallow biome.
 
 Fixes:
 Fixed "How to Clamity" book dropping only during Normal difficulty
 
-
 Localization Changes:
 Updated English localization.
+Made the obtainment method of the Solyn Books added by this mod more clear, and updated their descriptions.

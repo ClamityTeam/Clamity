@@ -52,29 +52,31 @@ namespace Clamity.Content.Items.SolynBooks
         }
         public override void PostSetupContent()
         {
-            Assembly wotg = WotG.Code;
-            var types = AssemblyManager.GetLoadableTypes(wotg);
-            MethodInfo method = FindType(types, "NoxusBoss.Core.Graphics.UI.Books.SolynBookRewardsSystem").GetMethod("AddRewardForBook", BindingFlags.Static | BindingFlags.Public);
-
-            void AddRewardForBook(SolynBooks book, MethodInfo method, string ItemName, int MinStack = 1, int MaxStack = 1, bool GiftedDirectlyFromSolyn = false)
+            if (ModLoader.HasMod("NoxusBoss"))
             {
-                Type solynReward = FindType(types, "NoxusBoss.Core.Graphics.UI.Books.SolynReward");
-                object rewardData = Activator.CreateInstance(solynReward);
-                solynReward.GetField("ItemName", BindingFlags.Public | BindingFlags.Instance).SetValue(rewardData, ItemName);
-                solynReward.GetField("MinStack", BindingFlags.Public | BindingFlags.Instance).SetValue(rewardData, MinStack);
-                solynReward.GetField("MaxStack", BindingFlags.Public | BindingFlags.Instance).SetValue(rewardData, MaxStack);
-                solynReward.GetField("GiftedDirectlyFromSolyn", BindingFlags.Public | BindingFlags.Instance).SetValue(rewardData, GiftedDirectlyFromSolyn);
-                method.Invoke(null, autoloadableSolynBookList[book], rewardData);
-            }
+                Assembly wotg = WotG.Code;
+                var types = AssemblyManager.GetLoadableTypes(wotg);
+                MethodInfo method = FindType(types, "NoxusBoss.Core.Graphics.UI.Books.SolynBookRewardsSystem").GetMethod("AddRewardForBook", BindingFlags.Static | BindingFlags.Public);
 
-            AddRewardForBook(SolynBooks.HowToClamity, method, "LifeforcePotion", 2, 4);
-            AddRewardForBook(SolynBooks.HowToClamity, method, "CalmingPotion", 2, 4);
-            foreach (SolynBooks i in new List<SolynBooks> { SolynBooks.BaseBook1, SolynBooks.BaseBook2, SolynBooks.BaseBook3, SolynBooks.BaseBook4, })
-            {
-                AddRewardForBook(i, method, "IronskinPotion", 2, 4);
-                AddRewardForBook(i, method, "RegenerationPotion", 2, 4);
-            }
+                void AddRewardForBook(SolynBooks book, MethodInfo method, string ItemName, int MinStack = 1, int MaxStack = 1, bool GiftedDirectlyFromSolyn = false)
+                {
+                    Type solynReward = FindType(types, "NoxusBoss.Core.Graphics.UI.Books.SolynReward");
+                    object rewardData = Activator.CreateInstance(solynReward);
+                    solynReward.GetField("ItemName", BindingFlags.Public | BindingFlags.Instance).SetValue(rewardData, ItemName);
+                    solynReward.GetField("MinStack", BindingFlags.Public | BindingFlags.Instance).SetValue(rewardData, MinStack);
+                    solynReward.GetField("MaxStack", BindingFlags.Public | BindingFlags.Instance).SetValue(rewardData, MaxStack);
+                    solynReward.GetField("GiftedDirectlyFromSolyn", BindingFlags.Public | BindingFlags.Instance).SetValue(rewardData, GiftedDirectlyFromSolyn);
+                    method.Invoke(null, autoloadableSolynBookList[book], rewardData);
+                }
 
+                AddRewardForBook(SolynBooks.HowToClamity, method, "LifeforcePotion", 2, 4);
+                AddRewardForBook(SolynBooks.HowToClamity, method, "CalmingPotion", 2, 4);
+                foreach (SolynBooks i in new List<SolynBooks> { SolynBooks.BaseBook1, SolynBooks.BaseBook2, SolynBooks.BaseBook3, SolynBooks.BaseBook4, })
+                {
+                    AddRewardForBook(i, method, "IronskinPotion", 2, 4);
+                    AddRewardForBook(i, method, "RegenerationPotion", 2, 4);
+                }
+            }
         }
         private static Type? FindType(Type[] array, string name)
         {
