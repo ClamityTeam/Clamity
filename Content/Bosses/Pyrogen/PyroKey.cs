@@ -139,7 +139,7 @@ namespace Clamity.Content.Bosses.Pyrogen
         {
             GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.Red, new Vector2(0.5f, 0.5f), Main.rand.NextFloat(12f, 25f), 0f, 20f, 40));
             NPC npc = NPC.NewNPCDirect(Projectile.GetSource_Death(), Projectile.Center, ModContent.NPCType<PyrogenBoss>());
-            if ((Main.player[Projectile.owner].name is "AlikEspess" or "Alik"))
+            if ((Main.player[Projectile.owner].name is "AlikEspess" or "Alik" or "Алекс Шаррн"))
                 DialogueDisplaySystem.StartDialogue("Mods.Clamity.Pyrogen.Alik", npc, 0, 120, false, new BossText());
             else if (Main.zenithWorld)
                 ClamityUtils.BossIntroDialogue("Pyrogen", npc, "IntroGFB");

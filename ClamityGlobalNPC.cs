@@ -19,6 +19,7 @@ using Clamity.Content.Items.Accessories;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
 using Clamity.Content.Items.Accessories.Sentry;
 using Clamity.Content.Items.Potions.Food;
+using Clamity.Content.Items.SolynBooks;
 using Clamity.Content.Items.Weapons.Melee.Shortswords;
 using Clamity.Content.Items.Weapons.Typeless;
 using System.Linq;
@@ -51,6 +52,10 @@ namespace Clamity
             {
                 mainRule.Add(ItemDropRule.Common(ModContent.ItemType<Calamitea>(), 1, 10, 10));
                 npcLoot.Add(ItemDropRule.ByCondition(DropHelper.If(info => info.npc.type == ModContent.NPCType<SupremeCalamitas>() && info.npc.ModNPC<SupremeCalamitas>().permafrost, false), ModContent.ItemType<WitherOnAStick>()));
+            }
+            if (npc.type == ModContent.NPCType<GiantClam>())
+            {
+                mainRule.Add(ItemDropRule.ByCondition(DropHelper.If(info => info.npc.type == ModContent.NPCType<GiantClam>() && ClamitySystem.downedClamitas, false), SolynBookRegistry.GetBookItem(SolynBookList.HowToClamity)), true);
             }
 
             //Other Drop
@@ -504,10 +509,20 @@ namespace Clamity
         }
         public override void ModifyShop(NPCShop shop)
         {
+            if (shop.NpcType == NPCID.Merchant)
+                shop.Add(SolynBookRegistry.GetBookItem(SolynBookList.BaseBook1));
+            if (shop.NpcType == NPCID.Clothier)
+                shop.Add(SolynBookRegistry.GetBookItem(SolynBookList.BaseBook2));
+            if (shop.NpcType == NPCID.Wizard)
+                shop.Add(SolynBookRegistry.GetBookItem(SolynBookList.BaseBook4));
             if (shop.NpcType == NPCID.Steampunker)
                 shop.Add<CyanSolution>(new Condition(Language.GetOrRegister("Mods.Clamity.Misc.DefeatedWoB"), () => ClamitySystem.downedWallOfBronze));
             if (shop.NpcType == ModContent.NPCType<Archmage>())
+            {
+                shop.Add(SolynBookRegistry.GetBookItem(SolynBookList.BaseBook3));
                 shop.Add<EnchantedMetal>(new Condition(Language.GetOrRegister("Mods.Clamity.Misc.GeneratedFrozenHell"), () => !ClamitySystem.generatedFrozenHell || ClamityConfig.Instance.PermafrostSoldEnchantedMetal), new Condition(Language.GetOrRegister("Mods.Clamity.Misc.DefeatedWoB"), () => ClamitySystem.downedWallOfBronze));
+            }
+
         }
     }
 }

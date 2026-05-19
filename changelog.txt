@@ -5,6 +5,7 @@ Update 1.0.4 - Assorted Changes
 Additions:
 Added the Gaia's Rose, a Mana Rose alternative with lingering petals that uses Jungle Rose in recipe instead.
 Added own boss intro text.
+Added Solyn Books
 
 Reworks:
 Reworked Eye of Nove to be in-line with Eye of Magnus rework. #BM

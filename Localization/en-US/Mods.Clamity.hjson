@@ -21,6 +21,42 @@ Items: {
 				'''
 		}
 	}
+
+	BaseBook1: {
+		DisplayName: Common Paper
+		ObtainmentHint: "[c/F79BC6:Check the NPC Shop]"
+		Tooltip: Just ordinary paper
+	}
+
+	BaseBook2: {
+		DisplayName: Common Brochure
+		ObtainmentHint: "[c/F79BC6:Check another NPC Shop]"
+		Tooltip: Just ordinary brochure
+	}
+
+	BaseBook3: {
+		DisplayName: Common Book
+		ObtainmentHint: "[c/F79BC6:Check different NPC Shop]"
+		Tooltip: Just ordinary book
+	}
+
+	BaseBook4: {
+		DisplayName: Common Tome
+		ObtainmentHint: "[c/F79BC6:I TOLD YOU CHECK DIFFERENT NPC SHOP!]"
+		Tooltip: Just ordinary tome
+	}
+
+	HowToClamity: {
+		DisplayName: How To Clamity
+		ObtainmentHint: "[c/F79BC6:Clam(ity)]"
+		Tooltip:
+			'''
+			An instruction how to make terrifing event
+
+			Reading further you starts getting crazy and close this book
+			But still safe in your mind word "clam"
+			'''
+	}
 }
 
 Misc: {

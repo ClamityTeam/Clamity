@@ -148,7 +148,7 @@ namespace Clamity.Content.Items.Weapons.Typeless
         internal float WidthFunction(float completionRatio, Vector2 vertexPos) => Projectile.scale * 24f;
         internal Color ColorFunction(float completionRatio, Vector2 vertexPos)
         {
-            Vector3 trailColor = Main.rgbToHsl(Color.Lerp(Color.CornflowerBlue, EyeOfNovaBoom.color, ProximityFactor));
+            Vector3 trailColor = Main.rgbToHsl(Color.Lerp(EyeOfNovaBoom.color, EyeOfNovaBoom.color2, ProximityFactor));
             Vector3 endColor = trailColor + new Vector3(0.1f + MathF.Sin(Main.GlobalTimeWrappedHourly * 5f) * 0.05f, 0f, 0.1f);
             return Main.hslToRgb(Vector3.Lerp(trailColor, endColor, Utils.GetLerpValue(0f, 0.72f, completionRatio, true))) * Utils.GetLerpValue(0.8f, 0.54f, completionRatio, true) * Projectile.Opacity;
         }
