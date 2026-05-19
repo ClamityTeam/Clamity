@@ -25,7 +25,11 @@ namespace Clamity.Content.Items.SolynBooks
                 //CreateSolynBook(3, "Clamity/Content/Items/SolynBooks/");
                 foreach (string i in Enum.GetNames(typeof(SolynBookList)))
                 {
-                    CreateSolynBook(1, $"Clamity/Content/Items/SolynBooks/{i}");
+                    int rarity = 1;
+                    if (i == Enum.GetName(SolynBookList.HowToClamity))
+                        rarity = 2;
+
+                    CreateSolynBook(rarity, $"Clamity/Content/Items/SolynBooks/{i}");
                 }
             }
         }

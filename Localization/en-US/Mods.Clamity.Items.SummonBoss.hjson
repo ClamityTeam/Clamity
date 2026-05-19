@@ -32,9 +32,9 @@ AncientConsole: {
 	DisplayName: Ancient Console
 	Tooltip:
 		'''
-		When placed, summons a Wall of Bronze on right clicked and in Hell
-		Wall of Bronze despawn if you leave Hell
-		WARNING: If you in multiplayer, use summoning item instead of this tile (crafted from this item)
+		When placed in Hell, right click to summon the Wall of Bronze
+		Wall of Bronze will despawn if you leave Hell
+		WARNING: If in multiplayer, use summoning item instead of this tile (crafted from this item)
 		'''
 }
 

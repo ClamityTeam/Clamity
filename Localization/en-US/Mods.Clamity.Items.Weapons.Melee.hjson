@@ -31,7 +31,7 @@ Disease: {
 
 WulfrumLeechDagger: {
 	DisplayName: Wulfrum Leech Dagger
-	Tooltip: Creates shard on hit
+	Tooltip: Releases a wulfrum metal scrap on hit
 }
 
 FrozenVolcano: {

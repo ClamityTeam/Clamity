@@ -31,7 +31,7 @@ Disease: {
 
 WulfrumLeechDagger: {
 	DisplayName: Вульфрумовый кинжал-пиявка
-	// Tooltip: Creates shard on hit
+	// Tooltip: Releases a wulfrum metal scrap on hit
 }
 
 FrozenVolcano: {
