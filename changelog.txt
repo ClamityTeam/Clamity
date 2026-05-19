@@ -6,7 +6,9 @@ Additions:
 Added Solyn Book rewards
 
 Reworks:
-
+Made the obtainment method of the Solyn Books added by this mod more clear, and updated their descriptions.
+The Common Tome is now only sold when the Wizard is in the Hallow biome.
+Increased the rarity of the How to Clamity book to 2 stars.
 
 Removals:
 
@@ -22,3 +24,4 @@ Fixed "How to Clamity" book dropping only during Normal difficulty
 
 
 Localization Changes:
+Updated English localization.

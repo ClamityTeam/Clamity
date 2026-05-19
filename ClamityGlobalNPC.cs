@@ -134,6 +134,7 @@ namespace Clamity
             if (shop.NpcType == NPCID.Clothier)
                 shop.Add(SolynBookRegistry.GetBookItem(SolynBooks.BaseBook2));
             if (shop.NpcType == NPCID.Wizard)
+                shop.Add(SolynBookRegistry.GetBookItem(SolynBookList.BaseBook4), Condition.InHallow);
                 shop.Add(SolynBookRegistry.GetBookItem(SolynBooks.BaseBook4));
             if (shop.NpcType == NPCID.Steampunker)
                 shop.Add<CyanSolution>(new Condition(Language.GetOrRegister("Mods.Clamity.Misc.DefeatedWoB"), () => ClamitySystem.downedWallOfBronze));
