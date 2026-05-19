@@ -121,7 +121,10 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
                                  0f); 
             }*/
 
-            return base.PreDraw(spriteBatch, screenPos, drawColor);
+            Texture2D t = ModContent.Request<Texture2D>(Texture + (phase2 ? "_p2" : "")).Value;
+            spriteBatch.Draw(t, NPC.Center - screenPos, null, drawColor, NPC.rotation, t.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+            return false;
+            //return base.PreDraw(spriteBatch, screenPos, drawColor);
         }
     }
 }

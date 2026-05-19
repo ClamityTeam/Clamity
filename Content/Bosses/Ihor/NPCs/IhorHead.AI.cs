@@ -49,6 +49,7 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         public ref float AI3 => ref NPC.Calamity().newAI[2];
         public ref float AI4 => ref NPC.Calamity().newAI[3];
         public static bool BlizzardEffect;
+        public bool phase2 => CurrentAttack is Attacks.IceMaze;
         public Attacks? DebugDefaultAttack = Attacks.Flamethrower;
         public List<int> AllSegments = new List<int>();
         public override void AI()

@@ -48,6 +48,15 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         public int HeadSegment => (int)NPC.ai[2];
         public int SegmentNumber => (int)NPC.ai[3];
         public IhorHead.Attacks CurrentAttack => (IhorHead.Attacks)((int)Main.npc[HeadSegment].ai[1]);
+        public bool phase2
+        {
+            get
+            {
+                NPC head = Main.npc[HeadSegment];
+                if (head == null || !head.active) return false;
+                return head.ModNPC is IhorHead ihor && ihor.phase2;
+            }
+        }
         public override void AI()
         {
             bool bossRush = BossRushEvent.BossRushActive;
@@ -117,13 +126,17 @@ namespace Clamity.Content.Bosses.Ihor.NPCs
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D t = ModContent.Request<Texture2D>("Clamity/Content/Bosses/Ihor/NPCs/IhorConnection").Value;
+            Texture2D connector = ModContent.Request<Texture2D>("Clamity/Content/Bosses/Ihor/NPCs/IhorConnection").Value;
             NPC aheadSegment = Main.npc[PreviousSegment];
             Vector2 from = NPC.Center + new Vector2(0, NPC.height / 2 - 6).RotatedBy(NPC.rotation);
             Vector2 to = aheadSegment.Center - new Vector2(0, aheadSegment.height / 2 - 6).RotatedBy(aheadSegment.rotation);
 
-            spriteBatch.Draw(t, (from + to) / 2 - Main.screenPosition, null, drawColor * NPC.Opacity, (to - from).ToRotation() - MathHelper.PiOver2, t.Size() / 2f, new Vector2(1, (to - from).Length() / (float)t.Height), SpriteEffects.None, 0);
-            return base.PreDraw(spriteBatch, screenPos, drawColor);
+            spriteBatch.Draw(connector, (from + to) / 2 - Main.screenPosition, null, drawColor * NPC.Opacity, (to - from).ToRotation() - MathHelper.PiOver2, connector.Size() / 2f, new Vector2(1, (to - from).Length() / (float)connector.Height), SpriteEffects.None, 0);
+
+            Texture2D t = ModContent.Request<Texture2D>(Texture + (phase2 ? "_p2" : "")).Value;
+            spriteBatch.Draw(t, NPC.Center - screenPos, null, drawColor, NPC.rotation, t.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+            return false;
+            //return base.PreDraw(spriteBatch, screenPos, drawColor);
         }
     }
 }
