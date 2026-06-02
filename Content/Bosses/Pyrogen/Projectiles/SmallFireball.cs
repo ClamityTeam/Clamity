@@ -6,12 +6,13 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 
 namespace Clamity.Content.Bosses.Pyrogen.Projectiles
 {
-    public class FireBarrage : BrimstoneBarrage, ILocalizedModType, IModType
+    public class SmallFireball : BrimstoneBarrage, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Boss";
         public override void SetStaticDefaults()
@@ -24,13 +25,13 @@ namespace Clamity.Content.Bosses.Pyrogen.Projectiles
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-
+            target.AddBuff(BuffID.OnFire3, 90);
         }
     }
-    public class FireBarrageHoming : FireBarrage, ILocalizedModType, IModType
+    public class SmallFireballHoming : SmallFireball, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Boss";
-        public override string Texture => "Clamity/Content/Bosses/Pyrogen/Projectiles/FireBarrage";
+        public override string Texture => ModContent.GetInstance<SmallFireball>().Texture;
         public int TargetIndex = -1;
         public override void AI()
         {
@@ -59,7 +60,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Projectiles
             }
         }
     }
-    public class Fireblast : SCalBrimstoneFireblast, ILocalizedModType, IModType
+    public class InfernoFireball : SCalBrimstoneFireblast, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Boss";
         public override void SetStaticDefaults()
@@ -72,7 +73,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Projectiles
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-
+            target.AddBuff(BuffID.OnFire3, 90);
         }
         public override void OnKill(int timeLeft)
         {
@@ -85,7 +86,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Projectiles
             {
                 int num = (bossRushActive ? 20 : (flag ? 16 : (flag2 ? 14 : (flag3 ? 12 : 8))));
                 float num2 = MathF.PI * 2f / (float)num;
-                int type = ModContent.ProjectileType<FireBarrage>();
+                int type = ModContent.ProjectileType<SmallFireball>();
                 float num3 = 7f;
                 Vector2 spinningpoint = new Vector2(0f, 0f - num3);
                 for (int i = 0; i < num; i++)

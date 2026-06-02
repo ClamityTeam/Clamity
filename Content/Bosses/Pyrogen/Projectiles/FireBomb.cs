@@ -12,7 +12,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Projectiles
     public class FireBomb : ModProjectile, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Projectiles.Boss";
-        public override string Texture => ModContent.GetInstance<FireBarrage>().Texture;
+        public override string Texture => ModContent.GetInstance<SmallFireball>().Texture;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;

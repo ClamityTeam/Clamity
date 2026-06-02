@@ -56,6 +56,17 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
                 int index = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0.0f, 0.0f, 0.0f);
                 if (Main.projectile.IndexInRange(index))
                     Main.projectile[index].originalDamage = Item.damage;
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    Projectile proj = Main.projectile[i];
+                    if (proj != null)
+                    {
+                        if (proj.active && proj.type == ModContent.ProjectileType<HellsBellsSummon>() && proj.owner == player.whoAmI && proj.Center.WithinRange(player.Center + (Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero) * 8, 32))
+                        {
+                            proj.velocity = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero) * 10;
+                        }
+                    }
+                }
             }
             return false;
         }
@@ -148,7 +159,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
                     colliding = true;
                 if (colliding) Projectile.velocity -= (Main.projectile[i].Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.5f;
             }
-            Vector2 value = Projectile.SafeDirectionTo(Main.MouseWorld) * (Projectile.velocity.Length() + 3.5f);
+            Vector2 value = Projectile.SafeDirectionTo(Owner.Center + (Main.MouseWorld - Owner.Center).SafeNormalize(Vector2.Zero) * 8) * (Projectile.velocity.Length() + 3.5f);
             Projectile.velocity = Vector2.Lerp(Projectile.velocity, value, 0.05f);
             Projectile.rotation = Projectile.velocity.X * 0.1f + MathF.Sin(cooldown) * (cooldown / 30f);
             if (cooldown > 0)

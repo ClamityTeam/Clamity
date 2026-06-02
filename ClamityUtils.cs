@@ -10,6 +10,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 using ClamityMod = Clamity.Clamity;
+using Terraria.Utilities;
 
 namespace Clamity
 {
@@ -262,5 +263,18 @@ namespace Clamity
         }
         public static object? Invoke(this MethodBase a, object? obj, params object?[] parameters) => a.Invoke(obj, parameters);
         #endregion
+        public static void Shuffle<T>(this IList<T> list, int seed)
+        {
+            int n = list.Count;
+            UnifiedRandom rand = new UnifiedRandom(seed);
+            while (n > 1)
+            {
+                n--;
+                int k = rand.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
     }
 }

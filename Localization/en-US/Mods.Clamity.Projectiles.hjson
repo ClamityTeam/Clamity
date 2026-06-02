@@ -71,9 +71,6 @@ Typeless: {
 
 Boss: {
 	BrimstonePearlBurst.DisplayName: Brimstone Pearl Burst
-	Fireblast.DisplayName: Fireblast
-	FireBarrage.DisplayName: Fire Barrage
-	FireBarrageHoming.DisplayName: Fire Barrage
 	FireBomb.DisplayName: Fire Bomb
 	FireBombExplosion.DisplayName: Fire Explosion
 	Firethrower.DisplayName: Firethrower
@@ -85,6 +82,9 @@ Boss: {
 	WoBCutsceneBoom.DisplayName: Wo B Cutscene Boom
 	WoBCutsceneDrama.DisplayName: Wo B Cutscene Drama
 	WoBCutsceneBoomTest.DisplayName: Wo B Cutscene Boom Test
+	InfernoFireball.DisplayName: Inferno Fireball
+	SmallFireball.DisplayName: Fire Barrage
+	SmallFireballHoming.DisplayName: "{$Mods.Clamity.Projectiles.Boss.SmallFireball.DisplayName}"
 }
 
 ShortstrikeEffect.DisplayName: Shortstrike Effect
