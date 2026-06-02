@@ -20,11 +20,10 @@ PyroKey: {
 	DisplayName: Pyro Key
 	Tooltip:
 		'''
-		Summons Pyrogen when used in the desert
-		Right Click to summon without a summon animation
-		Pyrogen will enrage outside the desert
+		Summons Pyrogen when used in the Brimstone Crags
+		Enrages outside the Brimstone Crags
 		Not consumable
-		'A key for a furnace cube.'
+		'The key to Azafure's furnace'
 		'''
 }
 

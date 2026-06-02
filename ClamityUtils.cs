@@ -276,5 +276,9 @@ namespace Clamity
                 list[n] = value;
             }
         }
+        public static float RotationDifference(Vector2 from, Vector2 to)
+        {
+            return (float)Math.Atan2(to.Y * from.X - to.X * from.Y, from.X * to.X + from.Y * to.Y);
+        }
     }
 }
