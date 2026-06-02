@@ -1,7 +1,7 @@
 ﻿using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Events;
-using CalamityMod.Items.Placeables.Furniture.DevPaintings;
+using CalamityMod.Items.Placeables.Furniture.Paintings;
 using CalamityMod.NPCs;
 using CalamityMod.Particles;
 using CalamityMod.World;
@@ -9,7 +9,6 @@ using Clamity.Commons;
 using Clamity.Content.Bosses.Pyrogen.Drop;
 using Clamity.Content.Bosses.Pyrogen.Drop.Weapons;
 using Clamity.Content.Bosses.Pyrogen.Projectiles;
-using Clamity.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -122,7 +121,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                                                     //HP on normal with all shields = 33 500 (3 500 of shields)
                                                     //Death - 42 000 (7000 of shields)
                                                     //Boss Rush - 350 000 (50000 of shields)
-            double num = (double)CalamityConfig.Instance.BossHealthBoost * 0.01;
+            double num = (double)CalamityServerConfig.Instance.BossHealthBoost * 0.01;
             NPC.lifeMax += (int)(NPC.lifeMax * num);
             NPC.aiStyle = -1;
             AIType = -1;
@@ -149,6 +148,10 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                 Music = Clamity.mod.GetMusicFromMusicMod("Pyrogen") ?? MusicID.Sandstorm;
             }
         }
+
+        public static int FireBlastDamage = 23; // 92; Also applies to GFB darts
+        public static int FireRainDamage = 23; // 92; Also applies to GFB darts
+        public static int FireBombDamage = 28; // 112; Also applies to GFB fireblasts
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[2]
@@ -303,6 +306,8 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                 }
             }*/
 
+            CalamityWorld.StopRain(); //honestly pyrogen should just stop rain because hes hot
+
             /*if (CalamityConfig.Instance.BossesStopWeather)
             {
                 CalamityMod.CalamityMod.StopRain();
@@ -407,7 +412,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                     {
                         int num21 = 3;
                         float num22 = MathF.PI * 2f / num21;
-                        int projectileDamage = NPC.GetProjectileDamageClamity(num5);
+                        int projectileDamage = FireBlastDamage;
                         float num24 = 2f + NPC.ai[0];
                         double num25 = (double)num22 * 0.5;
                         double a = (double)MathHelper.ToRadians(90f) - num25;
@@ -416,7 +421,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                         for (int k = 0; k < num21; k++)
                         {
                             Vector2 vector = spinningpoint.RotatedBy(num22 * k);
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + Vector2.Normalize(vector) * 30f, vector, num5, projectileDamage, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + Vector2.Normalize(vector) * 30f, vector, fireblast, projectileDamage, 0f, Main.myPlayer);
                         }
                     }
                 }
@@ -642,7 +647,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             base.NPC.lifeMax = (int)((float)base.NPC.lifeMax * 0.8f * balance);
-            base.NPC.damage = (int)((double)base.NPC.damage * base.NPC.GetExpertDamageMultiplier());
+            base.NPC.damage = (int)((double)base.NPC.damage * base.NPC.GetExpertDamageMultiplierClamity());
         }
 
         public override void HitEffect(NPC.HitInfo hit)
@@ -708,7 +713,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             };
             mainRule.Add(DropHelper.CalamityStyle(DropHelper.NormalWeaponDropRateFraction, itemIDs));
             //mainRule.Add(ModContent.ItemType<GlacialEmbrace>(), 10);
-            mainRule.Add(ItemDropRule.Common(ModContent.ItemType<EssenceOfFlame>(), 1, 8, 10));
+            //mainRule.Add(ItemDropRule.Common(ModContent.ItemType<EssenceOfFlame>(), 1, 8, 10));
             mainRule.Add(DropHelper.PerPlayer(ModContent.ItemType<SoulOfPyrogen>()));
             mainRule.Add(ModContent.ItemType<PyroStone>(), DropHelper.NormalWeaponDropRateFraction);
             mainRule.Add(ModContent.ItemType<HellFlare>(), DropHelper.NormalWeaponDropRateFraction);
@@ -808,7 +813,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             //New           - 3500 - 5000  - 50000
             //Difference    - 2800 - 3600  - 40000
 
-            double num = (double)CalamityConfig.Instance.BossHealthBoost * 0.01;
+            double num = (double)CalamityServerConfig.Instance.BossHealthBoost * 0.01;
             NPC.lifeMax += (int)(NPC.lifeMax * num);
             NPC.Opacity = 0f;
             //NPC.HitSound = Cryogen.HitSound;

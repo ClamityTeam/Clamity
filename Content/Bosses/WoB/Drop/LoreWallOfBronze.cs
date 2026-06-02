@@ -11,7 +11,7 @@ namespace Clamity.Content.Bosses.WoB.Drop
         {
             Item.width = 36;
             Item.height = 26;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.consumable = false;
         }
     }

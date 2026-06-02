@@ -1,14 +1,12 @@
-﻿using CalamityMod.Items.Accessories;
+﻿using CalamityMod;
+using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Tools;
 using CalamityMod.Items.Weapons.Magic;
-using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
 using Clamity.Content.Biomes.FrozenHell.Items;
 using Clamity.Content.Bosses.Clamitas.Drop;
 using Clamity.Content.Bosses.Pyrogen.Drop.Weapons;
-using Clamity.Content.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -40,11 +38,11 @@ namespace Clamity
                 if (ClamityConfig.Instance.UsesClamityWeaponsInCalamityRecipes)
                 {
                     if (recipe.HasResult<Seadragon>())
-                        recipe.requiredItem.Insert(1, ModContent.GetInstance<Obsidigun>().Item);
-                    if (recipe.HasResult<ShatteredSun>())
-                        recipe.requiredItem.Insert(1, ModContent.GetInstance<MoltenPiercer>().Item);
+                        recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<Obsidigun>(), 1));
+                    if (recipe.HasResult<ShatteredDawn>())
+                        recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<MoltenPiercer>(), 1));
                     if (recipe.HasResult<NuclearFury>())
-                        recipe.requiredItem.Insert(2, ModContent.GetInstance<TheGenerator>().Item);
+                        recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<TheGenerator>(), 1));
                     /*if (recipe.HasResult<ElementalShiv>())
                     {
                         recipe.requiredItem.Insert(0, ModContent.GetInstance<TerraShiv>().Item);
@@ -57,78 +55,15 @@ namespace Clamity
                     //Husk of Calamity
                     if (recipe.HasResult(ModContent.ItemType<TheAbsorber>()))
                     {
-                        recipe.RemoveIngredient(ModContent.ItemType<MolluskHusk>());
-                        recipe.AddIngredient<HuskOfCalamity>(5);
+                        recipe.ReplaceIngredient(ModContent.ItemType<MolluskHusk>(), ModContent.ItemType<HuskOfCalamity>(), 5);
                     }
                     if (recipe.HasResult(ModContent.ItemType<TheAmalgam>()))
                     {
-                        recipe.RemoveIngredient(ModContent.ItemType<MolluskHusk>());
-                        recipe.AddIngredient<HuskOfCalamity>(10);
+                        recipe.ReplaceIngredient(ModContent.ItemType<MolluskHusk>(), ModContent.ItemType<HuskOfCalamity>(), 10);
                     }
                     if (recipe.HasResult(ModContent.ItemType<AbyssalDivingSuit>()))
                     {
-                        recipe.RemoveIngredient(ModContent.ItemType<MolluskHusk>());
-                        recipe.AddIngredient<HuskOfCalamity>(15);
-                    }
-
-                    //Core of Heat
-                    int coreOfHeat = ModContent.ItemType<CoreOfFlame>();
-                    if (recipe.HasResult<CoreofCalamity>())
-                    {
-                        //item2.stack = 3;
-                        recipe.requiredItem.Insert(3, new Item(coreOfHeat) { stack = 3 });
-                    }
-                    if (recipe.HasResult<Hellkite>())
-                    {
-                        //item2.stack = 3;
-                        recipe.requiredItem.Add(new Item(coreOfHeat) { stack = 3 });
-                    }
-                    if (recipe.HasResult<RedSun>())
-                    {
-                        //item2.stack = 5;
-                        recipe.requiredItem.RemoveAt(2);
-                        recipe.requiredItem.Insert(2, new Item(coreOfHeat) { stack = 5 });
-                        //recipe.requiredItem[2] = item;
-                    }
-                    if (recipe.HasResult<DraconicDestruction>())
-                    {
-                        //item2.stack = 3;
-                        //recipe.requiredItem[1] = item;
-                        recipe.requiredItem.RemoveAt(1);
-                        recipe.requiredItem.Insert(1, new Item(coreOfHeat) { stack = 3 });
-                    }
-                    if (recipe.HasResult<Mourningstar>())
-                    {
-                        //item2.stack = 6;
-                        recipe.requiredItem.Insert(3, new Item(coreOfHeat) { stack = 6 });
-                    }
-                    if (recipe.HasResult<Sandslasher>())
-                    {
-                        //item2.stack = 6;
-                        //recipe.requiredItem[1] = item;
-                        recipe.requiredItem.RemoveAt(1);
-                        recipe.requiredItem.Insert(1, new Item(coreOfHeat) { stack = 6 });
-                    }
-
-
-                    //Essence of Flame
-                    int essenceOfHeat = ModContent.ItemType<EssenceOfFlame>();
-                    if (recipe.HasResult<FlarewingBow>())
-                    {
-                        //item3.stack = 5;
-                        //recipe.requiredItem[1] = item;
-                        recipe.requiredItem.RemoveAt(1);
-                        recipe.requiredItem.Insert(1, new Item(essenceOfHeat) { stack = 5 });
-                    }
-                    if (recipe.HasResult<InfernaCutter>())
-                    {
-                        //item3.stack = 3;
-                        recipe.requiredItem.Add(new Item(essenceOfHeat) { stack = 3 });
-                    }
-                    if (recipe.HasResult<BlazingStar>())
-                    {
-                        //item3.stack = 10;
-                        recipe.requiredItem.Add(new Item(essenceOfHeat) { stack = 10 });
+                        recipe.ReplaceIngredient(ModContent.ItemType<MolluskHusk>(), ModContent.ItemType<HuskOfCalamity>(), 15);
                     }
                 }
 
@@ -137,6 +72,10 @@ namespace Clamity
                 {
                     //item3.stack = 10;
                     recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<EnchantedMetal>()));
+                }
+                if (recipe.HasResult<ManaRose>() && recipe.IngredientIndex(ItemID.JungleRose) != -1)
+                {
+                    recipe.DisableRecipe();
                 }
             }
         }

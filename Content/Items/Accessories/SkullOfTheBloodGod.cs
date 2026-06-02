@@ -13,15 +13,8 @@ using Terraria.ModLoader;
 
 namespace Clamity.Content.Items.Accessories
 {
-    public class SkullOfTheBloodGod : ModItem, ILocalizedModType, IModType
+    public class SkullOfTheBloodGod : ToggableAccessory
     {
-        public new string LocalizationCategory => "Items.Accessories";
-
-        /*public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }*/
-
         public override void SetStaticDefaults()
         {
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 4));
@@ -33,10 +26,25 @@ namespace Clamity.Content.Items.Accessories
             Item.width = Item.height = 48;
             Item.accessory = true;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            Item.rare = ModContent.RarityType<DarkBlue>();
+            Item.rare = ModContent.RarityType<CosmicPurple>();
+        }
+        public override void ToggledUpdateAccessory(Player player, bool hideVisual)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                var source = player.GetSource_Accessory(Item);
+                if (player.immune)
+                {
+                    if (player.miscCounter % 10 == 0)
+                    {
+                        int damage = (int)player.GetBestClassDamage().ApplyTo(120);
+                        CalamityUtils.ProjectileRain(source, player.Center, 400f, 100f, 500f, 800f, 22f, ModContent.ProjectileType<StandingFire>(), damage, 5f, player.whoAmI);
+                    }
+                }
+            }
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void SafeUpdateAccessory(Player player, bool hideVisual)
         {
             player.Clamity().skullOfBloodGod = true;
 
@@ -50,19 +58,7 @@ namespace Clamity.Content.Items.Accessories
             player.GetCritChance<GenericDamageClass>() += 13f;
 
             modPlayer.voidOfCalamity = true;
-            player.GetDamage<GenericDamageClass>() += 0.2f;
-            if (player.whoAmI == Main.myPlayer)
-            {
-                var source = player.GetSource_Accessory(Item);
-                if (player.immune)
-                {
-                    if (player.miscCounter % 10 == 0)
-                    {
-                        int damage = (int)player.GetBestClassDamage().ApplyTo(120);
-                        CalamityUtils.ProjectileRain(source, player.Center, 400f, 100f, 500f, 800f, 22f, ModContent.ProjectileType<StandingFire>(), damage, 5f, player.whoAmI);
-                    }
-                }
-            }
+            player.GetDamage<GenericDamageClass>() += 0.15f;
         }
 
         public override void AddRecipes()

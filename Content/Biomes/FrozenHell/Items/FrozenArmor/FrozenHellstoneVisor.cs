@@ -17,7 +17,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
             Item.width = 26;
             Item.height = 26;
             Item.value = Item.sellPrice(gold: 10);
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.defense = 60;
         }
 
@@ -40,6 +40,35 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
             player.buffImmune[324] = true;
             player.buffImmune[47] = true;
             player.aggro += 400;
+        }
+
+        public static void HandleParryCountdown(Player player)
+        {
+            player.Clamity().frozenParryingTime--;
+
+            if (player.Clamity().frozenParryingTime > 0)
+            {
+                /*player.controlJump = false;
+                player.controlDown = false;
+                player.controlLeft = false;
+                player.controlRight = false;
+                player.controlUp = false;
+                player.controlUseItem = false;
+                player.controlUseTile = false;
+                player.controlThrow = false;
+                player.gravDir = 1f;
+                player.velocity = Vector2.Zero;
+                player.velocity.Y = -0.1f; //if player velocity is 0, the flight meter gets reset
+                player.RemoveAllGrapplingHooks();*/
+            }
+            else
+            {
+                /*for (int i = 0; i < 8; i++)
+                {
+                    int theDust = Dust.NewDust(player.position, player.width, player.height, (int)CalamityDusts.Brimstone, 0f, 0f, 100, new Color(255, 255, 255), 2f);
+                    Main.dust[theDust].noGravity = true;
+                }*/
+            }
         }
 
 

@@ -11,11 +11,12 @@ namespace Clamity.Commons.DrawLayers
     {
         public enum EncasementType
         {
-            FrozenArmor
+            FrozenArmor,
+            SeaShell
         }
         public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.FrontAccFront); //me when the player layer is called front acc front :skull:
 
-        public EncasementType GetEncasementTypeFor(ClamityPlayer modPlayer) => modPlayer.frozenParrying ? EncasementType.FrozenArmor : EncasementType.FrozenArmor;
+        public EncasementType GetEncasementTypeFor(ClamityPlayer modPlayer) => modPlayer.frozenParrying ? EncasementType.FrozenArmor : EncasementType.SeaShell;
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
@@ -26,6 +27,7 @@ namespace Clamity.Commons.DrawLayers
             visible = encasement switch
             {
                 EncasementType.FrozenArmor => visible && modPlayer.frozenParryingTime > 0,
+                EncasementType.SeaShell => visible && modPlayer.seaShellParryingTime > 0,
                 _ => false
             };
             return visible;
@@ -34,9 +36,9 @@ namespace Clamity.Commons.DrawLayers
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
             Player drawPlayer = drawInfo.drawPlayer;
-            var calPlayer = drawPlayer.Clamity();
-            var calPlayer2 = drawPlayer.Calamity();
-            var encasement = GetEncasementTypeFor(calPlayer);
+            var clamPlayer = drawPlayer.Clamity();
+            var calPlayer = drawPlayer.Calamity();
+            var encasement = GetEncasementTypeFor(clamPlayer);
             string tex = "Clamity/Commons/DrawLayers/";
             string texPlus = "NoneParry";
             int currentParry;
@@ -46,9 +48,15 @@ namespace Clamity.Commons.DrawLayers
             {
                 case EncasementType.FrozenArmor:
                     texPlus = "CryoParryShield";
-                    currentParry = calPlayer.frozenParryingTime;
+                    currentParry = clamPlayer.frozenParryingTime;
                     defaultOpacity = 0.725f;
                     scale = 1.15f;
+                    break;
+                case EncasementType.SeaShell:
+                    texPlus = "SeaShellParry";
+                    currentParry = clamPlayer.seaShellParryingTime;
+                    defaultOpacity = 0.825f;
+                    scale = 1.2f;
                     break;
                 default: //should never be this option
                     texPlus = "NoneParry";
@@ -57,7 +65,7 @@ namespace Clamity.Commons.DrawLayers
                     scale = 0f;
                     break;
             }
-            if (calPlayer2.blazingCore || calPlayer2.flameLickedShell)
+            if (calPlayer.blazingCore || calPlayer.flameLickedShell)
                 texPlus = "NoneParry";
             tex += texPlus;
 

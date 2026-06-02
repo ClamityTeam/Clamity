@@ -20,7 +20,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
         public override void SetDefaults()
         {
             Item.width = Item.height = 64;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
 
             Item.useAnimation = Item.useTime = 10;
@@ -30,7 +30,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
             Item.noUseGraphic = true;
             Item.noMelee = true;
 
-            Item.damage = 300;
+            Item.damage = 750;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 8.5f;
 

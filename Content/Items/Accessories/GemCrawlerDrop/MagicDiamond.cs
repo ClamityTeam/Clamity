@@ -7,6 +7,10 @@ namespace Clamity.Content.Items.Accessories.GemCrawlerDrop
     public class MagicDiamond : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Accessories";
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             Item.width = 24;

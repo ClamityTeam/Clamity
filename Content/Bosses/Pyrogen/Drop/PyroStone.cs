@@ -32,7 +32,11 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop
             Item.rare = ItemRarityID.Pink;
             Item.accessory = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual) => player.Clamity().pyroStone = true;
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.Clamity().pyroStone = true;
+            player.Calamity().HeatDebuffMultiplier += 0.5f;
+        }
         public override void UpdateVanity(Player player) => player.Clamity().pyroStoneVanity = true;
     }
     public class PyroShieldAccessory : ModProjectile, ILocalizedModType, IModType
@@ -86,7 +90,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop
             if (Main.player[Projectile.owner].Clamity().pyroStoneVanity)
                 return;
             target.AddBuff(BuffID.OnFire3, 180, false);
-            target.AddBuff(ModContent.BuffType<Dragonfire>(), 30, false);
+            target.AddBuff(ModContent.BuffType<BrimstoneFlames>(), 60, false);
             if (target.knockBackResist <= 0 || !CalamityGlobalNPC.ShouldAffectNPC(target))
                 return;
             float num = MathHelper.Clamp(1f - target.knockBackResist, 0.0f, 1f);
@@ -100,7 +104,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop
             if (Main.player[Projectile.owner].Clamity().pyroStoneVanity)
                 return;
             target.AddBuff(BuffID.OnFire3, 180, true, false);
-            target.AddBuff(ModContent.BuffType<Dragonfire>(), 30, true, false);
+            target.AddBuff(ModContent.BuffType<BrimstoneFlames>(), 60, true, false);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

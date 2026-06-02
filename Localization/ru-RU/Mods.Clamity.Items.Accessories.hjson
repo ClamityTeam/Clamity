@@ -1,3 +1,19 @@
+Wings: {
+	MetalWings: {
+		DisplayName: Металлические крылья
+		Tooltip:
+			'''
+			Horizontal speed: 10.50
+			Acceleration multiplier: 2.8
+			Excellent vertical speed
+			Flight time: 280
+			Когда надета Замороженная броня все игроки в вашей группе получают 20 защиты
+			Востанавливает часть времени полёта после получения урона
+			'''
+		HoldShiftTooltip: "  Количество восстановленного времени полёта равна половине соотношения полученного урона к максимальному запасу жизни"
+	}
+}
+
 SoulOfPyrogen: {
 	DisplayName: Душа Пирогена
 	Tooltip:
@@ -12,8 +28,12 @@ DraculasCharm: {
 	Tooltip:
 		'''
 		Увеличивает разбойный урон на 15% и максимальный запас скрытности на 10
-		Скрытные удары наносят на 8% больше урона, призывают рой из самонаводящихся летучий мышей-вампиров и накладывают дебафф «Разрушение»
-		Снаряды разбойного оружия похищают часть здоровья врага при критических ударах, а также разрушаются на самонаводящиеся души при уничтожении
+		Rogue critical strikes steal enemy life
+		Stealth strikes grant 15% critical strike chance and increased lifesteal to non-stealth strikes for 10 seconds
+		Stealth strikes inflict Heavy Bleeding and Armor Crunch, and deal 8% more damage
+		Stealth strikes summon a swarm of lifestealing vampire bats
+		Rogue projectiles explode into homing souls
+		'Possessing the talisman makes you yearn for blood and souls'
 		'''
 }
 
@@ -21,7 +41,7 @@ PyroStone: {
 	DisplayName: Пирокамень
 	Tooltip:
 		'''
-		Увеличивает урон всех огненых дебаффов в 1,5 раза
+		50% увеличенного урона тепловых дебаффов
 		Создаёт кольцо из огненого щита, которое наносит урон и поджигает врагов
 		«Одна из древних реликвий»
 		'''
@@ -31,10 +51,10 @@ HellFlare: {
 	DisplayName: Адское пламя
 	Tooltip:
 		'''
-		Все атаки и снаряды накладывают дебафф «{$BuffName.OnFire3}»
-		Даёт имунитет к дебаффам «{$BuffName.OnFire}» и «{$BuffName.OnFire3}»
-		Увеличивает шанс критического удара на 10%, при показателе здоровья выше 75%
-		Снижает получаемый урон на 10%, при показателе здоровья ниже 25%
+		Все атаки и снаряды накладывают дебафф [cbuff:OnFire3]
+		Даёт имунитет к дебаффам [cbuff:OnFire] и [cbuff:OnFire3]
+		Увеличивает шанс критического удара на 10%, при показателе здоровья выше 50%
+		Снижает получаемый урон на 10%, при показателе здоровья ниже 50%
 		Даёт защиту против холодных атак
 		'''
 }
@@ -43,15 +63,16 @@ SupremeBarrier: {
 	DisplayName: Высший барьер
 	Tooltip:
 		'''
-		Позволяет совершать таранящий рывок, усиленный космическим инферно
-		Даёт невосприимчевость к отбрасыванию и огненным блокам
-		Даёт невосприимчевость к подавляющему большинству дебаффов, включая «{$Mods.CalamityMod.Buffs.ArmorCrunch.DisplayName}»
-		Вызывает звездопад после получения урона
-		Даёт дополнительные кадры неуязвимости в зависимости от недостающего здоровья
-		Эффект масштабируется начиная с 10 кадров при полном здоровье и заканчивая 40 кадрами при 25% здоровья или менее
-		Перенаправляет на владельца щита 15% урона, полученного игрокам вашей команды, если здоровье владельца выше 25%
-		Окружает панцирем, который увеличивает сопротивление урону на 25%, если ваше здоровье ниже 50%
+		{$Mods.CalamityMod.Common.KnockbackImmunity}
+		Allows the ability to dash, empowered by a cosmic inferno
+		This dash can ram through enemies without taking damage
+		Releases a blast of homing star-bees[TOGGLE] and drenches you in [cbuff:Honey] after taking damage
+		Increases the length of invincibility, with it increasing even more when at low health or taking high damage attacks
+		Reduces damage taken by 25% when below 50% life
+		Absorbs 25% of damage done to players on your team when you are above 25% life
+		[c/aaaaaa:Shift-<right> this item in your inventory to toggle] [i:PanicNecklace] [c/aaaaaa:Panic Necklace's effect]
 		'''
+	ToggleEffect: ", increases movement speed,"
 }
 
 IcicleRing: {
@@ -67,45 +88,42 @@ RedDie: {
 	DisplayName: Красный кубик
 	Tooltip:
 		'''
-		Увеличивает удачу в 1,5 раза
 		Дополнительно увеличивает удачу на 20%
-		«Готов переигрывать?»
+		Умножает твою удачу в 1.5 раза
+		«Готов к реролу?»
 		'''
 }
 
 EidolonAmulet: {
 	DisplayName: Призрачный амулет
-	Tooltip:
+	/* Tooltip:
 		'''
-		Дает иммунитет к дебаффам «Разрывной поток», «Глубина сокрушения» и «Облучение»
-		Все атаки накладывают дебафф «Глубина сокрушения» и выпускают капли кислоты с неба
-		Вы восстанавливаете воздух, неподвижно стоя под водой (не работает в бездне)
-		На 15% увеличена скорость добычи и на 10% увеличен урон когда мокром состоянии
-		25% увеличена максимальные ХП, когда ты в в бездне
-		Обеспечивает умеренное количество света в бездне
-		'''
+		<its placeholder that can be changed after accessory rework>
+		60% increased Water debuff damage
+		Slowly accrue up to three different abyssal spirits
+		Dash to disperse the spirits and have them attack enemies
+		When dispersed [c/CB7AD7:below 50% life], the spirits support you instead
+		The spirits appear in order and have different effects based on color:
+		[c/3CB371: Explodes on impact and inflicts Crush Depth] / [c/CB7AD7:Heals for 8 HP]
+		[c/FF4500: Pierces enemies and inflicts Hellfire] / [c/CB7AD7:Increases defense by 10 temporarily]
+		[c/1E90FF: Hits multiple times and inflicts Hadopelagic Pressure] / [c/CB7AD7:Heals 5% of max HP]
+		Spirits are transparent and silent when visibility is toggled off
+		''' */
 }
 
-Wings: {
-	MetalWings: {
-		DisplayName: Металлические крылья
-		Tooltip:
-			'''
-			После получения урона вы востанавливаете проценты времени полёта равному половины соотношения полученного урона к максимальному ХП
-			Когда надета Замороженная броня все игроки в вашей группе получают 20 увеличенной защиты
-			'''
-	}
-}
-
-PearlOfFishCalamity: {
-	DisplayName: Жемчуг бедствия рыб
+TreasureOfClamity: {
+	DisplayName: Treasure of Clamity
 	Tooltip:
 		'''
-		50 увеличенной силы рыбалки
-		Значительно увеличивает шанц выловить рыбу, использующийся для зелий
-		Увеличивает шанц выловить ящик
-		Количество вылавливаемой рыбы, использующийся для зелий, увеличены
-		Призывает водяной элементаль кто поможет защитить тебя во время рыбалки
+		25 увеличенной силы рыбалки
+		Увеличивает количество вылавливаемой рыбы используемых для зелий
+		Увеличивает шанс выловить ящик и рыбы содержащий лут на 15%
+		Ящики на 25% более вероятны оказаться более качественным, сопровождая эффектами жемчужен[TOGGLE]
+		'''
+	ToggleEffect:
+		'''
+
+		Призывает водяного элементаля кто поможет защитить тебя
 		'''
 }
 
@@ -119,8 +137,8 @@ TheSubcommunity: {
 	/* Tooltip:
 		'''
 		[STATS]
-		'The part of The (Calamity) Community.'
-		'Has own specialization.'
+		'The part of The (Calamity) Community'
+		'Has own its own specialization'
 		[c/B00BA5:Thank you to all of my supporters who made this addon a reality!]
 		''' */
 	/* StatsList:
@@ -156,7 +174,7 @@ BlightedSpyglass: {
 	/* Tooltip:
 		'''
 		+1 max sentry
-		Sentries inflict a Brimstone Flames
+		Sentries inflict a [cbuff:CalamityMod/BrimstoneFlames]
 		''' */
 }
 
@@ -165,7 +183,12 @@ CyanPearl: {
 	/* Tooltip:
 		'''
 		+7% summon damage
-		Halves summon damage penalty for sentries
+		Halves the summon damage penalty for sentries
+		''' */
+	/* HoldShiftTooltip:
+		'''
+		  When holding non-summon/non-average weapon sentries will deal 0.875x damage instead of 0.75x
+		  Also not applies penalty if holding classless weapons or active Old One's Army
 		''' */
 }
 
@@ -173,10 +196,15 @@ SkullOfTheBloodGod: {
 	// DisplayName: Skull of the Blood God
 	/* Tooltip:
 		'''
-		20% increased damage and 13% increased critical strike chance
-		Critical strikes explode, causing nearby enemies to ignite with Brimstone Flames
-		Halves enemy contact damage with a 20 second cooldown
+		15% increased damage and 13% increased critical strike chance
+		Critical strikes explode, causing nearby enemies to ignite with [cbuff:CalamityMod/BrimstoneFlames]
+		Halves enemy contact damage with a 20 second cooldown[TOGGLE]
+		Reduces damage taken from [cbuff:CalamityMod/BrimstoneFlames] by 50%
+		[c/aaaaaa:Shift-<right> this item in your inventory to toggle] [i:CalamityMod/VoidofCalamity] [c/aaaaaa:Void of Calamity's rain effect]
+		''' */
+	/* ToggleEffect:
+		'''
+
 		Brimstone fire rains down after getting hit
-		Greatly reduces the damage taken by the Brimstone Flames debuff
 		''' */
 }

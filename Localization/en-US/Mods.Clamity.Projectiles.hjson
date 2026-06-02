@@ -9,6 +9,8 @@ Melee: {
 	EverestProjectile.DisplayName: Everest
 	ExoNewBeam.DisplayName: Exo Beam
 	ExoNewExplosion.DisplayName: Exo Explosion
+	EtherealKnivesProjectile.DisplayName: Ethereal Knives Projectile
+	HyperionProjectile.DisplayName: Hyperion Projectile
 }
 
 Ranged: {
@@ -28,6 +30,11 @@ Ranged: {
 Magic: {
 	TheGeneratorSigil.DisplayName: The Generator Sigil
 	MoonstoneKnifeProjectile.DisplayName: Moonstone Knife
+	UnicronBeam.DisplayName: Unicron Beam
+	UnicronWingmanGrenade.DisplayName: Unicron Wingman Grenade
+	UnicronWingmanShot.DisplayName: Unicron Wingman Shot
+	GaiaRoseBolt.DisplayName: Gaia's Flower
+	GaiaRoseBoltSmall.DisplayName: Gaia's Flower Petal
 }
 
 Summon: {
@@ -49,12 +56,14 @@ Rogue: {
 	ExoBallProjectile.DisplayName: Exo Ball
 	AuricKunaiProjectile.DisplayName: Auric Kunai
 	AuricKunaiLightning.DisplayName: Auric Lightning
+	StarfishFromTheDepthProj.DisplayName: Starfish from the Depth
 }
 
-Classless: {
+Typeless: {
 	PyroShieldAccessory.DisplayName: Pyro Shield
 	AMSProj.DisplayName: AMS
 	EyeOfNovaProjectile.DisplayName: Nova Blast
+	EyeOfNovaBoom.DisplayName: Nova Blast Explosion
 	TrashOfMagnusProjectile.DisplayName: Plague Bolt
 	SharpAmethystProj.DisplayName: Sharp Amethyst
 	GoldenGunProj.DisplayName: Golden Gun Proj
@@ -70,6 +79,9 @@ Boss: {
 	WallOfBronzeLaserBeamStart.DisplayName: Plasma Beam
 	WallOfBronzeClawProjectile.DisplayName: Bronze Claw
 	WoBDeathrayStart.DisplayName: Plasma Deathray
+	WoBCutsceneBoom.DisplayName: Wo B Cutscene Boom
+	WoBCutsceneDrama.DisplayName: Wo B Cutscene Drama
+	WoBCutsceneBoomTest.DisplayName: Wo B Cutscene Boom Test
 	InfernoFireball.DisplayName: Inferno Fireball
 	SmallFireball.DisplayName: Fire Barrage
 	SmallFireballHoming.DisplayName: "{$Mods.Clamity.Projectiles.Boss.SmallFireball.DisplayName}"
@@ -82,3 +94,5 @@ SoulOfPyrogenSpear.DisplayName: Soul Of Pyrogen Spear
 PyrogenSummonAnimation.DisplayName: Pyrogen Summon Animation
 CyanSolutionProjectile.DisplayName: Cyan Solution
 HeavyMetalTrashCanPet.DisplayName: Mini Bocchi
+AncientConsoleProjectile.DisplayName: Ancient Console Projectile
+Classless.PyroShieldAccessory.DisplayName: Pyro Shield Accessory

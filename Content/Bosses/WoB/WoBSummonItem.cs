@@ -15,7 +15,7 @@ namespace Clamity.Content.Bosses.WoB
         {
             Item.width = Item.height = 32;
             Item.value = Terraria.Item.sellPrice(0, 10, 0);
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
 
             Item.useTime = Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.HoldUp;

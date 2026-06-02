@@ -18,7 +18,7 @@ namespace Clamity.Content.Items.Ammo
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.WoodenArrow);
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = Terraria.Item.sellPrice(copper: 30);
 
             Item.shoot = ModContent.ProjectileType<FrostfireArrowProj>();

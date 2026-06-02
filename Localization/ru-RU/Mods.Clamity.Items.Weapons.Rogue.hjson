@@ -25,10 +25,9 @@ ExoBall: {
 	DisplayName: Экзо шар
 	Tooltip:
 		'''
-		Швыряет до 10 скоростных самонаводящихся шипастых шаров
-		Прикрепляется к врагам и вызывает локализованный шторм экзо лучей
-		При стрытном ударе самонаводится быстрее и вызывает лучи с большей скоростью
-		Нажмите <right>, чтобы удалить все существующие шипастые шары
+		Hurls homing spiky balls which attach to enemies
+		Attached spiky balls summon a localized storm of exo balts on each hit
+		Stealth strikes home in faster and hit at a faster rate
 		'''
 }
 
@@ -39,4 +38,14 @@ AuricKunai: {
 		Выпускает быстрый поток кунаев ближнего действия
 		Невидимые удары наносят 5 молний ближайшему врагу
 		'''
+}
+
+StarfishFromTheDepth: {
+	// DisplayName: Starfish from the Depth
+	/* Tooltip:
+		'''
+		Starfish home onto the nearest targets for up to 5 hits before returning
+		Right click or stop holding this weapon to make active starfish return to you
+		Stealth strikes throw three starfish at the same time
+		''' */
 }

@@ -1,13 +1,16 @@
 ﻿using CalamityMod.Items;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Clamity.Content.Items.Accessories.Sentry
 {
-    public class CyanPearl : ModItem, ILocalizedModType, IModType
+    public class CyanPearl : ModItem, ILocalizedModType, IModType, IHoldShiftTooltipItem
     {
         public new string LocalizationCategory => "Items.Accessories";
+        //public bool HasFlavorTooltip => true;
+        public Color? TooltipExtensionColor => new(195, 223, 255);
         public override void SetDefaults()
         {
             Item.width = 24;

@@ -33,7 +33,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
             Item.shoot = ModContent.ProjectileType<TheGeneratorSigil>();
             Item.shootSpeed = 5f;
 
-            Item.damage = 67;
+            Item.damage = 77;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 2f;
             Item.mana = 17;
@@ -59,7 +59,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
             Projectile.timeLeft = 500;
             Projectile.tileCollide = false;
             //Projectile.extraUpdates = 3;
-            AIType = 14;
+            AIType = ProjectileID.Bullet;
             //Projectile.Calamity().pointBlankShotDuration = 18;
         }
         public int TargetIndex = -1;
