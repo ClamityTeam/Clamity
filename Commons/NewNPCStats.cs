@@ -2,8 +2,6 @@
 using CalamityMod.Projectiles.Boss;
 using CalamityMod.World;
 using Clamity.Content.Bosses.Clamitas.NPCs;
-using Clamity.Content.Bosses.Pyrogen.NPCs;
-using Clamity.Content.Bosses.Pyrogen.Projectiles;
 using Clamity.Content.Bosses.WoB.NPCs;
 using Clamity.Content.Bosses.WoB.Projectiles;
 using System;
@@ -27,34 +25,6 @@ namespace Clamity.Commons
 
             EnemyStats.ProjectileDamageValues = new SortedDictionary<Tuple<int, int>, int[]>()
             {
-                {
-                  new Tuple<int, int>(ModContent.NPCType<PyrogenShield>(), ModContent.ProjectileType<SmallFireball>()),
-                  new int[5]{ 60, 100, 120, 132, 180 }
-                },
-                {
-                  new Tuple<int, int>(ModContent.NPCType<PyrogenShield>(), ModContent.ProjectileType<InfernoFireball>()),
-                  new int[5]{ 80, 120, 136, 152, 210 }
-                },
-                {
-                  new Tuple<int, int>(ModContent.NPCType<PyrogenBoss>(), ModContent.ProjectileType<SmallFireball>()),
-                  new int[5]{ 60, 100, 120, 132, 180 }
-                },
-                {
-                  new Tuple<int, int>(ModContent.NPCType<PyrogenBoss>(), ModContent.ProjectileType<SmallFireballHoming>()),
-                  new int[5]{ 60, 100, 120, 132, 180 }
-                },
-                {
-                  new Tuple<int, int>(ModContent.NPCType<PyrogenBoss>(), ModContent.ProjectileType<InfernoFireball>()),
-                  new int[5]{ 80, 120, 136, 152, 210 }
-                },
-                {
-                  new Tuple<int, int>(ModContent.NPCType<PyrogenBoss>(), ModContent.ProjectileType<FireBomb>()),
-                  new int[5]{ 60, 100, 120, 132, 180 }
-                },
-                {
-                  new Tuple<int, int>(ModContent.NPCType<PyrogenBoss>(), ModContent.ProjectileType<Firethrower>()),
-                  new int[5]{ 60, 100, 120, 132, 180 }
-                },
                 {
                   new Tuple<int, int>(ModContent.NPCType<ClamitasBoss>(), ModContent.ProjectileType<BrimstoneBarrage>()),
                   new int[5]{ 90, 110, 130, 136, 150 }

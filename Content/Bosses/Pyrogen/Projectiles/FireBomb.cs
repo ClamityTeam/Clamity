@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 
@@ -66,12 +67,9 @@ namespace Clamity.Content.Bosses.Pyrogen.Projectiles
                     GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.Red, new Vector2(0.5f, 0.5f), Main.rand.NextFloat(12f, 25f), 0f, 3f, Time - 1));
                 }
                 Projectile.ai[1]++;
-                if (Projectile.ai[1] >= Time)
+                if (Projectile.ai[1] >= Time && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int index = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Firethrower>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 2f);
-                    Main.projectile[index].width *= 2;
-                    Main.projectile[index].height *= 2;
-                    //Main.projectile[index].scale = 2f;
                     Projectile.Kill();
                 }
             }

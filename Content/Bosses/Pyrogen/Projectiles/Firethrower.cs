@@ -21,6 +21,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Projectiles
             Projectile.penetrate = -1;
             Projectile.timeLeft = 180;
             Projectile.extraUpdates = 2;
+            Projectile.scale = 1.75f;
         }
         /*public bool Spawned
         {
@@ -40,8 +41,8 @@ namespace Clamity.Content.Bosses.Pyrogen.Projectiles
         {
             //Projectile.velocity *= 0.95f;
             //Projectile.position = Projectile.position - Projectile.velocity;
-            Projectile.scale = 0.75f + (180 - Projectile.timeLeft) / 240f;
-            Projectile.scale *= Projectile.ai[0];
+            //Projectile.scale = 0.75f + (180 - Projectile.timeLeft) / 240f;
+            //Projectile.scale *= Projectile.ai[0];
             Projectile.rotation += Projectile.velocity.Length() * 0.1f * (Projectile.velocity.X > 0 ? 1 : -1);
             Projectile.frameCounter++;
             if (Projectile.frameCounter % 10 == 0)
