@@ -8,6 +8,11 @@ namespace Clamity.Content.Bosses.Stupid
 {
     public class Stupid : ModNPC
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetStaticDefaults()
         {
             this.HideFromBestiary();

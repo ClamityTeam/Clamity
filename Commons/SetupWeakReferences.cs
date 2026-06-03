@@ -76,11 +76,17 @@ namespace Clamity.Commons
                 new BossRushEvent.Boss(
                     ModContent.NPCType<PyrogenBoss>(),
                     BossRushEvent.TimeChangeContext.None,
-                    (BossRushEvent.Boss.OnSpawnContext)null,
+                    type =>
+                    {
+                        Player player = Main.player[BossRushEvent.ClosestPlayerToWorldCenter];
+
+                        if (!NPC.AnyNPCs(ModContent.NPCType<PyrogenBoss>()))
+                            NPC.SpawnOnPlayer(BossRushEvent.ClosestPlayerToWorldCenter, type);
+                    },
                     -1,
                     false,
                     0.0f,
-                    ModContent.NPCType<PyrogenShield>()
+                    ModContent.NPCType<PyrogenShield>(), ModContent.NPCType<PyrogenMinion>()
                 )
             );
             BossRushEvent.Bosses.Insert(22,

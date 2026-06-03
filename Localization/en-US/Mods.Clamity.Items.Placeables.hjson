@@ -46,3 +46,8 @@ Pyroplate: {
 	Tooltip: It resonates with otherworldly energy
 	DisplayName: Pyroplate
 }
+
+AzafureFurnace: {
+	DisplayName: Azafure Furnace
+	Tooltip: ""
+}

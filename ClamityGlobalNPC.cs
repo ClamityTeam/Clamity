@@ -27,6 +27,9 @@ namespace Clamity
     {
         public override bool InstancePerEntity => true;
         //public int wCleave;
+
+        public static int pyrogenBoss = -1;
+
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             Conditions.IsHardmode hm = new Conditions.IsHardmode();

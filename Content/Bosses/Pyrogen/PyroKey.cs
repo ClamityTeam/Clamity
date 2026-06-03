@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using CalamityMod.Particles;
 using CalamityMod.UI.DialogueDisplay;
 using CalamityMod.UI.DialogueDisplay.DisplayEffects;
+using Terraria.Audio;
 
 
 namespace Clamity.Content.Bosses.Pyrogen
@@ -28,9 +29,9 @@ namespace Clamity.Content.Bosses.Pyrogen
             Item.width = 26;
             Item.height = 48;
             Item.rare = ItemRarityID.Pink;
-            Item.useAnimation = 10;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+            //Item.useAnimation = 10;
+            //Item.useTime = 10;
+            //Item.useStyle = ItemUseStyleID.HoldUp;
         }
 
         public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
@@ -38,6 +39,7 @@ namespace Clamity.Content.Bosses.Pyrogen
             itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossItem;
         }
 
+        /*
         public override bool CanUseItem(Player player)
         {
             bool hasntProj = true;
@@ -59,6 +61,7 @@ namespace Clamity.Content.Bosses.Pyrogen
             Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<PyrogenSummonAnimation>(), 0, 0, player.whoAmI);
             return true;
         }
+        */
 
         public override void AddRecipes()
         {
@@ -89,32 +92,11 @@ namespace Clamity.Content.Bosses.Pyrogen
         }
         public override void AI()
         {
-            Player player = Main.player[Projectile.owner];
-            if (player.dead || player.ghost)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NPC npc = NPC.NewNPCDirect(Projectile.GetSource_Death(), Projectile.Center, ModContent.NPCType<PyrogenBoss>(), target: Projectile.owner);
+                npc.netUpdate = true;
                 Projectile.Kill();
-
-            Projectile.Center = player.Center - new Vector2(0, 300);
-            if (Projectile.timeLeft % 10 == 0)
-            {
-                Color color = Color.Lerp(Color.Red, Color.Yellow, 1f - Projectile.timeLeft / 60f);
-                GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center, Vector2.Zero, color, new Vector2(0.5f, 0.5f), Main.rand.NextFloat(12f, 25f), 10f, 0f, 20));
-            }
-
-        }
-        public override void OnKill(int timeLeft)
-        {
-            GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.Red, new Vector2(0.5f, 0.5f), Main.rand.NextFloat(12f, 25f), 0f, 20f, 40));
-
-            NPC npc = NPC.NewNPCDirect(Projectile.GetSource_Death(), Projectile.Center, ModContent.NPCType<PyrogenBoss>(), target: Projectile.owner);
-
-            if (!ModLoader.HasMod("InfernumMode"))
-            {
-                if ((Main.player[Projectile.owner].name is "AlikEspess" or "Alik" or "Алекс Шаррн"))
-                    DialogueDisplaySystem.StartDialogue("Mods.Clamity.Pyrogen.Alik", npc, 0, 120, false, new BossText());
-                else if (Main.zenithWorld)
-                    ClamityUtils.BossIntroDialogue("Pyrogen", npc, "IntroGFB");
-                else
-                    ClamityUtils.BossIntroDialogue("Pyrogen", npc);
             }
         }
     }

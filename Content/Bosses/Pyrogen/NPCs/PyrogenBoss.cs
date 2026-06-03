@@ -4,6 +4,9 @@ using CalamityMod.Events;
 using CalamityMod.Items.Placeables.Furniture.Paintings;
 using CalamityMod.NPCs;
 using CalamityMod.Particles;
+using CalamityMod.UI;
+using CalamityMod.UI.DialogueDisplay.DisplayEffects;
+using CalamityMod.UI.DialogueDisplay;
 using CalamityMod.World;
 using Clamity.Content.Bosses.Pyrogen.Drop;
 using Clamity.Content.Bosses.Pyrogen.Drop.Weapons;
@@ -23,6 +26,8 @@ using Terraria.GameContent.UI.BigProgressBar;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Clamity.Commons.CalRemixCompatibilitySystem;
+using System.Linq;
+using CalamityMod.DataStructures;
 
 
 namespace Clamity.Content.Bosses.Pyrogen.NPCs
@@ -31,27 +36,33 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
     {
         public override bool? ModifyInfo(ref BigProgressBarInfo info, ref float life, ref float lifeMax, ref float shield, ref float shieldMax)
         {
-            NPC nPC = Main.npc[info.npcIndexToAimAt];
-            if (!nPC.active)
+            NPC npc = Main.npc[info.npcIndexToAimAt];
+            if (!npc.active)
             {
                 return false;
             }
 
-            life = nPC.life;
-            lifeMax = nPC.lifeMax;
+            life = npc.life;
+            lifeMax = npc.lifeMax;
             shield = 0f;
             shieldMax = 0f;
+
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                NPC nPC2 = Main.npc[i];
-                if (nPC2.active && nPC2.type == ModContent.NPCType<PyrogenShield>())
+                NPC npc2 = Main.npc[i];
+                if (npc2.active && (npc2.type == ModContent.NPCType<PyrogenShield>() || npc2.type == ModContent.NPCType<PyrogenMinion>()))
                 {
-                    shield += nPC2.life;
-                    shieldMax += nPC2.lifeMax;
+                    shield += npc2.life;
+                    shieldMax += npc2.lifeMax;
                 }
             }
 
             return true;
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, NPC npc, ref BossBarDrawParams drawParams)
+        {
+            return npc.ai[0] > 0;
         }
     }
 
@@ -76,6 +87,8 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
         private int currentPhase = 1;
         private int teleportLocationX = 0;
 
+        public bool spawnedChains = false;
+
         public static Color BackglowColor => new Color(238, 102, 70, 80) * 0.6f;
 
         //public override string Texture => "CalamityMod/NPCs/Cryogen/Cryogen_Phase1";
@@ -87,7 +100,12 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
 
         public FireParticleSet FireDrawer = null;
 
-        public int[] Chains = [-1, -1, -1, -1];
+        public static List<List<VerletSimulatedSegment>> Chains
+        {
+            get;
+            internal set;
+        }
+
         public float shieldDrawTimer;
         public float shieldDrawCounter;
 
@@ -100,23 +118,18 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             Idle,
             InfernoStorm,
             ShardSweep,
-            ShardStorm
+            FireballStorm
         };
-        private List<Attacks> AttackChoicesChained =
+        private List<Attacks> AttackChoicesChainedShield =
         [
             Attacks.InfernoStorm,
-            Attacks.ShardSweep,
-            Attacks.ShardStorm
+            Attacks.FireballStorm
         ];
-        private List<Attacks> AttackChoicesMinions =
+        private List<Attacks> AttackChoicesChainedMinions =
         [
             Attacks.ShardSweep,
-            Attacks.ShardStorm
+            Attacks.FireballStorm
         ];
-
-        const int chainTime = MoltenChain.ActiveTime;
-        const int chainStartTime = 62;
-        bool evenChain(NPC NPC) => NPC.ai[1] % (chainTime * 2) >= chainTime;
 
         public override void SetStaticDefaults()
         {
@@ -143,7 +156,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             NPC.height = 88;
             NPC.defense = 15;
             NPC.DR_NERD(0.3f);
-            NPC.LifeMaxNERB(25000, 48000, 300000);
+            NPC.LifeMaxNERB(14062, 27000, 168750);
             NPC.aiStyle = -1;
             AIType = -1;
             NPC.knockBackResist = 0f;
@@ -194,6 +207,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             writer.Write7BitEncodedInt((int)NPC.localAI[0]);
             writer.Write7BitEncodedInt((int)NPC.localAI[1]);
             writer.Write7BitEncodedInt((int)NPC.localAI[2]);
+            writer.Write7BitEncodedInt((int)NPC.localAI[3]);
 
             for (int i = 0; i < 4; i++)
                 writer.Write(NPC.Calamity().newAI[i]);
@@ -207,6 +221,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             NPC.localAI[0] = reader.Read7BitEncodedInt();
             NPC.localAI[1] = reader.Read7BitEncodedInt();
             NPC.localAI[2] = reader.Read7BitEncodedInt();
+            NPC.localAI[3] = reader.Read7BitEncodedInt();
 
             for (int i = 0; i < 4; i++)
                 NPC.Calamity().newAI[i] = reader.ReadSingle();
@@ -214,16 +229,12 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
 
         public override void OnSpawn(IEntitySource source)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                int shield = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<PyrogenShield>(), ai0: NPC.whoAmI);
-                Main.npc[shield].netUpdate = true;
-            }
+            NPC.localAI[3] = 60;
         }
 
         public override void AI()
         {
-            Player target = Main.player[NPC.target];
+            #region Synced Local Variables
             ref float attack = ref NPC.ai[0];
             ref float timer = ref NPC.ai[1];
             ref float data = ref NPC.ai[2];
@@ -232,20 +243,30 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             ref float attackChoice = ref NPC.localAI[0];
             ref float attackTimer = ref NPC.localAI[1];
             ref float data3 = ref NPC.localAI[2];
+            ref float spawnTimer = ref NPC.localAI[3];
+            #endregion
 
-            NPC.damage = NPC.defDamage;
+            NPC.TargetClosest();
+            Player target = Main.player[NPC.target];
 
-            if (CalamityServerConfig.Instance.BossesStopWeather)
-                CalamityWorld.StopRain();
-
-            if (NPC.AnyNPCs(ModContent.NPCType<PyrogenShield>()))
+            if ((!target.active || target.dead || target.Distance(NPC.Center) > 5000) && attack > 0)
             {
-                NPC.dontTakeDamage = true;
+                foreach (Projectile proj in Main.projectile)
+                {
+                    if (proj.type == ModContent.ProjectileType<FireBomb>() || proj.type == ModContent.ProjectileType<InfernoFireball>())
+                        proj.Kill();
+                }
+
+                foreach (Projectile proj in Main.projectile)
+                {
+                    if (proj.type == ModContent.ProjectileType<Firethrower>() || proj.type == ModContent.ProjectileType<SmallFireball>())
+                        proj.Kill();
+                }
+
+                NPC.active = false;
             }
-            else
-            {
-                NPC.dontTakeDamage = false;
-            }
+
+            ClamityGlobalNPC.pyrogenBoss = NPC.whoAmI;
 
             if (shieldDrawCounter == 0)
             {
@@ -258,283 +279,609 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                 if (shieldDrawTimer <= 0) shieldDrawCounter = 0;
             }
 
-            //move towards player
-            if (NPC.ai[0] == 0 || NPC.ai[0] == 1)
+            #region Idle
+            if (NPC.ai[0] == 0)
             {
-                NPC.ai[0] = 0;
-                NPC.rotation = NPC.velocity.X / 15f;
-                timer++;
-                if (timer == 1)
+                if (BossRushEvent.BossRushActive) //skip straght to fight in Boss Rush
                 {
-                    Vector2 pos = target.Center + new Vector2(0, -400);
-                    data = pos.X; data2 = pos.Y;
-
-                    if (Main.netMode == NetmodeID.Server && Main.netMode != NetmodeID.SinglePlayer)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
-                }
-                else if (NPC.Distance(new Vector2(data, data2)) > 300)
-                {
-                    Vector2 pos = new Vector2(data, data2);
-                    NPC.velocity = Vector2.Lerp(NPC.velocity, (pos - NPC.Center).SafeNormalize(Vector2.Zero) * 30, 0.05f);
-
-                }
-                if (NPC.Distance(new Vector2(data, data2)) < 300)
-                {
-                    NPC.velocity /= 1.1f;
-                }
-                if (NPC.velocity.Length() < 1 && timer > 20)
-                {
-                    NPC.rotation = 0;
-                    data = 0;
-                    data2 = 0;
-                    timer = 0;
-                    attack = 2;
-                    NPC.velocity *= 0;
-
-                    if (Main.netMode == NetmodeID.Server && Main.netMode != NetmodeID.SinglePlayer)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
+                    attack = 1;
+                    return;
                 }
 
+                if (!spawnedChains)
+                {
+                    Chains = [];
+
+                    int segmentCount = 21;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Chains.Add([]);
+
+                        // Determine how far off the chains should go.
+                        Vector2 checkDirection = (MathHelper.TwoPi * i / 4f + MathHelper.PiOver4).ToRotationVector2() * new Vector2(1f, 1.2f);
+                        if (checkDirection.Y > 0f)
+                            checkDirection.Y *= 0.3f;
+
+                        Vector2 chainStart = NPC.Center;
+                        float[] laserScanDistances = new float[16];
+                        Collision.LaserScan(chainStart, checkDirection, 16f, 5000f, laserScanDistances);
+                        Vector2 chainEnd = chainStart + checkDirection.SafeNormalize(Vector2.UnitY) * (laserScanDistances.Average() + 32f);
+
+                        for (int j = 0; j < segmentCount; j++)
+                        {
+                            Vector2 chainPosition = Vector2.Lerp(chainStart, chainEnd, j / (float)(segmentCount - 1f));
+                            Chains[i].Add(new(chainPosition, j == 0 || j == segmentCount - 1));
+                        }
+                    }
+
+                    spawnedChains = true;
+                }
+
+                NPC.damage = 0;
+                NPC.dontTakeDamage = true;
+                NPC.ShowNameOnHover = false;
+
+                NPC.boss = false;
+                NPC.Calamity().ShouldCloseHPBar = true;
+                NPC.Calamity().ProvidesProximityRage = false;
+                BossHealthBarManager.Bars.RemoveAll(b => b.NPCIndex == NPC.whoAmI);
             }
-            if (NPC.ai[0] == 2)
+            #endregion
+
+            #region Main Fight AI
+            else
             {
+                if (CalamityServerConfig.Instance.BossesStopWeather)
+                    CalamityWorld.StopRain();
 
-                NPC.velocity = Vector2.Zero;
-                timer++;
-                if (timer == 2)
+                #region Boss Rush Move To Player
+                if (NPC.ai[0] == 1)
                 {
-                    SoundEngine.PlaySound(CalamityMod.NPCs.Cryogen.Cryogen.ShieldRegenSound, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    NPC.ai[0] = 0;
+                    NPC.rotation = NPC.velocity.X / 15f;
+                    timer++;
+                    if (timer == 1)
                     {
-                        Chains = [-1, -1, -1, -1];
+                        Vector2 pos = target.Center + new Vector2(0, -400);
+                        data = pos.X; data2 = pos.Y;
 
-                        Chains[0] = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MoltenChain>(), NPC.damage, 0, ai0: NPC.whoAmI, ai1: 0f);
-                        Chains[1] = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MoltenChain>(), NPC.damage, 0, ai0: NPC.whoAmI, ai1: MathHelper.PiOver2);
-                        Chains[2] = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MoltenChain>(), NPC.damage, 0, ai0: NPC.whoAmI, ai1: MathHelper.Pi);
-                        Chains[3] = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MoltenChain>(), NPC.damage, 0, ai0: NPC.whoAmI, ai1: MathHelper.PiOver2 * 3f);
-
-                        ArenaBox = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<PyrogenBox>(), NPC.damage, 0f, Main.myPlayer, 0f, NPC.whoAmI);
+                        if (Main.netMode == NetmodeID.Server && Main.netMode != NetmodeID.SinglePlayer)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
                     }
-                    DustExplode(NPC);
-                }
-                float chainCycleTime = timer % chainTime;
-                if (chainCycleTime > chainStartTime - 10 && chainCycleTime < chainStartTime && attackChoice == (float)Attacks.ShardSweep)
-                {
-                    timer--;
-                }
-
-                if (timer % chainTime == chainStartTime)
-                {
-                    int even = evenChain(NPC) ? 1 : 0;
-                    for (int i = 0; i < Chains.Length; i++)
+                    else if (NPC.Distance(new Vector2(data, data2)) > 300)
                     {
-                        if (i % 2 == even)
-                        {
-                            int p = Chains[i];
-                            if (p.WithinBounds(Main.maxProjectiles))
-                                Main.projectile[p].ai[2] = 200;
-                        }
+                        Vector2 pos = new Vector2(data, data2);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, (pos - NPC.Center).SafeNormalize(Vector2.Zero) * 30, 0.05f);
+
                     }
-                }
+                    if (NPC.Distance(new Vector2(data, data2)) < 300)
+                    {
+                        NPC.velocity /= 1.1f;
+                    }
+                    if (NPC.velocity.Length() < 1 && timer > 20)
+                    {
+                        NPC.rotation = 0;
+                        data = 0;
+                        data2 = 0;
+                        timer = 0;
+                        attack = 2;
+                        NPC.velocity *= 0;
 
-                void ToIdle()
-                {
-                    ref float attackChoice = ref NPC.localAI[0];
-                    ref float attackTimer = ref NPC.localAI[1];
-                    attackChoice = (int)Attacks.Idle;
-                    attackTimer = 0;
+                        if (Main.netMode == NetmodeID.Server && Main.netMode != NetmodeID.SinglePlayer)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
+                    }
+
                 }
-                switch ((Attacks)attackChoice)
+                #endregion
+
+                #region Phase 1 - Chained with Shield
+                if (NPC.ai[0] == 2)
                 {
-                    case Attacks.Idle:
+                    NPC.velocity = Vector2.Zero;
+
+                    if (spawnTimer > 0)
+                    {
+                        if (spawnTimer % 10 == 0)
                         {
-                            if (attackTimer == 120)
+                            GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(NPC.Center, Vector2.Zero, Color.Firebrick, new Vector2(0.5f, 0.5f), Main.rand.NextFloat(12f, 25f), 10f, 0f, 20));
+                            SoundEngine.PlaySound(SoundID.Tink, NPC.Center);
+                        }
+
+                        spawnTimer--;
+                        return;
+                    }
+
+                    if (!spawnedChains)
+                    {
+                        Chains = [];
+
+                        int segmentCount = 21;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Chains.Add([]);
+
+                            // Determine how far off the chains should go.
+                            Vector2 checkDirection = (MathHelper.TwoPi * i / 4f + MathHelper.PiOver4).ToRotationVector2() * new Vector2(1f, 1.2f);
+                            if (checkDirection.Y > 0f)
+                                checkDirection.Y *= 0.3f;
+
+                            Vector2 chainStart = NPC.Center;
+                            float[] laserScanDistances = new float[16];
+                            Collision.LaserScan(chainStart, checkDirection, 16f, 5000f, laserScanDistances);
+                            Vector2 chainEnd = chainStart + checkDirection.SafeNormalize(Vector2.UnitY) * (laserScanDistances.Average() + 32f);
+
+                            for (int j = 0; j < segmentCount; j++)
                             {
-                                SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/SCalSounds/BrimstoneBigShoot"), NPC.Center);
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    for (int i = 0; i < 48; i++)
-                                    {
-                                        Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / 24f);
-
-                                        Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 128f;
-
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
-                                    }
-
-                                    for (int i = 0; i < 24; i++)
-                                    {
-                                        Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / 24f);
-
-                                        Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 96f;
-
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
-                                    }
-
-                                    for (int i = 0; i < 12; i++)
-                                    {
-                                        Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / 12f);
-
-                                        Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 64f;
-
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
-                                    }
-
-                                    for (int i = 0; i < 6; i++)
-                                    {
-                                        Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / 6f);
-
-                                        Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 32f;
-
-                                        Projectile.NewProjectile( NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
-                                    }
-                                }
-                            }
-
-                            attackTimer++;
-                            if (attackTimer > 120 + 60)
-                            {
-                                attackChoice = (int)Main.rand.NextFromCollection(AttackChoicesChained);
-                                attackTimer = 0;
-
-                                if (Main.netMode == NetmodeID.Server && Main.netMode != NetmodeID.SinglePlayer)
-                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
-
-                                NPC.netUpdate = true;
+                                Vector2 chainPosition = Vector2.Lerp(chainStart, chainEnd, j / (float)(segmentCount - 1f));
+                                Chains[i].Add(new(chainPosition, j == 0 || j == segmentCount - 1));
                             }
                         }
-                        break;
-                    case Attacks.InfernoStorm:
+
+                        spawnedChains = true;
+                    }
+
+                    if (NPC.AnyNPCs(ModContent.NPCType<PyrogenShield>()) || NPC.AnyNPCs(ModContent.NPCType<PyrogenMinion>()))
+                    {
+                        NPC.dontTakeDamage = true;
+                    }
+                    else
+                    {
+                        NPC.dontTakeDamage = false;
+                    }
+
+                    timer++;
+                    if (timer == 2)
+                    {
+                        if (!ModLoader.HasMod("InfernumMode"))
                         {
-                            if (attackTimer == 0)
-                            {
-                                SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/SCalSounds/BrimstoneHellblastSound"));
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 1).RotatedBy(MathHelper.ToRadians(360f / 5 * i)), ModContent.ProjectileType<InfernoFireball>(), FireBlastDamage, 0, ai0: 1);
-                                    }
-                                }
-                            }
-                            attackTimer++;
-                            if (attackTimer > 80)
-                            {
-                                ToIdle();
-                            }
+                            if ((Main.player[NPC.target].name is "AlikEspess" or "Alik" or "Алекс Шаррн"))
+                                DialogueDisplaySystem.StartDialogue("Mods.Clamity.Pyrogen.Alik", NPC, 0, 120, false, new BossText());
+                            else if (Main.zenithWorld)
+                                ClamityUtils.BossIntroDialogue("Pyrogen", NPC, "IntroGFB");
+                            else
+                                ClamityUtils.BossIntroDialogue("Pyrogen", NPC);
                         }
-                        break;
-                    case Attacks.ShardSweep:
+
+                        GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(NPC.Center, Vector2.Zero, Color.Red, new Vector2(0.5f, 0.5f), Main.rand.NextFloat(12f, 25f), 0f, 20f, 40));
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            if (attackTimer == 0)
+                            SoundEngine.PlaySound(CalamityMod.NPCs.Cryogen.Cryogen.ShieldRegenSound, NPC.Center);
+                            int shield = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<PyrogenShield>(), ai0: NPC.whoAmI);
+                            Main.npc[shield].netUpdate = true;
+
+                            ArenaBox = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<PyrogenBox>(), NPC.damage, 0f, Main.myPlayer, 0f, NPC.whoAmI);
+                        }
+
+                        NPC.boss = true;
+                        NPC.ShowNameOnHover = true;
+                        NPC.damage = 69;
+
+                        DustExplode(NPC);
+                    }
+
+                    void ToIdle()
+                    {
+                        ref float attackChoice = ref NPC.localAI[0];
+                        ref float attackTimer = ref NPC.localAI[1];
+                        attackChoice = (int)Attacks.Idle;
+                        attackTimer = 0;
+                    }
+                    switch ((Attacks)attackChoice)
+                    {
+                        case Attacks.Idle:
                             {
-                                // Find closest active ice chain in terms of rotation, to originate sweep from
-                                int closestChain = -1;
-                                int even = evenChain(NPC) ? 1 : 0;
-                                for (int i = 0; i < Chains.Length; i++)
+                                if (attackTimer == 120)
                                 {
-                                    if (i % 2 != even)
-                                        continue;
-                                    int p = Chains[i];
-
-                                    if (closestChain == -1)
-                                        closestChain = p;
-                                    else
+                                    SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/SCalSounds/BrimstoneBigShoot"), NPC.Center);
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Vector2 oldRotVec = Main.projectile[closestChain].Center - NPC.Center;
-                                        Vector2 newRotVec = Main.projectile[p].Center - NPC.Center;
-                                        Vector2 toPlayer = NPC.DirectionTo(target.Center);
-                                        float oldDif = Math.Abs(ClamityUtils.RotationDifference(oldRotVec, toPlayer));
-                                        float newDif = Math.Abs(ClamityUtils.RotationDifference(newRotVec, toPlayer));
+                                        int bombs = CalamityWorld.death ? 48 : CalamityWorld.revenge ? 40 : 32;
 
-                                        if (newDif < oldDif)
-                                            closestChain = p;
+                                        for (int i = 0; i < bombs; i++)
+                                        {
+                                            Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / bombs);
+
+                                            Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 128f;
+
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
+                                        }
+
+                                        bombs /= 2;
+
+                                        for (int i = 0; i < bombs; i++)
+                                        {
+                                            Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / bombs);
+
+                                            Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 96f;
+
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
+                                        }
+
+                                        bombs /= 2;
+
+                                        for (int i = 0; i < bombs; i++)
+                                        {
+                                            Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / bombs);
+
+                                            Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 64f;
+
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
+                                        }
+
+                                        bombs /= 2;
+
+                                        for (int i = 0; i < bombs; i++)
+                                        {
+                                            Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / bombs);
+
+                                            Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 32f;
+
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
+                                        }
                                     }
                                 }
 
-                                if (closestChain == -1)
+                                attackTimer++;
+                                if (attackTimer > 120 + 60)
+                                {
+                                    attackChoice = (int)Main.rand.NextFromCollection(AttackChoicesChainedShield);
+                                    //attackChoice = (int)Attacks.InfernoStorm; //DEBUG
+                                    attackTimer = 0;
+
+                                    if (Main.netMode == NetmodeID.Server && Main.netMode != NetmodeID.SinglePlayer)
+                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
+
+                                    NPC.netUpdate = true;
+                                }
+                            }
+                            break;
+                        case Attacks.InfernoStorm:
+                            {
+                                if (!CalamityWorld.revenge)
                                 {
                                     ToIdle();
                                     break;
                                 }
-                                else
+
+                                if (attackTimer == 0)
                                 {
-                                    data3 = closestChain;
+                                    SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/SCalSounds/BrimstoneHellblastSound"));
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        int bolts = CalamityWorld.death ? 5 : 3;
+                                        int pattern = Main.rand.NextFromList(-1, 1);
+                                        for (int i = 0; i < bolts; i++)
+                                        {
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, pattern).RotatedBy(MathHelper.ToRadians(360f / bolts * i)), ModContent.ProjectileType<InfernoFireball>(), FireBlastDamage, 0, ai0: 1);
+                                        }
+                                    }
+                                }
+                                attackTimer++;
+                                if (attackTimer > 80)
+                                {
+                                    ToIdle();
+                                }
+                            }
+                            break;
+                        case Attacks.FireballStorm:
+                            {
+                                if (attackTimer == 0)
+                                {
+                                    SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/SCalSounds/BrimstoneHellblastSound"));
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        for (int i = 0; i < 12; i++)
+                                        {
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 1).RotatedBy(MathHelper.ToRadians(360f / 12 * i)), ModContent.ProjectileType<SmallFireball>(), FireRainDamage, 0, ai0: 1);
+                                        }
+
+                                        if (CalamityWorld.revenge)
+                                        {
+                                            for (int i = 0; i < 12; i++)
+                                            {
+                                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(360f / 12 * i)), ModContent.ProjectileType<SmallFireball>(), FireRainDamage, 0, ai0: 1);
+                                            }
+                                        }
+
+                                        if (CalamityWorld.death)
+                                        {
+                                            for (int i = 0; i < 12; i++)
+                                            {
+                                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 2).RotatedBy(MathHelper.ToRadians(360f / 12 * i + 12)), ModContent.ProjectileType<SmallFireball>(), FireRainDamage, 0, ai0: 1);
+                                            }
+                                        }
+                                    }
+                                }
+                                attackTimer++;
+                                if (attackTimer > 30)
+                                {
+                                    ToIdle();
                                 }
 
                             }
-                            const float totalRotation = MathHelper.TwoPi / 6;
-                            const int AttackTime = 60 * 3;
-                            if (attackTimer > 0 && attackTimer % 30 == 0)
-                                SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/SCalSounds/BrimstoneHellblastSound"));
+                            break;
+                    }
+                }
+                #endregion
 
-                            if (attackTimer > 0 && attackTimer % 5 == 0)
+                #region Phase 2 - Chained with Minions
+                if (attack == 3)
+                {
+                    NPC.velocity = Vector2.Zero;
+
+                    timer++;
+                    if (timer == 2)
+                    {
+                        GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(NPC.Center, Vector2.Zero, Color.Red, new Vector2(0.5f, 0.5f), Main.rand.NextFloat(12f, 25f), 0f, 20f, 40));
+
+                        foreach (Projectile proj in Main.projectile)
+                        {
+                            if (proj.type == ModContent.ProjectileType<FireBomb>() || proj.type == ModContent.ProjectileType<InfernoFireball>())
+                                proj.Kill();
+                        }
+
+                        foreach (Projectile proj in Main.projectile)
+                        {
+                            if (proj.type == ModContent.ProjectileType<Firethrower>() || proj.type == ModContent.ProjectileType<SmallFireball>())
+                                proj.Kill();
+                        }
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            float radius = 120f;
+
+                            for (int i = 0; i < 6; i++)
                             {
+                                float angle = MathHelper.TwoPi * i / 6f;
+                                Vector2 offset = angle.ToRotationVector2() * radius;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                Vector2 spawnPos = NPC.Center + offset;
+
+                                int minion = NPC.NewNPC(NPC.GetSource_FromAI(), (int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<PyrogenMinion>(), ai0: NPC.whoAmI);
+
+                                Main.npc[minion].netUpdate = true;
+                            }
+
+                            SoundEngine.PlaySound(CalamityMod.NPCs.Cryogen.Cryogen.DeathSound, NPC.Center);
+                        }
+
+                        DustExplode(NPC);
+                    }
+
+                    if (NPC.AnyNPCs(ModContent.NPCType<PyrogenShield>()) || NPC.AnyNPCs(ModContent.NPCType<PyrogenMinion>()))
+                    {
+                        NPC.dontTakeDamage = true;
+                    }
+                    else
+                    {
+                        NPC.dontTakeDamage = false;
+                    }
+
+                    void ToIdle()
+                    {
+                        ref float attackChoice = ref NPC.localAI[0];
+                        ref float attackTimer = ref NPC.localAI[1];
+                        attackChoice = (int)Attacks.Idle;
+                        attackTimer = 0;
+                    }
+                    switch ((Attacks)attackChoice)
+                    {
+                        case Attacks.Idle:
+                            {
+                                if (attackTimer == 120)
                                 {
-                                    float progress = attackTimer / AttackTime;
-                                    int cIndex = (int)data3;
-                                    if (!cIndex.WithinBounds(Main.maxProjectiles))
+                                    SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/SCalSounds/BrimstoneBigShoot"), NPC.Center);
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        int bombs = CalamityWorld.death ? 40 : CalamityWorld.revenge ? 32 : 24;
+
+                                        for (int i = 0; i < bombs; i++)
+                                        {
+                                            Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / bombs);
+
+                                            Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 128f;
+
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
+                                        }
+
+                                        bombs /= 2;
+
+                                        for (int i = 0; i < bombs; i++)
+                                        {
+                                            Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / bombs);
+
+                                            Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 96f;
+
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
+                                        }
+
+                                        bombs /= 2;
+
+                                        for (int i = 0; i < bombs; i++)
+                                        {
+                                            Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / bombs);
+
+                                            Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 64f;
+
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
+                                        }
+
+                                        /*
+                                        bombs /= 2;
+
+                                        for (int i = 0; i < bombs; i++)
+                                        {
+                                            Vector2 offset = (Vector2.UnitY * NPC.height / 2f).RotatedBy(MathHelper.TwoPi * i / bombs);
+
+                                            Vector2 velocity = offset.SafeNormalize(Vector2.UnitY) * 32f;
+
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offset, velocity, ModContent.ProjectileType<FireBomb>(), FireBombDamage, 0);
+                                        }
+                                        */
+                                    }
+                                }
+
+                                attackTimer++;
+                                if (attackTimer > 120 + 60)
+                                {
+                                    attackChoice = (int)Main.rand.NextFromCollection(AttackChoicesChainedMinions);
+                                    //attackChoice = (int)Attacks.InfernoStorm; //DEBUG
+                                    attackTimer = 0;
+
+                                    if (Main.netMode == NetmodeID.Server && Main.netMode != NetmodeID.SinglePlayer)
+                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
+
+                                    NPC.netUpdate = true;
+                                }
+                            }
+                            break;
+                        case Attacks.ShardSweep:
+                            {
+                                const float totalRotation = MathHelper.TwoPi / 6f;
+                                const int AttackTime = 60 * 3;
+
+                                if (Chains is null || Chains.Count <= 0)
+                                {
+                                    ToIdle();
+                                    break;
+                                }
+
+                                if (attackTimer == 0)
+                                {
+                                    int closestChain = -1;
+
+                                    Vector2 toPlayer = NPC.DirectionTo(target.Center);
+
+                                    for (int i = 0; i < Chains.Count; i++)
+                                    {
+                                        List<VerletSimulatedSegment> chain = Chains[i];
+
+                                        if (chain is null || chain.Count < 2)
+                                            continue;
+
+                                        Vector2 chainEnd = chain[^1].position;
+                                        Vector2 chainDirection = NPC.DirectionTo(chainEnd);
+
+                                        if (closestChain == -1)
+                                        {
+                                            closestChain = i;
+                                            continue;
+                                        }
+
+                                        Vector2 oldEnd = Chains[closestChain][^1].position;
+                                        Vector2 oldDirection = NPC.DirectionTo(oldEnd);
+
+                                        float oldDifference = Math.Abs(ClamityUtils.RotationDifference(oldDirection, toPlayer));
+                                        float newDifference = Math.Abs(ClamityUtils.RotationDifference(chainDirection, toPlayer));
+
+                                        if (newDifference < oldDifference)
+                                            closestChain = i;
+                                    }
+
+                                    if (closestChain == -1)
                                     {
                                         ToIdle();
                                         break;
                                     }
-                                    Projectile chain = Main.projectile[cIndex];
-                                    Vector2 chainDir = NPC.DirectionTo(chain.Center);
-                                    float rotDir = Math.Sign(ClamityUtils.RotationDifference(chainDir, NPC.DirectionTo(target.Center)));
 
-                                    Vector2 velDir = chainDir.RotatedBy(rotDir * totalRotation * progress);
-                                    float speed = 5f;
-                                    Vector2 vel = velDir * speed;
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, vel, ModContent.ProjectileType<SmallFireball>(), FireRainDamage, 0, ai0: 1);
+                                    data3 = closestChain;
+                                    NPC.netUpdate = true;
                                 }
-                            }
-                            attackTimer++;
-                            if (attackTimer >= AttackTime)
-                            {
-                                attackChoice = (int)Attacks.Idle;
-                                attackTimer = 0;
-                            }
-                        }
-                        break;
-                    case Attacks.ShardStorm:
-                        {
-                            if (attackTimer == 0)
-                            {
-                                SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/SCalSounds/BrimstoneHellblastSound"));
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+
+                                if (attackTimer > 0 && attackTimer % 30 == 0)
+                                    SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/SCalSounds/BrimstoneHellblastSound"), NPC.Center);
+
+                                if (attackTimer > 0 && attackTimer % 5 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    for (int i = 0; i < 12; i++)
+                                    int chainIndex = (int)data3;
+
+                                    if (Chains is null || !chainIndex.WithinBounds(Chains.Count) || Chains[chainIndex].Count < 2)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 1).RotatedBy(MathHelper.ToRadians(360f / 12 * i)), ModContent.ProjectileType<SmallFireball>(), FireRainDamage, 0, ai0: 1);
+                                        ToIdle();
+                                        break;
                                     }
-                                    for (int i = 0; i < 12; i++)
+
+                                    List<VerletSimulatedSegment> chain = Chains[chainIndex];
+
+                                    Vector2 chainEnd = chain[^1].position;
+                                    Vector2 chainDir = NPC.DirectionTo(chainEnd);
+
+                                    Vector2 toPlayer = NPC.DirectionTo(target.Center);
+                                    float rotDir = Math.Sign(ClamityUtils.RotationDifference(chainDir, toPlayer));
+
+                                    if (rotDir == 0f)
+                                        rotDir = Main.rand.NextBool() ? 1f : -1f;
+
+                                    float progress = attackTimer / (float)AttackTime;
+                                    Vector2 velDir = chainDir.RotatedBy(rotDir * totalRotation * progress);
+
+                                    float speed = 5f;
+                                    Projectile.NewProjectile(
+                                        NPC.GetSource_FromAI(),
+                                        NPC.Center,
+                                        velDir * speed,
+                                        ModContent.ProjectileType<SmallFireball>(),
+                                        FireRainDamage,
+                                        0f,
+                                        Main.myPlayer,
+                                        ai0: 1f
+                                    );
+                                }
+
+                                attackTimer++;
+
+                                if (attackTimer >= AttackTime)
+                                    ToIdle();
+
+                                break;
+                            }
+                        case Attacks.FireballStorm:
+                        case Attacks.InfernoStorm:
+                            {
+                                if (attackTimer == 0)
+                                {
+                                    SoundEngine.PlaySound(new("CalamityMod/Sounds/Custom/SCalSounds/BrimstoneHellblastSound"));
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(360f / 12 * i)), ModContent.ProjectileType<SmallFireball>(), FireRainDamage, 0, ai0: 1);
-                                    }
-                                    for (int i = 0; i < 12; i++)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 2).RotatedBy(MathHelper.ToRadians(360f / 12 * i + 12)), ModContent.ProjectileType<SmallFireball>(), FireRainDamage, 0, ai0: 1);
+                                        for (int i = 0; i < 12; i++)
+                                        {
+                                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 1).RotatedBy(MathHelper.ToRadians(360f / 12 * i)), ModContent.ProjectileType<SmallFireball>(), FireRainDamage, 0, ai0: 1);
+                                        }
+
+                                        if (Main.expertMode)
+                                        {
+                                            for (int i = 0; i < 12; i++)
+                                            {
+                                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(360f / 12 * i)), ModContent.ProjectileType<SmallFireball>(), FireRainDamage, 0, ai0: 1);
+                                            }
+                                        }
+
+                                        if (CalamityWorld.revenge)
+                                        {
+                                            for (int i = 0; i < 12; i++)
+                                            {
+                                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 2).RotatedBy(MathHelper.ToRadians(360f / 12 * i + 12)), ModContent.ProjectileType<SmallFireball>(), FireRainDamage, 0, ai0: 1);
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                            attackTimer++;
-                            if (attackTimer > 30)
-                            {
-                                ToIdle();
-                            }
+                                attackTimer++;
+                                if (attackTimer > 30)
+                                {
+                                    ToIdle();
+                                }
 
-                        }
-                        break;
+                            }
+                            break;
+                    }
                 }
+                #endregion
+            }
+            #endregion
 
-            }
-            if (attack == 3)
-            {
-                DustExplode(NPC);
-                SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/NPCKilled/CryogenDeath") with { Volume = 2 }, target.Center);
-            }
+            // Update chains.
+            if (Chains is not null)
+                UpdateChains(NPC);
         }
 
         public void DustExplode(NPC NPC)
@@ -546,6 +893,76 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                 d.noGravity = true;
             }
         }
+
+        public static void UpdateChains(NPC npc)
+        {
+            // Get out of here if the chains are not initialized yet.
+            if (Chains is null)
+                return;
+
+            for (int i = 0; i < Chains.Count; i++)
+            {
+                // Check to see if a player is moving through the chains.
+                foreach (Player p in Main.ActivePlayers)
+                {
+                    if (p.dead) // No ghost check here. Poltergeist.
+                        continue;
+
+                    MoveChainBasedOnEntity(Chains[i], p, npc);
+                }
+
+                foreach (Projectile proj in Main.ActiveProjectiles)
+                {
+                    if (proj.hostile)
+                        continue;
+
+                    MoveChainBasedOnEntity(Chains[i], proj, npc);
+                }
+
+                Vector2 chainStart = Chains[i][0].position;
+                Vector2 chainEnd = Chains[i].Last().position;
+                float segmentDistance = Vector2.Distance(chainStart, chainEnd) / Chains[i].Count;
+                Chains[i] = VerletSimulatedSegment.SimpleSimulation(Chains[i], segmentDistance, 10, 0.6f);
+            }
+        }
+
+        public static void MoveChainBasedOnEntity(List<VerletSimulatedSegment> chain, Entity e, NPC npc)
+        {
+            // Cap the velocity to ensure it doesn't make the chains go flying.
+            Vector2 entityVelocity = (e.velocity * 0.425f).ClampMagnitude(0f, 5f);
+
+            for (int i = 1; i < chain.Count - 1; i++)
+            {
+                VerletSimulatedSegment segment = chain[i];
+                VerletSimulatedSegment next = chain[i + 1];
+
+                // Check to see if the entity is between two verlet segments via line/box collision checks.
+                // If they are, add the entity's velocity to the two segments relative to how close they are to each of the two.
+                float _ = 0f;
+                if (Collision.CheckAABBvLineCollision(e.TopLeft, e.Size, segment.position, next.position, 20f, ref _))
+                {
+                    // Weigh the entity's distance between the two segments.
+                    // If they are close to one point that means the strength of the movement force applied to the opposite segment is weaker, and vice versa.
+                    float distanceBetweenSegments = segment.position.Distance(next.position);
+                    float distanceToChains = e.Distance(segment.position);
+                    float currentMovementOffsetInterpolant = Utils.GetLerpValue(distanceToChains, distanceBetweenSegments, distanceBetweenSegments * 0.2f, true);
+                    float nextMovementOffsetInterpolant = 1f - currentMovementOffsetInterpolant;
+
+                    // Move the segments based on the weight values.
+                    segment.position += entityVelocity * currentMovementOffsetInterpolant;
+                    if (!next.locked)
+                        next.position += entityVelocity * nextMovementOffsetInterpolant;
+
+                    // Play some cool chain sounds.
+                    if (npc.soundDelay <= 0 && entityVelocity.Length() >= 0.1f)
+                    {
+                        SoundEngine.PlaySound(SoundID.Coins with { Volume = 0.75f, PitchVariance = 0.05f }, e.Center);
+                        npc.soundDelay = 27;
+                    }
+                }
+            }
+        }
+
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
@@ -637,8 +1054,22 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
 
         public override void OnKill()
         {
+            foreach (Projectile proj in Main.projectile)
+            {
+                if (proj.type == ModContent.ProjectileType<FireBomb>() || proj.type == ModContent.ProjectileType<InfernoFireball>())
+                    proj.Kill();
+            }
+
+            foreach (Projectile proj in Main.projectile)
+            {
+                if (proj.type == ModContent.ProjectileType<Firethrower>() || proj.type == ModContent.ProjectileType<SmallFireball>())
+                    proj.Kill();
+            }
+
             if (BossRushEvent.BossRushActive)
                 return;
+
+            AzafureFurnaceTile.WaitingForPlayersToLeaveArea = true;
 
             CalamityGlobalNPC.SetNewBossJustDowned(NPC);
 
@@ -678,6 +1109,45 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                 target.AddBuff(ModContent.BuffType<VulnerabilityHex>(), 180);
             }
         }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            // Draw chains.
+            DrawChains(Color.White);
+
+            return true;
+        }
+
+        public static void DrawChain(List<VerletSimulatedSegment> chain, Color colorFactor)
+        {
+            Texture2D chainTexture = ModContent.Request<Texture2D>("Clamity/Content/Bosses/Pyrogen/Projectiles/MoltenChain").Value;
+
+            // Collect chain draw positions.
+            Vector2[] bezierPoints = chain.Select(x => x.position).ToArray();
+            BezierCurve bezierCurve = new(bezierPoints);
+
+            float chainScale = 0.8f;
+            int totalChains = (int)(Vector2.Distance(chain.First().position, chain.Last().position) / chainTexture.Height / chainScale);
+            totalChains = (int)MathHelper.Clamp(totalChains, 30f, 1200f);
+            for (int i = 0; i < totalChains - 1; i++)
+            {
+                Vector2 drawPosition = bezierCurve.Evaluate(i / (float)totalChains);
+                float completionRatio = i / (float)totalChains + 1f / totalChains;
+                float angle = (bezierCurve.Evaluate(completionRatio) - drawPosition).ToRotation();
+                Color baseChainColor = Lighting.GetColor((int)drawPosition.X / 16, (int)drawPosition.Y / 16) * 2f;
+                Main.EntitySpriteDraw(chainTexture, drawPosition - Main.screenPosition, null, baseChainColor.MultiplyRGBA(colorFactor), angle, chainTexture.Size() * 0.5f, chainScale, SpriteEffects.None, 0);
+            }
+        }
+
+
+        public static void DrawChains(Color colorFactor)
+        {
+            if (Chains is not null)
+            {
+                foreach (var chain in Chains)
+                    DrawChain(chain, colorFactor);
+            }
+        }
     }
     //[AutoloadBossHead]
     public class PyrogenShield : ModNPC
@@ -696,7 +1166,6 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             NPC.aiStyle = -1;
             AIType = -1;
             NPC.noTileCollide = true;
-            NPC.coldDamage = true;
             NPC.width = 216;
             NPC.height = 216;
             NPC.scale *= (CalamityWorld.death || BossRushEvent.BossRushActive || Main.getGoodWorld) ? 0.8f : 1f;
@@ -785,17 +1254,21 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            NPC.DrawBackglow(PyrogenBoss.BackglowColor, 4f, SpriteEffects.None, NPC.frame, screenPos);
+
             Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
-
-            NPC.DrawBackglow(Main.zenithWorld ? Color.Red : PyrogenBoss.BackglowColor, 4f, SpriteEffects.None, NPC.frame, screenPos);
-
             Vector2 origin = new Vector2(TextureAssets.Npc[Type].Value.Width / 2, TextureAssets.Npc[Type].Value.Height / Main.npcFrameCount[Type] / 2);
             Vector2 drawPos = NPC.Center - screenPos;
             drawPos -= new Vector2(texture.Width, texture.Height / Main.npcFrameCount[Type]) * NPC.scale / 2f;
             drawPos += origin * NPC.scale + new Vector2(0f, NPC.gfxOffY);
-            Color overlay = Main.zenithWorld ? Color.Red : drawColor;
-            spriteBatch.Draw(texture, drawPos, NPC.frame, NPC.GetAlpha(overlay), NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, drawPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0f);
+
             return false;
+        }
+
+        public override void DrawBehind(int index)
+        {
+            Main.instance.DrawCacheNPCsOverPlayers.Add(index);
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -816,22 +1289,22 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             {
                 for (int i = 0; i < 25; i++)
                 {
-                    int icyDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, dusttype, 0f, 0f, 100, default, 2f);
-                    Main.dust[icyDust].velocity *= 3f;
+                    int fireDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, dusttype, 0f, 0f, 100, default, 2f);
+                    Main.dust[fireDust].velocity *= 3f;
                     if (Main.rand.NextBool())
                     {
-                        Main.dust[icyDust].scale = 0.5f;
-                        Main.dust[icyDust].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                        Main.dust[fireDust].scale = 0.5f;
+                        Main.dust[fireDust].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
                     }
                 }
 
                 for (int j = 0; j < 50; j++)
                 {
-                    int icyDust2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, dusttype, 0f, 0f, 100, default, 3f);
-                    Main.dust[icyDust2].noGravity = true;
-                    Main.dust[icyDust2].velocity *= 5f;
-                    icyDust2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, dusttype, 0f, 0f, 100, default, 2f);
-                    Main.dust[icyDust2].velocity *= 2f;
+                    int fireDust2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, dusttype, 0f, 0f, 100, default, 3f);
+                    Main.dust[fireDust2].noGravity = true;
+                    Main.dust[fireDust2].velocity *= 5f;
+                    fireDust2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, dusttype, 0f, 0f, 100, default, 2f);
+                    Main.dust[fireDust2].velocity *= 2f;
                 }
 
                 if (!Main.dedServ && !Main.zenithWorld)
@@ -849,6 +1322,15 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
                         }
                     }
                 }
+            }
+        }
+
+        public override void OnKill()
+        {
+            if (Main.npc[ClamityGlobalNPC.pyrogenBoss].ai[0] == 2)
+            {
+                Main.npc[ClamityGlobalNPC.pyrogenBoss].ai[0] = 3;
+                Main.npc[ClamityGlobalNPC.pyrogenBoss].ai[1] = 0;
             }
         }
     }

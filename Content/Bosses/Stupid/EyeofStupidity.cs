@@ -6,6 +6,10 @@ namespace Clamity.Content.Bosses.Stupid
 {
     public class EyeofStupidity : ModItem, ILocalizedModType, IModType
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public new string LocalizationCategory => "Items.SummonBoss";
         public override void SetStaticDefaults()
         {
