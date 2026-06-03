@@ -46,3 +46,8 @@ Pyroplate: {
 	Tooltip: Он резонирует с потусторонней энергией
 	DisplayName: Пироплита
 }
+
+AzafureFurnace: {
+	// DisplayName: Azafure Furnace
+	// Tooltip: ""
+}

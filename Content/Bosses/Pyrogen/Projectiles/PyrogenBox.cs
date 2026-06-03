@@ -47,7 +47,8 @@ namespace Clamity.Content.Bosses.Pyrogen.Projectiles
                 Main.npc[index].active &&
                 Main.npc[index].type == ModContent.NPCType<PyrogenBoss>())
             {
-                return Main.npc[index];
+                if (Main.npc[index].ai[0] >= 2)
+                    return Main.npc[index];
             }
 
             return null;
