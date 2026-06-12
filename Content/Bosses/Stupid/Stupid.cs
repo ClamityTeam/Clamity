@@ -25,8 +25,8 @@ namespace Clamity.Content.Bosses.Stupid
             NPC.DeathSound = SoundID.NPCDeath2;
             NPC.value = 60f;
             NPC.knockBackResist = 0.5f;
-            NPC.aiStyle = 3;
-            AIType = 3;
+            NPC.aiStyle = NPCAIStyleID.Fighter;
+            AIType = NPCID.Zombie;
         }
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {

@@ -12,7 +12,7 @@
 	</Target>
 	<ItemGroup>
 		<Reference Include="CalamityMod">
-			<HintPath>Libraries\CalamityMod.dll</HintPath>
+		  <HintPath>Libraries\CalamityMod.dll</HintPath>
 		</Reference>
 		<Reference Include="Luminance">
 			<HintPath>Libraries\Luminance.dll</HintPath>

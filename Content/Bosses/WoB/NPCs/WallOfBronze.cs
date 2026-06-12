@@ -101,7 +101,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
             NPC.lifeMax = (int)(NPC.lifeMax * 0.5f * balance/* * bossAdjustment*/);
             //NPC.damage = (int)(NPC.damage * NPC.GetExpertDamageMultiplier()/* * bossAdjustment*/);
         }
-        public override void BossLoot(ref string name, ref int potionType) => potionType = ModContent.ItemType<OmegaHealingPotion>();
+        public override void BossLoot(ref int potionType) => potionType = ModContent.ItemType<OmegaHealingPotion>();
         public override void OnSpawn(IEntitySource source)
         {
             ClamityUtils.BossIntroDialogue("WallOfBronze", NPC);
