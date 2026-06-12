@@ -1,26 +1,25 @@
-Update 1.0.4.1 - Hotfix
+Update 1.0.4.2 - Hotfix
 
-Fixed unable to load Clamity without Wrath of the Gods
+Updated to Calamity Mod 2.2: Hog Wild
 
 Additions:
-Added Solyn Book rewards
+None
 
 Reworks:
-None
+Reworked Skull of the Blood God to use the effects from the newly reworked Flesh Totem, Apollyon, and Void of Calamity
 
 Removals:
 None
 
 Balance:
-None
+Disease and Wulfrum Leech Dagger are now correctly considered true melee damage
+Wulfrum Leech Dagger damage reduced from 30 to 20
 
 Changes:
-Solyn Book rarity changes
-The Common Tome is now only sold when the Wizard is in the Hallow biome.
+Skull of the Blood God is now an expert item as Void of Calamity is one.
 
 Fixes:
-Fixed "How to Clamity" book dropping only during Normal difficulty
+None
 
 Localization Changes:
-Updated English localization.
-Made the obtainment method of the Solyn Books added by this mod more clear, and updated their descriptions.
+None

@@ -21,9 +21,9 @@ namespace Clamity.Content.Biomes.FrozenHell.NPCs
             //AIType = NPCID.CaveBat;
             NPC.width = 66;
             NPC.height = 42;
-            NPC.aiStyle = 1;
-            AIType = 184;
-            AnimationType = 184;
+            NPC.aiStyle = NPCAIStyleID.Slime;
+            AIType = NPCID.SpikedIceSlime;
+            AnimationType = NPCID.SpikedIceSlime;
             NPC.value = 37500;
 
             NPC.knockBackResist = 0.1f;

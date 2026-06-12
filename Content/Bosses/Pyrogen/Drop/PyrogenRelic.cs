@@ -1,5 +1,6 @@
 ﻿using CalamityMod.Tiles.BaseTiles;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Clamity.Content.Bosses.Pyrogen.Drop
@@ -14,7 +15,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop
             Item.width = 30;
             Item.height = 40;
             Item.maxStack = 9999;
-            Item.rare = -13;
+            Item.rare = ItemRarityID.Master;
             Item.master = true;
             Item.value = Item.buyPrice(0, 5, 0, 0);
         }

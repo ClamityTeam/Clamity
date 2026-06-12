@@ -17,7 +17,7 @@ namespace Clamity.Content.Bosses.Stupid
             Item.width = 20;
             Item.height = 20;
             Item.maxStack = 20;
-            Item.rare = -12;
+            Item.rare = ItemRarityID.Expert;
             Item.useAnimation = 45;
             Item.useTime = 45;
             Item.useStyle = ItemUseStyleID.HoldUp;

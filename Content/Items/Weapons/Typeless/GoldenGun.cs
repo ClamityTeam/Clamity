@@ -87,7 +87,7 @@ namespace Clamity.Content.Items.Weapons.Typeless
                     float dustX = Projectile.velocity.X / 6f * (float)j;
                     float dustY = Projectile.velocity.Y / 6f * (float)j;
                     int dustPosMod = 6;
-                    int goldenDust = Dust.NewDust(new Vector2(Projectile.position.X + (float)dustPosMod, Projectile.position.Y + (float)dustPosMod), Projectile.width - dustPosMod * 2, Projectile.height - dustPosMod * 2, 170, 0f, 0f, 75, default, 1.2f);
+                    int goldenDust = Dust.NewDust(new Vector2(Projectile.position.X + (float)dustPosMod, Projectile.position.Y + (float)dustPosMod), Projectile.width - dustPosMod * 2, Projectile.height - dustPosMod * 2, DustID.Ichor, 0f, 0f, 75, default, 1.2f);
                     Dust dust = Main.dust[goldenDust];
                     if (Main.rand.NextBool())
                     {
@@ -113,7 +113,7 @@ namespace Clamity.Content.Items.Weapons.Typeless
                 if (Main.rand.NextBool(4))
                 {
                     int dustPosMod2 = 6;
-                    int moreGoldenDust = Dust.NewDust(new Vector2(Projectile.position.X + (float)dustPosMod2, Projectile.position.Y + (float)dustPosMod2), Projectile.width - dustPosMod2 * 2, Projectile.height - dustPosMod2 * 2, 170, 0f, 0f, 75, default, 0.65f);
+                    int moreGoldenDust = Dust.NewDust(new Vector2(Projectile.position.X + (float)dustPosMod2, Projectile.position.Y + (float)dustPosMod2), Projectile.width - dustPosMod2 * 2, Projectile.height - dustPosMod2 * 2, DustID.Ichor, 0f, 0f, 75, default, 0.65f);
                     Dust dust = Main.dust[moreGoldenDust];
                     dust.velocity *= 0.5f;
                     dust.velocity += Projectile.velocity * 0.5f;
@@ -128,7 +128,7 @@ namespace Clamity.Content.Items.Weapons.Typeless
             int inc;
             for (int k = 0; k < 100; k = inc + 1)
             {
-                int deathGoldenDust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 170, 0f, 0f, 75, default, 1.2f);
+                int deathGoldenDust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Ichor, 0f, 0f, 75, default, 1.2f);
                 Dust dust = Main.dust[deathGoldenDust];
                 if (Main.rand.NextBool())
                 {
