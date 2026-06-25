@@ -34,7 +34,7 @@ namespace Clamity.Content.Items.Weapons.Typeless
             Item.damage = 500;
             Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.useAnimation = Item.useTime = 15;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5f;
             Item.UseSound = LunicEye.UseSound;
             Item.autoReuse = true;
