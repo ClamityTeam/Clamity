@@ -1,5 +1,5 @@
-displayName = Clamity Addon
-author = WitherTaco and Calamity Fandom wiki
+displayName = Cataclysm Mod (Clamity Addon)
+author = Team Clamity
 version = 1.0.4.2
 modReferences = CalamityMod, ClamityMusic, Luminance, SubworldLibrary
 weakReferences = InfernumMode, CalRemix, AbsoluteIBR

@@ -1,15 +1,16 @@
 Update 1.0.4.2 - Hotfix
 
 Updated to Calamity Mod 2.2: Hog Wild
+Also Clamity Addon now Cataclysm Mod and update icon.
 
 Additions:
 None
 
 Reworks:
-Reworked Skull of the Blood God to use the effects from the newly reworked Flesh Totem, Apollyon, and Void of Calamity
+Reworked Skull of the Blood God to use the effects from the newly reworked Flesh Totem, Apollyon, and Void of Calamity.
 
 Removals:
-None
+Temporaly removed Clamity Style menu
 
 Balance:
 Disease and Wulfrum Leech Dagger are now correctly considered true melee damage
