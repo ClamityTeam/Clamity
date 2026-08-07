@@ -1,13 +1,13 @@
 ﻿[h1] Clamity Addon[/h1]
 [url=https://discord.gg/7auk3bDb3K] Discord[/url]
 
-The Clamity Addon is add-on for the Calamity Mod which adds content from Calamity Fandom Wiki, however the content added has been altered to be as high quality as posible.
+The Cataclysm Mod is add-on for the Calamity Mod which adds content from Calamity Fandom Wiki, however the content added has been altered to be as high quality as posible.
 This mod has official support of both English and Russian Localization as of now.
 
 [h2]- Content -[/h2]
 [list]
 	[*] 3 new bosses: Clamitas, Pyrogen and Wall of Bronze
-	[*] Over 25 new and old weapons (shortswords included)
+	[*] Over 30 weapons
 	[*] A new late Post-Moon Lord biome: Frozen Hell
 	[*] 2 armor sets
 	[*] New food items

@@ -13,7 +13,6 @@ using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.Projectiles.Boss;
-using Clamity.Commons;
 using Clamity.Content.Bosses.Clamitas.Drop;
 using Clamity.Content.Items.Accessories;
 using Microsoft.Xna.Framework;
@@ -199,6 +198,7 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             {
                 hitAmount++;
                 hasBeenHit = true;
+                if (hitAmount == 5) ClamityUtils.BossIntroDialogue("Clamitas", NPC);
             }
 
             NPC.chaseable = hasBeenHit;

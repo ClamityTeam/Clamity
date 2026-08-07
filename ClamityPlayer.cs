@@ -85,6 +85,7 @@ namespace Clamity
         //Buffs-Debuffs
         public bool titanScale;
         public int titanScaleTimer;
+        public bool supremeLuck;
         public bool glacialRevenge;
 
         //Pets
@@ -143,6 +144,7 @@ namespace Clamity
             //Other
             flyingChair = false;
             titanScale = false;
+            supremeLuck = false;
             glacialRevenge = false;
         }
         public override void UpdateDead()
@@ -168,8 +170,6 @@ namespace Clamity
         }
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.Clamity().IncreasedHeatEffects_PyroStone = pyroStone;
-
             if (item.DamageType == DamageClass.Melee || item.DamageType == ModContent.GetInstance<TrueMeleeDamageClass>())
             {
                 if (pyroSpear && !Player.HasCooldown(PyrospearCooldown.ID))
@@ -493,6 +493,8 @@ namespace Clamity
         }
         public override void ModifyLuck(ref float luck)
         {
+            if (supremeLuck) luck += 0.5f;
+            if (subcommunity) luck += TheSubcommunity.CalculatePower() * TheSubcommunity.LuckMult;
             if (redDie)
             {
                 for (int i = 3; i < 9; i++)
@@ -502,13 +504,9 @@ namespace Clamity
                     {
                         luck -= 0.2f;
                     }
-                    luck *= 1.5f;
-                    luck += 0.2f;
                 }
-            }
-            if (subcommunity)
-            {
-                luck += TheSubcommunity.CalculatePower() * TheSubcommunity.LuckMult;
+                luck += 0.2f;
+                luck *= 1.5f;
             }
         }
         #endregion

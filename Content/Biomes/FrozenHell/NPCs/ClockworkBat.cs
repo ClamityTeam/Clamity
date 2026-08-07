@@ -22,9 +22,9 @@ namespace Clamity.Content.Biomes.FrozenHell.NPCs
             //AIType = NPCID.CaveBat;
             NPC.width = 22;
             NPC.height = 32;
-            NPC.aiStyle = 14;
-            AIType = 49;
-            AnimationType = 49;
+            NPC.aiStyle = NPCAIStyleID.Bat;
+            AIType = NPCID.CaveBat;
+            AnimationType = NPCID.CaveBat;
             NPC.value = 35000;
             NPC.npcSlots = 0.5f;
 
@@ -57,7 +57,7 @@ namespace Clamity.Content.Biomes.FrozenHell.NPCs
             {
                 NPC.Calamity().newAI[0] = 0;
                 Vector2 velocity = (Main.player[NPC.target].Center - NPC.Center).SafeNormalize(Vector2.Zero) * 10f;
-                int index = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, 15, NPC.damage, 0f, Main.myPlayer);
+                int index = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ProjectileID.BallofFire, NPC.damage, 0f, Main.myPlayer);
                 Main.projectile[index].friendly = false;
                 Main.projectile[index].hostile = true;
             }

@@ -26,6 +26,11 @@ EyeOfNova: {
 		Взрывается в облако туманности, который сильно уменьшает защиту противника, и замедляет его		
 		Это оружие масштабируется с учетом среднего показателя ваших характеристик урона
 		'''
+	/* HoldShiftTooltip:
+		'''
+		  Apply [cbuff:CalamityMod/MarkedforDeath], [cbuff:CalamityMod/Vaporfied], 
+		  [cbuff:CalamityMod/MiracleBlight], [cbuff:Ichor] on hit
+		''' */
 }
 
 Celesticus: {

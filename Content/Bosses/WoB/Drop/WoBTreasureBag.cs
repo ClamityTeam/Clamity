@@ -52,7 +52,8 @@ namespace Clamity.Content.Bosses.WoB.Drop
         {
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<WallOfBronze>()));
             itemLoot.Add(ModContent.ItemType<HeavyMetalTrashCan>());
-            itemLoot.Add(ItemDropRule.FewFromOptionsNotScalingWithLuck(2, 1, ModContent.ItemType<AMS>(), ModContent.ItemType<TheWOBbler>(), ModContent.ItemType<LargeFather>()));
+            itemLoot.Add(ModContent.ItemType<LargeFather>());
+            itemLoot.Add(ItemDropRule.FewFromOptionsNotScalingWithLuck(1, 1, ModContent.ItemType<AMS>(), ModContent.ItemType<TheWOBbler>()));
             itemLoot.Add(ModContent.ItemType<WoBMask>(), 7);
             itemLoot.Add(ModContent.ItemType<ThankYouPainting>(), 100);
         }
