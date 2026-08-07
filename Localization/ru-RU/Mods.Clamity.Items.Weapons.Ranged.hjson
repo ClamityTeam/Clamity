@@ -27,3 +27,8 @@ WitheredBoneBow: {
 		"Я слышал, кто-то сказал "тако"?"
 		'''
 }
+
+ShatteredPistol: {
+	// Tooltip: ""
+	// DisplayName: Shattered Pistol
+}

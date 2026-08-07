@@ -25,6 +25,7 @@ Ranged: {
 	ObsidigunBullet.DisplayName: Обсидиановая пуля
 	ObsidigunBulletShard.DisplayName: Осколок обсидиановой поли
 	// WitheredBoneBowProj.DisplayName: Withered Bone Bolt
+	// WaterRay.DisplayName: Water Ray
 }
 
 Magic: {
@@ -85,6 +86,9 @@ Boss: {
 	// WoBCutsceneBoom.DisplayName: Wo B Cutscene Boom
 	// WoBCutsceneDrama.DisplayName: Wo B Cutscene Drama
 	// WoBCutsceneBoomTest.DisplayName: Wo B Cutscene Boom Test
+	// SeashineMine.DisplayName: Seashine Mine
+	// SeashineMineShards.DisplayName: Seashine Mine Shards
+	// WaterRayLight.DisplayName: Water Ray Light
 }
 
 // ShortstrikeEffect.DisplayName: Shortstrike Effect

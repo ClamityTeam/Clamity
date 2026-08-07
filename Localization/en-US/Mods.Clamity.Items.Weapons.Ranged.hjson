@@ -27,3 +27,8 @@ WitheredBoneBow: {
 		'Did I hear someone say taco?'
 		'''
 }
+
+ShatteredPistol: {
+	Tooltip: ""
+	DisplayName: Shattered Pistol
+}

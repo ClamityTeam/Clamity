@@ -1,5 +1,6 @@
 ﻿using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Accessories;
+using CalamityMod.Particles;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Ranged;
@@ -7,6 +8,8 @@ using CalamityMod.Projectiles.Rogue;
 using CalamityMod.Projectiles.Summon;
 using CalamityMod.Projectiles.Typeless;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
+using Microsoft.Xna.Framework;
+using Mono.Cecil;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -14,6 +17,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Clamity
 {
@@ -22,11 +26,33 @@ namespace Clamity
         public override bool InstancePerEntity => true;
         public float[] extraAI = new float[5];
         public bool IsSentryRelated = false;
+
+        public bool subShot = false;
+        public int subShotTimer = 0;
+        public bool shatteredBullet = false;
+        public bool aquarelBullet = false;
+        public bool abysscentBullet = false;
+        public bool lacescentBullet = false;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[projectile.owner];
 
             UpdateAflameAccesory(projectile, target, hit, damageDone);
+
+
+            if (!subShot)
+            {
+                if (shatteredBullet)
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Projectile shardShot = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, projectile.velocity.RotatedByRandom(MathHelper.Pi), projectile.type, projectile.damage / 4, projectile.knockBack, projectile.owner);
+                        ClamityGlobalProjectile cgp = shardShot.Clamity();
+                        cgp.shatteredBullet = true;
+                        cgp.subShot = true;
+                    }
+                }
+            }
         }
         private void UpdateAflameAccesory(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -98,6 +124,16 @@ namespace Clamity
                 }
             }
         }*/
+        public override bool? CanHitNPC(Projectile projectile, NPC target)
+        {
+            //if (subShotTimer > 0) Main.NewText(subShotTimer);
+            if (subShot && subShotTimer < 60)
+            {
+                return false;
+            }
+
+            return base.CanHitNPC(projectile, target);
+        }
         public override void OnSpawn(Projectile proj, IEntitySource source)
         {
             Player player = Main.player[proj.owner];
@@ -128,6 +164,29 @@ namespace Clamity
             for (int i = 0; i < extraAI.Length; i++)
                 extraAI[i] = binaryReader.ReadSingle();
             IsSentryRelated = binaryReader.ReadBoolean();
+        }
+        public override void AI(Projectile projectile)
+        {
+            if (projectile.Opacity > 0 && projectile.scale > 0.01f) // Only apply bullet visuals if the bullet is visible
+            { 
+                if (shatteredBullet)
+                {
+                    SparkParticle spark = new SparkParticle(projectile.Center + projectile.velocity, -projectile.velocity * 0.05f, false, 2, 0.55f * projectile.scale, Color.LightBlue * 0.75f);
+                    GeneralParticleHandler.SpawnParticle(spark);
+
+                    if (Main.rand.NextBool())
+                    {
+                        Gore bubble = Gore.NewGorePerfect(projectile.GetSource_FromAI(), projectile.position, projectile.velocity * 0.2f + Main.rand.NextVector2Circular(1f, 1f), 411);
+                        bubble.timeLeft = 9 + Main.rand.Next(7);
+                        bubble.scale = Main.rand.NextFloat(0.6f, 1f);
+                        bubble.type = Main.rand.NextBool(3) ? 412 : 411;
+                    }
+                }
+            }
+        }
+        public override void PostAI(Projectile projectile)
+        {
+            if (subShot) subShotTimer++;            
         }
     }
 }
