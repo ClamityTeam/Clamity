@@ -77,7 +77,6 @@ namespace Clamity.Content.Items.Accessories
             modPlayer.apollyon = true;
             modPlayer.abaddonEffectVisual = !hideVisual;
 
-            modPlayer.voidOfCalamity = true;
             player.GetDamage<GenericDamageClass>() += 0.15f;
             if (player.whoAmI == Main.myPlayer)
             {
@@ -102,7 +101,7 @@ namespace Clamity.Content.Items.Accessories
                 .AddIngredient<FleshTotem>()
                 .AddIngredient<Apollyon>()
                 .AddIngredient<VoidofCalamity>()
-                .AddIngredient<BloodstoneCore>(4)
+                .AddIngredient<Bloodstone>(20)
                 .AddIngredient<AscendantSpiritEssence>(5)
                 .AddTile<CosmicAnvil>()
                 .Register();
