@@ -574,7 +574,7 @@ namespace Clamity
                     NetMessage.SendData(MessageID.TeleportPlayerThroughPortal, -1, -1, null, 0, Player.whoAmI, vector.X, vector.Y, 1);
                 }
             }
-            if (CalamityKeybinds.AccessoryParryHotKey.JustPressed && !Player.HasCooldown(ParryCooldown.ID))
+            if (Player.Calamity().AccessoryParryItem != null && Player.Calamity().AccessoryParryItem.JustPressedKeybind() && !Player.HasCooldown(ParryCooldown.ID))
             {
                 if (frozenParrying && frozenParryingTime == 0)
                 {

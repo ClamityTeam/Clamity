@@ -75,6 +75,7 @@ Misc: {
 	DefeatedWoB: После победы над Стеной Бронзы
 	// FrozenHellMessege: You can feel the cold breeze coming from the center of Hell...
 	// GeneratedFrozenHell: If not generated Frozen Hell or active special config
+	// NanotechEthereal: Rogue projectiles explode into homing souls on hit
 }
 
 Tiles: {

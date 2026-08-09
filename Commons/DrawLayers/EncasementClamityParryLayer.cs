@@ -65,7 +65,7 @@ namespace Clamity.Commons.DrawLayers
                     scale = 0f;
                     break;
             }
-            if (calPlayer.blazingCore || calPlayer.flameLickedShell)
+            if (calPlayer.divineProvidence || calPlayer.flameLickedShell)
                 texPlus = "NoneParry";
             tex += texPlus;
 

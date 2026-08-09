@@ -1,23 +1,21 @@
-Update 1.0.4.2 - Hotfix
+Update 1.0.4.3 - Hotfix
 
-Updated to Calamity Mod 2.2: Hog Wild
-Also Clamity Addon now Cataclysm Mod and update icon.
+Updated to Calamity Mod 2.2.2
 
 Additions:
 None
 
 Reworks:
-Reworked Skull of the Blood God to use the effects from the newly reworked Flesh Totem, Apollyon, and Void of Calamity.
+Nanotech now has the effects of Ethereal Extorter in addition to its original effects.
 
 Removals:
-Temporaly removed Clamity Style menu
+None
 
 Balance:
-Disease and Wulfrum Leech Dagger are now correctly considered true melee damage
-Wulfrum Leech Dagger damage reduced from 30 to 20
+None
 
 Changes:
-Skull of the Blood God is now an expert item as Void of Calamity is one.
+Replaced Vampiric Talisman with Darcula's Charm in Nanotech recipe.
 
 Fixes:
 None
