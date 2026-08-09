@@ -106,11 +106,13 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
             Projectile.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             //Projectile.scale = 4f;
         }
+        public override float AdditionalScale => 1f;
+        public override bool IgnoreAutoScale => true;
         public override void WhenSpawned()
         {
             CanHit = false;
             Projectile.knockBack = 0;
-            Projectile.scale = 2;
+            //Projectile.scale = 2;
             Projectile.ai[1] = -1;
 
             // 14NOV2024: Ozzatron: clamped mouse position unnecessary, as Hellkite has no projectiles

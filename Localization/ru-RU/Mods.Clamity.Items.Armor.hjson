@@ -49,7 +49,7 @@ FrozenHellstone: {
 			Атаки истинного ближнего боя наклыдвают дебафф [cbuff:Frostburn]
 			Враги чаще выбирают вас в качестве цели
 			'''
-		//DisplayName: Замороженный шлем авангарда
+		// DisplayName: Endobsidian Vanguard Helm
 		SetBonus:
 			'''
 			Вы не можете замёрзнуть
@@ -65,7 +65,7 @@ FrozenHellstone: {
 			Увеличивает максимальный запас здоровья на 75 ед.
 			Враги чаще выбирают вас в качестве цели
 			'''
-		//DisplayName: Замороженные поножи
+		// DisplayName: Endobsidian Greaves
 	}
 
 	FrozenHellstoneChestplate: {
@@ -74,6 +74,6 @@ FrozenHellstone: {
 			Увеличивает урон истинного ближнего боя и скорость ближнего боя на 20%
 			Враги чаще выбирают вас в качестве цели 
 			'''
-		//DisplayName: Замороженный нагрудник
+		// DisplayName: Endobsidian Heavy Chestplate
 	}
 }
