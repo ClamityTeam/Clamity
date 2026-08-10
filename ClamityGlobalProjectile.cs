@@ -7,6 +7,7 @@ using CalamityMod.Projectiles.Ranged;
 using CalamityMod.Projectiles.Rogue;
 using CalamityMod.Projectiles.Summon;
 using CalamityMod.Projectiles.Typeless;
+using Clamity.Content.Bosses.ForbiddenLantern.Items;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
 using Microsoft.Xna.Framework;
 using Mono.Cecil;
@@ -44,12 +45,36 @@ namespace Clamity
             {
                 if (shatteredBullet)
                 {
+                    target.AddBuff(BuffID.Wet, 120);
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        /*Projectile cobyShot = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, projectile.velocity.RotatedByRandom(MathHelper.Pi), projectile.type, projectile.damage / 4, projectile.knockBack, projectile.owner);
+                        ClamityGlobalProjectile cgp = cobyShot.Clamity();
+                        cgp.shatteredBullet = true;
+                        cgp.subShot = true;*/
+
+
+                        Projectile shardShot = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, projectile.velocity.RotatedByRandom(MathHelper.Pi), ModContent.ProjectileType<ShatteredPistolShard>(), projectile.damage / 4, projectile.knockBack, projectile.owner);
+
+                    }
+                }
+                if (aquarelBullet)
+                {
+                    target.AddBuff(BuffID.Wet, 120);
+                    target.AddBuff(BuffID.Frostburn2, 120);
+
+
                     for (int i = 0; i < 6; i++)
                     {
-                        Projectile shardShot = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, projectile.velocity.RotatedByRandom(MathHelper.Pi), projectile.type, projectile.damage / 4, projectile.knockBack, projectile.owner);
-                        ClamityGlobalProjectile cgp = shardShot.Clamity();
+                        /*Projectile cobyShot = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, projectile.velocity.RotatedByRandom(MathHelper.Pi), projectile.type, projectile.damage / 4, projectile.knockBack, projectile.owner);
+                        ClamityGlobalProjectile cgp = cobyShot.Clamity();
                         cgp.shatteredBullet = true;
-                        cgp.subShot = true;
+                        cgp.subShot = true;*/
+
+
+                        Projectile shardShot = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, projectile.velocity.RotatedByRandom(MathHelper.Pi), ModContent.ProjectileType<ShatteredPistolShard>(), projectile.damage / 4, projectile.knockBack, projectile.owner, 1);
+
                     }
                 }
             }
@@ -167,19 +192,32 @@ namespace Clamity
         }
         public override void AI(Projectile projectile)
         {
+            Player player = Main.player[projectile.owner];
             if (projectile.Opacity > 0 && projectile.scale > 0.01f) // Only apply bullet visuals if the bullet is visible
             { 
-                if (shatteredBullet)
+                if (shatteredBullet || aquarelBullet)
                 {
-                    SparkParticle spark = new SparkParticle(projectile.Center + projectile.velocity, -projectile.velocity * 0.05f, false, 2, 0.55f * projectile.scale, Color.LightBlue * 0.75f);
-                    GeneralParticleHandler.SpawnParticle(spark);
-
-                    if (Main.rand.NextBool())
+                    float targetDist = Vector2.Distance(player.Center, projectile.Center);
+                    if (targetDist < 1400f)
                     {
-                        Gore bubble = Gore.NewGorePerfect(projectile.GetSource_FromAI(), projectile.position, projectile.velocity * 0.2f + Main.rand.NextVector2Circular(1f, 1f), 411);
-                        bubble.timeLeft = 9 + Main.rand.Next(7);
-                        bubble.scale = Main.rand.NextFloat(0.6f, 1f);
-                        bubble.type = Main.rand.NextBool(3) ? 412 : 411;
+                        SparkParticle spark = new SparkParticle(projectile.Center + projectile.velocity, -projectile.velocity * 0.05f, false, 2, 0.55f * projectile.scale, (aquarelBullet ? Color.Cyan : Color.LightBlue) * 0.75f);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                        if (aquarelBullet)
+                        {
+                            if (Main.rand.NextBool(3))
+                            {
+                                SparkParticle spark2 = new SparkParticle(projectile.Center + Main.rand.NextVector2Circular(6, 6) * projectile.scale, -projectile.velocity * Main.rand.NextFloat(0.05f, 0.4f), false, 20, 0.4f * projectile.scale, Color.Cyan * 0.75f);
+                                GeneralParticleHandler.SpawnParticle(spark2);
+                            }
+                        }
+
+                        if (Main.rand.NextBool())
+                        {
+                            Gore bubble = Gore.NewGorePerfect(projectile.GetSource_FromAI(), projectile.position, projectile.velocity * 0.2f + Main.rand.NextVector2Circular(1f, 1f), 411);
+                            bubble.timeLeft = 9 + Main.rand.Next(7);
+                            bubble.scale = Main.rand.NextFloat(0.6f, 1f);
+                            bubble.type = Main.rand.NextBool(3) ? 412 : 411;
+                        }
                     }
                 }
             }

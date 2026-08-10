@@ -2,7 +2,7 @@
 using CalamityMod.BiomeManagers;
 using CalamityMod.World;
 using Clamity.Commons;
-using Clamity.Content.Bosses.TheForbiddenLantern.Projectiles;
+using Clamity.Content.Bosses.ForbiddenLantern.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,7 +12,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Clamity.Content.Bosses.TheForbiddenLantern.NPCs
+namespace Clamity.Content.Bosses.ForbiddenLantern.NPCs
 {
     public class TheForbiddenLantern : ModNPC
     {

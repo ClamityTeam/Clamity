@@ -26,6 +26,8 @@ Ranged: {
 	ObsidigunBulletShard.DisplayName: Obsidian Bullet Shard
 	WitheredBoneBowProj.DisplayName: Withered Bone Bolt
 	WaterRay.DisplayName: Water Ray
+	ShatteredPistolShard.DisplayName: Shattered Pistol Shard
+	AquarelPistolShard.DisplayName: Aquarel Pistol Shard
 }
 
 Magic: {
@@ -100,3 +102,4 @@ CyanSolutionProjectile.DisplayName: Cyan Solution
 HeavyMetalTrashCanPet.DisplayName: Mini Bocchi
 AncientConsoleProjectile.DisplayName: Ancient Console Projectile
 Classless.PyroShieldAccessory.DisplayName: Pyro Shield Accessory
+LanternShardDrama.DisplayName: Lantern Shard Drama

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Clamity.Content.Bosses.TheForbiddenLantern.Projectiles
+namespace Clamity.Content.Bosses.ForbiddenLantern.Projectiles
 {
     public class WaterRay : ModProjectile, ILocalizedModType
     {

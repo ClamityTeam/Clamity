@@ -46,3 +46,8 @@ WoBSummonItem: {
 		'''
 	DisplayName: Technical Alternative Bronze Machine
 }
+
+LanternShard: {
+	DisplayName: Lantern Shard
+	Tooltip: ""
+}

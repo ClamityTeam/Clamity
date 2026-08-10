@@ -29,6 +29,26 @@ WitheredBoneBow: {
 }
 
 ShatteredPistol: {
-	Tooltip: ""
 	DisplayName: Shattered Pistol
+	Tooltip:
+		'''
+		Shoot an imbued bullet by water
+		Imbued bullet creates pircing shards on impact, dealing additional damage to the enemy they hit
+		Any bullet type can be imbued when fired from this gun
+		'''
+}
+
+AquarelPistol: {
+	DisplayName: Aquarel Pistol
+	Tooltip:
+		'''
+		Shoot an imbued bullet by water and ice
+		Imbued bullet creates many pircing shards on impact, dealing additional damage to the enemy they hit
+		Any bullet type can be imbued when fired from this gun
+		'''
+}
+
+AbysscentPistol: {
+	DisplayName: Abysscent Pistol
+	Tooltip: ""
 }

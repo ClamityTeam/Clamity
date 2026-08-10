@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Clamity.Content.Bosses.TheForbiddenLantern.Projectiles
+namespace Clamity.Content.Bosses.ForbiddenLantern.Projectiles
 {
     public class SeashineMine : ModProjectile, ILocalizedModType
     {

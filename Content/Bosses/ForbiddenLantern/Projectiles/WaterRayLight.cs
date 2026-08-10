@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace Clamity.Content.Bosses.TheForbiddenLantern.Projectiles
+namespace Clamity.Content.Bosses.ForbiddenLantern.Projectiles
 {
     public class WaterRayLight : ModProjectile, ILocalizedModType
     {
@@ -36,7 +36,7 @@ namespace Clamity.Content.Bosses.TheForbiddenLantern.Projectiles
         {
             NPC lantern = Main.npc[(int)Projectile.ai[0]];
 
-            Projectile.scale = 1f - MathHelper.Clamp(Projectile.timeLeft / (float)RotatingTime, 0, 1);
+            Projectile.scale = 1f - MathHelper.Clamp(Projectile.timeLeft / (float)RotatingTime, 0, 1) + Main.rand.NextFloat(0, 0.1f);
             float num1 = Projectile.timeLeft > (90 - RotatingTime) ? MathF.Sin(Projectile.scale / 2 * MathHelper.Pi) : 1f;
             Projectile.Center = lantern.Center + Vector2.UnitX.RotatedBy(MathHelper.TwoPi / TotalProjectileCount * Projectile.ai[1] + Main.GlobalTimeWrappedHourly) * 150f * Projectile.scale;
 
@@ -44,7 +44,7 @@ namespace Clamity.Content.Bosses.TheForbiddenLantern.Projectiles
         }
         public override void OnKill(int timeLeft)
         {
-            Player target = Main.player[TheForbiddenLantern.NPCs.TheForbiddenLantern.Myself.target];
+            Player target = Main.player[ForbiddenLantern.NPCs.TheForbiddenLantern.Myself.target];
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Projectile.Center.SafeDirectionTo(target.Center) * 10, ModContent.ProjectileType<WaterRay>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
         }
         public override bool PreDraw(ref Color lightColor)

@@ -1,22 +1,19 @@
 ﻿using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles;
 using CalamityMod.Systems.Collections;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Clamity.Content.Bosses.TheForbiddenLantern.Items
+namespace Clamity.Content.Bosses.ForbiddenLantern.Items
 {
-    public class ShatteredPistol : ModItem, ILocalizedModType
+    public class AbysscentPistol : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Weapons.Ranged";
         public override void SetStaticDefaults()
@@ -28,9 +25,9 @@ namespace Clamity.Content.Bosses.TheForbiddenLantern.Items
             Item.width = 60;
             Item.height = 40;
             Item.scale = 0.75f;
-            Item.damage = 60;
+            Item.damage = 115;
             Item.DamageType = DamageClass.Ranged;
-            Item.useTime = Item.useAnimation = 21;
+            Item.useTime = Item.useAnimation = 23;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 2.25f;
@@ -55,7 +52,7 @@ namespace Clamity.Content.Bosses.TheForbiddenLantern.Items
             }
             Projectile shardShot = Projectile.NewProjectileDirect(source, itemPosition + velocity.RotatedBy(-0.6 * player.direction) - velocity * 0.5f, velocity, type, damage, knockback, player.whoAmI);
             ClamityGlobalProjectile cgp = shardShot.Clamity();
-            cgp.shatteredBullet = true;
+            cgp.abysscentBullet = true;
 
             // Ice bullet
             /*if (!swapType)
@@ -102,7 +99,7 @@ namespace Clamity.Content.Bosses.TheForbiddenLantern.Items
             float itemRotation = player.compositeFrontArm.rotation + MathHelper.PiOver2 * player.gravDir;
 
             Vector2 itemPosition = player.MountedCenter + itemRotation.ToRotationVector2() * 7f;
-            Vector2 itemSize = new Vector2(44, 28);
+            Vector2 itemSize = new Vector2(44, 30);
             Vector2 itemOrigin = new Vector2(-24, 3);
 
             CalamityUtils.CleanHoldStyle(player, itemRotation, itemPosition, itemSize, itemOrigin);
@@ -120,6 +117,15 @@ namespace Clamity.Content.Bosses.TheForbiddenLantern.Items
                 rotation += -0.05f * (float)Math.Pow((0.6f - animProgress) / 0.6f, 2) * player.direction;
 
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AquarelPistol>()
+                .AddIngredient<CosmiliteBar>(10)
+                .AddIngredient<Lumenyl>(50)
+                .AddTile<CosmicAnvil>()
+                .Register();
         }
     }
 }
