@@ -85,6 +85,8 @@ Boss: {
 	WoBCutsceneBoom.DisplayName: Wo B Cutscene Boom
 	WoBCutsceneDrama.DisplayName: Wo B Cutscene Drama
 	WoBCutsceneBoomTest.DisplayName: Wo B Cutscene Boom Test
+	GiantBoulder.DisplayName: Giant Boulder
+	GiantBoulderFragments.DisplayName: Giant Boulder Fragments
 }
 
 ShortstrikeEffect.DisplayName: Shortstrike Effect

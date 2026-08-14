@@ -40,8 +40,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
                 else NPC.active = false;
 
                 PosY = Main.rand.NextFloat(200, 500) * (Main.rand.NextBool() ? -1 : 1);
-                NPC.Center = GetWoB().Center;
-                NPC.Center = new Vector2(GetWoB().Center.X, GetWoB().Center.Y + PosY);
+                NPC.Center = GetWoB().Center + new Vector2(0, PosY);
                 //NPC.spriteDirection = 1;
 
                 AIState = 0;

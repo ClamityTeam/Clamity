@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using Clamity.Commons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,7 +13,9 @@ namespace Clamity.Content.Bosses.WoB.Projectiles
     {
         public new string LocalizationCategory => "Projectiles.Boss";
         public ref float ClawGun => ref Projectile.ai[0];
-        public Vector2 StartVelocity
+        public ref float AttackType => ref Projectile.ai[1];
+        public ref float HasBoulder => ref Projectile.ai[2];
+        /*public Vector2 StartVelocity
         {
             get => new Vector2(Projectile.ai[1], Projectile.ai[2]);
             set
@@ -20,9 +23,18 @@ namespace Clamity.Content.Bosses.WoB.Projectiles
                 Projectile.ai[1] = value.X;
                 Projectile.ai[2] = value.Y;
             }
-        }
-        public ref float StartLength => ref Projectile.Clamity().extraAI[1];
+        }*/
+        /// <summary>
+        /// 0 - start of shoot, 
+        /// 1 - fly with boulder, 
+        /// 2 - circular throw (type 2 only), 
+        /// 3 - return claw back
+        /// </summary>
+        public ref float State => ref Projectile.Clamity().extraAI[1];
+        public ref float Timer => ref Projectile.Clamity().extraAI[2];
         public Terraria.NPC GetClawGun => Main.npc[(int)ClawGun];
+
+        public static float ClawVelocity => 10;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
@@ -46,11 +58,81 @@ namespace Clamity.Content.Bosses.WoB.Projectiles
             if (GetClawGun == null) Projectile.Kill();
             if (!GetClawGun.active) Projectile.Kill();
 
+            Projectile.timeLeft = 2;
+
+            Projectile.rotation = (GetClawGun.Center - Projectile.Center).ToRotation();
+
+
+            switch (State) 
+            {
+                case 0:
+                    if (Timer > 120)
+                    {
+                        State = 1;
+                        Timer = 0;
+                        HasBoulder = 1;
+                    }
+                    break;
+                case 1:
+                    Projectile.velocity = Vector2.Normalize(GetClawGun.Center - Projectile.position) * ClawVelocity;
+
+                    if (AttackType == 1)
+                    {
+                        if (Timer > 60 && AttackType == 1)
+                        {
+                            Texture2D claw = ModContent.Request<Texture2D>(Texture).Value;
+                            int boulder = ModContent.ProjectileType<GiantBoulder>();
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(claw.Width).RotatedBy(Projectile.rotation), -Projectile.velocity / 3, boulder, Projectile.damage, Projectile.knockBack, Projectile.owner, ClawGun);
+
+                            State = 3;
+                            Timer = 0;
+                            HasBoulder = 0;
+                        }
+                    }
+                    else if (AttackType == 2)
+                    {
+                        if (GetClawGun.Center.Distance(Projectile.Center) < 30)
+                        {
+                            State = 2;
+                            Timer = 0;
+                            HasBoulder = 0;
+                        }
+                    }
+
+                    break;
+                case 2:
+                    int time = 60;
+
+                    Projectile.rotation += CalamityUtils.CircInEasing(MathHelper.Clamp(Timer, 0, time) / time, 1);
+                    Projectile.Center = Vector2.Zero;
+
+                    if (Timer == time / 4 * 3)
+                    {
+                        Texture2D claw = ModContent.Request<Texture2D>(Texture).Value;
+                        int boulder = ModContent.ProjectileType<GiantBoulder>();
+                        Vector2 center = Projectile.Center + new Vector2(claw.Width).RotatedBy(Projectile.rotation);
+                        Player target = Main.player[Player.FindClosest(Projectile.Center, 1, 1)];
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), center, (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 10, boulder, Projectile.damage, Projectile.knockBack, Projectile.owner, ClawGun);
+
+
+                        Projectile.Kill();
+                    }
+                    break;
+                case 3:
+                    Projectile.velocity = Vector2.Normalize(GetClawGun.Center - Projectile.position) * ClawVelocity;
+                    if (GetClawGun.Center.Distance(Projectile.Center) < 30)
+                        Projectile.Kill();
+
+                    break;
+            }
+            Timer++;
+
+
 
             //Main.NewText(GetClawGun.Center);
             //Main.player[Main.myPlayer].Center = Projectile.Center;
 
-            if (Projectile.velocity != Vector2.Zero)
+            /*if (Projectile.velocity != Vector2.Zero)
                 Projectile.rotation = Projectile.velocity.ToRotation();
 
             if (Projectile.timeLeft <= 550)
@@ -65,7 +147,7 @@ namespace Clamity.Content.Bosses.WoB.Projectiles
                 Projectile.tileCollide = false;
                 if (Collision.CheckAABBvAABBCollision(Projectile.position, Projectile.Hitbox.BottomRight(), GetClawGun.position, GetClawGun.Hitbox.BottomRight()))
                     Projectile.Kill();
-            }
+            }*/
             //Terraria.Collision.CheckAABBvAABBCollision
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -79,6 +161,14 @@ namespace Clamity.Content.Bosses.WoB.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            Texture2D boulder = ModContent.Request<Texture2D>("Clamity/Content/Bosses/WoB/Projectiles/GiantBoulder").Value;
+            Texture2D claw = ModContent.Request<Texture2D>(Texture).Value;
+
+            //Boulder
+            if (HasBoulder == 1)
+                Main.spriteBatch.Draw(boulder, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, boulder.Size() + new Vector2(boulder.Width - claw.Width / 2, 0), 1, SpriteEffects.None, 0);
+
+            //Chain
             Vector2 mountedCenter = GetClawGun.Center;
             Texture2D value = ModContent.Request<Texture2D>(Texture + "_Chain").Value;
             Vector2 center = Projectile.Center;
@@ -113,7 +203,11 @@ namespace Clamity.Content.Bosses.WoB.Projectiles
                 Color color = Lighting.GetColor((int)center.X / 16, (int)(center.Y / 16f));
                 Main.spriteBatch.Draw(value, center - Main.screenPosition, sourceRectangle, color, rotation, origin, 1f, SpriteEffects.None, 0f);
             }
-            CalamityUtils.DrawAfterimagesCentered(Projectile, ProjectileID.Sets.TrailingMode[Projectile.type], lightColor, 2);
+
+            //Claw Itself
+            Main.spriteBatch.Draw(claw, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(claw.Width / 2, 0), Projectile.scale, SpriteEffects.None, 0);
+
+            //CalamityUtils.DrawAfterimagesCentered(Projectile, ProjectileID.Sets.TrailingMode[Projectile.type], lightColor, 2);
 
             return false;
         }
