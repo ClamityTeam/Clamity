@@ -320,7 +320,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
             Projectile.penetrate = -1; // Blazing blades and hyper blades hit four times, sunlight blades hit ten times.
             Projectile.ignoreWater = true;
             Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 30;
+            Projectile.idStaticNPCHitCooldown = 8;
             Projectile.timeLeft = 1000;
             Projectile.noEnchantmentVisuals = true;
             Projectile.scale = 1.5f;

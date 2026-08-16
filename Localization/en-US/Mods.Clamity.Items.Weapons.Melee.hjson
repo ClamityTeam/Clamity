@@ -10,7 +10,7 @@ ClamitasCrusher: {
 
 SearedShredder: {
 	DisplayName: Seared Shredder
-	Tooltip: Shoots a flame scythe that home in on enemies
+	Tooltip: Releases a flaming scythe that follows your mouse and returns after a short time
 }
 
 RGBMurasama: {
