@@ -30,7 +30,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
         public override void SetDefaults()
         {
             Item.width = Item.height = 80;
-            Item.damage = 1900;
+            Item.damage = 4900;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.useTime = Item.useAnimation = 71;
             Item.useTurn = true;
@@ -104,7 +104,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            //Projectile.scale = 4f;
+            Projectile.scale = 2f;
         }
         public override float AdditionalScale => 1f;
         public override bool IgnoreAutoScale => true;
@@ -112,7 +112,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
         {
             CanHit = false;
             Projectile.knockBack = 0;
-            //Projectile.scale = 2;
+            Projectile.scale = 2;
             Projectile.ai[1] = -1;
 
             // 14NOV2024: Ozzatron: clamped mouse position unnecessary, as Hellkite has no projectiles
@@ -432,7 +432,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
                             GeneralParticleHandler.SpawnParticle(blastRing);
                         }
                     }
-                    Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<GreatestPeakMistProjectile>(), Projectile.damage, 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<GreatestPeakMistProjectile>(), (Projectile.damage / 4), 0, Projectile.owner);
                     for (int i = 0; i < 2; i++)
                     {
                         Particle spark = new GlowSparkParticle(target.Center, (Owner.Center - Owner.Calamity().mouseWorld).SafeNormalize(Vector2.UnitY) * -25 * (i == 0 ? -1 : 1), false, 12, 0.08f, Color.Cyan, new Vector2(3, 0.8f), true);
