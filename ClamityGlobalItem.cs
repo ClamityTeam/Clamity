@@ -5,13 +5,16 @@ using CalamityMod.Items.Placeables.Furniture.CraftingStations;
 using CalamityMod.Items.SummonItems;
 using CalamityMod.Items.TreasureBags;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
+using CalamityMod.Rarities;
 using Clamity.Content.Items.Accessories;
 using Clamity.Content.Items.Potions.Food;
 using Clamity.Content.Items.Weapons.Melee.Shortswords;
 using Clamity.Content.Items.Weapons.Typeless;
+using Clamity.Content.Rarities;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
@@ -60,6 +63,18 @@ namespace Clamity
                 }
             }
 
+        }
+        public override bool PreDrawTooltipLine(Item item, DrawableTooltipLine line, ref int yOffset)
+        {
+            if (line.Mod == "Terraria" && line.Name == "ItemName" && CalamityClientConfig.Instance.TextEffects)
+            {
+                if (item.rare == ModContent.GetInstance<EvercoldCyan>().Type)
+                {
+                    EvercoldCyan.Draw(item, line);
+                    return false;
+                }
+            }
+            return true;
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {

@@ -540,6 +540,10 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
                 GeneralParticleHandler.SpawnParticle(new SmallSmokeParticle(Projectile.Center, Main.rand.NextVector2Circular(80, 80), Color.Cyan, Color.LightBlue, 4f, 65f, Main.rand.NextFloat(-0.3f, 0.3f)));
                 GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Main.rand.NextVector2Circular(50, 50), Color.LightBlue, 60, 1f, 0.65f, Main.rand.NextFloat(-0.3f, 0.3f)));
             }
+            GeneralParticleHandler.SpawnParticle(new BloomParticle(Projectile.Center, Vector2.Zero, Color.Cyan, 6f, 4f, 3));
+            GeneralParticleHandler.SpawnParticle(new StrongBloom(Projectile.Center, Vector2.Zero, Color.Cyan, 1f, 2));
+            GeneralParticleHandler.SpawnParticle(new SparkParticle(Projectile.Center, Vector2.UnitX / 100, false, 2, 15 + Main.rand.NextFloat(-2, 2), Color.LightBlue, true));
+            GeneralParticleHandler.SpawnParticle(new SparkParticle(Projectile.Center, Vector2.UnitY / 100, false, 2, 15 + Main.rand.NextFloat(-2, 2), Color.LightBlue, true));
         }
     }
 }

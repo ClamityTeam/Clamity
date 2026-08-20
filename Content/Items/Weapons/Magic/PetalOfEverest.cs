@@ -6,6 +6,7 @@ using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Clamity.Content.Biomes.FrozenHell.Items;
+using Clamity.Content.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
@@ -21,6 +22,10 @@ namespace Clamity.Content.Items.Weapons.Magic
     [LegacyName("Everest")]
     public class PetalOfEverest : ModItem, ILocalizedModType
     {
+        /*public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }*/
         public new string LocalizationCategory => "Items.Weapons.Magic";
         public static int AftershotCooldownFrames = 17;
         public static int FullChargeFrames = 88;
@@ -40,7 +45,7 @@ namespace Clamity.Content.Items.Weapons.Magic
             Item.useStyle = ItemUseStyleID.Shoot;
 
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
 
             Item.shoot = ModContent.ProjectileType<PetalOfEverestHoldout>();
             Item.shootSpeed = 15f;
@@ -57,7 +62,7 @@ namespace Clamity.Content.Items.Weapons.Magic
             Projectile.NewProjectile(source, spawnPosition, player.Calamity().mouseWorld - spawnPosition, type, damage, knockback, player.whoAmI);
             return false;
         }
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient<Mistlestorm>()
@@ -65,7 +70,7 @@ namespace Clamity.Content.Items.Weapons.Magic
                 .AddIngredient<EndobsidianBar>(8)
                 .AddTile<CosmicAnvil>()
                 .Register();
-        }
+        }*/
     }
     //AI values
     //ai[1] - 1 to now allow charge again same projectile

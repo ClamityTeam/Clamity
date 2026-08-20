@@ -1,6 +1,7 @@
 ﻿using CalamityMod;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
+using Clamity.Content.Rarities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,7 +17,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
             Item.width = 44;
             Item.height = 22;
             Item.value = Item.sellPrice(gold: 10);
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
             Item.defense = 36;
         }
 

@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Rarities;
+using Clamity.Content.Rarities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -26,7 +27,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
             Item.height = 12;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 15, 0, 0);
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
 
             //Item.useStyle = 1;
             //Item.useTurn = true;

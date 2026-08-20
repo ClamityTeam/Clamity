@@ -1,6 +1,7 @@
 ﻿using CalamityMod.Items;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using Clamity.Content.Rarities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -25,7 +26,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
             Item.width = 22;
             Item.height = 26;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
             Item.accessory = true;
         }
         //When you getting hit, you receive flight time percentages equal to half of the ratio of damage received to max HP
