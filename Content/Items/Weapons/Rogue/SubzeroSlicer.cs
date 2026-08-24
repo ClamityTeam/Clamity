@@ -24,7 +24,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
     [LegacyName("FrozenStarShuriken")]
     public class SubzeroSlicer : RogueWeapon
     {
-        public override float StealthDamageMultiplier => 0.25f;
+        public override float StealthDamageMultiplier => 0.5f;
         public override void SetDefaults()
         {
             Item.width = 1;
@@ -39,7 +39,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
 
-            Item.damage = 700;
+            Item.damage = 350;
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Item.knockBack = 4f;
 

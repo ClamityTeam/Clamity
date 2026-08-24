@@ -8,6 +8,7 @@ using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Clamity.Content.Biomes.FrozenHell.Items;
+using Clamity.Content.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -37,7 +38,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Swords
             Item.knockBack = 13f;
             Item.autoReuse = true;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
 
             //Item.scale = 1.5f;
             Item.channel = true;
