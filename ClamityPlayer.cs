@@ -13,6 +13,7 @@ using Clamity.Content.Items.Accessories;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
 using Clamity.Content.Items.Materials;
 using Microsoft.Xna.Framework;
+using Stubble.Core.Parser.TokenParsers;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -76,6 +77,24 @@ namespace Clamity
         public bool shellfishSetBonus;
         public int shellfishSetBonusProj = -1;
 
+        //Vanity
+        public bool aradirVanity;
+        /// <summary>
+        /// 0 big, 1-3 backs (up, button, face), 4-6 front (up, button, face)
+        /// </summary>
+        public List<float[]> aradirTenticleRotation = new List<float[]> 
+        { 
+            new float[3] { 0, 0, 0}, //0 Big
+
+            new float[4] { 0, 0, 0, 0}, //1 Back Up
+            new float[4] { 0, 0, 0, 0}, //2 Back Button
+            new float[4] { 0, 0, 0, 0}, //3 Back Face
+
+            new float[4] { 0, 0, 0, 0}, //4 Front Up
+            new float[4] { 0, 0, 0, 0}, //5 Front Button
+            new float[4] { 0, 0, 0, 0}, //6 Front Face
+        };
+
         //Minion
         public bool hellsBell;
         public bool guntera;
@@ -131,6 +150,7 @@ namespace Clamity
             inflicingMeleeFrostburn = false;
             frozenParrying = false;
             shellfishSetBonus = false;
+            aradirVanity = false;
 
             //Minion Group
             hellsBell = false;
@@ -424,6 +444,35 @@ namespace Clamity
                     proj.Kill();
 
                 shellfishSetBonusProj = -1;
+            }
+
+            if (aradirVanity)
+            {
+                for (int i = 0; i < aradirTenticleRotation.Count; i++)
+                {
+
+                    float lerp = MathHelper.Clamp(Player.velocity.Length() / 10f, 0, 1);
+                    float a = MathHelper.PiOver4 + MathHelper.PiOver2;
+                    if (i == 3 || i == 6)
+                        a -= MathHelper.PiOver2;
+                    if (Player.direction == -1)
+                        a = MathHelper.Pi - a;
+
+                    float AngleBetween(float current, float target)
+                    {
+                        float delta = ((target - current + MathHelper.Pi) % MathHelper.TwoPi) - MathHelper.Pi;
+                        if (delta < -MathHelper.Pi) delta += MathHelper.TwoPi;
+                        return delta;
+                    }
+
+                    for (int j = 0; j < aradirTenticleRotation[i].Length; j++)
+                    {
+                        a += MathF.Sin((Main.GlobalTimeWrappedHourly - j) * (1 + new UnifiedRandom(i).NextFloat(0, 1))) * 0.33f * (1 - lerp);
+                        float targetAngle = a + AngleBetween(a, Player.velocity.RotatedBy(MathHelper.Pi).ToRotation()) * lerp;
+
+                        aradirTenticleRotation[i][j] += MathHelper.Clamp(AngleBetween(aradirTenticleRotation[i][j], targetAngle), -0.2f, 0.2f);
+                    }
+                }
             }
         }
         #endregion

@@ -40,6 +40,11 @@ Vanity: {
 		Tooltip: ""
 		DisplayName: Wall of Bronze Mask
 	}
+
+	AradirMask: {
+		DisplayName: Aradir Mask
+		Tooltip: ""
+	}
 }
 
 FrozenHellstone: {

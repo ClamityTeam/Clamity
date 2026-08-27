@@ -39,6 +39,11 @@ Vanity: {
 		Tooltip: ""
 		DisplayName: Маска Стены бронзы
 	}
+
+	AradirMask: {
+		// DisplayName: Aradir Mask
+		// Tooltip: ""
+	}
 }
 
 FrozenHellstone: {
