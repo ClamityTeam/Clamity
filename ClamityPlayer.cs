@@ -72,8 +72,10 @@ namespace Clamity
 
         //Armor
         public bool inflicingMeleeFrostburn;
-        public bool frozenParrying;
-        public int frozenParryingTime;
+        public bool endobsidianSet;
+        public bool endobsidianMelee;
+        public int endobsidianMeleeTime;
+        public bool endobsidianRanged;
         public bool shellfishSetBonus;
         public int shellfishSetBonusProj = -1;
 
@@ -103,6 +105,7 @@ namespace Clamity
         public bool titanScale;
         public int titanScaleTimer;
         public bool supremeLuck;
+        public bool glacialRevenge;
 
         //Pets
 
@@ -148,7 +151,9 @@ namespace Clamity
 
             //Armor Group
             inflicingMeleeFrostburn = false;
-            frozenParrying = false;
+            endobsidianSet = false;
+            endobsidianMelee = false;
+            endobsidianRanged = false;
             shellfishSetBonus = false;
             aradirVanity = false;
 
@@ -160,15 +165,29 @@ namespace Clamity
             flyingChair = false;
             titanScale = false;
             supremeLuck = false;
+            glacialRevenge = false;
         }
         public override void UpdateDead()
         {
-            frozenParryingTime = 0;
+            endobsidianMeleeTime = 0;
             seaShellParryingTime = 0;
+            glacialRevenge = false;
         }
         #endregion
 
         #region On Hit Effect
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            bool isGuarrantedCrit =
+                glacialRevenge && modifiers.DamageType is TrueMeleeDamageClass or TrueMeleeNoSpeedDamageClass;
+
+            if (isGuarrantedCrit)
+            {
+                modifiers.SetCrit();
+                float critDamage = Player.GetTotalCritChance(Player.HeldItem.DamageType) * 0.02f;
+                modifiers.CritDamage += critDamage;
+            }
+        }
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (item.DamageType == DamageClass.Melee || item.DamageType == ModContent.GetInstance<TrueMeleeDamageClass>())
@@ -296,9 +315,9 @@ namespace Clamity
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
-            if (frozenParryingTime > 0)
+            if (endobsidianMeleeTime > 0)
             {
-                if (frozenParryingTime >= 15)
+                if (endobsidianMeleeTime >= 15)
                 {
                     if (!Player.HasCooldown(ParryCooldown.ID))
                     {
@@ -307,8 +326,11 @@ namespace Clamity
                         modifiers.DisableSound();
                     }
                     SoundEngine.PlaySound(PyrogenShield.BreakSound, new Vector2?(Player.Center));
-                    Player.AddCooldown(ParryCooldown.ID, 10 * 60, false);
-                    Player.AddBuff(BuffID.Frozen, 60);
+                    //Player.AddCooldown(ParryCooldown.ID, 60 * 60, false);
+
+                    Player.AddBuff(ModContent.BuffType<GlacialRevenge>(), 60 * 10);
+                    int damage = (int)Player.GetBestClassDamage().ApplyTo(5000);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<EndobsidianParryBoom>(), damage, 3f, Player.whoAmI);
                 }
             }
             if (seaShellParryingTime > 0)
@@ -408,9 +430,9 @@ namespace Clamity
             }
 
             //Parry
-            if (frozenParryingTime > 0)
+            if (endobsidianMeleeTime > 0)
             {
-                if (frozenParrying) FrozenHellstoneVisor.HandleParryCountdown(Player);
+                if (endobsidianMelee) FrozenHellstoneHeadMelee.HandleParryCountdown(Player);
                 //else frozenParryingTime--;
             }
             else if (seaShellParryingTime > 0)
@@ -418,9 +440,9 @@ namespace Clamity
                 if (seaShell) SeaShell.HandleParryCountdown(Player);
                 //else seaShellParryingTime--;
             }
-            if (frozenParryingTime > 0 && !frozenParrying) frozenParryingTime--;
+            if (endobsidianMeleeTime > 0 && !endobsidianMelee) endobsidianMeleeTime--;
             if (seaShellParryingTime > 0 && !seaShell) seaShellParryingTime--;
-            if (frozenParrying && (Player.HasCooldown(ParryCooldown.ID) || frozenParryingTime > 0))
+            if (endobsidianMelee && (Player.HasCooldown(ParryCooldown.ID) || endobsidianMeleeTime > 0))
             {
                 Player.buffImmune[47] = false;
             }
@@ -625,11 +647,11 @@ namespace Clamity
             }
             if (Player.Calamity().AccessoryParryItem != null && Player.Calamity().AccessoryParryItem.JustPressedKeybind() && !Player.HasCooldown(ParryCooldown.ID))
             {
-                if (frozenParrying && frozenParryingTime == 0)
+                if (endobsidianMelee && endobsidianMeleeTime == 0)
                 {
                     Player.Calamity().GeneralScreenShakePower = 2.5f;
                     SoundEngine.PlaySound(Cryogen.ShieldRegenSound, Player.Center);
-                    frozenParryingTime = 30;
+                    endobsidianMeleeTime = 60;
                 }
                 /*if (seaShell && seaShellParryingTime == 0)
                 {

@@ -34,11 +34,6 @@ WulfrumLeechDagger: {
 	// Tooltip: Releases a wulfrum metal scrap on hit
 }
 
-FrozenVolcano: {
-	DisplayName: Замороженный вулкан
-	Tooltip: Запускает огонь
-}
-
 Everest: {
 	DisplayName: Эверест
 	Tooltip: Выпускает разбросом вулканические огненые шары
@@ -47,4 +42,13 @@ Everest: {
 Hyperion: {
 	// DisplayName: Hyperion
 	// Tooltip: ""
+}
+
+GreatestPeak: {
+	// DisplayName: Greatest Peak
+	/* Tooltip:
+		'''
+		Placeholder
+		'Very Peak'
+		''' */
 }

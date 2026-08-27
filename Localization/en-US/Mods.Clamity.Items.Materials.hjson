@@ -27,3 +27,8 @@ CoralskinFoolfish: {
 	DisplayName: Coralskin Foolfish
 	Tooltip: "'Camouflage is one of nature's best defenses"
 }
+
+EndobsidianBar: {
+	DisplayName: Endobsidian Bar
+	Tooltip: Weird material. Cold on touch but feel warm at same time.
+}

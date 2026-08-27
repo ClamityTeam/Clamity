@@ -28,3 +28,8 @@ GaiaRose: {
 	// DisplayName: Gaia's Rose
 	// Tooltip: Casts a jungle flower that explodes into petals
 }
+
+PetalOfEverest: {
+	// DisplayName: Petal Of Everest
+	// Tooltip: ""
+}
