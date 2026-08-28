@@ -9,6 +9,8 @@ namespace Clamity
         public static Mod musicMod;
         public static Mod infernum;
         public static Mod calRemix;
+        public static Mod wotg;
+        public static Mod huntGod;
         internal bool MusicAvailable => musicMod != null;
 
         public override void Load()
@@ -17,6 +19,9 @@ namespace Clamity
             ModLoader.TryGetMod("ClamityMusic", out musicMod);
             ModLoader.TryGetMod("InfernumMode", out infernum);
             ModLoader.TryGetMod("CalRemix", out calRemix);
+            ModLoader.TryGetMod("NoxusBoss", out wotg);
+            ModLoader.TryGetMod("CalamityHunt", out huntGod);
+
 
             NewNPCStats.Load();
             SetupWeakReferences.Load();
@@ -27,6 +32,8 @@ namespace Clamity
             musicMod = null;
             infernum = null;
             calRemix = null;
+            wotg = null;
+            huntGod = null;
 
             NewNPCStats.UnLoad();
         }

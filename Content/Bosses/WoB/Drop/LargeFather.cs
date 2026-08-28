@@ -3,6 +3,7 @@ using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
 using CalamityMod.Items.Tools;
 using CalamityMod.Rarities;
+using Clamity.Content.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -35,7 +36,7 @@ namespace Clamity.Content.Bosses.WoB.Drop
             Item.noUseGraphic = true;
             Item.noMelee = true;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.UseSound = SoundID.Item23;
             Item.autoReuse = true;

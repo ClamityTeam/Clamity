@@ -54,10 +54,8 @@ SubzeroSlicer: {
 	// DisplayName: Subzero Slicer
 	/* Tooltip:
 		'''
-		Throwns a fast blades with one of 3 different variants
-		First creates damaging vortex at target position
-		Second makes fast slashes and homes to target. Creates extra slice on hit that damage other enemies
-		Third creates homing wisp projectiles while dashes to target
-		Stealth strike thowns all types at same time
+		Throwns a fast blades made of coldest material
+		Homes on target and creates an vortex on his position
+		On Stealth Strike throw multiple blades in bigger vortex
 		''' */
 }

@@ -69,7 +69,7 @@ namespace Clamity
                 }
 
                 //Other changes
-                if (recipe.HasResult<ShadowspecBar>() && ClamityConfig.Instance.UsesEnchantedMetalInShadowspecBarRecipe)
+                if ((recipe.HasResult<ShadowspecBar>() || (Clamity.calRemix is not null && recipe.HasResult(Clamity.calRemix, "LightmixBar"))) && ClamityConfig.Instance.UsesEnchantedMetalInShadowspecBarRecipe)
                 {
                     //item3.stack = 10;
                     recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<EndobsidianBar>()));

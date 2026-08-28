@@ -47,6 +47,9 @@ namespace Clamity
         public bool eidolonAmulet;
         public bool metalWings;
         public bool subcommunity;
+        public bool shatteredSubcommunity;
+        public float shatteredSubcommunityCalmPerSecond = 0.02f;
+        public bool ignitedSubcommunity; //not implemented yet
         public bool skullOfBloodGod;
 
         //Crawler big gems
@@ -130,6 +133,9 @@ namespace Clamity
             eidolonAmulet = false;
             metalWings = false;
             subcommunity = false;
+            shatteredSubcommunity = false;
+            shatteredSubcommunityCalmPerSecond = 0.02f;
+            ignitedSubcommunity = false;
             skullOfBloodGod = false;
 
             //Crawler Gem Accesory Group
@@ -428,6 +434,49 @@ namespace Clamity
                 Player.tileRangeX += (int)(baseBoost * TheSubcommunity.TileRangeMult);
                 Player.tileRangeY += (int)(baseBoost * TheSubcommunity.TileRangeMult);
             }
+            if (shatteredSubcommunity)
+            {
+                Player.Calamity().externalRageEnabled = true;
+                Player.Calamity().RageDamageBoost = 0;
+                Player.Calamity().rageCombatFrames = 2;
+
+
+                float rageDiff = 0;
+
+                {
+                    float rageGen = 0;
+                    if (!Player.Calamity().shatteredCommunity && !Player.Calamity().heartOfDarkness)
+                        rageGen = Player.Calamity().rageMax * shatteredSubcommunityCalmPerSecond / 60f;
+
+                    rageDiff += rageGen;
+                }
+
+                if (Player.Calamity().RageEnabled || rageDiff < 0f)
+                {
+                    if (!Player.Calamity().rageModeActive)
+                        Player.Calamity().rage += rageDiff;
+                    if (Player.Calamity().rage < 0f)
+                        Player.Calamity().rage = 0f;
+
+                    if (Player.Calamity().rage >= Player.Calamity().rageMax)
+                    {
+                        if (Player.Calamity().rageModeActive && Player.Calamity().rage >= 2f * Player.Calamity().rageMax)
+                            Player.Calamity().rage = 2f * Player.Calamity().rageMax;
+                    }
+                }
+
+                if (Player.Calamity().rageModeActive)
+                {
+                    Player.pickSpeed -= TheSubcommunity.MiningSpeedMult / 2;
+                    Player.fishingSkill += TheSubcommunity.FishingPower / 2;
+                    Player.tileSpeed += TheSubcommunity.TileAndWallPlacingSpeedMult / 2;
+                    Player.wallSpeed += TheSubcommunity.TileAndWallPlacingSpeedMult / 2;
+                    Player.tileRangeX += TheSubcommunity.TileRangeMult / 2;
+                    Player.tileRangeY += TheSubcommunity.TileRangeMult / 2;
+
+                    Player.GetModPlayer<ShatteredSubcommunityPlayer>().AccumulateCalmDone(1);
+                }
+            }
 
             //Parry
             if (endobsidianMeleeTime > 0)
@@ -544,6 +593,7 @@ namespace Clamity
         {
             if (supremeLuck) luck += 0.5f;
             if (subcommunity) luck += TheSubcommunity.CalculatePower() * TheSubcommunity.LuckMult;
+            if (shatteredSubcommunity) luck += TheSubcommunity.LuckMult * (Player.Calamity().rageModeActive ? 1.5f : 1);
             if (redDie)
             {
                 for (int i = 3; i < 9; i++)

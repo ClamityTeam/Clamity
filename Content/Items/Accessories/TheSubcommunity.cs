@@ -29,6 +29,7 @@ namespace Clamity.Content.Items.Accessories
             Item.rare = ItemRarityID.Expert;
         }
         private static readonly int TotalCountedBosses = 42;
+        public override bool CanEquipAccessory(Player player, int slot, bool modded) => !player.Clamity().shatteredSubcommunity && !player.Clamity().ignitedSubcommunity;
         internal static float CalculatePower(bool killsOnly = false)
         {
             int numBosses = 0;

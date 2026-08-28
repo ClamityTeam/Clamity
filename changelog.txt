@@ -1,24 +1,29 @@
-Update 1.0.4.3 - Hotfix
+Update 1.0.4.4 - Annyversary Update
 
-Updated to Calamity Mod 2.2.2
+Now Cataclysm Mod 3 year old. Time to release this small gift.
 
 Additions:
-None
+Added Evercold Cyan rarity for all post-Wall of Bronze items. Analogue of Calamity Red for Calamitas and Exotic Rainbow for Exo Mechs but for Wall of Bronze content.
+Added Shattered Subcommunity. Like Shattered Community he uses full power of The Subcommunity + leveling system. He level ups overtime by having active "Calm Mode" and every level increase passive calm generation.
 
 Reworks:
-Nanotech now has the effects of Ethereal Extorter in addition to its original effects.
+Reworked Greatest Peak (previosly Frozen Volcano). Now he in-line with Hellkite. Charged attack creates lingering AoE damage.
+Reworked Subzero Slicer (previosly Frozen Star Shuriken). Now he homes to target and creates frost storm on it. Stealth strike creates 3 slicer and has bigger mist.
+Redesigned Endobsidian Bar (previosly Enchanted Metal)
 
 Removals:
-None
+Removed Everest for future rework. (rework not completed yet)
 
 Balance:
 None
 
 Changes:
 Replaced Vampiric Talisman with Darcula's Charm in Nanotech recipe.
+Added Endobsidian Bar in Calamity Community Remix's Lightmix Bar recipe.
 
 Fixes:
-None
+Eye of Nova now uses Exotic Rainbow rarity instead of Burnished Auric
+Fixed missing custom rarity color of Wither Stormbow
 
 Localization Changes:
 None
