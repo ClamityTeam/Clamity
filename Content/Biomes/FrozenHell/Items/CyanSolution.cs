@@ -98,7 +98,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
     {
         public override void SetStaticDefaults()
         {
-            UpdateType = 110;
+            UpdateType = DustID.PureSpray;
         }
     }
 }

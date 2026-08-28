@@ -196,15 +196,34 @@ SkullOfTheBloodGod: {
 	// DisplayName: Skull of the Blood God
 	/* Tooltip:
 		'''
-		15% increased damage and 13% increased critical strike chance
-		Critical strikes explode, causing nearby enemies to ignite with [cbuff:CalamityMod/BrimstoneFlames]
-		Halves enemy contact damage with a 20 second cooldown[TOGGLE]
-		Reduces damage taken from [cbuff:CalamityMod/BrimstoneFlames] by 50%
+		15% increased damage and 7% increased magic critical strike chance
+		Increases maximum mana by 20
+		Summons an effigy above your head that stores mana as you use it, up to 600 mana
+		The effigy occasionally pulses, restoring 25 mana, and pulses appear more frequently the more mana is stored
+		Upon being struck, the effigy unleashes all stored up mana as vengeful souls that chase your enemies
+		The effigy is transparent and silent if visibility is disabled
+		Critical strikes curse enemies with [cbuff:CalamityMod/Bane] that greatly scales off of your critical strike chance
+		When critically hit, enemies spread all debuffs they are afflicted with that are weaker than your [cbuff:CalamityMod/Bane] to nearby enemies
+		Critical strikes deal an additional 3% damage per debuff on the enemy
+		[TOGGLE]
 		[c/aaaaaa:Shift-<right> this item in your inventory to toggle] [i:CalamityMod/VoidofCalamity] [c/aaaaaa:Void of Calamity's rain effect]
 		''' */
-	/* ToggleEffect:
-		'''
+	// ToggleEffect: Calamitous flames rain down while invincible
+}
 
-		Brimstone fire rains down after getting hit
+ShatteredSubcommunity: {
+	// DisplayName: Shattered Subcommunity
+	/* Tooltip:
+		'''
+		'No matter how he ruined by unknowable hatred, he still has most of the power of The Subcommunity'
+		Increases mining speed by 50%
+		Increases luck by 0.5 and fishing power by 50
+		Increases tile and wall placing speed by 50% and placing range by 5
+		Replaces Rage with "Calm" Meter, gain extra 50% Shattered Subcommunty's stats instead of damage boost
+		You generate calm over time and calm does not fade out of combat
+		Getting active Calm Mode overtime empower your peace
+		Current level: [LEVEL] (+[BONUS]% base calm generation)
+		Progress to next level: [PROGRESS]%
+		Total Calm Mode time: [TIME]
 		''' */
 }

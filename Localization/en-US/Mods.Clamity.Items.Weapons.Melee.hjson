@@ -10,7 +10,7 @@ ClamitasCrusher: {
 
 SearedShredder: {
 	DisplayName: Seared Shredder
-	Tooltip: Shoots a flame scythe that home in on enemies
+	Tooltip: Releases a flaming scythe that follows your mouse and returns after a short time
 }
 
 RGBMurasama: {
@@ -31,12 +31,7 @@ Disease: {
 
 WulfrumLeechDagger: {
 	DisplayName: Wulfrum Leech Dagger
-	Tooltip: Creates shard on hit
-}
-
-FrozenVolcano: {
-	DisplayName: Frozen Volcano
-	Tooltip: Launches flames
+	Tooltip: Releases a wulfrum metal scrap on hit
 }
 
 Everest: {
@@ -47,4 +42,13 @@ Everest: {
 Hyperion: {
 	DisplayName: Hyperion
 	Tooltip: ""
+}
+
+GreatestPeak: {
+	DisplayName: Greatest Peak
+	Tooltip:
+		'''
+		Placeholder
+		'Very Peak'
+		'''
 }

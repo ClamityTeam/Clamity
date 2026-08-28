@@ -1,6 +1,7 @@
 ﻿using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
+using Clamity.Content.Rarities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -22,7 +23,7 @@ namespace Clamity.Content.Bosses.WoB.Drop
             Item.width = 36;
             Item.height = 34;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
 
             Item.useTime = Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Swing;

@@ -32,7 +32,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
             Item.noMelee = true;
 
             Item.damage = 194;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.knockBack = 5.5f;
 
             Item.shoot = ModContent.ProjectileType<DiseaseProjectile>();
@@ -83,7 +83,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
             float speedX = Main.rand.Next(-35, 36) * 0.02f;
             float speedY = Main.rand.Next(-35, 36) * 0.02f;
             int num = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, speedX, speedY, ModContent.ProjectileType<PlaguenadeBee>(), Main.player[Projectile.owner].beeDamage(base.Projectile.damage), Main.player[Projectile.owner].beeKB(0f), Projectile.owner);
-            Main.projectile[num].DamageType = DamageClass.Melee;
+            Main.projectile[num].DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
 
         }
     }

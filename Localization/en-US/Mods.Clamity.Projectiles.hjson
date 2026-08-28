@@ -11,6 +11,8 @@ Melee: {
 	ExoNewExplosion.DisplayName: Exo Explosion
 	EtherealKnivesProjectile.DisplayName: Ethereal Knives Projectile
 	HyperionProjectile.DisplayName: Hyperion Projectile
+	SubzeroSlicerProjectileSlash.DisplayName: Subzero Slicer Projectile Slash
+	GreatestPeakMistProjectile.DisplayName: Greatest Peak Mist
 }
 
 Ranged: {
@@ -35,6 +37,7 @@ Magic: {
 	UnicronWingmanShot.DisplayName: Unicron Wingman Shot
 	GaiaRoseBolt.DisplayName: Gaia's Flower
 	GaiaRoseBoltSmall.DisplayName: Gaia's Flower Petal
+	PetalOfEverestPetal.DisplayName: Petal Of Everest
 }
 
 Summon: {
@@ -73,6 +76,8 @@ Rogue: {
 	AuricKunaiProjectile.DisplayName: Auric Kunai
 	AuricKunaiLightning.DisplayName: Auric Lightning
 	StarfishFromTheDepthProj.DisplayName: Starfish from the Depth
+	SubzeroSlicerProjectile.DisplayName: Subzero Slicer
+	SubzeroSlicerProjectileBolt.DisplayName: Subzero Slicer Bolt
 }
 
 Typeless: {
@@ -83,6 +88,7 @@ Typeless: {
 	TrashOfMagnusProjectile.DisplayName: Plague Bolt
 	SharpAmethystProj.DisplayName: Sharp Amethyst
 	GoldenGunProj.DisplayName: Golden Gun Proj
+	EndobsidianParryBoom.DisplayName: Endobsidian Parry Boom
 }
 
 Boss: {

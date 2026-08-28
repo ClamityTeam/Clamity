@@ -1,6 +1,6 @@
-Clamity Addon
+Cataclysm Mod
 
-The Clamity Addon is add-on for the Calamity Mod which adds content from Calamity Fandom Wiki, however the content added has been altered to be as high quality as posible.
+The Cataclysm Mod is add-on for the Calamity Mod which adds content from Calamity Fandom Wiki, however the content added has been altered to be as high quality as posible.
 This mod has official support of both English and Russian Localization as of now.
 
 - Content -

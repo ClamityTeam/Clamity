@@ -32,7 +32,11 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop
             Item.rare = ItemRarityID.Pink;
             Item.accessory = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual) => player.Clamity().pyroStone = true;
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.Clamity().pyroStone = true;
+            player.Calamity().HeatDebuffMultiplier += 0.5f;
+        }
         public override void UpdateVanity(Player player) => player.Clamity().pyroStoneVanity = true;
     }
     public class PyroShieldAccessory : ModProjectile, ILocalizedModType, IModType

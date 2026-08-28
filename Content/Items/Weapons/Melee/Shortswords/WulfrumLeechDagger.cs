@@ -25,8 +25,8 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
             Item.noUseGraphic = true;
             Item.noMelee = true;
 
-            Item.damage = 30;
-            Item.DamageType = DamageClass.Melee;
+            Item.damage = 20;
+            Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.knockBack = 5.75f;
             Item.crit = 0;
 

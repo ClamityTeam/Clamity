@@ -11,6 +11,11 @@ namespace Clamity.Content.Menu
 {
     public class ClamityMenu : CalamityMainMenu
     {
+        //TODO - need new logo
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override string DisplayName => "Clamity Style";
 
         public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("Clamity/Content/Menu/Logo");
@@ -22,7 +27,7 @@ namespace Clamity.Content.Menu
              * I have left comments for each section.
              * This should help with the overall view of the mod.
              * - Akira
-            */ 
+            */
 
             // === Background ===
             Texture2D texture = ModContent.Request<Texture2D>("Clamity/Content/Menu/MenuAlt").Value;

@@ -31,12 +31,7 @@ Disease: {
 
 WulfrumLeechDagger: {
 	DisplayName: Вульфрумовый кинжал-пиявка
-	// Tooltip: Creates shard on hit
-}
-
-FrozenVolcano: {
-	DisplayName: Замороженный вулкан
-	Tooltip: Запускает огонь
+	// Tooltip: Releases a wulfrum metal scrap on hit
 }
 
 Everest: {
@@ -47,4 +42,13 @@ Everest: {
 Hyperion: {
 	// DisplayName: Hyperion
 	// Tooltip: ""
+}
+
+GreatestPeak: {
+	// DisplayName: Greatest Peak
+	/* Tooltip:
+		'''
+		Placeholder
+		'Very Peak'
+		''' */
 }

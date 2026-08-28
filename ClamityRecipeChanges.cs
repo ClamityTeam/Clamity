@@ -7,6 +7,7 @@ using CalamityMod.Items.Weapons.Rogue;
 using Clamity.Content.Biomes.FrozenHell.Items;
 using Clamity.Content.Bosses.Clamitas.Drop;
 using Clamity.Content.Bosses.Pyrogen.Drop.Weapons;
+using Clamity.Content.Items.Accessories;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -68,14 +69,19 @@ namespace Clamity
                 }
 
                 //Other changes
-                if (recipe.HasResult<ShadowspecBar>() && ClamityConfig.Instance.UsesEnchantedMetalInShadowspecBarRecipe)
+                if ((recipe.HasResult<ShadowspecBar>() || (Clamity.calRemix is not null && recipe.HasResult(Clamity.calRemix, "LightmixBar"))) && ClamityConfig.Instance.UsesEnchantedMetalInShadowspecBarRecipe)
                 {
                     //item3.stack = 10;
-                    recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<EnchantedMetal>()));
+                    recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<EndobsidianBar>()));
                 }
                 if (recipe.HasResult<ManaRose>() && recipe.IngredientIndex(ItemID.JungleRose) != -1)
                 {
                     recipe.DisableRecipe();
+                }
+                if (recipe.HasResult<Nanotech>())
+                {
+                    recipe.RemoveIngredient(ModContent.ItemType<VampiricTalisman>());
+                    recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<DraculasCharm>()));
                 }
             }
         }
