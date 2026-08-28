@@ -25,6 +25,7 @@ namespace Clamity.Commons
         int removedTagImmunity = -1;
         public int tagDamage = 0;
         private int _tagCrit = 0;
+        private int tagEffectTimer = 0;
 
         public int tagCrit
         {
@@ -264,7 +265,7 @@ namespace Clamity.Commons
                 // TriInfecta Whip Tag
                 if (activeTag == ModContent.BuffType<TriInfectaDebuff>() && triIndex > -1)
                 {
-                    if (Main.rand.NextFloat() <= 0.20f)
+                    if (tagEffectTimer <= 0)
                     {
                         for (int i = 0; i < Main.rand.Next(3, 5); i++)
                         {
@@ -274,10 +275,10 @@ namespace Clamity.Commons
                             int proj = Projectile.NewProjectile(Projectile.InheritSource(projectile), projectile.Center, randomVector, ModContent.ProjectileType<Blood>(), 20, projectile.knockBack, projectile.owner);
                             Main.projectile[proj].DamageType = DamageClass.Summon;
                         }
+                        npc.DelBuff(triIndex);
+                        triIndex = -1;
+                        tagEffectTimer = 120;
                     }
-
-                    npc.DelBuff(triIndex);
-                    triIndex = -1;
                 }
 
 
@@ -326,6 +327,11 @@ namespace Clamity.Commons
                     npc.DelBuff(terrawhipIndex);
                 }*/
             }
+        }
+        public override void PostAI(NPC npc)
+        {
+            if (tagEffectTimer > 0)
+                tagEffectTimer--;
         }
     }
 }

@@ -36,9 +36,9 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
 
         public override void UpdateInventory(Player player)
         {
-            Item.useTime = Item.useAnimation = (int)(UseTime / MathHelper.Lerp(1, 2, combo / 4f));
+            Item.useTime = Item.useAnimation = (int)(UseTime / MathHelper.Lerp(1, 3, combo / 6f));
             //Item.useTime = Item.useAnimation = UseTime / combo;
-            if (combo > 4) combo = 1;
+            if (combo > 6) combo = 1;
         }
 
         public override bool Shoot(Player player, Terraria.DataStructures.EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -90,7 +90,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
         {
             target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 240);
 
-            DirectionalPulseRing pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Main.rand.NextBool() ? Color.DarkTurquoise : Color.Coral, new Vector2(1, 1), 0, 0.5f, 0f, 20);
+            DirectionalPulseRing pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Main.rand.NextBool() ? Color.DarkTurquoise : Color.Coral, new Vector2(1, 1), 0, 1.5f, 0f, 20);
             GeneralParticleHandler.SpawnParticle(pulse);
         }
         public override bool DrawTrailAtTip => true;
@@ -122,7 +122,7 @@ namespace Clamity.Content.Items.Weapons.Summon.Whips
         {
             target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 480);
 
-            DirectionalPulseRing pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Main.rand.NextBool() ? Color.DarkTurquoise : Color.Coral, new Vector2(1, 1), 0, 0.5f, 0f, 20);
+            DirectionalPulseRing pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Main.rand.NextBool() ? Color.DarkTurquoise : Color.Coral, new Vector2(1, 1), 0, 1.5f, 0f, 20);
             GeneralParticleHandler.SpawnParticle(pulse);
         }
         public override bool DrawTrailAtTip => true;

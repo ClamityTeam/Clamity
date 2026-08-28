@@ -14,13 +14,8 @@ Whips: {
 		// Tooltip: ""
 	}
 
-	TerraWhip: {
-		// DisplayName: Terra Whip
-		// Tooltip: ""
-	}
-
 	DryadsKarma: {
-		// DisplayName: Dryads Karma
+		// DisplayName: Dryad's Karma
 		// Tooltip: ""
 	}
 }
