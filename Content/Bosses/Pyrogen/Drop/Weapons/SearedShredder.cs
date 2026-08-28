@@ -96,7 +96,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
             if (mousePos.X < Owner.Center.X) Owner.direction = -1;
             else Owner.direction = 1;
 
-            FlipAsSword = Owner.direction == -1 ? true : false;
+            FlipAsSword = Owner.direction == 1 ? true : false;
         }
 
         public override void UseStyle()
@@ -170,6 +170,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
                     if (!finalFlip)
                     {
                         FlipAsSword = Owner.direction < 0 ? true : false;
+                        if (Projectile.ai[1] == 1) FlipAsSword = !FlipAsSword;
                     }
 
                     float time = (AnimationProgress) - (useAnim / 3);

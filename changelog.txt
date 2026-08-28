@@ -10,6 +10,7 @@ Reworks:
 Reworked Greatest Peak (previosly Frozen Volcano). Now he in-line with Hellkite. Charged attack creates lingering AoE damage.
 Reworked Subzero Slicer (previosly Frozen Star Shuriken). Now he homes to target and creates frost storm on it. Stealth strike creates 3 slicer and has bigger mist.
 Redesigned Endobsidian Bar (previosly Enchanted Metal)
+Reworked Seared Shredder. Has custom swing and throw short range spinning flaming scythe that returns back after a short time
 
 Removals:
 Removed Everest for future rework. (rework not completed yet)
