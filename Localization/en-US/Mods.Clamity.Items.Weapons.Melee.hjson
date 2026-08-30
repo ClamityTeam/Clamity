@@ -54,3 +54,8 @@ GreatestPeak: {
 		[c/91C5CE:'Very Peak']
 		'''
 }
+
+StunGun: {
+	DisplayName: Stun Gun
+	Tooltip: ""
+}

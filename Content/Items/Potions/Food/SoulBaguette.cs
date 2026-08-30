@@ -12,6 +12,10 @@ namespace Clamity.Content.Items.Potions.Food
 {
     public class SoulBaguette : ModItem, ILocalizedModType, IModType
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public new string LocalizationCategory => "Items.Potions.Foods";
 
         public static int RedWineBuffedHealValue = 250;

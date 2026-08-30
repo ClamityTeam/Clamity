@@ -16,6 +16,10 @@ namespace Clamity.Content.Items.Weapons.Melee
 {
     public class RGBMurasama : Murasama
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         private string GetHashCodeNew(Color color)
         {
             string[] list = new string[16]
@@ -93,7 +97,7 @@ namespace Clamity.Content.Items.Weapons.Melee
             }
         }
         public override void AddRecipes()
-        {
+        { 
             CreateRecipe()
                 .AddIngredient<Murasama>()
                 .AddIngredient(ItemID.RainbowBrick, 50)
@@ -104,6 +108,10 @@ namespace Clamity.Content.Items.Weapons.Melee
     }
     public class RGBMurasamaProjectile : MurasamaSlash
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
 
         private Player Owner => Main.player[base.Projectile.owner];
         public override bool PreDraw(ref Color lightColor)

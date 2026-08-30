@@ -43,7 +43,14 @@ Vanity: {
 
 	AradirMask: {
 		DisplayName: Aradir Mask
-		Tooltip: You see it very WIP!!
+		Tooltip:
+			'''
+			Welcome to Math Hell:
+			float b = MathF.Sin((Main.GlobalTimeWrappedHourly * (1 + lerp * 3) - j / 2f) 
+			* (1 + new UnifiedRandom(i).NextFloat(0, 1))) * 0.33f * (1 + lerp * 3);
+
+			WIP!
+			'''
 	}
 }
 
@@ -52,7 +59,6 @@ FrozenHellstone: {
 		Tooltip:
 			'''
 			18% increased true melee damage
-
 			True melee attacks inflict [cbuff:Frostburn]
 			Enemies are more likely to target you
 			'''

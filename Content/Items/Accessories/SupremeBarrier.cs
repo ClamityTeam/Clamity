@@ -33,9 +33,9 @@ namespace Clamity.Content.Items.Accessories
                 .AddIngredient<AsgardianAegis>()
                 //.AddIngredient<ShieldoftheHighRuler>()
                 .AddIngredient<RampartofDeities>()
-                .AddIngredient<ExoBaguette>()
+                //.AddIngredient<ExoBaguette>()
                 .AddIngredient<ShadowspecBar>(5)
-                .AddIngredient(ItemID.GolfCupFlagWhite)
+                //.AddIngredient(ItemID.GolfCupFlagWhite)
                 .AddTile<DraedonsForge>()
                 .Register();
         }

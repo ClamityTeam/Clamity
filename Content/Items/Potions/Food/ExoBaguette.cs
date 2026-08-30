@@ -15,6 +15,10 @@ namespace Clamity.Content.Items.Potions.Food
     //Increase threshold of alchohol poisoning by 1 buff
     public class ExoBaguette : ModItem, ILocalizedModType, IModType
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public new string LocalizationCategory => "Items.Potions.Foods";
 
         public static int RedWineBuffedHealValue = 250;
@@ -63,6 +67,10 @@ namespace Clamity.Content.Items.Potions.Food
 
     public class ExoBaguetteBuff : ModBuff
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             Main.debuff[Type] = false;

@@ -1,10 +1,11 @@
 Update 1.0.4.4 - Annyversary Update
 
-Now Cataclysm Mod 3 year old. Time to release this small gift.
+Now Cataclysm Mod 3 year old. Time to release this gift.
 
 Additions:
 Added Evercold Cyan rarity for all post-Wall of Bronze items. Analogue of Calamity Red for Calamitas and Exotic Rainbow for Exo Mechs but for Wall of Bronze content.
 Added Shattered Subcommunity. Like Shattered Community he uses full power of The Subcommunity + leveling system. He level ups overtime by having active "Calm Mode" and every level increase passive calm generation.
+Ported and Reworked Stun Gun from Draedon's Expansion. Now he chargable shortsword. On full charge on hit release charge ahead.
 
 Reworks:
 Reworked Greatest Peak (previosly Frozen Volcano). Now he in-line with Hellkite. Charged attack creates lingering AoE damage.
@@ -13,7 +14,9 @@ Redesigned Endobsidian Bar (previosly Enchanted Metal)
 Reworked Seared Shredder. Has custom swing and throw short range spinning flaming scythe that returns back after a short time
 
 Removals:
-Removed Everest for future rework. (rework not completed yet)
+Removed Everest for future rework. "Petal of Everest" rework not completed yet but can be already tested from Cheat Panel.
+Removed RGB Murasama.
+Removed Exo Baguette and Soul Baguette.
 
 Balance:
 None
@@ -21,6 +24,7 @@ None
 Changes:
 Replaced Vampiric Talisman with Darcula's Charm in Nanotech recipe.
 Added Endobsidian Bar in Calamity Community Remix's Lightmix Bar recipe.
+Removed White Pin Flag from Supreme Barrier recipe.
 
 Fixes:
 Eye of Nova now uses Exotic Rainbow rarity instead of Burnished Auric

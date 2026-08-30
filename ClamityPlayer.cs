@@ -89,7 +89,7 @@ namespace Clamity
         /// </summary>
         public List<float[]> aradirTenticleRotation = new List<float[]> 
         { 
-            new float[3] { 0, 0, 0}, //0 Big
+            new float[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0}, //0 Big
 
             new float[4] { 0, 0, 0, 0}, //1 Back Up
             new float[4] { 0, 0, 0, 0}, //2 Back Button
@@ -522,10 +522,12 @@ namespace Clamity
                 for (int i = 0; i < aradirTenticleRotation.Count; i++)
                 {
 
-                    float lerp = MathHelper.Clamp(Player.velocity.Length() / 10f, 0, 1);
+                    float lerp = MathHelper.Clamp(Player.velocity.Length() / 10f, 0, .33f);
                     float a = MathHelper.PiOver4 + MathHelper.PiOver2;
                     if (i == 3 || i == 6)
-                        a -= MathHelper.PiOver2;
+                        a -= MathHelper.Pi;
+                    if (i == 0)
+                        a += MathHelper.PiOver4;
                     if (Player.direction == -1)
                         a = MathHelper.Pi - a;
 
@@ -538,7 +540,18 @@ namespace Clamity
 
                     for (int j = 0; j < aradirTenticleRotation[i].Length; j++)
                     {
-                        a += MathF.Sin((Main.GlobalTimeWrappedHourly - j) * (1 + new UnifiedRandom(i).NextFloat(0, 1))) * 0.33f * (1 - lerp);
+                        if (j > 0)
+                        {
+                            a = aradirTenticleRotation[i][j-1];
+                            if (i == 3 || i == 6)
+                                a -= MathHelper.PiOver4 * 1.33f * Player.direction;
+                        }
+
+                        //Math Hell here
+                        float b = MathF.Sin((Main.GlobalTimeWrappedHourly * (1 + lerp * 3) - j / 2f) * (1 + new UnifiedRandom(i).NextFloat(0, 1))) * 0.33f * (1 + lerp * 3);
+
+                        //if (j != 0)
+                            a += b;
                         float targetAngle = a + AngleBetween(a, Player.velocity.RotatedBy(MathHelper.Pi).ToRotation()) * lerp;
 
                         aradirTenticleRotation[i][j] += MathHelper.Clamp(AngleBetween(aradirTenticleRotation[i][j], targetAngle), -0.2f, 0.2f);
@@ -703,12 +716,12 @@ namespace Clamity
                     SoundEngine.PlaySound(Cryogen.ShieldRegenSound, Player.Center);
                     endobsidianMeleeTime = 60;
                 }
-                /*if (seaShell && seaShellParryingTime == 0)
+                if (seaShell && seaShellParryingTime == 0)
                 {
                     Player.Calamity().GeneralScreenShakePower = 2.5f;
                     SoundEngine.PlaySound(SoundID.NPCHit38, Player.Center);
                     seaShellParryingTime = SeaShell.parryTime;
-                }*/
+                }
             }
 
         }

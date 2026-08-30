@@ -61,7 +61,7 @@ namespace Clamity.Content.Items.Armor.Vanity
             List<Vector2> offsets = new List<Vector2>() {
                 new Vector2(-4, -9),
                 new Vector2(-4, 3),
-                new Vector2(8, 1),
+                new Vector2(0, -9),
             };
             int dyeShader = drawPlayer.dye?[1].dye ?? 0;
             int j = 0;
@@ -69,7 +69,7 @@ namespace Clamity.Content.Items.Armor.Vanity
             Vector2 perTenticleOffset = new Vector2(7, 0);
             for (int i = 4; i < 7; i++)
             {
-                Vector2 offset = offsets[j];
+                Vector2 offset = offsets[j].RotatedBy(drawInfo.rotation) * drawPlayer.gravDir;
                 offset.X *= drawPlayer.direction;
                 float drawX = (int)(drawInfo.Center.X - Main.screenPosition.X - (3 * drawPlayer.direction));
                 float drawY = (int)(drawInfo.Center.Y - Main.screenPosition.Y - 4f);
@@ -81,7 +81,7 @@ namespace Clamity.Content.Items.Armor.Vanity
                         textureTemp = texture2;
 
 
-                    DrawData tenticleDrawData = new DrawData(textureTemp, new Vector2(drawX, drawY) + offset, null, drawInfo.colorPants, rot, new Vector2(0, textureTemp.Height / 2f), new Vector2(1, 1), drawInfo.playerEffect, 0)
+                    DrawData tenticleDrawData = new DrawData(textureTemp, new Vector2(drawX, drawY) + offset, null, drawInfo.colorPants, rot, new Vector2(0, textureTemp.Height / 2f), new Vector2(1, 1), SpriteEffects.None, 0)
                     {
                         shader = dyeShader
                     };
@@ -111,23 +111,21 @@ namespace Clamity.Content.Items.Armor.Vanity
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
             Texture2D texture = ModContent.Request<Texture2D>("Clamity/Content/Items/Armor/Vanity/AradirMask_Tenticle_Back").Value;
-            Texture2D texture2 = ModContent.Request<Texture2D>("Clamity/Content/Items/Armor/Vanity/AradirMask_Tenticle_Back_End").Value;
             Player drawPlayer = drawInfo.drawPlayer;
             List<Vector2> offsets = new List<Vector2>() { 
                 new Vector2(-4, -2),
                 new Vector2(-4, -8),
                 new Vector2(-4, 2),
-                new Vector2(8, 0),
+                new Vector2(8, -9),
             };
             int dyeShader = drawPlayer.dye?[1].dye ?? 0;
             int j = 0;
-            Rectangle frame = texture.Frame(1, 1, 0, 0);
             Vector2 perTenticleOffset = new Vector2(7, 0);
             for (int i = 0; i < 4; i++)
             {
                 float tenticleScale = 1;
                 if (i == 0)
-                    tenticleScale = 3;
+                    tenticleScale = 4;
                 Vector2 offset = offsets[j];
                 offset.X *= drawPlayer.direction;
                 float drawX = (int)(drawInfo.Center.X - Main.screenPosition.X - (3 * drawPlayer.direction));
@@ -137,10 +135,12 @@ namespace Clamity.Content.Items.Armor.Vanity
                     float rot = drawPlayer.Clamity().aradirTenticleRotation[i][k];
                     Texture2D textureTemp = texture;
                     if (k == 3 && i != 0)
-                        textureTemp = texture2;
+                        textureTemp = ModContent.Request<Texture2D>("Clamity/Content/Items/Armor/Vanity/AradirMask_Tenticle_Back_End").Value;
+                    if (i == 0 && k > drawPlayer.Clamity().aradirTenticleRotation[i].Length / 2)
+                        textureTemp = ModContent.Request<Texture2D>("Clamity/Content/Items/Armor/Vanity/AradirMask_Tenticle").Value;
 
 
-                    DrawData tenticleDrawData = new DrawData(textureTemp, new Vector2(drawX, drawY) + offset, null, drawInfo.colorPants, rot, new Vector2(0, textureTemp.Height / 2f), new Vector2(1, 1 * tenticleScale), drawInfo.playerEffect, 0)
+                    DrawData tenticleDrawData = new DrawData(textureTemp, new Vector2(drawX, drawY) + offset, null, drawInfo.colorPants, rot, new Vector2(0, textureTemp.Height / 2f), new Vector2(1, 1 * tenticleScale), SpriteEffects.None, 0)
                     {
                         shader = dyeShader
                     };
@@ -149,8 +149,9 @@ namespace Clamity.Content.Items.Armor.Vanity
                     Vector2 v2 = perTenticleOffset.RotatedBy(rot);
                     drawX += v2.X;
                     drawY += v2.Y;
-                    if (i == 0)
-                        tenticleScale -= 1f;
+                    int step = 2;
+                    if (i == 0 && k % step == 0)
+                        tenticleScale -= 3f * step / (drawPlayer.Clamity().aradirTenticleRotation[i].Length - 1);
 
                 }
                 j++;
