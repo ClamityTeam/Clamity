@@ -89,15 +89,15 @@ namespace Clamity
         /// </summary>
         public List<float[]> aradirTenticleRotation = new List<float[]> 
         { 
-            new float[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0}, //0 Big
+            new float[9] { MathHelper.Pi, MathHelper.Pi + 0.1f, MathHelper.Pi - 0.2f, MathHelper.Pi + 0.2f, MathHelper.Pi - 0.2f, MathHelper.Pi + 0.2f, MathHelper.Pi - 0.2f, MathHelper.Pi + 0.2f, MathHelper.Pi  - 0.2f }, //0 Big
 
-            new float[4] { 0, 0, 0, 0}, //1 Back Up
-            new float[4] { 0, 0, 0, 0}, //2 Back Button
-            new float[4] { 0, 0, 0, 0}, //3 Back Face
+            new float[4] { MathHelper.Pi, MathHelper.Pi, MathHelper.Pi, MathHelper.Pi }, //1 Back Up
+            new float[4] { MathHelper.Pi, MathHelper.Pi, MathHelper.Pi, MathHelper.Pi }, //2 Back Button
+            new float[4] { 0, 0.1f, 0.2f, 0.3f }, //3 Back Face
 
-            new float[4] { 0, 0, 0, 0}, //4 Front Up
-            new float[4] { 0, 0, 0, 0}, //5 Front Button
-            new float[4] { 0, 0, 0, 0}, //6 Front Face
+            new float[4] { MathHelper.Pi, MathHelper.Pi, MathHelper.Pi, MathHelper.Pi }, //4 Front Up
+            new float[4] { MathHelper.Pi, MathHelper.Pi, MathHelper.Pi, MathHelper.Pi }, //5 Front Button
+            new float[4] { 0, 0.1f, 0.2f, 0.3f }, //6 Front Face
         };
 
         //Minion
@@ -708,17 +708,26 @@ namespace Clamity
                     NetMessage.SendData(MessageID.TeleportPlayerThroughPortal, -1, -1, null, 0, Player.whoAmI, vector.X, vector.Y, 1);
                 }
             }
-            if (Player.Calamity().AccessoryParryItem != null && Player.Calamity().AccessoryParryItem.JustPressedKeybind() && !Player.HasCooldown(ParryCooldown.ID))
+            //Main.NewText(Player.Calamity().AccessoryParryItem.JustPressedKeybind());
+            
+
+            if (CalamityKeybinds.ArmorSetBonusHotKey.JustPressed)
             {
-                if (endobsidianMelee && endobsidianMeleeTime == 0)
+                if (Player.Calamity().AccessoryParryItem == null && !Player.HasCooldown(ParryCooldown.ID))
                 {
-                    Player.Calamity().GeneralScreenShakePower = 2.5f;
-                    SoundEngine.PlaySound(Cryogen.ShieldRegenSound, Player.Center);
-                    endobsidianMeleeTime = 60;
+                    if (endobsidianMelee && endobsidianMeleeTime == 0)
+                    {
+                        Player.SetScreenshake(2.5f);
+                        SoundEngine.PlaySound(Cryogen.ShieldRegenSound, Player.Center);
+                        endobsidianMeleeTime = 60;
+                    }
                 }
+            }
+            if (Player.Calamity().AccessoryParryItem != null && Player.Calamity().AccessoryParryItem.JustPressedKeybind() && !Player.HasCooldown(ParryCooldown.ID))
+            {                
                 if (seaShell && seaShellParryingTime == 0)
                 {
-                    Player.Calamity().GeneralScreenShakePower = 2.5f;
+                    Player.SetScreenshake(2.5f);
                     SoundEngine.PlaySound(SoundID.NPCHit38, Player.Center);
                     seaShellParryingTime = SeaShell.parryTime;
                 }

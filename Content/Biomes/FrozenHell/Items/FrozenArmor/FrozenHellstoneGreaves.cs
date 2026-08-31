@@ -12,6 +12,13 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
     public class FrozenHellstoneGreaves : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Armor.FrozenHellstone";
+        public override void SetStaticDefaults()
+        {
+            if (Main.netMode != NetmodeID.Server)
+            {
+                ArmorIDs.Legs.Sets.HidesBottomSkin[EquipLoader.GetEquipSlot(Mod, Name, EquipType.Legs)] = true;
+            }
+        }
         public override void SetDefaults()
         {
             Item.width = 44;

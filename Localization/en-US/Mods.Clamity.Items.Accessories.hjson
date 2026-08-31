@@ -130,7 +130,13 @@ TreasureOfClamity: {
 
 SeaShell: {
 	DisplayName: Sea Shell
-	Tooltip: Increased defense, damage reduction and movement speed while wet
+	Tooltip:
+		'''
+		Increased defense, damage reduction and movement speed while wet
+		Pressing [KEY] will activate a parry, encasing you in shell
+		Being hit shortly after encasement will protect and you receive 75% DR for that hit
+		After break, this damage reduction effect goes on cooldown
+		'''
 }
 
 TheSubcommunity: {

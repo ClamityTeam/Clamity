@@ -5,11 +5,12 @@ Now Cataclysm Mod 3 year old. Time to release this gift.
 Additions:
 Added Evercold Cyan rarity for all post-Wall of Bronze items. Analogue of Calamity Red for Calamitas and Exotic Rainbow for Exo Mechs but for Wall of Bronze content.
 Added Shattered Subcommunity. Like Shattered Community he uses full power of The Subcommunity + leveling system. He level ups overtime by having active "Calm Mode" and every level increase passive calm generation.
-Ported and Reworked Stun Gun from Draedon's Expansion. Now he chargable shortsword. On full charge on hit release charge ahead.
+
 
 Reworks:
 Reworked Greatest Peak (previosly Frozen Volcano). Now he in-line with Hellkite. Charged attack creates lingering AoE damage.
 Reworked Subzero Slicer (previosly Frozen Star Shuriken). Now he homes to target and creates frost storm on it. Stealth strike creates 3 slicer and has bigger mist.
+Reworked Endobsidian Armor. Now his parry effect actualy works
 Redesigned Endobsidian Bar (previosly Enchanted Metal)
 Reworked Seared Shredder. Has custom swing and throw short range spinning flaming scythe that returns back after a short time
 
@@ -29,6 +30,7 @@ Removed White Pin Flag from Supreme Barrier recipe.
 Fixes:
 Eye of Nova now uses Exotic Rainbow rarity instead of Burnished Auric
 Fixed missing custom rarity color of Wither Stormbow
+Fixed incurrect Endobsidian Leggins sprite
 
 Localization Changes:
 None

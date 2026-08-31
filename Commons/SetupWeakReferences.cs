@@ -170,6 +170,7 @@ namespace Clamity.Commons
         {
             SetupBossChecklist();
             SetupInfernumIntroScreen();
+            SetupRecipeBrowser();
         }
         public static void AddBoss(Mod bossChecklist, Mod hostMod, string name, float difficulty, object npcTypes, Func<bool> downed, Dictionary<string, object> extraInfo)
         {
@@ -395,6 +396,45 @@ namespace Clamity.Commons
 
                     Clamity.infernum.Call("RegisterIntroScreen", intro);
                 }
+            }
+        }
+        public static void SetupRecipeBrowser()
+        {
+            if (!ModLoader.TryGetMod("RecipeBrowser", out Mod recipeBrowser))
+            {
+                return;
+            }
+
+            RecipeBrowser_AddToCategory(recipeBrowser, "Developer Items", "Other", "Assets/Textures/UI/RecipeBrowser_DevItem", (Item item) =>
+            {
+                return item.Calamity().devItem;
+            });
+            RecipeBrowser_AddToCategory(recipeBrowser, "Donor Items", "Other", "Assets/Textures/UI/RecipeBrowser_Donor", (Item item) =>
+            {
+                return item.Calamity().donorItem;
+            });
+        }
+        /// <summary>
+		/// Attempts to add a subcategory to Recipe Browser
+		/// </summary>
+		/// <param name="name">The displayed subcategory name</param>
+		/// <param name="category">The parent category</param>
+		/// <param name="texture">The 24x24 path to texture within the mod</param>
+		/// <param name="predicate">The condition at which an item is listed in this subcategory</param>
+		private static void RecipeBrowser_AddToCategory(Mod recipeBrowser, string name, string category, string texture, Predicate<Item> predicate)
+        {
+            if (!Main.dedServ)
+            {
+                recipeBrowser.Call(new object[5]
+                {
+                    "AddItemCategory",
+                    name,
+                    category,
+                    recipeBrowser.Version >= new Version(0, 10, 5) ?
+                    Clamity.mod.Assets.Request<Texture2D>(texture) :
+                    Clamity.mod.Assets.Request<Texture2D>(texture, AssetRequestMode.ImmediateLoad).Value, // 24x24 icon
+					predicate
+                });
             }
         }
         #endregion

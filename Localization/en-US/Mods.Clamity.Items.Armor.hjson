@@ -66,8 +66,8 @@ FrozenHellstone: {
 		SetBonus:
 			'''
 			Cannot be frozen.
-			Press {0} to create an ice shield that parries attacks.
-			Failing to parry will cause you to overcool.
+			Press [KEY] to create an ice shield that parries attacks.
+
 			'''
 	}
 

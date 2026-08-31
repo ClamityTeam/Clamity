@@ -4,6 +4,7 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
+using CalamityMod.Systems.Collections;
 using Clamity.Content.Rarities;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -17,6 +18,11 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
     public class FrozenHellstoneHeadMelee : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Armor.FrozenHellstone";
+
+        public override void SetStaticDefaults()
+        {
+            CalamityItemSets.HasAccessoryKeybind[Type] = true;
+        }
 
         public override void SetDefaults()
         {
@@ -39,6 +45,8 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
         {
             var hotkey = CalamityKeybinds.ArmorSetBonusHotKey.TooltipHotkeyString();
             player.setBonus = this.GetLocalization("SetBonus").Format(hotkey);
+
+            player.Calamity().AccessoryParryItem = Item;
 
             //player.setBonus = "Cannot be frozen.\nPress Armor Set Bonus to create an ice shield that parries attacks.[WIP]\nFailing to parry will cause you to overcool.[WIP]";
             player.Clamity().endobsidianSet = true;
