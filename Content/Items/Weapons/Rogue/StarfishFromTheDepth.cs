@@ -3,6 +3,8 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.Abyss;
 using CalamityMod.Items.Weapons.Rogue;
+using CalamityMod.Particles;
+using CalamityMod.Projectiles.Melee;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -25,8 +27,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
 
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 15;
-            Item.useAnimation = 15;
+            Item.useTime = Item.useAnimation = 46;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.UseSound = null;
@@ -40,48 +41,16 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
         }
 
-        public override bool AltFunctionUse(Player player)
-        {
-            return true; // Enables right-click
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            // Right-click: force all owned starfish projectiles to return
-            if (player.altFunctionUse == 2)
-            {
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    Projectile p = Main.projectile[i];
-
-                    if (p.active &&
-                        p.owner == player.whoAmI &&
-                        p.type == ModContent.ProjectileType<StarfishFromTheDepthProj>() &&
-                        p.ai[0] != 1f)
-                    {
-                        p.ai[0] = 1f;
-                        p.netUpdate = true;
-                    }
-                }
-
-                return false; // Do not swing or throw
-            }
-
-            // Left-click: only allow one active projectile
-            return !Main.projectile.Any(p =>
-                p.active &&
-                p.owner == player.whoAmI &&
-                p.type == ModContent.ProjectileType<StarfishFromTheDepthProj>());
-        }
-
-
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int proj = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
-            if (proj.WithinBounds(Main.maxProjectiles))
-                Main.projectile[proj].Calamity().stealthStrike = player.Calamity().StealthStrikeAvailable();
-            return false;
+            if (player.Calamity().StealthStrikeAvailable())
+            {
+                int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+                if (p.WithinBounds(Main.maxProjectiles))
+                    Main.projectile[p].Calamity().stealthStrike = true;
+                return false;
+            }
+            return true;
         }
 
         public override void AddRecipes()
@@ -100,7 +69,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
         public override string Texture => ModContent.GetInstance<StarfishFromTheDepth>().Texture;
 
         public static int ChargeupTime => 10;
-        public static int Lifetime => 1500;
+        public static int Lifetime => 240;
         public float OverallProgress => 1 - Projectile.timeLeft / (float)Lifetime;
         public float ThrowProgress => 1 - Projectile.timeLeft / (float)(Lifetime);
         public float ChargeProgress => 1 - (Projectile.timeLeft - Lifetime) / (float)(ChargeupTime);
@@ -109,7 +78,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
 
         public Player Owner => Main.player[Projectile.owner];
         public ref float Returning => ref Projectile.ai[0];
-        //public ref float Bouncing => ref Projectile.ai[1];
+        public ref float Bouncing => ref Projectile.ai[1];
 
         public override void SetStaticDefaults()
         {
@@ -128,7 +97,7 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Projectile.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Projectile.ignoreWater = true;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override bool ShouldUpdatePosition()
@@ -167,10 +136,10 @@ namespace Clamity.Content.Items.Weapons.Rogue
                 return;
             }
 
-            if (ChargeProgress >= 1f && Owner.HeldItem.type != ModContent.ItemType<StarfishFromTheDepth>())
+            /*if (ChargeProgress >= 1f && Owner.HeldItem.type != ModContent.ItemType<StarfishFromTheDepth>())
             {
                 Returning = 1f;
-            }
+            }*/
 
             //Play the throw sound when the throw ACTUALLY BEGINS.
             //Additionally, make the projectile collide and set its speed and velocity
@@ -180,15 +149,9 @@ namespace Clamity.Content.Items.Weapons.Rogue
                 SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
                 Projectile.Center = Owner.MountedCenter + Projectile.velocity * 12f;
                 Projectile.velocity = Projectile.velocity.SafeNormalize(Vector2.Zero) * 17.5f;
-                Projectile.tileCollide = true;
+                //Projectile.tileCollide = true;
 
-                if (Projectile.Calamity().stealthStrike)
-                {
-                    int index1 = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(0.4f).SafeNormalize(Vector2.Zero) * 17.5f, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    Main.projectile[index1].timeLeft = Lifetime - 2;
-                    index1 = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-0.4f).SafeNormalize(Vector2.Zero) * 17.5f, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    Main.projectile[index1].timeLeft = Lifetime - 2;
-                }
+                Projectile.extraUpdates = 1;
             }
 
             //Boomerang spinny sounds
@@ -200,16 +163,16 @@ namespace Clamity.Content.Items.Weapons.Rogue
 
             Projectile.rotation += (MathHelper.PiOver4 / 4f + MathHelper.PiOver4 / 2f * Math.Clamp(ThrowProgress * 2f, 0, 1)) * Math.Sign(Projectile.velocity.X);
 
-            /*if (Projectile.velocity.Length() < 2f)
+            if (Projectile.velocity.Length() < 2f && Bouncing == 0f)
             {
                 Returning = 1f;
                 Projectile.numHits = 0;
-            }*/
+            }
 
-            /*if (Returning == 0f && Projectile.velocity.Length() > 2f && Projectile.timeLeft < (205 + ChargeupTime))
+            if (Returning == 0f && Bouncing == 0f && Projectile.velocity.Length() > 2f && Projectile.timeLeft < (205 + ChargeupTime))
             {
                 Projectile.velocity *= 0.88f;
-            }*/
+            }
 
             if (Returning == 1f && Projectile.velocity.Length() < 20f)
             {
@@ -219,57 +182,32 @@ namespace Clamity.Content.Items.Weapons.Rogue
             for (int i = 0; i < 5; i++)
             {
                 Vector2 dustPos = Projectile.Center + (i * MathHelper.TwoPi / 5f + Projectile.rotation + MathHelper.PiOver2).ToRotationVector2() * 14f;
-                Dust dust = Dust.NewDustPerfect(dustPos, DustID.RedsWingsRun, (i * MathHelper.TwoPi / 5f + Projectile.rotation * Math.Sign(Projectile.velocity.X)).ToRotationVector2() * 3f, newColor: new Color(0, 255, 255));
+                Dust dust = Dust.NewDustPerfect(dustPos, (Main.rand.NextBool(3) ? 104 : 96), (i * MathHelper.TwoPi / 5f + Projectile.rotation * Math.Sign(Projectile.velocity.X)).ToRotationVector2() * 3f);
                 dust.noGravity = true;
             }
-
-
-
-            if (Returning == 1f) //Returning
+            if (Projectile.timeLeft % 2 == 0)
             {
-                Projectile.tileCollide = false;
+                Color mediumBlue = Color.MediumBlue;
+                Particle particle = new HeavySmokeParticle(base.Projectile.Center, base.Projectile.velocity * Main.rand.NextFloat(-0.2f, -0.6f), mediumBlue, 30, Main.rand.NextFloat(0.5f, 0.75f), 0.3f, Main.rand.NextFloat(-0.2f, 0.2f), glowing: false, 0f, required: true);
+                GeneralParticleHandler.SpawnParticle(particle);
+            }
+
+            if (Returning == 1f)
+            {
+                Projectile.extraUpdates = 0;
+                //Projectile.tileCollide = false;
                 //Aim back at the player
                 Projectile.velocity = Projectile.velocity.Length() * (Owner.MountedCenter - Projectile.Center).SafeNormalize(Vector2.One);
-                Projectile.timeLeft = 10;
 
                 if ((Projectile.Center - Owner.MountedCenter).Length() < 24f)
                 {
                     Projectile.Kill();
                 }
 
-                /*if (Projectile.numHits >= 5)
+                if (Projectile.numHits >= 13)
                 {
                     ImpactEffects();
                     Projectile.Kill();
-                }*/
-            }
-            else //Homing to target
-            {
-
-                NPC newTarget = null;
-                float closestNPCDistance = 2000f;
-                float targettingDistance = 4000f;
-                foreach (NPC n in Main.ActiveNPCs)
-                {
-                    if (n.CanBeChasedBy(Projectile))
-                    {
-                        float potentialNewDistance = (Projectile.Center - n.Center).Length();
-                        if (potentialNewDistance < targettingDistance && potentialNewDistance < closestNPCDistance)
-                        {
-                            closestNPCDistance = potentialNewDistance;
-                            newTarget = n;
-                        }
-                    }
-                }
-                if (newTarget != null && Projectile.numHits <= 10)
-                {
-                    float inertia = 30f;
-                    Vector2 targetVector = Projectile.SafeDirectionTo(newTarget.Center);
-                    Projectile.velocity = (Projectile.velocity * (inertia - 1f) + (targetVector) * 17.5f) / inertia;
-                }
-                if (Projectile.numHits > 10)
-                {
-                    Returning = 1f;
                 }
             }
         }
@@ -285,24 +223,75 @@ namespace Clamity.Content.Items.Weapons.Rogue
 
                 for (int j = 0; j < 4; j++)
                 {
-                    Dust dust = Dust.NewDustPerfect(Projectile.Center + streakRotation.ToRotationVector2() * (2f + 0.4f * j), DustID.RedsWingsRun, streakRotation.ToRotationVector2() * (0.6f * j + 3f), Scale: 1.4f, newColor: new Color(0, 255, 255));
+                    Dust dust = Dust.NewDustPerfect(Projectile.Center + streakRotation.ToRotationVector2() * (2f + 0.4f * j), (Main.rand.NextBool(3) ? 104 : 96), streakRotation.ToRotationVector2() * (0.6f * j + 3f), Scale: 1.4f);
                     dust.noGravity = true;
                 }
             }
 
-            if (Projectile.numHits > 10)
+            if (Projectile.numHits > 7)
             {
-                //Projectile.velocity *= 0.3f;
+                Projectile.velocity *= 0.3f;
                 Returning = 1f;
             }
             else
             {
-                Projectile.velocity = -Projectile.velocity.RotatedByRandom(0.4f) * (Projectile.numHits == 0 ? 1 : 2);
+                //Retarget
+                NPC newTarget = null;
+                float closestNPCDistance = 10000f;
+                float targettingDistance = 900f;
+
+                foreach (NPC n in Main.ActiveNPCs)
+                {
+                    if (n.whoAmI == target.whoAmI)
+                        continue;
+
+                    if (n.CanBeChasedBy(Projectile))
+                    {
+                        float potentialNewDistance = (Projectile.Center - n.Center).Length();
+                        if (potentialNewDistance < targettingDistance && potentialNewDistance < closestNPCDistance)
+                        {
+                            closestNPCDistance = potentialNewDistance;
+                            newTarget = n;
+                            Projectile.velocity = CalamityUtils.CalculatePredictiveAimToTargetMaxUpdates(Projectile.Center, newTarget, 10f, 2);
+                        }
+                    }
+                }
+
+                if (newTarget == null)
+                {
+                    Projectile.velocity *= 0.3f;
+                    Returning = 1f;
+                    return;
+                }
+
+                if (Returning != 1f)
+                {
+                    if (Projectile.owner == Main.myPlayer)
+                    {
+                        for (int s = 0; s < (Projectile.Calamity().stealthStrike ? 2 : 1); s++)
+                        {
+                            Vector2 velocity = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+                            while (velocity.X == 0f && velocity.Y == 0f)
+                            {
+                                velocity = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+                            }
+                            velocity.Normalize();
+                            velocity *= (float)Main.rand.Next(70, 101) * 0.1f;
+                            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<DepthCrusherSplitProjectile>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack * 0.5f, Projectile.owner, Main.rand.Next(0, 4), 0f);
+                            if (proj.WithinBounds(Main.maxProjectiles))
+                                Main.projectile[proj].DamageType = ModContent.GetInstance<RogueDamageClass>();
+                        }
+                    }
+                }
+
+                Bouncing = 1f;
+                Projectile.damage = (int)(Projectile.damage * 0.8f);
+                //Projectile.velocity = 15f * (newTarget.Center - Projectile.Center).SafeNormalize(Vector2.One);
             }
 
             Player player = Main.player[Projectile.owner];
 
-            if (!hasHit)
+            /*if (!hasHit)
             {
                 hasHit = true;
 
@@ -316,20 +305,33 @@ namespace Clamity.Content.Items.Weapons.Rogue
                     float finalDamage = damageMod.ApplyTo(heldItem.damage);
                     Projectile.damage = (int)Math.Round(finalDamage);
                 }
-            }
+            }*/
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             ImpactEffects();
-            //Projectile.velocity = Projectile.oldVelocity.Length() * 0.3f * (Owner.MountedCenter - Projectile.Center).SafeNormalize(Vector2.One);
-            //Returning = 1f;
+            Projectile.velocity = Projectile.oldVelocity.Length() * 0.3f * (Owner.MountedCenter - Projectile.Center).SafeNormalize(Vector2.One);
+            Returning = 1f;
             return false;
         }
 
         public void ImpactEffects()
         {
-            SoundStyle bonkSound = SoundID.DD2_SkeletonHurt with { Volume = SoundID.DD2_SkeletonHurt.Volume * 0.8f, Pitch = SoundID.DD2_SkeletonHurt.Pitch + 0.1f * Projectile.numHits };
+            //SoundStyle bonkSound = SoundID.DD2_SkeletonHurt with { Volume = SoundID.DD2_SkeletonHurt.Volume * 0.8f, Pitch = SoundID.DD2_SkeletonHurt.Pitch + 0.1f * Projectile.numHits };
+
+            //If the boomerang somehow hits 15 enemies, make it start doing drum sounds
+            SoundStyle bonkSound = Projectile.numHits < 13 ? SoundID.DD2_SkeletonHurt with { Volume = SoundID.DD2_SkeletonHurt.Volume * 0.8f, Pitch = SoundID.DD2_SkeletonHurt.Pitch + 0.1f * Projectile.numHits } :
+                 Utils.SelectRandom(Main.rand, new SoundStyle[]
+                {
+                SoundID.DrumClosedHiHat,
+                SoundID.DrumCymbal1,
+                SoundID.DrumCymbal2,
+                SoundID.DrumKick,
+                SoundID.DrumTamaSnare,
+                SoundID.DrumTomHigh,
+                SoundID.DrumHiHat
+                });
 
             SoundEngine.PlaySound(bonkSound, Projectile.Center);
             int goreNumber = Main.rand.Next(4);
