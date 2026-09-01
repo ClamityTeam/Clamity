@@ -222,13 +222,14 @@ ShatteredSubcommunity: {
 	DisplayName: Shattered Subcommunity
 	Tooltip:
 		'''
-		'No matter how he ruined by unknowable hatred, he still has most of the power of The Subcommunity'
+		'Ruined by toxicity, it still contains most of the part of The (Calamity) Community...'
 		Increases mining speed by 50%
 		Increases luck by 0.5 and fishing power by 50
 		Increases tile and wall placing speed by 50% and placing range by 5
-		Replaces Rage with "Calm" Meter, gain extra 50% Shattered Subcommunty's stats instead of damage boost
-		You generate calm over time and calm does not fade out of combat
-		Getting active Calm Mode overtime empower your peace
+		Replaces Rage with a Calm Meter
+		Calm grants an extra 50% boost to Shattered Subcommunty's stats instead of a damage boost
+		You generate Calm over time and Calm does not fade out of combat
+		Getting active Calm Mode overtime empowerers your peace
 		Current level: [LEVEL] (+[BONUS]% base calm generation)
 		Progress to next level: [PROGRESS]%
 		Total Calm Mode time: [TIME]
