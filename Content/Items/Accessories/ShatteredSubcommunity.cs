@@ -62,6 +62,12 @@ namespace Clamity.Content.Items.Accessories
             return clone;
         }
         internal static Color GetRarityColor() => CalamityUtils.ColorSwap(rarityColorOne, rarityColorTwo, 3f);
+
+        public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+        {
+            return !player.Clamity().subcommunity && !player.Clamity().ignitedSubcommunity;
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Clamity().shatteredSubcommunity = true;
@@ -70,13 +76,29 @@ namespace Clamity.Content.Items.Accessories
             ShatteredSubcommunityPlayer scp = player.GetModPlayer<ShatteredSubcommunityPlayer>();
             scp.sc = this;
 
-            player.pickSpeed -= TheSubcommunity.MiningSpeedMult;
-            //calamityPlayer.calamityBonusLuck += baseBoost * TheSubcommunity.LuckMult;
-            player.fishingSkill += TheSubcommunity.FishingPower;
-            player.tileSpeed += TheSubcommunity.TileAndWallPlacingSpeedMult;
-            player.wallSpeed += TheSubcommunity.TileAndWallPlacingSpeedMult;
-            Player.tileRangeX += TheSubcommunity.TileRangeMult;
-            Player.tileRangeY += TheSubcommunity.TileRangeMult;
+            const float baseBoost = 0.2f;
+
+            player.pickSpeed -= baseBoost * TheSubcommunity.MiningSpeedMult;
+
+            player.Calamity().calamityBonusLuck += baseBoost * TheSubcommunity.LuckMult;
+
+            player.fishingSkill += (int)(baseBoost * TheSubcommunity.FishingPower);
+
+            player.tileSpeed += baseBoost * TheSubcommunity.TileAndWallPlacingSpeedMult;
+            player.wallSpeed += baseBoost * TheSubcommunity.TileAndWallPlacingSpeedMult;
+
+            Player.tileRangeX += (int)(baseBoost * TheSubcommunity.TileRangeMult);
+            Player.tileRangeY += (int)(baseBoost * TheSubcommunity.TileRangeMult);
+        }
+
+        public override bool CanEquipAccessory(Player player, int slot, bool modded) => !player.Calamity().community;
+        public override bool CanUseItem(Player player) => false;
+
+        // Produces purple light while in the world.
+        public override void PostUpdate()
+        {
+            float brightness = Main.essScale;
+            Lighting.AddLight(Item.Center, 0.92f * brightness, 0.42f * brightness, 0.92f * brightness);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
