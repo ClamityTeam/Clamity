@@ -33,11 +33,11 @@ namespace Clamity.Content.Items.Weapons.Rogue
             Item.UseSound = null;
             Item.autoReuse = true;
 
-            Item.damage = 150;
+            Item.damage = 200;
             Item.knockBack = 5.5f;
             Item.shoot = ModContent.ProjectileType<StarfishFromTheDepthProj>();
 
-            Item.shootSpeed = 3f;
+            Item.shootSpeed = 25f;
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
         }
 
@@ -147,8 +147,8 @@ namespace Clamity.Content.Items.Weapons.Rogue
             {
 
                 SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
-                Projectile.Center = Owner.MountedCenter + Projectile.velocity * 12f;
-                Projectile.velocity = Projectile.velocity.SafeNormalize(Vector2.Zero) * 17.5f;
+                Projectile.Center = Owner.MountedCenter + Projectile.velocity * 0.5f;
+                Projectile.velocity = Projectile.velocity;
                 //Projectile.tileCollide = true;
 
                 Projectile.extraUpdates = 1;
@@ -257,6 +257,23 @@ namespace Clamity.Content.Items.Weapons.Rogue
                     }
                 }
 
+                if (Projectile.owner == Main.myPlayer)
+                {
+                    for (int s = 0; s < (Projectile.Calamity().stealthStrike ? 2 : 1); s++)
+                    {
+                        Vector2 velocity = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+                        while (velocity.X == 0f && velocity.Y == 0f)
+                        {
+                            velocity = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+                        }
+                        velocity.Normalize();
+                        velocity *= (float)Main.rand.Next(70, 101) * 0.1f;
+                        int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<DepthCrusherSplitProjectile>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack * 0.5f, Projectile.owner, Main.rand.Next(0, 4), 0f);
+                        if (proj.WithinBounds(Main.maxProjectiles))
+                            Main.projectile[proj].DamageType = ModContent.GetInstance<RogueDamageClass>();
+                    }
+                }
+
                 if (newTarget == null)
                 {
                     Projectile.velocity *= 0.3f;
@@ -264,28 +281,8 @@ namespace Clamity.Content.Items.Weapons.Rogue
                     return;
                 }
 
-                if (Returning != 1f)
-                {
-                    if (Projectile.owner == Main.myPlayer)
-                    {
-                        for (int s = 0; s < (Projectile.Calamity().stealthStrike ? 2 : 1); s++)
-                        {
-                            Vector2 velocity = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
-                            while (velocity.X == 0f && velocity.Y == 0f)
-                            {
-                                velocity = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
-                            }
-                            velocity.Normalize();
-                            velocity *= (float)Main.rand.Next(70, 101) * 0.1f;
-                            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<DepthCrusherSplitProjectile>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack * 0.5f, Projectile.owner, Main.rand.Next(0, 4), 0f);
-                            if (proj.WithinBounds(Main.maxProjectiles))
-                                Main.projectile[proj].DamageType = ModContent.GetInstance<RogueDamageClass>();
-                        }
-                    }
-                }
-
                 Bouncing = 1f;
-                Projectile.damage = (int)(Projectile.damage * 0.8f);
+                Projectile.damage = (int)(Projectile.damage * 0.75f);
                 //Projectile.velocity = 15f * (newTarget.Center - Projectile.Center).SafeNormalize(Vector2.One);
             }
 
