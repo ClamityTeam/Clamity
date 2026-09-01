@@ -1,4 +1,6 @@
 ﻿using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.BaseItems;
 using CalamityMod.Items.Materials;
@@ -33,9 +35,9 @@ namespace Clamity.Content.Items.Weapons.Melee
 
             Item.width = 124;
             Item.height = 124;
-            Item.damage = 20;
+            Item.damage = 25;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.useAnimation = Item.useTime = 71;
+            Item.useAnimation = Item.useTime = 60;
             Item.useTurn = true;
             Item.knockBack = 13f;
             Item.autoReuse = true;
@@ -50,8 +52,6 @@ namespace Clamity.Content.Items.Weapons.Melee
         }
         public override void AddRecipes()
         {
-            //hummus. After balancing stats please remove this comment and "return;" after to make item accessable to craft after balancing.
-            return;
             CreateRecipe()
                 .AddIngredient<MysteriousCircuitry>(5)
                 .AddIngredient<DubiousPlating>(7)
@@ -90,6 +90,10 @@ namespace Clamity.Content.Items.Weapons.Melee
         //public bool FirstIFrameReset = false;
         //public bool SecondIFrameReset = false;
         //public SlotId AudSlot;
+
+        public float chargeProgress = 0f;
+        public int chargedDamage = 20;
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -102,6 +106,9 @@ namespace Clamity.Content.Items.Weapons.Melee
             CanHit = false;
             Projectile.knockBack = 0;
             Projectile.ai[1] = -1;
+
+            chargedDamage = Owner.HeldItem.damage;
+            chargeProgress = 0f;
 
             // 14NOV2024: Ozzatron: clamped mouse position unnecessary, as Hellkite has no projectiles
             mousePos = Owner.Calamity().mouseWorld;
@@ -139,6 +146,7 @@ namespace Clamity.Content.Items.Weapons.Melee
                     doAttack = true;
                     CanHit = true;
 
+                    Projectile.damage = chargedDamage;
 
                     for (int i = 0; i < 5; i++)
                     {
@@ -166,7 +174,7 @@ namespace Clamity.Content.Items.Weapons.Melee
                         attackOffset = MathHelper.Lerp(attackOffset, -1, 1f - CalamityUtils.ExpOutEasing(Utils.Remap(AnimationProgress / (float)useAnim, 0.2f, 1, 0f, 1f), 1));
                         if (!releaseFullCharge)
                         {
-                            Main.NewText("!");
+                            //Main.NewText("!");
                             for (int i = 0; i < 20; i++)
                             {
                                 SparkParticle p = new SparkParticle(c, Vector2.UnitX.RotatedBy(Projectile.rotation - MathHelper.PiOver4).RotatedByRandom(MathHelper.PiOver4) * Main.rand.NextFloat(4, 10), false, 30, 0.5f, Color.DodgerBlue, true);
@@ -199,6 +207,18 @@ namespace Clamity.Content.Items.Weapons.Melee
                 //Offset = -Projectile.Size.RotatedBy(Projectile.rotation - MathHelper.PiOver2) / 4 * (chargeTimer / (float)chargeTimerMax);
 
                 attackOffset = -chargeTimer / (float)chargeTimerMax;
+
+                // Store how much the weapon has charged.
+                float chargeProgress = chargeTimer / (float)chargeTimerMax;
+
+                float baseDamage = Owner.HeldItem.damage;
+                float maxDamage = baseDamage * 5f;
+
+                chargedDamage = (int)MathHelper.Lerp(
+                    baseDamage,
+                    maxDamage,
+                    chargeProgress
+                );
 
                 Projectile.rotation = Projectile.rotation.AngleLerp(Owner.AngleTo(mousePos) + MathHelper.PiOver4, 0.3f);
                 //RotationOffset = MathHelper.Lerp(RotationOffset, MathHelper.ToRadians(120f * Projectile.ai[1] * Owner.direction), 0.05f);
@@ -249,6 +269,16 @@ namespace Clamity.Content.Items.Weapons.Melee
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             chargedHit = chargedSwing ? true : false;
+
+            if (chargedHit)
+            {
+                target.AddBuff(BuffID.Electrified, 300);
+                target.AddBuff(ModContent.BuffType<GalvanicCorrosion>(), 60);
+            }
+            else
+            {
+                target.AddBuff(ModContent.BuffType<StaticDischarge>(), 300);
+            }
         }
     }
     public class StunGunChargedProjectile : ModProjectile, ILocalizedModType

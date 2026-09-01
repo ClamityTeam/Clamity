@@ -57,5 +57,10 @@ GreatestPeak: {
 
 StunGun: {
 	DisplayName: Stun Gun
-	Tooltip: ""
+	Tooltip:
+		'''
+		Hold <left> to charge the stun gun, increasing the damage up to 500%
+		If released early, inflicts [cbuff:CalamityMod/StaticDischarge] on hit enemies
+		At maximum charge, instead inflict [cbuff:CalamityMod/GalvanicCorrosion] and [cbuff:Electrified] on hit enemies
+		'''
 }
