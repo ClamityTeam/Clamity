@@ -40,7 +40,8 @@ namespace Clamity.Content.Items.Accessories
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Type] = true;
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<TheSubcommunity>();
-            EnchantmentManager.ItemUpgradeRelationship.Add(ModContent.ItemType<TheSubcommunity>(), Type);
+            //EnchantmentManager.ItemUpgradeRelationship.Add(ModContent.ItemType<TheSubcommunity>(), Type);
+            EnchantmentManager.ItemUpgradeRelationship[ModContent.ItemType<TheSubcommunity>()] = Type;
             HotPink.CustomColors.Add(Type, GetRarityColor); // Yes, this reuses Shattered Community's color (and this comment from HotPink.cs lol)
         }
 
