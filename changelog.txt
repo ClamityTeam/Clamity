@@ -24,4 +24,4 @@ Fixes:
 None
 
 Localization Changes:
-None
+Some minor tooltip adjustments throughout the mod.

@@ -25,10 +25,10 @@ RarePlanteraFruit: {
 
 CoralskinFoolfish: {
 	DisplayName: Coralskin Foolfish
-	Tooltip: "'Camouflage is one of nature's best defenses"
+	Tooltip: "'Camouflage is one of nature's best defenses'"
 }
 
 EndobsidianBar: {
 	DisplayName: Endobsidian Bar
-	Tooltip: Weird material. Cold on touch but feel warm at same time.
+	Tooltip: A weird material that is both cold on touch but warm at the same time
 }
