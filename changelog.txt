@@ -25,4 +25,4 @@ Fixes:
 Added missing Evercold Cyan rarity for Wall of Bronze lore item
 
 Localization Changes:
-None
+Some minor tooltip adjustments throughout the mod.
