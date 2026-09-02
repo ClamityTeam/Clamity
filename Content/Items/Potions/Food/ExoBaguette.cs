@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 namespace Clamity.Content.Items.Potions.Food
 {
     //Increase threshold of alchohol poisoning by 1 buff
-    public class ExoBaguette : ModItem, ILocalizedModType, IModType
+    /*public class ExoBaguette : ModItem, ILocalizedModType, IModType
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
@@ -83,5 +83,5 @@ namespace Clamity.Content.Items.Potions.Food
             player.Calamity().alcoholPoisonLevel--;
             player.Calamity().baguette = true;
         }
-    }
+    }*/
 }

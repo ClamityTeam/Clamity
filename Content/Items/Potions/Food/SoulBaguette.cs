@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace Clamity.Content.Items.Potions.Food
 {
-    public class SoulBaguette : ModItem, ILocalizedModType, IModType
+    /*public class SoulBaguette : ModItem, ILocalizedModType, IModType
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
@@ -61,5 +61,5 @@ namespace Clamity.Content.Items.Potions.Food
                 .AddTile(TileID.AdamantiteForge)
                 .Register();
         }
-    }
+    }*/
 }

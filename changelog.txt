@@ -1,7 +1,7 @@
-Update 1.0.4.6 - Anniversary Update Hotfix 2
+Update 1.0.4.6 - Anniversary Update Part 2
 
 Additions:
-None
+Added recipe of Stun Gun. His balancing actualy done and ready for play though.
 
 Reworks:
 Added damage scaling with charge to the Stun Gun (up to x5 damage) and made it so fully charged hits inflict Electrified for 5 seconds and Galvanic Corrosion for 1 second
@@ -19,9 +19,10 @@ Increased Starfish of the Depths damage (150-200) but also increased damage loss
 
 Changes:
 Slightly improved the tooltips and functionality of the Shattered Subcommunity.
+Added donor item tag for Auric Apple
 
 Fixes:
-None
+Added missing Evercold Cyan rarity for Wall of Bronze lore item
 
 Localization Changes:
 None

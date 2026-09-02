@@ -417,12 +417,12 @@ namespace Clamity
                 if (Player.Calamity().oceanCrestTimer > 0 | flagWet)
                     Player.GetDamage<GenericDamageClass>() += 0.1f;
             }
-            if (seaShell && flagWet)
+            /*if (seaShell && flagWet)
             {
                 Player.endurance += 0.05f;
                 Player.statDefense += 3;
                 Player.moveSpeed += 0.15f;
-            }
+            }*/
             if (subcommunity)
             {
                 float baseBoost = TheSubcommunity.CalculatePower();
@@ -473,6 +473,7 @@ namespace Clamity
                     Player.wallSpeed += TheSubcommunity.TileAndWallPlacingSpeedMult / 2;
                     Player.tileRangeX += TheSubcommunity.TileRangeMult / 2;
                     Player.tileRangeY += TheSubcommunity.TileRangeMult / 2;
+                    Player.Calamity().calamityBonusLuck += TheSubcommunity.LuckMult / 2;
 
                     Player.GetModPlayer<ShatteredSubcommunityPlayer>().AccumulateCalmDone(1);
                 }
@@ -604,9 +605,7 @@ namespace Clamity
         }
         public override void ModifyLuck(ref float luck)
         {
-            if (supremeLuck) luck += 0.5f;
             if (subcommunity) luck += TheSubcommunity.CalculatePower() * TheSubcommunity.LuckMult;
-            if (shatteredSubcommunity) luck += TheSubcommunity.LuckMult * (Player.Calamity().rageModeActive ? 1.5f : 1);
             if (redDie)
             {
                 for (int i = 3; i < 9; i++)
