@@ -1,36 +1,27 @@
-Update 1.0.4.4 - Annyversary Update
-
-Now Cataclysm Mod 3 year old. Time to release this gift.
+Update 1.0.4.6 - Anniversary Update Hotfix 2
 
 Additions:
-Added Evercold Cyan rarity for all post-Wall of Bronze items. Analogue of Calamity Red for Calamitas and Exotic Rainbow for Exo Mechs but for Wall of Bronze content.
-Added Shattered Subcommunity. Like Shattered Community he uses full power of The Subcommunity + leveling system. He level ups overtime by having active "Calm Mode" and every level increase passive calm generation.
-
-
-Reworks:
-Reworked Greatest Peak (previosly Frozen Volcano). Now he in-line with Hellkite. Charged attack creates lingering AoE damage.
-Reworked Subzero Slicer (previosly Frozen Star Shuriken). Now he homes to target and creates frost storm on it. Stealth strike creates 3 slicer and has bigger mist.
-Reworked Endobsidian Armor. Now his parry effect actualy works
-Redesigned Endobsidian Bar (previosly Enchanted Metal)
-Reworked Seared Shredder. Has custom swing and throw short range spinning flaming scythe that returns back after a short time
-
-Removals:
-Removed Everest for future rework. "Petal of Everest" rework not completed yet but can be already tested from Cheat Panel.
-Removed RGB Murasama.
-Removed Exo Baguette and Soul Baguette.
-
-Balance:
 None
 
+Reworks:
+Added damage scaling with charge to the Stun Gun (up to x5 damage) and made it so fully charged hits inflict Electrified for 5 seconds and Galvanic Corrosion for 1 second
+Starfish of the Depths now always creates an ink bolt even when only hitting once and not bouncing, and increased shot speed stat (3-25)
+Starfish of the Depths now scales with shoot speed instead of being fixed, essentially increasing shoot speed (17.5-25)
+
+Removals:
+None
+
+Balance:
+Increased Stun Gun damage (20-25) and attack speed (71-60)
+Increased Seared Shredder projectile range (200-250)
+Made Hell's Bells inflict Hellfire instead of On Fire and increased their movement speed (0.05-0.15)
+Increased Starfish of the Depths damage (150-200) but also increased damage loss per bounce (0.8-0.75)
+
 Changes:
-Replaced Vampiric Talisman with Darcula's Charm in Nanotech recipe.
-Added Endobsidian Bar in Calamity Community Remix's Lightmix Bar recipe.
-Removed White Pin Flag from Supreme Barrier recipe.
+Slightly improved the tooltips and functionality of the Shattered Subcommunity.
 
 Fixes:
-Eye of Nova now uses Exotic Rainbow rarity instead of Burnished Auric
-Fixed missing custom rarity color of Wither Stormbow
-Fixed incurrect Endobsidian Leggins sprite
+None
 
 Localization Changes:
 None

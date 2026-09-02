@@ -341,7 +341,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
         public override void OnSpawn(IEntitySource source)
         {
             //Projectile.ai[2] = (Main.MouseWorld - Main.player[Projectile.owner].MountedCenter).Length();
-            Projectile.ai[2] = 200;
+            Projectile.ai[2] = 250;
         }
         public override void AI()
         {
