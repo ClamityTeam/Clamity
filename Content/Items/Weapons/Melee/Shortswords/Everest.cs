@@ -16,11 +16,15 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
 {
     public class Everest : ModItem, ILocalizedModType, IModType
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public new string LocalizationCategory => "Items.Weapons.Melee";
         public override void SetDefaults()
         {
             Item.width = Item.height = 64;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
 
             Item.useAnimation = Item.useTime = 10;
@@ -30,7 +34,7 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
             Item.noUseGraphic = true;
             Item.noMelee = true;
 
-            Item.damage = 300;
+            Item.damage = 750;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 8.5f;
 
@@ -42,13 +46,17 @@ namespace Clamity.Content.Items.Weapons.Melee.Shortswords
             CreateRecipe()
                 //.AddIngredient<Tomutus>()
                 .AddIngredient<HellfireFlamberge>()
-                .AddIngredient<EnchantedMetal>(8)
+                .AddIngredient<EndobsidianBar>(8)
                 .AddTile<CosmicAnvil>()
                 .Register();
         }
     }
     public class EverestProjectile : BaseShortswordProjectile, ILocalizedModType, IModType
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public new string LocalizationCategory => "Projectiles.Melee";
         public override string Texture => ModContent.GetInstance<Everest>().Texture;
         public override void SetDefaults()

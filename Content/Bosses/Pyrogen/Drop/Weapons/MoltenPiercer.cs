@@ -21,7 +21,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
         }
         public override void SetDefaults()
         {
-            Item.width = Item.height = 32;
+            Item.width = Item.height = 16;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Pink;
 
@@ -34,7 +34,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
             Item.shoot = ModContent.ProjectileType<MoltenPiercerProjectile>();
             Item.shootSpeed = 12f;
 
-            Item.damage = 57;
+            Item.damage = 144;
             Item.DamageType = ModContent.GetInstance<RogueDamageClass>();
             Item.knockBack = 5f;
         }

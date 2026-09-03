@@ -1,6 +1,8 @@
 ﻿using CalamityMod.Events;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
+using CalamityMod.UI.DialogueDisplay;
+using CalamityMod.UI.DialogueDisplay.DisplayEffects;
 using Clamity.Content.Bosses.Pyrogen.NPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -74,6 +76,7 @@ namespace Clamity.Content.Bosses.Pyrogen
                 {
                     NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, -1, -1, null, player.whoAmI, ModContent.NPCType<PyrogenBoss>());
                 }
+                DialogueDisplaySystem.StartDialogue("Mods.Clamity.Pyrogen.Intro", player.Center, 0, 120, false, new BossText());
             }
             else
                 Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<PyrogenSummonAnimation>(), 0, 0, player.whoAmI);
@@ -135,7 +138,13 @@ namespace Clamity.Content.Bosses.Pyrogen
         public override void OnKill(int timeLeft)
         {
             GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.Red, new Vector2(0.5f, 0.5f), Main.rand.NextFloat(12f, 25f), 0f, 20f, 40));
-            NPC.NewNPCDirect(Projectile.GetSource_Death(), Projectile.Center, ModContent.NPCType<PyrogenBoss>());
+            NPC npc = NPC.NewNPCDirect(Projectile.GetSource_Death(), Projectile.Center, ModContent.NPCType<PyrogenBoss>());
+            if ((Main.player[Projectile.owner].name is "AlikEspess" or "Alik" or "Алекс Шаррн"))
+                DialogueDisplaySystem.StartDialogue("Mods.Clamity.Pyrogen.Alik", npc, 0, 120, false, new BossText());
+            else if (Main.zenithWorld)
+                ClamityUtils.BossIntroDialogue("Pyrogen", npc, "IntroGFB");
+            else
+                ClamityUtils.BossIntroDialogue("Pyrogen", npc);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using CalamityMod.Items.LoreItems;
-using CalamityMod.Rarities;
+using Clamity.Content.Rarities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,7 +11,7 @@ namespace Clamity.Content.Bosses.WoB.Drop
         {
             Item.width = 36;
             Item.height = 26;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
             Item.consumable = false;
         }
     }

@@ -16,6 +16,11 @@ namespace Clamity.Content.Projectiles
     {
         public new string LocalizationCategory => "Projectiles.Melee";
         public override string Texture => ModContent.GetInstance<Exobeam>().Texture;
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.Calamity().CannotProc = true;
+        }
         /*public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();

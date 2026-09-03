@@ -12,42 +12,37 @@ Foods: {
 		DisplayName: Экзо-багет
 		Tooltip:
 			'''
-			Значительные улучшения всех характеристик
-			Усиливает эффект Красного Вина
-			Увеличивает порог до алкогольного отравления на 1 бафф
+			{$CommonItemTooltip.MajorStats}
+			Increases the threshold for {$CalamityMod.Buffs.AlcoholPoisoning.DisplayName} by 1
 			'''
 	}
 
 	SoulBaguette: {
-		DisplayName: Багет духов
-		Tooltip:
-			'''
-			Средние улучшения всех характеристик
-			Усиливает эффект Красного Вина
-			'''
+		DisplayName: Душевный багет
+		Tooltip: "{$CommonItemTooltip.MediumStats}"
 	}
 
 	Eldercherry: {
 		DisplayName: Вишня древних
-		Tooltip: Средние улучшения всех характеристик
+		Tooltip: "{$CommonItemTooltip.MediumStats}"
 	}
 
 	EldercherryJuice: {
 		DisplayName: Сок из вишни древних
-		Tooltip: Значительные улучшения всех характеристик
+		Tooltip: "{$CommonItemTooltip.MajorStats}"
 	}
 
 	SlagspitterPauldron: {
-		// DisplayName: Slagspitter Pauldron
-		Tooltip: Значительные улучшения всех характеристик
+		// DisplayName: Balanôn itil
+		Tooltip: "{$CommonItemTooltip.MajorStats}"
 	}
 
 	ClamChowder: {
 		DisplayName: Похлебка из моллюсков
 		Tooltip:
 			'''
-			Новый стиль Ильмериса
-			Средние улучшения всех характеристик
+			{$CommonItemTooltip.MediumStats}
+			'Новый стиль Ильмериса'
 			'''
 	}
 
@@ -55,9 +50,11 @@ Foods: {
 		DisplayName: Баролапы
 		Tooltip:
 			'''
-			Мясо на самом деле выглядит так, будто его приготовили из барокрау. Не то чтобы это имело значение, оно все равно прогорклое
 			Различные улучшения всех характеристик
-			Бафф зависит от стадии игры
+			Победите элементаля воды, обитающий в океане, и ее величественного зверя, чтобы улучшить вкус блюда
+			Победите призрачного врага, обитающего в подземелье, чтобы еще больше улучшить его вкус
+			'Мясо на самом деле выглядит так, будто его приготовили из барокрау. 
+			Не то чтобы это имело значение, оно все равно прогорклое'
 			'''
 	}
 
@@ -65,8 +62,8 @@ Foods: {
 		DisplayName: Чаебедствие
 		Tooltip:
 			'''
-			Настоящее бедствие
-			Значительные улучшения всех характеристик
+			{$CommonItemTooltip.MajorStats}
+			'Настоящее бедствие'
 			'''
 	}
 }

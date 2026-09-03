@@ -34,7 +34,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage<MeleeDamageClass>() += 0.1f;
-            player.GetDamage<RogueDamageClass>() += 0.1f;
+            player.GetDamage<ThrowingDamageClass>() += 0.1f;
             player.Clamity().pyroSpear = true;
         }
     }

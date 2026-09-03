@@ -1,6 +1,7 @@
 ﻿using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Clamity.Content.Biomes.FrozenHell.Items;
+using Clamity.Content.Rarities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -18,7 +19,7 @@ namespace Clamity.Content.Items.Ammo
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.WoodenArrow);
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = Item.rare = ModContent.RarityType<EvercoldCyan>();
             Item.value = Terraria.Item.sellPrice(copper: 30);
 
             Item.shoot = ModContent.ProjectileType<FrostfireArrowProj>();
@@ -33,7 +34,7 @@ namespace Clamity.Content.Items.Ammo
                 //.AddIngredient(ItemID.HellfireArrow, 666)
                 //.AddIngredient(ItemID.FrostburnArrow, 333)
                 .AddIngredient(ItemID.HellfireArrow, 999)
-                .AddIngredient<EnchantedMetal>()
+                .AddIngredient<EndobsidianBar>()
                 .AddTile<CosmicAnvil>()
                 .Register();
         }
@@ -91,8 +92,12 @@ namespace Clamity.Content.Items.Ammo
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 120;
-            Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.usesIDStaticNPCImmunity = true;
+            //Projectile.idStaticNPCHitCooldown = 10;
+            //Projectile.usesIDStaticNPCImmunity = true;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
+
             //Projectile.scale = 0;
         }
         /*public override void PostDraw(Color lightColor)

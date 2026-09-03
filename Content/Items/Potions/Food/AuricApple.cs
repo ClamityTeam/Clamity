@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items.Materials;
+﻿using CalamityMod;
+using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Terraria;
@@ -18,7 +19,8 @@ namespace Clamity.Content.Items.Potions.Food
         {
             Item.DefaultToFood(24, 26, BuffID.WellFed, 60 * 60 * 60);
             Item.value += Terraria.Item.sellPrice(gold: 12);
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.Calamity().donorItem = true;
             Item.Clamity().referenceItem = true;
         }
         public override void AddRecipes()

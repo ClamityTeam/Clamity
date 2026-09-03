@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Placeables.Astral;
 using System;
 using System.Collections.Generic;
 using System.IO;

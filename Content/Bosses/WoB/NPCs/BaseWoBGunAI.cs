@@ -7,6 +7,7 @@ using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Clamity.Content.Bosses.WoB.NPCs
@@ -31,15 +32,24 @@ namespace Clamity.Content.Bosses.WoB.NPCs
         public AresCannonChargeParticleSet EnergyDrawer = new AresCannonChargeParticleSet(-1, 15, 40f, Color.Magenta);
         public override void OnSpawn(IEntitySource source)
         {
-            PosY = Main.rand.NextFloat(200, 500) * (Main.rand.NextBool() ? -1 : 1);
-            NPC.Center = GetWoB().Center;
-            NPC.Center = new Vector2(GetWoB().Center.X, GetWoB().Center.Y + PosY);
-            //NPC.spriteDirection = 1;
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
 
-            AIState = 0;
-            Timer = (int)(MaxTimer * Main.rand.NextFloat(0.7f, 0.9f));
-            ParticleTimer = 0;
-            RandomSpeed = Main.rand.NextFloat(0, 1);
+                int findWoB = NPC.FindFirstNPC(ModContent.NPCType<WallOfBronze>());
+                if (findWoB != -1) WoB = findWoB;
+                else NPC.active = false;
+
+                PosY = Main.rand.NextFloat(200, 500) * (Main.rand.NextBool() ? -1 : 1);
+                NPC.Center = GetWoB().Center;
+                NPC.Center = new Vector2(GetWoB().Center.X, GetWoB().Center.Y + PosY);
+                //NPC.spriteDirection = 1;
+
+                AIState = 0;
+                Timer = (int)(MaxTimer * Main.rand.NextFloat(0.7f, 0.9f));
+                ParticleTimer = 0;
+                RandomSpeed = Main.rand.NextFloat(0, 1);
+                NPC.netUpdate = true;
+            }
         }
         public override void AI()
         {
@@ -57,7 +67,8 @@ namespace Clamity.Content.Bosses.WoB.NPCs
             //NPC.spriteDirection = NPC.direction = GetWoB().spriteDirection;
             //NPC.spriteDirection = GetWoB().spriteDirection;
             NPC.Center = new Vector2(GetWoB().Center.X, NPC.Center.Y);
-            NPC.position.Y += Math.Sign(center.Y - NPC.Center.Y) * RandomSpeed;
+            NPC.velocity = new Vector2(0, Math.Sign(center.Y - NPC.Center.Y) * RandomSpeed);
+            //NPC.position.Y += Math.Sign(center.Y - NPC.Center.Y) * RandomSpeed;
             //NPC.position.Y = MathHelper.Clamp(NPC.position.Y + Math.Sign(center.Y - NPC.Center.Y) * RandomSpeed, GetWoB().Center.Y - 100, GetWoB().Center.Y + 100);
             NPC.Opacity = MathHelper.Clamp(NPC.Opacity + 0.02f, 0, 1);
             EnergyDrawer.ParticleSpawnRate = 9999999;
@@ -69,6 +80,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
                     {
                         Timer = 0;
                         AIState = 1;
+                        NPC.netUpdate = true;
                     }
                     break;
                 case 1:
@@ -77,6 +89,7 @@ namespace Clamity.Content.Bosses.WoB.NPCs
                     {
                         ParticleTimer = 0;
                         AIState = 2;
+                        NPC.netUpdate = true;
                     }
                     AIinParticleState();
                     EnergyDrawer.ParticleSpawnRate = 5;
@@ -85,7 +98,11 @@ namespace Clamity.Content.Bosses.WoB.NPCs
                     break;
                 case 2:
                     Attack();
-                    PosY = Main.rand.NextFloat(200, 500) * (Main.rand.NextBool() ? -1 : 1);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        PosY = Main.rand.NextFloat(200, 500) * (Main.rand.NextBool() ? -1 : 1);
+                        NPC.netUpdate = true;
+                    }
                     break;
             }
 
@@ -191,14 +208,22 @@ namespace Clamity.Content.Bosses.WoB.NPCs
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(NPC.dontTakeDamage);
-            for (int index = 0; index < 4; ++index)
-                writer.Write(NPC.Calamity().newAI[index]);
+            writer.Write(PosY);
+            writer.Write(AIState);
+            writer.Write(RandomSpeed);
+
+            //for (int index = 0; index < 4; index++)
+            //    writer.Write(NPC.Calamity().newAI[index]);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NPC.dontTakeDamage = reader.ReadBoolean();
-            for (int index = 0; index < 4; ++index)
-                NPC.Calamity().newAI[index] = reader.ReadSingle();
+            PosY = reader.ReadSingle();
+            AIState = reader.ReadSingle();
+            RandomSpeed = reader.ReadSingle();
+
+            //for (int index = 0; index < 4; index++)
+            //    NPC.Calamity().newAI[index] = reader.ReadSingle();
         }
         //public override bool CheckActive() => false;
         public override void ApplyDifficultyAndPlayerScaling(

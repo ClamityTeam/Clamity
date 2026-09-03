@@ -31,20 +31,36 @@ Disease: {
 
 WulfrumLeechDagger: {
 	DisplayName: Вульфрумовый кинжал-пиявка
-	Tooltip:
-		'''
-		Отнимает маленькое количство процентов здоровья противника при ударе
-		Не может наносить критические удары
-		Делает непотребляемый в течение секунды при коротком ударе
-		'''
-}
-
-FrozenVolcano: {
-	DisplayName: Замороженный вулкан
-	Tooltip: Запускает огонь
+	// Tooltip: Releases a wulfrum metal scrap on hit
 }
 
 Everest: {
 	DisplayName: Эверест
 	Tooltip: Выпускает разбросом вулканические огненые шары
+}
+
+Hyperion: {
+	// DisplayName: Hyperion
+	// Tooltip: ""
+}
+
+GreatestPeak: {
+	// DisplayName: Greatest Peak
+	/* Tooltip:
+		'''
+		Swings a slow and heavy coldest blade with powerful knockback
+		Holding <right> will begin charging a strengthened swing
+		Releasing <right> while fully charged will unleash a devastating slash that always critically strikes, and cold lingering mist
+		[c/91C5CE:'Very peak']
+		''' */
+}
+
+StunGun: {
+	// DisplayName: Stun Gun
+	/* Tooltip:
+		'''
+		Hold <left> to charge the stun gun, increasing the damage up to 500%
+		If released early, inflicts [cbuff:CalamityMod/StaticDischarge] on hit enemies
+		At maximum charge, instead inflict [cbuff:CalamityMod/GalvanicCorrosion] and [cbuff:Electrified] on hit enemies
+		''' */
 }

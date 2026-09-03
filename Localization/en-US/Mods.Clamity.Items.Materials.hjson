@@ -1,31 +1,21 @@
 HuskOfCalamity: {
 	DisplayName: Husk of Calamity
-	Tooltip: The remains of a Hell mollusk
+	Tooltip: The remains of a mollusk straight from hell
 }
 
 ClamitousPearl: {
 	DisplayName: Clamitous Pearl
-	Tooltip: "'It's clammin' time'"
-}
-
-CoreOfFlame: {
-	DisplayName: Core of Ignis
-	Tooltip: ""
-}
-
-EssenceOfFlame: {
-	DisplayName: Essence of Ignis
-	Tooltip: The essence of hot creatures
+	Tooltip: "'It's clamin' time'"
 }
 
 EnchantedMetal: {
 	DisplayName: Enchanted Metal
-	Tooltip: Metal infused with the soul of Terraria
+	Tooltip: Infused with the Soul of Terraria
 }
 
 MetalFeather: {
-	Tooltip: ""
 	DisplayName: Metal Feather
+	Tooltip: ""
 }
 
 RarePlanteraFruit: {
@@ -36,4 +26,9 @@ RarePlanteraFruit: {
 CoralskinFoolfish: {
 	DisplayName: Coralskin Foolfish
 	Tooltip: "'Camouflage is one of nature's best defenses'"
+}
+
+EndobsidianBar: {
+	DisplayName: Endobsidian Bar
+	Tooltip: A weird material that is both cold on touch but warm at the same time
 }

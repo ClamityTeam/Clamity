@@ -10,6 +10,9 @@ Melee: {
 	// ExoNewBeam.DisplayName: Exo Beam
 	// ExoNewExplosion.DisplayName: Exo Explosion
 	// EtherealKnivesProjectile.DisplayName: Ethereal Knives Projectile
+	// HyperionProjectile.DisplayName: Hyperion Projectile
+	// SubzeroSlicerProjectileSlash.DisplayName: Subzero Slicer Projectile Slash
+	// GreatestPeakMistProjectile.DisplayName: Greatest Peak Mist
 }
 
 Ranged: {
@@ -29,6 +32,12 @@ Ranged: {
 Magic: {
 	TheGeneratorSigil.DisplayName: Символ генератора
 	MoonstoneKnifeProjectile.DisplayName: Кинжал из лунного камня
+	// UnicronBeam.DisplayName: Unicron Beam
+	// UnicronWingmanGrenade.DisplayName: Unicron Wingman Grenade
+	// UnicronWingmanShot.DisplayName: Unicron Wingman Shot
+	// GaiaRoseBolt.DisplayName: Gaia's Flower
+	// GaiaRoseBoltSmall.DisplayName: Gaia's Flower Petal
+	// PetalOfEverestPetal.DisplayName: Petal Of Everest
 }
 
 Summon: {
@@ -51,15 +60,19 @@ Rogue: {
 	AuricKunaiProjectile.DisplayName: Аурический кунай
 	AuricKunaiLightning.DisplayName: Аурическая молния
 	// StarfishFromTheDepthProj.DisplayName: Starfish from the Depth
+	// SubzeroSlicerProjectile.DisplayName: Subzero Slicer
+	// SubzeroSlicerProjectileBolt.DisplayName: Subzero Slicer Bolt
 }
 
-Classless: {
-	PyroShieldAccessory.DisplayName: Пирощит
-	AMSProj.DisplayName: AMS
-	EyeOfNovaProjectile.DisplayName: Заряд новы
-	TrashOfMagnusProjectile.DisplayName: Заряд чумы
+Typeless: {
+	// PyroShieldAccessory.DisplayName: Pyro Shield
+	// AMSProj.DisplayName: AMS
+	// EyeOfNovaProjectile.DisplayName: Nova Blast
+	// EyeOfNovaBoom.DisplayName: Nova Blast Explosion
+	// TrashOfMagnusProjectile.DisplayName: Plague Bolt
 	// SharpAmethystProj.DisplayName: Sharp Amethyst
-	GoldenGunProj.DisplayName: Золотая струя
+	// GoldenGunProj.DisplayName: Golden Gun Proj
+	// EndobsidianParryBoom.DisplayName: Endobsidian Parry Boom
 }
 
 Boss: {
@@ -75,6 +88,9 @@ Boss: {
 	WallOfBronzeLaserBeamStart.DisplayName: Плазменный луч
 	WallOfBronzeClawProjectile.DisplayName: Бронзовая клешна
 	WoBDeathrayStart.DisplayName: Плазменный смертельный луч
+	// WoBCutsceneBoom.DisplayName: Wo B Cutscene Boom
+	// WoBCutsceneDrama.DisplayName: Wo B Cutscene Drama
+	// WoBCutsceneBoomTest.DisplayName: Wo B Cutscene Boom Test
 	// BrimstoneSpirits.DisplayName: Brimstone Spirits
 	// BrimstoneSpiritsSpawner.DisplayName: Brimstone Spirits Spawner
 }
@@ -86,3 +102,5 @@ Boss: {
 // PyrogenSummonAnimation.DisplayName: Pyrogen Summon Animation
 // CyanSolutionProjectile.DisplayName: Cyan Solution
 // HeavyMetalTrashCanPet.DisplayName: Mini Bocchi
+// AncientConsoleProjectile.DisplayName: Ancient Console Projectile
+Classless.PyroShieldAccessory.DisplayName: Пирощит

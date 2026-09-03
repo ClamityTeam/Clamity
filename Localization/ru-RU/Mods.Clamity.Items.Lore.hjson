@@ -10,6 +10,7 @@ LoreWhat: {
 		Один моллюск впитал в свою зачарованную жемчужину огромное количество серы, из-за чего был проклят, но обрёл небывалую силу.  
 		И имя его — Каламидия, Верховный моллюск. 
 		'''
+	// Tooltip: ""
 }
 
 LorePyrogen: {
@@ -19,6 +20,7 @@ LorePyrogen: {
 		Древняя печь бога-кузнеца. В нем разделяется аурическая душа с его хозяином. 
 		Но после моего крестового похода его не стало. Я не позаботиться о второй части этой души, что привело к неуправляемости печи и получила свой разум.
 		'''
+	// Tooltip: ""
 }
 
 LoreWallOfBronze: {
@@ -31,4 +33,5 @@ LoreWallOfBronze: {
 		The greatest invention of ancient architects that is able to protect hell from strong threats and dangers. The source of the great heat of the primordial auric energy that is able to warm the minds of local creatures. 
 		The ancient architects are a race of the oldest creatures that existed before the age of dragons. They were the greatest engineers	
 		'''
+	// Tooltip: ""
 }

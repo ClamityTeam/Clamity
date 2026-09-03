@@ -6,7 +6,7 @@ Relics: {
 
 	ClamitasRelic: {
 		DisplayName: Clamitas Relic
-		Tooltip: Made with using hellstone
+		Tooltip: Made with Hellstone
 	}
 
 	WoBRelic: {
@@ -29,7 +29,7 @@ Trophies: {
 
 FrozenHellstone: {
 	Tooltip: ""
-	DisplayName: Frozen Hellstone
+	DisplayName: Endobsidian
 }
 
 FrozenAsh: {

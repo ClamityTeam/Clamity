@@ -4,9 +4,11 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Clamity.Content.Items.Accessories
@@ -25,20 +27,26 @@ namespace Clamity.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage<ThrowingDamageClass>() += 0.15f;
-            player.Calamity().rogueStealthMax += 0.1f;
+            var modPlayer = player.Calamity();
+
+            modPlayer.rogueStealthMax += 0.1f;
             player.Clamity().vampireEX = true;
 
-            player.Calamity().rottenDogTooth = true;
-            player.Calamity().vampiricTalisman = true;
-            player.Calamity().etherealExtorter = true;
+            modPlayer.rottenDogTooth = true;
+            modPlayer.vampiricTalisman = true;
+            modPlayer.raiderTalisman = true;
+            modPlayer.etherealExtorter = true;
+
+            //get fixed boi funny
+            if (Main.zenithWorld)
+                player.lifeRegen -= 10; //Never ending thirst of calamity devs
         }
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient<EtherealExtorter>()
                 .AddIngredient<VampiricTalisman>()
-                .AddIngredient<RottenDogtooth>()
-                .AddIngredient<BloodstoneCore>(5)
+                .AddIngredient<Bloodstone>(25)
                 .AddIngredient<AshesofCalamity>(4)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
@@ -132,6 +140,37 @@ namespace Clamity.Content.Items.Accessories
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle?(rect), Color.White, Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
 
             return false;
+        }
+    }
+
+    public class NanotechGlobalItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ModContent.ItemType<Nanotech>();
+
+        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        {
+            player.Calamity().etherealExtorter = true;
+        }
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            int maxTooltipIndex = -1;
+            int maxNumber = -1;
+
+            for (int i = 0; i < tooltips.Count; i++)
+            {
+                if (tooltips[i].Mod == "Terraria" && tooltips[i].Name.StartsWith("Tooltip"))
+                {
+                    if (int.TryParse(tooltips[i].Name.Substring(7), out int num) && num > maxNumber)
+                    {
+                        maxNumber = num;
+                        maxTooltipIndex = i;
+                    }
+                }
+            }
+
+            if (maxTooltipIndex != -1)
+                tooltips.Insert(maxTooltipIndex + 1, new TooltipLine(Mod, "EtherealTalisman", Language.GetTextValue("Mods.Clamity.Misc.NanotechEthereal")));
         }
     }
 }

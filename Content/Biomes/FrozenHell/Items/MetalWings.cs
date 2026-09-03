@@ -1,6 +1,7 @@
 ﻿using CalamityMod.Items;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using Clamity.Content.Rarities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -11,9 +12,10 @@ using Terraria.ModLoader;
 namespace Clamity.Content.Biomes.FrozenHell.Items
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class MetalWings : ModItem, ILocalizedModType
+    public class MetalWings : ModItem, ILocalizedModType, IHoldShiftTooltipItem
     {
         public new string LocalizationCategory => "Items.Accessories.Wings";
+        public Color? TooltipExtensionColor => new(195, 223, 255);
         public override void SetStaticDefaults()
         {
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(280, 10.5f, 2.8f);
@@ -24,7 +26,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
             Item.width = 22;
             Item.height = 26;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
             Item.accessory = true;
         }
         //When you getting hit, you receive flight time percentages equal to half of the ratio of damage received to max HP
@@ -69,7 +71,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
 
 
             player.Clamity().metalWings = true;
-            if (player.Clamity().frozenParrying)
+            if (player.Clamity().endobsidianMelee)
             {
                 for (int i = 0; i < Main.maxPlayers; i++)
                 {
@@ -96,7 +98,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
             CreateRecipe()
                 .AddIngredient(ItemID.SoulofFlight, 20)
                 .AddIngredient<MetalFeather>()
-                .AddIngredient<EnchantedMetal>(5)
+                .AddIngredient<EndobsidianBar>(5)
                 .AddTile<CosmicAnvil>()
                 .Register();
         }

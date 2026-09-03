@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items.Accessories;
+﻿using CalamityMod;
+using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Ranged;
@@ -6,6 +7,7 @@ using CalamityMod.Items.Weapons.Rogue;
 using Clamity.Content.Biomes.FrozenHell.Items;
 using Clamity.Content.Bosses.Clamitas.Drop;
 using Clamity.Content.Bosses.Pyrogen.Drop.Weapons;
+using Clamity.Content.Items.Accessories;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -38,7 +40,7 @@ namespace Clamity
                 {
                     if (recipe.HasResult<Seadragon>())
                         recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<Obsidigun>(), 1));
-                    if (recipe.HasResult<ShatteredSun>())
+                    if (recipe.HasResult<ShatteredDawn>())
                         recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<MoltenPiercer>(), 1));
                     if (recipe.HasResult<NuclearFury>())
                         recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<TheGenerator>(), 1));
@@ -64,73 +66,22 @@ namespace Clamity
                     {
                         recipe.ReplaceIngredient(ModContent.ItemType<MolluskHusk>(), ModContent.ItemType<HuskOfCalamity>(), 15);
                     }
-
-                    //Core of Heat
-                    /*int coreOfHeat = ModContent.ItemType<CoreOfFlame>();
-                    if (recipe.HasResult<CoreofCalamity>())
-                    {
-                        //item2.stack = 3;
-                        recipe.requiredItem.Insert(3, new Item(coreOfHeat) { stack = 3 });
-                    }
-                    if (recipe.HasResult<Hellkite>())
-                    {
-                        //item2.stack = 3;
-                        recipe.requiredItem.Add(new Item(coreOfHeat) { stack = 3 });
-                    }
-                    if (recipe.HasResult<RedSun>())
-                    {
-                        //item2.stack = 5;
-                        recipe.requiredItem.RemoveAt(2);
-                        recipe.requiredItem.Insert(2, new Item(coreOfHeat) { stack = 5 });
-                        //recipe.requiredItem[2] = item;
-                    }
-                    if (recipe.HasResult<DraconicDestruction>())
-                    {
-                        //item2.stack = 3;
-                        //recipe.requiredItem[1] = item;
-                        recipe.requiredItem.RemoveAt(recipe.IngredientIndex(ModContent.ItemType<CoreofHavoc>()));
-                        recipe.requiredItem.Insert(1, new Item(coreOfHeat) { stack = 3 });
-                    }
-                    if (recipe.HasResult<Mourningstar>())
-                    {
-                        //item2.stack = 6;
-                        recipe.requiredItem.Insert(3, new Item(coreOfHeat) { stack = 6 });
-                    }
-                    if (recipe.HasResult<Sandslasher>())
-                    {
-                        //item2.stack = 6;
-                        //recipe.requiredItem[1] = item;
-                        recipe.requiredItem.RemoveAt(1);
-                        recipe.requiredItem.Insert(1, new Item(coreOfHeat) { stack = 6 });
-                    }*/
-
-
-                    //Essence of Flame
-                    /*int essenceOfHeat = ModContent.ItemType<EssenceOfFlame>();
-                    if (recipe.HasResult<FlarewingBow>())
-                    {
-                        //item3.stack = 5;
-                        //recipe.requiredItem[1] = item;
-                        recipe.requiredItem.RemoveAt(1);
-                        recipe.requiredItem.Insert(1, new Item(essenceOfHeat) { stack = 5 });
-                    }
-                    if (recipe.HasResult<InfernaCutter>())
-                    {
-                        //item3.stack = 3;
-                        recipe.requiredItem.Add(new Item(essenceOfHeat) { stack = 3 });
-                    }
-                    if (recipe.HasResult<BlazingStar>())
-                    {
-                        //item3.stack = 10;
-                        recipe.requiredItem.Add(new Item(essenceOfHeat) { stack = 10 });
-                    }*/
                 }
 
                 //Other changes
-                if (recipe.HasResult<ShadowspecBar>() && ClamityConfig.Instance.UsesEnchantedMetalInShadowspecBarRecipe)
+                if ((recipe.HasResult<ShadowspecBar>() || (Clamity.calRemix is not null && recipe.HasResult(Clamity.calRemix, "LightmixBar"))) && ClamityConfig.Instance.UsesEnchantedMetalInShadowspecBarRecipe)
                 {
                     //item3.stack = 10;
-                    recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<EnchantedMetal>()));
+                    recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<EndobsidianBar>()));
+                }
+                if (recipe.HasResult<ManaRose>() && recipe.IngredientIndex(ItemID.JungleRose) != -1)
+                {
+                    recipe.DisableRecipe();
+                }
+                if (recipe.HasResult<Nanotech>())
+                {
+                    recipe.RemoveIngredient(ModContent.ItemType<VampiricTalisman>());
+                    recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<DraculasCharm>()));
                 }
             }
         }

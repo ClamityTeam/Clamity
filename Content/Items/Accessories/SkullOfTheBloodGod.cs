@@ -1,11 +1,14 @@
 ﻿using CalamityMod;
 using CalamityMod.CalPlayer;
+using CalamityMod.Cooldowns;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
+using CalamityMod.Projectiles.Magic;
 using CalamityMod.Projectiles.Typeless;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -13,15 +16,8 @@ using Terraria.ModLoader;
 
 namespace Clamity.Content.Items.Accessories
 {
-    public class SkullOfTheBloodGod : ModItem, ILocalizedModType, IModType
+    public class SkullOfTheBloodGod : ToggableAccessory
     {
-        public new string LocalizationCategory => "Items.Accessories";
-
-        /*public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }*/
-
         public override void SetStaticDefaults()
         {
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 4));
@@ -33,24 +29,13 @@ namespace Clamity.Content.Items.Accessories
             Item.width = Item.height = 48;
             Item.accessory = true;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            Item.rare = ModContent.RarityType<DarkBlue>();
+            Item.rare = ModContent.RarityType<CosmicPurple>();
+            Item.expert = true;
         }
+        int cooldown = 0;
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void ToggledUpdateAccessory(Player player, bool hideVisual)
         {
-            player.Clamity().skullOfBloodGod = true;
-
-            CalamityPlayer modPlayer = player.Calamity();
-
-            modPlayer.fleshTotem = true;
-            //modPlayer.healingPotionMultiplier += 0.25f;
-
-            modPlayer.voidOfExtinction = true;
-            modPlayer.abaddon = true;
-            player.GetCritChance<GenericDamageClass>() += 13f;
-
-            modPlayer.voidOfCalamity = true;
-            player.GetDamage<GenericDamageClass>() += 0.2f;
             if (player.whoAmI == Main.myPlayer)
             {
                 var source = player.GetSource_Accessory(Item);
@@ -65,13 +50,58 @@ namespace Clamity.Content.Items.Accessories
             }
         }
 
+        public override void SafeUpdateAccessory(Player player, bool hideVisual)
+        {
+            player.Clamity().skullOfBloodGod = true;
+
+            CalamityPlayer modPlayer = player.Calamity();
+
+            modPlayer.fleshTotem = true;
+            modPlayer.fleshTotemMinion = true;
+            modPlayer.fleshTotemVisual = !hideVisual;
+            player.statManaMax2 += 20;
+            player.GetCritChance<MagicDamageClass>() += 7;
+            if (player.whoAmI == Main.myPlayer)
+            {
+                var source = player.GetSource_Accessory(Item);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<FleshTotemMinion>()] < 1)
+                {
+                    int damage = (int)player.GetTotalDamage<MagicDamageClass>().ApplyTo(FleshTotem.lostSoulDamage);
+
+                    int effigy = Projectile.NewProjectile(source, player.Center, -Vector2.UnitY, ModContent.ProjectileType<FleshTotemMinion>(), damage, 2f, Main.myPlayer);
+                    if (Main.projectile.IndexInRange(effigy))
+                        Main.projectile[effigy].originalDamage = FleshTotem.lostSoulDamage;
+                }
+            }
+
+            modPlayer.apollyon = true;
+            modPlayer.abaddonEffectVisual = !hideVisual;
+
+            player.GetDamage<GenericDamageClass>() += 0.15f;
+            if (player.whoAmI == Main.myPlayer)
+            {
+                var source = player.GetSource_Accessory(Item);
+                if (player.HasIFrames())
+                {
+                    if (cooldown <= 0)
+                    {
+                        cooldown = 20;
+                        int damage = (int)player.GetBestClassDamage().ApplyTo(VoidofCalamity.BrimstoneFlamesDmg);
+                        for (var i = 0; i < 2; i++)
+                            CalamityUtils.ProjectileRain(source, player.Center, 400f, 100f, 500f, 800f, 5.5f, ModContent.ProjectileType<StandingFire>(), damage, 5f, player.whoAmI);
+                    }
+                }
+                cooldown--;
+            }
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient<FleshTotem>()
-                .AddIngredient<VoidofExtinction>()
+                .AddIngredient<Apollyon>()
                 .AddIngredient<VoidofCalamity>()
-                .AddIngredient<BloodstoneCore>(4)
+                .AddIngredient<Bloodstone>(20)
                 .AddIngredient<AscendantSpiritEssence>(5)
                 .AddTile<CosmicAnvil>()
                 .Register();

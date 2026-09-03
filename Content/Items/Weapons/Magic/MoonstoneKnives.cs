@@ -27,7 +27,7 @@ namespace Clamity.Content.Items.Weapons.Magic
             Item.autoReuse = true;
 
             Item.knockBack = 2f;
-            Item.damage = 3;
+            Item.damage = 8;
             Item.DamageType = DamageClass.Magic;
 
             Item.shoot = ModContent.ProjectileType<MoonstoneKnifeProjectile>();

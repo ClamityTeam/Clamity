@@ -3,6 +3,7 @@ using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
 using CalamityMod.Items.Tools;
 using CalamityMod.Rarities;
+using Clamity.Content.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -35,7 +36,7 @@ namespace Clamity.Content.Bosses.WoB.Drop
             Item.noUseGraphic = true;
             Item.noMelee = true;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.UseSound = SoundID.Item23;
             Item.autoReuse = true;
@@ -159,13 +160,13 @@ namespace Clamity.Content.Bosses.WoB.Drop
             Projectile.Center = Owner.MountedCenter + Projectile.velocity;
         }
 
-        internal Color ColorFunction(float completionRatio)
+        internal Color ColorFunction(float completionRatio, Vector2 vertexPos)
         {
-            float num = (float)Math.Sqrt(1f - completionRatio);
-            return Color.DeepSkyBlue * num;
+            float fadeOpacity = (float)Math.Sqrt(1 - completionRatio);
+            return Color.DeepSkyBlue * fadeOpacity;
         }
 
-        internal float WidthFunction(float completionRatio)
+        internal float WidthFunction(float completionRatio, Vector2 vertexPos)
         {
             return 29.4f * completionRatio;
         }

@@ -1,0 +1,3 @@
+sortAfter = Redemption
+
+Ported and Reworked Stun Gun from Draedon's Expansion. Now he chargable shortsword. On full charge on hit release charge ahead.

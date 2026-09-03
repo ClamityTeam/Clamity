@@ -1,10 +1,15 @@
 ﻿using CalamityMod;
+using CalamityMod.UI.DialogueDisplay;
+using CalamityMod.UI.DialogueDisplay.DisplayEffects;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Core;
+using ClamityMod = Clamity.Clamity;
 
 namespace Clamity
 {
@@ -67,6 +72,33 @@ namespace Clamity
                 npc.damage = num7;
             }
         }*/
+        public static void BossIntroDialogue(string boss, Entity entity, string dialogueOverride = null)
+        {
+            if (ClamityMod.infernum is not null)
+            {
+                if (ClamityMod.infernum.Call("GetInfernumActive") as bool? ?? false)
+                {
+                    return;
+                }
+            }
+
+            if (dialogueOverride is null) dialogueOverride = "Intro";
+            DialogueDisplaySystem.StartDialogue($"Mods.Clamity.{boss}.{dialogueOverride}", entity, 0, 120, false, new BossText());
+        }
+        public static void BossIntroDialogue(string boss, Vector2 center, string dialogueOverride = null)
+        {
+            if (ClamityMod.infernum is not null)
+            {
+                if (ClamityMod.infernum.Call("GetInfernumActive") as bool? ?? false)
+                {
+                    return;
+                }
+            }
+
+            if (dialogueOverride is null) dialogueOverride = "Intro";
+            DialogueDisplaySystem.StartDialogue($"Mods.Clamity.{boss}.{dialogueOverride}", center, 0, 120, false, new BossText());
+
+        }
         public static void Move(this Projectile projectile, Vector2 vector, float speed, float turnResistance = 10f,
             bool toPlayer = false)
         {
@@ -192,5 +224,43 @@ namespace Clamity
             }
             return recipe;
         }
+        public static void AddOrReplace<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value) where TKey : notnull
+        {
+            if (dict.ContainsKey(key)) dict[key] = value;
+            else dict.Add(key, value);
+        }
+        #region System.Reflection magic
+        public static Type FindModsClass(this Mod mod, string className)
+        {
+            foreach (var type in AssemblyManager.GetLoadableTypes(mod.Code))
+            {
+                if (type.FullName is not null)
+                {
+                    //Find a needed type of code
+                    if (type.FullName == className)
+                    {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
+        public static Type FindModsClass(string modName, string className)
+        {
+            foreach (var type in AssemblyManager.GetLoadableTypes(ModLoader.GetMod(modName).Code))
+            {
+                if (type.FullName is not null)
+                {
+                    //Find a needed type of code
+                    if (type.FullName == className)
+                    {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
+        public static object? Invoke(this MethodBase a, object? obj, params object?[] parameters) => a.Invoke(obj, parameters);
+        #endregion
     }
 }

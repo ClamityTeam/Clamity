@@ -28,7 +28,7 @@ namespace Clamity.Content.Items.Weapons.Ranged.Bows
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.shootSpeed = 10;
 
-            Item.damage = 98;
+            Item.damage = 400;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 5;
         }

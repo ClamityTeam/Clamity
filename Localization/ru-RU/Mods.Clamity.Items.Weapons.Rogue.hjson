@@ -25,10 +25,9 @@ ExoBall: {
 	DisplayName: Экзо шар
 	Tooltip:
 		'''
-		Швыряет до 10 скоростных самонаводящихся шипастых шаров
-		Прикрепляется к врагам и вызывает локализованный шторм экзо лучей
-		При стрытном ударе самонаводится быстрее и вызывает лучи с большей скоростью
-		Нажмите <right>, чтобы удалить все существующие шипастые шары
+		Hurls homing spiky balls which attach to enemies
+		Attached spiky balls summon a localized storm of exo balts on each hit
+		Stealth strikes home in faster and hit at a faster rate
 		'''
 }
 
@@ -45,7 +44,18 @@ StarfishFromTheDepth: {
 	// DisplayName: Starfish from the Depth
 	/* Tooltip:
 		'''
-		Starfish homes to nearest target up to 5 hits
-		Stealth strikes creates a three starfishes at same time
+		Throws a boomerang that ricochets between up to seven enemies
+		and makes homing ink bolts
+		Stealth strikes release more ink bolts on every ricochet
+		''' */
+}
+
+SubzeroSlicer: {
+	// DisplayName: Subzero Slicer
+	/* Tooltip:
+		'''
+		Throwns a fast blades made of coldest material
+		Homes on target and creates an vortex on his position
+		On Stealth Strike throw multiple blades in bigger vortex
 		''' */
 }

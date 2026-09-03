@@ -35,8 +35,7 @@ namespace Clamity.Content.Items.Tools.FishingPoles
 
             Item.fishingPole = 30;
         }
-        public override bool AltFunctionUse(Player player) => true;
-        public override bool CanRightClick() => charge == 0;
+        public override bool AltFunctionUse(Player player) => charge == 0 && player.HasItem(ModContent.ItemType<EnergyCore>());
         public override bool? UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -108,7 +107,7 @@ namespace Clamity.Content.Items.Tools.FishingPoles
         {
             Projectile.width = 14;
             Projectile.height = 14;
-            Projectile.aiStyle = 61;
+            Projectile.aiStyle = ProjAIStyleID.Bobber;
             Projectile.bobber = true;
             Projectile.penetrate = -1;
         }
