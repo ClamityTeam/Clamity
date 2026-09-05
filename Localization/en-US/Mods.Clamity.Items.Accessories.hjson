@@ -130,7 +130,13 @@ TreasureOfClamity: {
 
 SeaShell: {
 	DisplayName: Sea Shell
-	Tooltip: Increased defense, damage reduction and movement speed while wet
+	Tooltip:
+		'''
+		Increased defense, damage reduction and movement speed while wet
+		Pressing [KEY] will activate a parry, encasing you in shell
+		Being hit shortly after encasement will protect and you receive 75% DR for that hit
+		After break, this damage reduction effect goes on cooldown
+		'''
 }
 
 TheSubcommunity: {
@@ -210,4 +216,22 @@ SkullOfTheBloodGod: {
 		[c/aaaaaa:Shift-<right> this item in your inventory to toggle] [i:CalamityMod/VoidofCalamity] [c/aaaaaa:Void of Calamity's rain effect]
 		'''
 	ToggleEffect: Calamitous flames rain down while invincible
+}
+
+ShatteredSubcommunity: {
+	DisplayName: Shattered Subcommunity
+	Tooltip:
+		'''
+		'Ruined by toxicity, it still contains most of the part of The (Calamity) Community...'
+		Increases mining speed by 50%
+		Increases luck by 0.5 and fishing power by 50
+		Increases tile and wall placing speed by 50% and placing range by 5
+		Replaces Rage with a Calm Meter
+		Calm grants an extra 50% boost to Shattered Subcommunty's stats instead of a damage boost
+		You generate Calm over time and Calm does not fade out of combat
+		Getting active Calm Mode overtime empowerers your peace
+		Current level: [LEVEL] (+[BONUS]% base calm generation)
+		Progress to next level: [PROGRESS]%
+		Total Calm Mode time: [TIME]
+		'''
 }

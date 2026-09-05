@@ -35,7 +35,7 @@ PlagueChairBuff: {
 
 PlanterrorStaffBuff: {
 	DisplayName: Guntera
-	Description: "'Talk about guns and roses, am I right?'"
+	Description: Talk about guns and roses, am I right?
 }
 
 HeavyMetalTrashCanBuff: {
@@ -46,4 +46,9 @@ HeavyMetalTrashCanBuff: {
 TitanScalePotionBuff: {
 	DisplayName: Titan Scale
 	Description: Increcreses defense by 5, endurance by 5%, & melee knockback by 5%, with further increases on a true melee strike
+}
+
+GlacialRevenge: {
+	DisplayName: Glacial Revenge
+	Description: Mods.Clamity.Buffs.GlacialRevenge.Description
 }

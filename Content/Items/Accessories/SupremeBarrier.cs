@@ -3,9 +3,7 @@ using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using Clamity.Content.Items.Potions.Food;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Clamity.Content.Items.Accessories
@@ -33,9 +31,9 @@ namespace Clamity.Content.Items.Accessories
                 .AddIngredient<AsgardianAegis>()
                 //.AddIngredient<ShieldoftheHighRuler>()
                 .AddIngredient<RampartofDeities>()
-                .AddIngredient<ExoBaguette>()
+                //.AddIngredient<ExoBaguette>()
                 .AddIngredient<ShadowspecBar>(5)
-                .AddIngredient(ItemID.GolfCupFlagWhite)
+                //.AddIngredient(ItemID.GolfCupFlagWhite)
                 .AddTile<DraedonsForge>()
                 .Register();
         }

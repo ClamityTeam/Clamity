@@ -27,3 +27,8 @@ CoralskinFoolfish: {
 	DisplayName: Коралочешуйчетая рыба-балван
 	Tooltip: Камуфляж это один из лучших способов защиты в Природе
 }
+
+EndobsidianBar: {
+	// DisplayName: Endobsidian Bar
+	// Tooltip: A weird material that is both cold on touch but warm at the same time
+}

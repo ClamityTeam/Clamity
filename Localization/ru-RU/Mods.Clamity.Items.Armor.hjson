@@ -39,17 +39,29 @@ Vanity: {
 		Tooltip: ""
 		DisplayName: Маска Стены бронзы
 	}
+
+	AradirMask: {
+		// DisplayName: Aradir Mask
+		/* Tooltip:
+			'''
+			Welcome to Math Hell:
+			float b = MathF.Sin((Main.GlobalTimeWrappedHourly * (1 + lerp * 3) - j / 2f) 
+			* (1 + new UnifiedRandom(i).NextFloat(0, 1))) * 0.33f * (1 + lerp * 3);
+
+			WIP!
+			''' */
+	}
 }
 
 FrozenHellstone: {
-	FrozenHellstoneVisor: {
+	FrozenHellstoneHeadMelee: {
 		Tooltip:
 			'''
 			Увеличивает урон истинного ближнего боя на 20%
-			Атаки истинного ближнего боя наклыдвают дебафф «{$BuffName.Frostburn}»
+			Атаки истинного ближнего боя наклыдвают дебафф [cbuff:Frostburn]
 			Враги чаще выбирают вас в качестве цели
 			'''
-		DisplayName: Замороженный козырёк
+		// DisplayName: Endobsidian Vanguard Helm
 		SetBonus:
 			'''
 			Вы не можете замёрзнуть
@@ -65,7 +77,7 @@ FrozenHellstone: {
 			Увеличивает максимальный запас здоровья на 75 ед.
 			Враги чаще выбирают вас в качестве цели
 			'''
-		DisplayName: Замороженные поножи
+		// DisplayName: Endobsidian Greaves
 	}
 
 	FrozenHellstoneChestplate: {
@@ -74,6 +86,6 @@ FrozenHellstone: {
 			Увеличивает урон истинного ближнего боя и скорость ближнего боя на 20%
 			Враги чаще выбирают вас в качестве цели 
 			'''
-		DisplayName: Замороженный нагрудник
+		// DisplayName: Endobsidian Heavy Chestplate
 	}
 }

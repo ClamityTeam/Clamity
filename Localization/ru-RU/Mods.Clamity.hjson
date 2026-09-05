@@ -113,13 +113,13 @@ Configs: {
 		// DisplayName: Clamity Config
 
 		UsesEnchantedMetalInShadowspecBarRecipe: {
-			// Label: Enchanted Metal In Shadowspec Bar Recipe
-			// Tooltip: Toggles the addition of Enchanted Metal in the Shadowspec Bar recipe
+			// Label: Endobsidian Bars In Shadowspec Bar Recipe
+			// Tooltip: Toggles the addition of Endobsidian Bars in the Shadowspec Bar recipe
 		}
 
 		ChangesCalamityRecipes: {
 			// Label: Calamity Recipe Adjustments
-			// Tooltip: Adjusts some of Calamities recipes to use materials from this mod
+			// Tooltip: Adjusts some of Calamity's recipes to use materials from this mod
 		}
 
 		UsesClamityWeaponsInCalamityRecipes: {
@@ -128,8 +128,8 @@ Configs: {
 		}
 
 		PermafrostSoldEnchantedMetal: {
-			// Label: Permafrost Sells Enchanted Metal
-			// Tooltip: Makes Permafrost sell Enchanted Metal ignoring existence of Frozen Hell
+			// Label: Permafrost Sells Endobsidian Bars
+			// Tooltip: Makes Permafrost sell Endobsidian Bar ignoring existence of Frozen Hell
 		}
 	}
 }

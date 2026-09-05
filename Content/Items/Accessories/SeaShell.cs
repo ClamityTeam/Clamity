@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CalamityMod;
+using CalamityMod.Systems.Collections;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +11,12 @@ namespace Clamity.Content.Items.Accessories
     public class SeaShell : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Accessories";
+
+        public override void SetStaticDefaults()
+        {
+            CalamityItemSets.HasAccessoryKeybind[Type] = true;
+        }
+
         public override void SetDefaults()
         {
             Item.width = 70;
@@ -17,11 +26,17 @@ namespace Clamity.Content.Items.Accessories
             Item.rare = ItemRarityID.Green;
             Item.defense = 3;
         }
+
+        public override void ModifyTooltips(List<TooltipLine> list) => list.IntegrateDynamicHotkey(Main.LocalPlayer.Calamity().AccessoryParryItem != null ? Main.LocalPlayer.Calamity().AccessoryParryItem : Item);
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Clamity().seaShell = true;
+            player.Calamity().AccessoryParryItem = Item;
         }
+
         public static int parryTime = 30;
+
         public static void HandleParryCountdown(Player player)
         {
 

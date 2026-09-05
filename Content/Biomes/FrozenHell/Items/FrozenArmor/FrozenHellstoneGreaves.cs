@@ -1,6 +1,7 @@
 ﻿using CalamityMod;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
+using Clamity.Content.Rarities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,12 +12,19 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
     public class FrozenHellstoneGreaves : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Armor.FrozenHellstone";
+        public override void SetStaticDefaults()
+        {
+            if (Main.netMode != NetmodeID.Server)
+            {
+                ArmorIDs.Legs.Sets.HidesBottomSkin[EquipLoader.GetEquipSlot(Mod, Name, EquipType.Legs)] = true;
+            }
+        }
         public override void SetDefaults()
         {
             Item.width = 44;
             Item.height = 22;
             Item.value = Item.sellPrice(gold: 10);
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
             Item.defense = 36;
         }
 
@@ -29,7 +37,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items.FrozenArmor
 
         public override void AddRecipes() => CreateRecipe().AddIngredient(ItemID.MoltenGreaves)
                                                            .AddIngredient(ItemID.FrostLeggings)
-                                                           .AddIngredient<EnchantedMetal>(15)
+                                                           .AddIngredient<EndobsidianBar>(15)
                                                            .AddIngredient<EndothermicEnergy>(24)
                                                            .AddTile(TileID.Hellforge)
                                                            .Register();

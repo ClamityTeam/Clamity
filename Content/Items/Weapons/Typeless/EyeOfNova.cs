@@ -32,7 +32,7 @@ namespace Clamity.Content.Items.Weapons.Typeless
             Item.DamageType = ModContent.GetInstance<AverageDamageClass>();
             Item.width = 60;
             Item.damage = 500;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<ExoticRainbow>();
             Item.useAnimation = Item.useTime = 15;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5f;

@@ -19,6 +19,10 @@ namespace Clamity.Content.Items.Weapons.Ranged.Bows
     public class WitheredBoneBow : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Weapons.Ranged";
+        public override void SetStaticDefaults()
+        {
+            HotPink.CustomColors.Add(Type, GetRarityColor); // Yes, this reuses Shattered Community's color (and this comment from HotPink.cs lol)
+        }
         public override void SetDefaults()
         {
             Item.width = 54;
@@ -39,14 +43,7 @@ namespace Clamity.Content.Items.Weapons.Ranged.Bows
 
             Item.Calamity().devItem = true;
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine nameLine = tooltips.FirstOrDefault(x => x.Name == "ItemName" && x.Mod == "Terraria");
-            if (nameLine != null)
-            {
-                nameLine.OverrideColor = CalamityUtils.ColorSwap(Color.LightGray, Color.Blue, 4);
-            }
-        }
+        internal static Color GetRarityColor() => CalamityUtils.ColorSwap(Color.LightGray, Color.Blue, 4f);
         public override Vector2? HoldoutOffset() => new Vector2?(new Vector2(-5f, 0.0f));
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo spawnSource, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

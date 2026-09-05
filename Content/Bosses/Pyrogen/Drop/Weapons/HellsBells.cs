@@ -149,7 +149,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
                 if (colliding) Projectile.velocity -= (Main.projectile[i].Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.5f;
             }
             Vector2 value = Projectile.SafeDirectionTo(Main.MouseWorld) * (Projectile.velocity.Length() + 3.5f);
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, value, 0.05f);
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity, value, 0.15f);
             Projectile.rotation = Projectile.velocity.X * 0.1f + MathF.Sin(cooldown) * (cooldown / 30f);
             if (cooldown > 0)
                 cooldown--;
@@ -194,7 +194,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, 60);
+            target.AddBuff(BuffID.OnFire3, 60);
             //Main.projectile[Projectile.whoAmI].originalDamage *= 0.85f;
         }
     }

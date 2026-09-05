@@ -1,11 +1,14 @@
 ﻿using CalamityMod.Rarities;
+using Clamity.Content.Rarities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Clamity.Content.Biomes.FrozenHell.Items
 {
-    public class EnchantedMetal : ModItem, ILocalizedModType, IModType
+    [LegacyName("EnchantedMetal")]
+    public class EndobsidianBar : ModItem, ILocalizedModType, IModType
     {
         public new string LocalizationCategory => "Items.Materials";
 
@@ -13,6 +16,8 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
         {
             Item.ResearchUnlockCount = 25;
             ItemID.Sets.SortingPriorityMaterials[Type] = 106;
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 4));
+            ItemID.Sets.AnimatesAsSoul[Type] = true;
         }
 
         public override void SetDefaults()
@@ -22,7 +27,7 @@ namespace Clamity.Content.Biomes.FrozenHell.Items
             Item.height = 12;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 15, 0, 0);
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<EvercoldCyan>();
 
             //Item.useStyle = 1;
             //Item.useTurn = true;

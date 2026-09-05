@@ -1,6 +1,6 @@
-displayName = Cataclysm Mod (Clamity Addon)
+displayName = Cataclysm Mod
 author = Team Clamity
-version = 1.0.4.3
+version = 1.0.4.6
 modReferences = CalamityMod, ClamityMusic, Luminance, SubworldLibrary
 weakReferences = InfernumMode, CalRemix, AbsoluteIBR
 buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes, Effects\Compiler\*, Libraries\*
