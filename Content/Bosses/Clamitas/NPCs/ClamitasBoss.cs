@@ -1,7 +1,7 @@
 using CalamityMod;
 using CalamityMod.BiomeManagers;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Placeables.Furniture.DevPaintings;
+using CalamityMod.Items.Placeables.Crags;
+using CalamityMod.Items.Placeables.Furniture.Paintings;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
@@ -96,33 +96,55 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             NPC.Calamity().canBreakPlayerDefense = true;
             NPC.lavaImmune = true;
             NPC.npcSlots = 5f;
-            NPC.damage = 50;
             NPC.width = 160;
             NPC.height = 120;
-            NPC.defense = 9999;
-            NPC.DR_NERD(0.3f);
-            //base.NPC.lifeMax = (Main.hardMode ? 7500 : 1250);
-            //NPC.lifeMax = 50000;
-            NPC.LifeMaxNERB(50000, 58000, 500000);
             NPC.aiStyle = -1;
             AIType = -1;
             //base.NPC.value = (Main.hardMode ? Item.buyPrice(0, 8) : Item.buyPrice(0, 1));
             NPC.value = Item.buyPrice(0, 20);
             NPC.HitSound = SoundID.NPCHit4;
-            NPC.knockBackResist = 0f;
-            NPC.rarity = 2;
-            NPC.Calamity().VulnerableToHeat = false;
-            NPC.Calamity().VulnerableToSickness = true;
-            NPC.Calamity().VulnerableToElectricity = true;
-            NPC.Calamity().VulnerableToWater = true;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<BrimstoneCragsBiome>().Type };
             NPC.boss = true;
+            SetGiantClamDefaults();
 
             if (!Main.dedServ)
             {
                 //Music = 0;
                 Music = Clamity.mod.GetMusicFromMusicMod("Clamitas") ?? MusicID.Boss3;
             }
+        }
+
+        public void SetGiantClamDefaults()
+        {
+            NPC.damage = 100;
+            NPC.defense = 35;
+            //NPC.defense = 9999;
+            NPC.lifeMax = 7500;
+            NPC.knockBackResist = 0f;
+            NPC.rarity = 2;
+            NPC.Calamity().VulnerableToHeat = false;
+            NPC.Calamity().VulnerableToSickness = true;
+            NPC.Calamity().VulnerableToElectricity = true;
+            NPC.Calamity().VulnerableToWater = false;
+        }
+
+        public void SetClamitasDefaults()
+        {
+            NPC.damage = 50;
+            //NPC.defense = 9999;
+            NPC.defense = Main.hardMode ? 35 : 10;
+            NPC.DR_NERD(0.3f);
+            //base.NPC.lifeMax = (Main.hardMode ? 7500 : 1250);
+            //NPC.lifeMax = 50000;
+            NPC.LifeMaxNERB(50000, 58000, 500000);
+            //base.NPC.value = (Main.hardMode ? Item.buyPrice(0, 8) : Item.buyPrice(0, 1));
+            NPC.value = Item.buyPrice(0, 20);
+            NPC.knockBackResist = 0f;
+            NPC.rarity = 0;
+            NPC.Calamity().VulnerableToHeat = false;
+            NPC.Calamity().VulnerableToSickness = true;
+            NPC.Calamity().VulnerableToElectricity = true;
+            NPC.Calamity().VulnerableToWater = true;
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<BrimstoneCragsBiome>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -195,7 +217,7 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
             }
 
-            if ((hitAmount < 10 || hide) && !NPC.IsABestiaryIconDummy)
+            if (hide && !NPC.IsABestiaryIconDummy)
             {
                 NPC.frame.Y = frameHeight * 11;
             }
@@ -229,29 +251,17 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.Calamity().ZoneCalamity && DownedBossSystem.downedCalamitasClone && !NPC.AnyNPCs(ModContent.NPCType<ClamitasBoss>()))
+            /*if (spawnInfo.Player.Calamity().ZoneCalamity && DownedBossSystem.downedCalamitasClone && !NPC.AnyNPCs(ModContent.NPCType<ClamitasBoss>()))
             {
                 return SpawnCondition.CaveJellyfish.Chance * 0.24f;
-            }
+            }*/
 
             return 0f;
         }
 
         public override void ModifyTypeName(ref string typeName)
         {
-            /*if (Main.zenithWorld)
-            {
-                if (Main.hardMode)
-                {
-                    typeName = CalamityUtils.GetTextValue("NPCs.SupremeClamitas");
-                }
-                else
-                {
-                    typeName = CalamityUtils.GetTextValue("NPCs.Clamitas");
-                }
-            }*/
-
-            if (BattleIsStarted || NPC.IsABestiaryIconDummy)
+            if (clamStatus == 1 || NPC.IsABestiaryIconDummy)
             {
                 typeName = Language.GetTextValue($"Mods.Clamity.NPCs.{nameof(ClamitasBoss)}.DisplayName");
             }
@@ -289,7 +299,7 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             string t = Texture;
-            if (!BattleIsStarted && !NPC.IsABestiaryIconDummy)
+            if (clamStatus == 0 && !NPC.IsABestiaryIconDummy)
                 t = ModContent.GetInstance<GiantClam>().Texture;
             else
                 Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture + "_Extra").Value, NPC.Center - Vector2.UnitY * 20f * NPC.scale - screenPos, new Rectangle(0, flareFrame * 174, 116, 174), NPC.GetAlpha(Color.White), NPC.rotation, new Vector2(116, 174) * 0.5f, NPC.scale, SpriteEffects.None);
@@ -300,7 +310,7 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
 
         public override void BossHeadSlot(ref int index)
         {
-            if (!BattleIsStarted)
+            if (clamStatus == 0)
                 index = giantClamIconIndex;
             else
                 index = clamitasIconIndex;
@@ -309,7 +319,7 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             string t = Texture;
-            if (!BattleIsStarted)
+            if (clamStatus == 0)
                 t = ModContent.GetInstance<GiantClam>().Texture;
 
             Texture2D value = ModContent.Request<Texture2D>(t).Value;
@@ -372,6 +382,11 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             npcLoot.Add(ModContent.ItemType<GiantClamTrophy>(), 10);
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<GiantClamRelic>());
             */
+        }
+        public override bool CheckDead()
+        {
+
+            return false;
         }
     }
 }

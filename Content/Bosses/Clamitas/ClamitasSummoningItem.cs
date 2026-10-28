@@ -57,7 +57,7 @@ namespace Clamity.Content.Bosses.Clamitas
         {
             CreateRecipe()
                 .AddIngredient<AshesofCalamity>(10)
-                .AddIngredient<HuskOfCalamity>(5)
+                .AddIngredient<MolluskHusk>(5)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
