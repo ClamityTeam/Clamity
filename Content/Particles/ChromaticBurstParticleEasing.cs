@@ -33,14 +33,14 @@ namespace Clamity.Content.Particles
             FinalScale = finalScale;
 
             Lifetime = lifetime;
-            Time = lifetime;
+            //Time = lifetime;
             ScaleEasingCurve = scaleEasingCurve;
             ScaleEasingType = scaleEasingType;
         }
 
         public override void Update()
         {
-            Opacity = Utils.GetLerpValue(0f, 4f, Lifetime - Time, true);
+            //Opacity = Utils.GetLerpValue(0f, 4f, Lifetime - Time, true);
             Color = Color.Lerp(StartingColor, FinalColor, LifetimeCompletion);
             Scale = ScaleEasingCurve.Evaluate(ScaleEasingType, StartingScale, FinalScale, LifetimeCompletion);
             //Scale += 0.8f;

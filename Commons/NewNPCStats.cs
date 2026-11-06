@@ -2,6 +2,7 @@
 using CalamityMod.Projectiles.Boss;
 using CalamityMod.World;
 using Clamity.Content.Bosses.Clamitas.NPCs;
+using Clamity.Content.Bosses.Clamitas.Projectiles;
 using Clamity.Content.Bosses.Pyrogen.NPCs;
 using Clamity.Content.Bosses.Pyrogen.Projectiles;
 using Clamity.Content.Bosses.WoB.NPCs;

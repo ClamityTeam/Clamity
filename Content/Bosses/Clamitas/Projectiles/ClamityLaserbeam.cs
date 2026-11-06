@@ -1,4 +1,4 @@
-﻿using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework;
 using System;
@@ -46,7 +46,7 @@ namespace Clamity.Content.Bosses.Clamitas.Projectiles
         }
         public override void AI()
         {
-            // If the owner is no longer able to cast the beam, kill it.
+            // If the clamitas is no longer able to cast the beam, kill it.
             if (MainClamitas is null || !MainClamitas.active)
             {
                 Projectile.Kill();
@@ -68,6 +68,7 @@ namespace Clamity.Content.Bosses.Clamitas.Projectiles
 
             // Update aim.
             UpdateRotation(ref Projectile.rotation);
+            Projectile.velocity = Vector2.UnitX.RotatedBy(Projectile.rotation);
             UpdateAim();
 
             // Create arms on surfaces.
@@ -144,9 +145,9 @@ namespace Clamity.Content.Bosses.Clamitas.Projectiles
             RancorLavaMetaball.SpawnParticle(endOfLaser + Main.rand.NextVector2Circular(10f, 10f) + Projectile.velocity * 40f, 135f);
         }*/
 
-        private float PrimitiveWidthFunction(float completionRatio) => Projectile.scale * 20f;
+        private float PrimitiveWidthFunction(float completionRatio, Vector2 vertexPos) => Projectile.scale * 20f;
 
-        private Color PrimitiveColorFunction(float completionRatio)
+        private Color PrimitiveColorFunction(float completionRatio, Vector2 vertexPos)
         {
             Color vibrantColor = Color.Lerp(Color.Blue, Color.Red, (float)Math.Cos(Main.GlobalTimeWrappedHourly * 0.67f - completionRatio / LaserLength * 29f) * 0.5f + 0.5f);
             float opacity = Projectile.Opacity * Utils.GetLerpValue(0.97f, 0.9f, completionRatio, true) *
@@ -177,10 +178,10 @@ namespace Clamity.Content.Bosses.Clamitas.Projectiles
             overWiresUI.Add(index);
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        /*public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<RancorBurn>(), 150);
-        }
+            target.Calamity().ashesOnDeath = 10;
+        }*/
 
         public override bool ShouldUpdatePosition() => false;
     }

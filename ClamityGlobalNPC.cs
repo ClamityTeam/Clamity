@@ -7,6 +7,7 @@ using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.TownNPCs;
 using Clamity.Content.Biomes.FrozenHell.Items;
+using Clamity.Content.Bosses.Clamitas.NPCs;
 using Clamity.Content.Items;
 using Clamity.Content.Items.Accessories;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
@@ -27,6 +28,33 @@ namespace Clamity
     {
         public override bool InstancePerEntity => true;
         //public int wCleave;
+
+        public static int Clamitas = -1;
+        public override void ResetEffects(NPC npc)
+        {
+            void ResetSavedIndex(ref int type, int type1, int type2 = -1)
+            {
+                if (type >= 0)
+                {
+                    if (!Main.npc[type].active)
+                    {
+                        type = -1;
+                    }
+                    else if (type2 == -1)
+                    {
+                        if (Main.npc[type].type != type1)
+                            type = -1;
+                    }
+                    else
+                    {
+                        if (Main.npc[type].type != type1 && Main.npc[type].type != type2)
+                            type = -1;
+                    }
+                }
+            }
+
+            ResetSavedIndex(ref Clamitas, ModContent.NPCType<ClamitasBoss>());
+        }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             Conditions.IsHardmode hm = new Conditions.IsHardmode();

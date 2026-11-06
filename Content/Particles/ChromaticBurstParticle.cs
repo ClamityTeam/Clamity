@@ -23,7 +23,7 @@ namespace Clamity.Content.Particles
             StartingScale = startingScale;
             FinalScale = finalScale;
             Lifetime = lifetime;
-            Time = lifetime;
+            //Time = lifetime;
         }
 
         public override void Update()

@@ -13,6 +13,7 @@ Melee: {
 	// HyperionProjectile.DisplayName: Hyperion Projectile
 	// SubzeroSlicerProjectileSlash.DisplayName: Subzero Slicer Projectile Slash
 	// GreatestPeakMistProjectile.DisplayName: Greatest Peak Mist
+	// ClamitasCrusherGore.DisplayName: Clamitas Crusher Gore
 }
 
 Ranged: {
@@ -93,6 +94,7 @@ Boss: {
 	// WoBCutsceneBoomTest.DisplayName: Wo B Cutscene Boom Test
 	// BrimstoneSpirits.DisplayName: Brimstone Spirits
 	// BrimstoneSpiritsSpawner.DisplayName: Brimstone Spirits Spawner
+	// AfterRoarAcceratingBrimstoneBarrage.DisplayName: After Roar Accerating Brimstone Barrage
 }
 
 // ShortstrikeEffect.DisplayName: Shortstrike Effect

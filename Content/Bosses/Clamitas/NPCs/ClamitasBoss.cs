@@ -1,5 +1,6 @@
 using CalamityMod;
 using CalamityMod.BiomeManagers;
+using CalamityMod.Events;
 using CalamityMod.Items.Placeables.Crags;
 using CalamityMod.Items.Placeables.Furniture.Paintings;
 using CalamityMod.Items.Weapons.Magic;
@@ -23,7 +24,7 @@ using Terraria.ModLoader.Utilities;
 
 namespace Clamity.Content.Bosses.Clamitas.NPCs
 {
-    //[AutoloadBossHead]
+    [AutoloadBossHead]
     public partial class ClamitasBoss : ModNPC
     {
         private static NPC myself;
@@ -39,34 +40,12 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             private set => myself = value;
         }
         public static readonly SoundStyle SlamSound = new SoundStyle("CalamityMod/Sounds/Item/ClamImpact");
-
-        private int hitAmount;
-        private bool hasBeenHit;
-        private bool statChange;
-
+        private int biomeEnrageTimer = 300;
 
         //Used for animations
         private bool attackAnim;
         private bool hide;
-        private int flareFrame;
-        private int flareFrameCounter;
 
-
-        //Boss Icon
-        public static int giantClamIconIndex;
-        public static int clamitasIconIndex;
-
-        internal static void LoadHeadIcons()
-        {
-            string phase1IconPath = "Clamity/Content/Bosses/Clamitas/NPCs/GiantClam_Head_Boss";
-            string phase2IconPath = "Clamity/Content/Bosses/Clamitas/NPCs/ClamitasBoss_Head_Boss";
-
-            Clamity.mod.AddBossHeadTexture(phase1IconPath, -1);
-            giantClamIconIndex = ModContent.GetModBossHeadSlot(phase1IconPath);
-
-            Clamity.mod.AddBossHeadTexture(phase2IconPath, -1);
-            clamitasIconIndex = ModContent.GetModBossHeadSlot(phase2IconPath);
-        }
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 12;
@@ -104,31 +83,8 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             NPC.value = Item.buyPrice(0, 20);
             NPC.HitSound = SoundID.NPCHit4;
             NPC.boss = true;
-            SetGiantClamDefaults();
 
-            if (!Main.dedServ)
-            {
-                //Music = 0;
-                Music = Clamity.mod.GetMusicFromMusicMod("Clamitas") ?? MusicID.Boss3;
-            }
-        }
 
-        public void SetGiantClamDefaults()
-        {
-            NPC.damage = 100;
-            NPC.defense = 35;
-            //NPC.defense = 9999;
-            NPC.lifeMax = 7500;
-            NPC.knockBackResist = 0f;
-            NPC.rarity = 2;
-            NPC.Calamity().VulnerableToHeat = false;
-            NPC.Calamity().VulnerableToSickness = true;
-            NPC.Calamity().VulnerableToElectricity = true;
-            NPC.Calamity().VulnerableToWater = false;
-        }
-
-        public void SetClamitasDefaults()
-        {
             NPC.damage = 50;
             //NPC.defense = 9999;
             NPC.defense = Main.hardMode ? 35 : 10;
@@ -145,6 +101,12 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             NPC.Calamity().VulnerableToElectricity = true;
             NPC.Calamity().VulnerableToWater = true;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<BrimstoneCragsBiome>().Type };
+
+            /*if (!Main.dedServ)
+            {
+                //Music = 0;
+                Music = Clamity.mod.GetMusicFromMusicMod("Clamitas") ?? MusicID.Boss3;
+            }*/
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -157,16 +119,14 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(hitAmount);
+            writer.Write(biomeEnrageTimer);
             writer.Write(attack);
             writer.Write(attackAnim);
             writer.Write(NPC.dontTakeDamage);
             writer.Write(NPC.chaseable);
-            writer.Write(hasBeenHit);
-            writer.Write(statChange);
             writer.Write(hide);
-            writer.Write(flareFrame);
-            writer.Write(flareFrameCounter);
+            //writer.Write(flareFrame);
+            //writer.Write(flareFrameCounter);
             for (int i = 0; i < 2; i++)
             {
                 writer.Write(NPC.Calamity().newAI[i]);
@@ -175,16 +135,14 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            hitAmount = reader.ReadInt32();
+            biomeEnrageTimer = reader.ReadInt32();
             attack = reader.ReadInt32();
             attackAnim = reader.ReadBoolean();
             NPC.dontTakeDamage = reader.ReadBoolean();
             NPC.chaseable = reader.ReadBoolean();
-            hasBeenHit = reader.ReadBoolean();
-            statChange = reader.ReadBoolean();
             hide = reader.ReadBoolean();
-            flareFrame = reader.ReadInt32();
-            flareFrameCounter = reader.ReadInt32();
+            //flareFrame = reader.ReadInt32();
+            //flareFrameCounter = reader.ReadInt32();
             for (int i = 0; i < 2; i++)
             {
                 NPC.Calamity().newAI[i] = reader.ReadSingle();
@@ -193,12 +151,8 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
 
 
 
-        /*public override bool CheckActive()
-        {
-            return Vector2.Distance(Main.player[NPC.target].Center, NPC.Center) > 5600f;
-        }*/
 
-        public override bool? CanBeHitByProjectile(Projectile projectile)
+        /*public override bool? CanBeHitByProjectile(Projectile projectile)
         {
             if (projectile.minion && !projectile.Calamity().overridesMinionDamagePrevention)
             {
@@ -206,62 +160,73 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             }
 
             return null;
-        }
-
+        }*/
+        /// <summary>
+        /// Frames
+        /// 0-3 closed idle
+        /// 4-7 opening
+        /// 8-11 open idle
+        /// 13-14 clisng
+        /// </summary>
+        /// <param name="frameHeight"></param>
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter += 1.0;
-            if (NPC.frameCounter > (attackAnim ? 2.0 : 5.0))
+            if (NPC.frameCounter > 2)
             {
                 NPC.frameCounter = 0.0;
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
             }
 
-            if (hide && !NPC.IsABestiaryIconDummy)
+            if (hide)
             {
-                NPC.frame.Y = frameHeight * 11;
-            }
-            else if (attackAnim)
-            {
-                if (NPC.frame.Y < frameHeight * 3)
+                if (NPC.IsABestiaryIconDummy)
                 {
-                    NPC.frame.Y = frameHeight * 3;
+                    if (NPC.frame.Y >= frameHeight * 3)
+                    {
+                        NPC.frame.Y = frameHeight * 0;
+                    }
                 }
-
-                if (NPC.frame.Y > frameHeight * 10)
+                else
                 {
-                    hide = true;
-                    attackAnim = false;
+                    if (NPC.frame.Y >= frameHeight * 8)
+                    {
+                        if (NPC.frame.Y >= frameHeight * 14)
+                        {
+                            NPC.frame.Y = frameHeight * 0;
+                        }
+                    }
+                    else
+                    {
+                        if (NPC.frame.Y >= frameHeight * 3)
+                        {
+                            NPC.frame.Y = frameHeight * 0;
+                        }
+                    }
                 }
             }
-            else if (NPC.frame.Y > frameHeight * 3)
+            else
             {
-                NPC.frame.Y = 0;
-            }
-
-            flareFrameCounter++;
-            if (flareFrameCounter >= 5)
-            {
-                flareFrameCounter = 0;
-                flareFrame++;
-                if (flareFrame >= 6)
-                    flareFrame = 0;
+                if (NPC.frame.Y >= frameHeight * 11)
+                {
+                    NPC.frame.Y = frameHeight * 8;
+                }
             }
         }
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        /*public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            /*if (spawnInfo.Player.Calamity().ZoneCalamity && DownedBossSystem.downedCalamitasClone && !NPC.AnyNPCs(ModContent.NPCType<ClamitasBoss>()))
+            if (spawnInfo.Player.Calamity().ZoneCalamity && DownedBossSystem.downedCalamitasClone && !NPC.AnyNPCs(ModContent.NPCType<ClamitasBoss>()))
             {
                 return SpawnCondition.CaveJellyfish.Chance * 0.24f;
-            }*/
+            }
 
             return 0f;
-        }
+        }*/
 
-        public override void ModifyTypeName(ref string typeName)
+        /*public override void ModifyTypeName(ref string typeName)
         {
-            if (clamStatus == 1 || NPC.IsABestiaryIconDummy)
+            if (clamitasForm || NPC.IsABestiaryIconDummy)
             {
                 typeName = Language.GetTextValue($"Mods.Clamity.NPCs.{nameof(ClamitasBoss)}.DisplayName");
             }
@@ -269,6 +234,12 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
             {
                 typeName = Language.GetTextValue($"Mods.Clamity.NPCs.{nameof(ClamitasBoss)}.DisplayNameAlt");
             }
+        }*/
+
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            cooldownSlot = ImmunityCooldownID.Bosses;
+            return true;
         }
 
         public override void HitEffect(NPC.HitInfo hit)
@@ -287,41 +258,24 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
 
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModLoader.GetMod("Clamity").Find<ModGore>("Clamitas1").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModLoader.GetMod("Clamity").Find<ModGore>("Clamitas2").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModLoader.GetMod("Clamity").Find<ModGore>("Clamitas3").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModLoader.GetMod("Clamity").Find<ModGore>("Clamitas4").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModLoader.GetMod("Clamity").Find<ModGore>("Clamitas5").Type);
+                    for (int i = 1; i < 6; i++)
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Mod.Find<ModGore>("Clamitas"+i.ToString()).Type);
                 }
             }
+            
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            string t = Texture;
-            if (clamStatus == 0 && !NPC.IsABestiaryIconDummy)
-                t = ModContent.GetInstance<GiantClam>().Texture;
-            else
-                Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture + "_Extra").Value, NPC.Center - Vector2.UnitY * 20f * NPC.scale - screenPos, new Rectangle(0, flareFrame * 174, 116, 174), NPC.GetAlpha(Color.White), NPC.rotation, new Vector2(116, 174) * 0.5f, NPC.scale, SpriteEffects.None);
+            //Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture + "_Extra").Value, NPC.Center - Vector2.UnitY * 20f * NPC.scale - screenPos, new Rectangle(0, ((int)(Main.GlobalTimeWrappedHourly * 7) % 6) * 174, 116, 174), NPC.GetAlpha(Color.White), NPC.rotation, new Vector2(116, 174) * 0.5f, NPC.scale, SpriteEffects.None);
 
-            Main.EntitySpriteDraw(ModContent.Request<Texture2D>(t).Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() * 0.5f, NPC.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture).Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() * 0.5f, NPC.scale, SpriteEffects.None);
             return false;
-        }
-
-        public override void BossHeadSlot(ref int index)
-        {
-            if (clamStatus == 0)
-                index = giantClamIconIndex;
-            else
-                index = clamitasIconIndex;
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             string t = Texture;
-            if (clamStatus == 0)
-                t = ModContent.GetInstance<GiantClam>().Texture;
-
             Texture2D value = ModContent.Request<Texture2D>(t).Value;
             Texture2D glow = ModContent.Request<Texture2D>(t + "Glow").Value;
             SpriteEffects effects = SpriteEffects.None;
@@ -385,8 +339,23 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
         }
         public override bool CheckDead()
         {
+            if (BossRushEvent.BossRushActive)
+                return true;
+
+            NPC.life = 1;
+            NPC.active = true;
+            NPC.dontTakeDamage = true;
+            NPC.netUpdate = true;
 
             return false;
         }
+        public override bool CheckActive()
+        {
+            return false;
+        }
+        /*public override bool CheckActive()
+        {
+            return Vector2.Distance(Main.player[NPC.target].Center, NPC.Center) > 5600f;
+        }*/
     }
 }

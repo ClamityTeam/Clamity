@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 
 
-namespace Clamity.Content.Bosses.Clamitas.NPCs
+namespace Clamity.Content.Bosses.Clamitas.Projectiles
 {
     public class BrimstonePearlBurst : PearlBurst, ILocalizedModType, IModType
     {
