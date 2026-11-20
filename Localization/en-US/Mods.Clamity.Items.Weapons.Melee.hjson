@@ -2,9 +2,9 @@ ClamitasCrusher: {
 	DisplayName: Clamitas Crusher
 	Tooltip:
 		'''
-		Launches a medium clamitas that stuns enemies for a short amount of time
-		Create a homing brimstone bolts in trail or enemy hit
-		Starts being affected by gravity and does much more damage after being airborne for a while
+		Spinning a huge clam that inflicts [cbuff:CalamityMod/Eutrophication], stunning enemies for a short amount of time,
+		and spawn homing wisps on hit
+		Stoping attack will spin faster until throw at high speed, shatters into multiple wisps on impact
 		'''
 }
 

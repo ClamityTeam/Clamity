@@ -13,6 +13,7 @@ Melee: {
 	HyperionProjectile.DisplayName: Hyperion Projectile
 	SubzeroSlicerProjectileSlash.DisplayName: Subzero Slicer Projectile Slash
 	GreatestPeakMistProjectile.DisplayName: Greatest Peak Mist
+	ClamitasCrusherWisp.DisplayName: Clamity Wisp
 }
 
 Ranged: {
