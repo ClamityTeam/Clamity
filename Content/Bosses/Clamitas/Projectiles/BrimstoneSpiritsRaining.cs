@@ -20,11 +20,11 @@ namespace Clamity.Content.Bosses.Clamitas.Projectiles
                     Projectile.Kill();
 
                 
-                if (ClamitasOwner.ai[1] < ClamitasBoss.SpriritRain_Timing) //Fly Up
+                if (ClamitasOwner.ai[1] < ClamitasBoss.SpiritRain_Timing) //Fly Up
                 {
                     Projectile.velocity.X *= 0.9f;
                 }
-                else if (ClamitasOwner.ai[1] == ClamitasBoss.SpriritRain_Timing) //Start Raining
+                else if (ClamitasOwner.ai[1] == ClamitasBoss.SpiritRain_Timing) //Start Raining
                 {
                     Projectile.Center = Main.player[ClamitasOwner.target].Center + new Microsoft.Xna.Framework.Vector2(0, -100) + Main.rand.NextVector2Square(100, 100);
                 }

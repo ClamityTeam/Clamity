@@ -268,6 +268,16 @@ namespace Clamity.Content.Bosses.Clamitas.NPCs
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture + "_Extra").Value, NPC.Center - Vector2.UnitY * 20f * NPC.scale - screenPos, new Rectangle(0, ((int)(Main.GlobalTimeWrappedHourly * 7) % 6) * 174, 116, 174), NPC.GetAlpha(Color.White), NPC.rotation, new Vector2(116, 174) * 0.5f, NPC.scale, SpriteEffects.None);
+            if (CurrentAttack == ClamitasAttacks.StartingCutscene)
+            {
+                Texture2D t = ModContent.Request<Texture2D>("CalamityMod/Projectiles/StarProj").Value;
+                float rotation = 0;
+                float scale = 0;
+
+                Main.EntitySpriteDraw(t, NPC.Center, null, Color.OrangeRed, rotation, t.Size()/2, new Vector2(1, scale), SpriteEffects.None, 0);
+
+                float a = 
+            }
 
             Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture).Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() * 0.5f, NPC.scale, SpriteEffects.None);
             return false;
