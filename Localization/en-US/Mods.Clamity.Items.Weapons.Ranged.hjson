@@ -3,9 +3,9 @@ DepthsEchoRifle: {
 	Tooltip: Converts musket balls into homing brimstone bolts
 }
 
-Obsidigun: {
-	DisplayName: Obsidigun
-	Tooltip: Converts musket balls into fast-moving obsidian bullets that break into many shards on hit
+FireworkRifle: {
+	DisplayName: Firework Rifle
+	Tooltip: ""
 }
 
 RoseBow: {

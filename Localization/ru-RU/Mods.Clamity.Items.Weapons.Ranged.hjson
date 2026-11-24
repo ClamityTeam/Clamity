@@ -3,9 +3,9 @@ DepthsEchoRifle: {
 	Tooltip: Заменяет мушкетные патроны на самонаводящиеся серные снаряды
 }
 
-Obsidigun: {
-	DisplayName: Обсидипушка
-	Tooltip: Превращает мушкетные пули в быстро движущиеся обсидиановые пули, которые при попадании разлетаются на множество осколков
+FireworkRifle: {
+	// DisplayName: Firework Rifle
+	// Tooltip: ""
 }
 
 RoseBow: {

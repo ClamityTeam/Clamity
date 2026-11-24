@@ -61,7 +61,7 @@ namespace Clamity.Content.Bosses.Pyrogen.Drop
         {
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<PyrogenBoss>()));
             //itemLoot.Add(ModContent.ItemType<EssenceOfFlame>(), 1, 10, 12);
-            itemLoot.Add(DropHelper.CalamityStyle(DropHelper.BagWeaponDropRateFraction, ModContent.ItemType<SearedShredder>(), ModContent.ItemType<Obsidigun>(), ModContent.ItemType<TheGenerator>(), ModContent.ItemType<HellsBells>(), ModContent.ItemType<MoltenPiercer>()));
+            itemLoot.Add(DropHelper.CalamityStyle(DropHelper.BagWeaponDropRateFraction, ModContent.ItemType<SearedShredder>(), ModContent.ItemType<FireworkRifle>(), ModContent.ItemType<TheGenerator>(), ModContent.ItemType<HellsBells>(), ModContent.ItemType<MoltenPiercer>()));
             //itemLoot.Add(ModContent.ItemType<GlacialEmbrace>(), 10);
             itemLoot.Add(ModContent.ItemType<SoulOfPyrogen>());
             itemLoot.Add(ModContent.ItemType<PyroStone>(), DropHelper.BagWeaponDropRateFraction);

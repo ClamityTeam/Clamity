@@ -1,12 +1,15 @@
 ﻿using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Accessories;
+using CalamityMod.Particles;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Ranged;
 using CalamityMod.Projectiles.Rogue;
 using CalamityMod.Projectiles.Summon;
 using CalamityMod.Projectiles.Typeless;
+using Clamity.Content.Bosses.Pyrogen.Drop.Weapons;
 using Clamity.Content.Items.Accessories.GemCrawlerDrop;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -22,11 +25,25 @@ namespace Clamity
         public override bool InstancePerEntity => true;
         public float[] extraAI = new float[5];
         public bool IsSentryRelated = false;
+        public bool fireworkBullet = false;
+        public bool fireworkBulletExploded = false;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[projectile.owner];
 
             UpdateAflameAccesory(projectile, target, hit, damageDone);
+
+
+            if (fireworkBullet && !fireworkBulletExploded)
+            {
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), projectile.Center, Vector2.Zero, ModContent.ProjectileType<FireworkRifleExplosion>(), projectile.damage / 2, projectile.knockBack, projectile.owner);
+
+                fireworkBulletExploded = true;
+            }
+        }
+        public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
+        {
+
         }
         private void UpdateAflameAccesory(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -114,6 +131,41 @@ namespace Clamity
                     float d = player.GetTotalDamage<RangedDamageClass>().ApplyTo(4);
                     int p = Projectile.NewProjectile(proj.GetSource_FromAI(), proj.Center, proj.velocity, ModContent.ProjectileType<SharpAmethystProj>(), (int)d, 1f, proj.owner);
                     Main.projectile[p].DamageType = DamageClass.Ranged;
+                }
+            }
+        }
+        public override void OnKill(Projectile projectile, int timeLeft)
+        {
+        }
+        public override void AI(Projectile projectile)
+        {
+            Player player = Main.player[projectile.owner];
+            if (projectile.Opacity > 0 && projectile.scale > 0.01f) // Only apply bullet visuals if the bullet is visible
+            {
+                if (fireworkBullet)
+                {
+                    float targetDist = Vector2.Distance(player.Center, projectile.Center);
+                    if (targetDist < 1400f)
+                    {
+                        SparkParticle spark = new SparkParticle(projectile.Center + projectile.velocity, -projectile.velocity * 0.05f, false, 2, 0.55f * projectile.scale, Color.DarkMagenta * 0.75f);
+                        GeneralParticleHandler.SpawnParticle(spark);
+                        /*if (aquarelBullet)
+                        {
+                            if (Main.rand.NextBool(3))
+                            {
+                                SparkParticle spark2 = new SparkParticle(projectile.Center + Main.rand.NextVector2Circular(6, 6) * projectile.scale, -projectile.velocity * Main.rand.NextFloat(0.05f, 0.4f), false, 20, 0.4f * projectile.scale, Color.Cyan * 0.75f);
+                                GeneralParticleHandler.SpawnParticle(spark2);
+                            }
+                        }*/
+
+                        /*if (Main.rand.NextBool())
+                        {
+                            Gore bubble = Gore.NewGorePerfect(projectile.GetSource_FromAI(), projectile.position, projectile.velocity * 0.2f + Main.rand.NextVector2Circular(1f, 1f), 411);
+                            bubble.timeLeft = 9 + Main.rand.Next(7);
+                            bubble.scale = Main.rand.NextFloat(0.6f, 1f);
+                            bubble.type = Main.rand.NextBool(3) ? 412 : 411;
+                        }*/
+                    }
                 }
             }
         }

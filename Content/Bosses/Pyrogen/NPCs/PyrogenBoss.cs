@@ -1368,7 +1368,7 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
             int[] itemIDs = new int[5]
             {
                 ModContent.ItemType<SearedShredder>(),
-                ModContent.ItemType<Obsidigun>(),
+                ModContent.ItemType<FireworkRifle>(),
                 ModContent.ItemType<TheGenerator>(),
                 ModContent.ItemType<HellsBells>(),
                 ModContent.ItemType<MoltenPiercer>()

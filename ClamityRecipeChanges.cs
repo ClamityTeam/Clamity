@@ -39,7 +39,7 @@ namespace Clamity
                 if (ClamityConfig.Instance.UsesClamityWeaponsInCalamityRecipes)
                 {
                     if (recipe.HasResult<Seadragon>())
-                        recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<Obsidigun>(), 1));
+                        recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<FireworkRifle>(), 1));
                     if (recipe.HasResult<ShatteredDawn>())
                         recipe.requiredItem.Insert(1, new Item(ModContent.ItemType<MoltenPiercer>(), 1));
                     if (recipe.HasResult<NuclearFury>())

@@ -27,6 +27,8 @@ Ranged: {
 	ObsidigunBullet.DisplayName: Обсидиановая пуля
 	ObsidigunBulletShard.DisplayName: Осколок обсидиановой поли
 	// WitheredBoneBowProj.DisplayName: Withered Bone Bolt
+	// ObsidigunExplosion.DisplayName: Obsidigun Explosion
+	// FireworkRifleExplosion.DisplayName: Firework Rifle Explosion
 }
 
 Magic: {
