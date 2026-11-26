@@ -59,7 +59,8 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
         public override float MaxRetractSpeed => 90f;
         public override float RetractAcceleration => 4.5f;
 
-        public float MaxChargeOfSwing => 120;
+        public float BaseMaxChargeOfSwing = 180; //hummus check this
+        public float MaxChargeOfSwing => BaseMaxChargeOfSwing / (1f + Owner.GetAttackSpeed<MeleeDamageClass>());
 
         public override void SetDefaults()
         {
@@ -91,7 +92,7 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
                     Projectile.netUpdate = true;
                     StateTimer = StateTimer % 60;
                 }
-                if (ChargingSwing == -MaxChargeOfSwing)
+                if (ChargingSwing <= -MaxChargeOfSwing)
                 {
                     CurrentFlailState = FlailState.LaunchingForward;
                     StateTimer = 0f;
@@ -172,8 +173,7 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
                     dust.scale = dust.type == 278 ? Main.rand.NextFloat(0.7f, 1.3f) : Main.rand.NextFloat(1.6f, 2.2f);
                 }*/
 
-
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < (int)Utils.Remap((Projectile.Center - Owner.Center).Length(), 0, 16 * 20, 1, 15); i++)
                 {
                     Projectile.NewProjectile(source, Projectile.Center, -Vector2.UnitY * 10 - Main.rand.NextVector2Circular(5, 5), ModContent.ProjectileType<ClamitasCrusherWisp>(), Projectile.damage / 10, Projectile.knockBack / 2, Projectile.owner);
                 }
@@ -203,40 +203,23 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
             return base.OnTileCollide(oldVelocity);
         }
 
-
-        /*public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void PostDraw(Color lightColor)
         {
-            target.AddBuff(ModContent.BuffType<BrimstoneFlames>(), 180);
-            if (Projectile.ai[0] == 0)
-                for (int i = 0; i < 5; i++)
-                {
-                    Vector2 velocity = CalamityUtils.RandomVelocity(100f, 70f, 100f);
-                    int index = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<DepthsEchoRifleProjectileSplit>(), (int)(Projectile.damage * 0.2), 0f, Projectile.owner);
-                    Main.projectile[index].DamageType = DamageClass.MeleeNoSpeed;
-                }
-            base.OnHitNPC(target, hit, damageDone);
-
-        }
-        public override void PostAI()
-        {
-            Projectile.ai[2]++;
-            if (Projectile.ai[0] == 0 && Projectile.ai[2] % 3 == 0)
+            //THIS IS AAANGER IN A KETTLE!!
+            float ratio = (-ChargingSwing / MaxChargeOfSwing);
+            Texture2D t = ModContent.Request<Texture2D>(Texture).Value;
+            Color color = new Color(255, 140, 63, 100) * (ratio / 2);
+            SpriteEffects effects = ((base.Projectile.spriteDirection != 1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+            Vector2 origin = t.Size() / 2;
+            int i_max = 4;
+            for (int i = 0; i < i_max; i++)
             {
-                int index = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(MathHelper.PiOver4) / 2f, ModContent.ProjectileType<DepthsEchoRifleProjectileSplit>(), (int)(Projectile.damage * 0.1), 0f, Projectile.owner);
-                Main.projectile[index].DamageType = DamageClass.MeleeNoSpeed;
+                Vector2 position = Projectile.oldPos[0] + new Vector2(0, 4).RotatedBy(MathHelper.TwoPi / i_max * i) * ratio 
+                    - Main.screenPosition + origin * base.Projectile.scale + new Vector2(0f, base.Projectile.gfxOffY);
 
+                Main.spriteBatch.Draw(t, position, null, color, Projectile.rotation, origin, Projectile.scale, effects, 0);
             }
         }
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                Vector2 velocity = CalamityUtils.RandomVelocity(100f, 70f, 100f);
-                int index = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<DepthsEchoRifleProjectileSplit>(), (int)(Projectile.damage * 0.4), 0f, Projectile.owner);
-                Main.projectile[index].DamageType = DamageClass.MeleeNoSpeed;
-            }
-            return base.OnTileCollide(oldVelocity);
-        }*/
     }
     public class ClamitasCrusherWisp : ModProjectile, ILocalizedModType, IModType
     {
