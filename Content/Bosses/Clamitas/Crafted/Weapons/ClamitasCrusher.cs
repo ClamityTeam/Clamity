@@ -31,7 +31,7 @@ namespace Clamity.Content.Bosses.Clamitas.Crafted.Weapons
             base.SetDefaults();
             Item.rare = ItemRarityID.Lime;
             Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
-            Item.damage = 130;
+            Item.damage = 200;
             Item.shoot = ModContent.ProjectileType<ClamitasCrusherProjectile>();
             Item.shootSpeed = 25f;
         }
