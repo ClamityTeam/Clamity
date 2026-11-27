@@ -2,9 +2,9 @@ ClamitasCrusher: {
 	DisplayName: Clamitas Crusher
 	Tooltip:
 		'''
-		Spinning a huge clam that inflicts [cbuff:CalamityMod/Eutrophication], stunning enemies for a short amount of time,
-		and spawn homing wisps on hit
-		Stoping attack will spin faster until throw at high speed, shatters into multiple wisps on impact
+		Spin a huge brimstone clam that inflicts [cbuff:CalamityMod/Eutrophication] and spawn homing wisps on hit
+		Releasing Left Click will spin the clam faster before throwing it out 
+		When thrown the clam shatters into multiple wisps on impact
 		'''
 }
 
